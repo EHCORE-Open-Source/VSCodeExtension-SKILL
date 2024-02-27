@@ -1,13 +1,20 @@
 {
-  "name": "VSCodeExtension-SKILL",
-  "displayName": "VSCodeExtension-SKILL",
-  "description": "Cadence SKILL language",
+  "name": "cadence-skill-support-package",
+  "displayName": "Cadence SKILL Extension",
+  "description": "Cadence SKILL language support",
   "version": "0.0.1",
+  "publisher": "Chao-Hen Huang",
+  "private": "false",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL.git"
+  },
   "engines": {
     "vscode": "^1.86.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
