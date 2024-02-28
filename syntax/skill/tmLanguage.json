@@ -67,1003 +67,15 @@
                             "name": "support.variable.cadence.skill.basic",
                             "match": "\\%(?:-?[[:digit:]]*(?:\\.[[:digit:]]+)?[doxfegsnNA]|[LPB])"
                         }
-                    ]
-                     	
+                    ]	
                 }
             ]
         },
         "keyword": {
             "patterns": [
                 {
-                    "comment": "List Functions (Letter a)",
-                    "match": "\\b(append1?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter c)",
-                    "match": "\\b(c[ad]{1,4}r|cons(?:tar)?|copy)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter d)",
-                    "match": "\\b(dtpr)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter l)",
-                    "match": "\\b(last|lconc|length|lindex|listp?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter n)",
-                    "match": "\\b(ncon[cs]|nth(?:cdr|elem)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter p)",
-                    "match": "\\b(pairp)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter r)",
-                    "match": "\\b(range|rem(?:d|dq|q)|remove(?:ListDuplicates)?|reverse|rplac[ad])\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter s)",
-                    "match": "\\b(setc[ad]r)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter t)",
-                    "match": "\\b(tailp|tconc)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "List Functions (Letter [xy])",
-                    "match": "\\b(xcons|[xy]Coord)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Structures (Letter a)",
-                    "match": "\\b(array(?:p|ref)?|ass(?:oc|[qv]))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Structures (Letter d)",
-                    "match": "\\b(declare|def(?:prop|structp?|var))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Structures (Letter m)",
-                    "match": "\\b(make(?:Table|Vector))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Structures (Letter s)",
-                    "match": "\\b(setarray)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Structures (Letter t)",
-                    "match": "\\b(tablep|typep?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Structures (Letter v)",
-                    "match": "\\b(vectorp?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter a)",
-                    "match": "\\b(alphaNumCmp)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter c)",
-                    "match": "\\b(concat|copyDefstructDeep)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter g)",
-                    "match": "\\b(get(?:SG|qq?)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter i)",
-                    "match": "\\b(importSkillVar|integerp)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter o)",
-                    "match": "\\b(otherp)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter p)",
-                    "match": "\\b(plist|popf|post(?:Array(?:Dec|Inc|Set)|(?:de|in)crement)|pre(?:Array(?:Dec|Inc|Set)|(?:de|in)crement)|pushf|putprop(?:qq?)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter q)",
-                    "match": "\\b(quote)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter r)",
-                    "match": "\\b(remprop|rotatef)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Letter s)",
-                    "match": "\\b(setf?(?:_(?:arrayref|c[ad]{1,3}r|get(?:SGq?|ShellEnvVar|[dq]|qq)?|last|(?:left|right|top|bottom)Edge|lowerLeft|nth(?:[ce]dr|elem)?|slotValue|upperRight|[xy]Coord|([[:word:]]+)))?|set(?:guard|plist|q|SG)|symbolp|sym(?:eval|strp))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        },
-                        "2": {
-                            "name": "strong.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Data Operator Functions (Extension)",
-                    "match": "\\b((?:copy|make)_([[:word:]]+))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        },
-                        "2": {
-                            "name": "strong.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Type Conversion Functions",
-                    "match": "\\b(charToInt|intToChar|listToVector|stringTo(?:Function|Symbol|Time)|symbolToString|tableToList|timeTo(?:String|Tm)|tmToTime|vectorToList)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Letter b)",
-                    "match": "\\b(blankstrp|buildString)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Letter g)",
-                    "match": "\\b(getchar)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Letter l)",
-                    "match": "\\b(lsprintf)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Letter p)",
-                    "match": "\\b(parseString)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Letter r)",
-                    "match": "\\b(readstring)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Letter s)",
-                    "match": "\\b(sprintf|str(?:n?cat|n?cmp|len|pbrk)|stringp|sub(?:st|string))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Letter o)",
-                    "match": "\\b(outstringp)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Index)",
-                    "match": "\\b([nr]?index)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Case)",
-                    "match": "\\b((?:lower|upper)Case)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (Regular Expression)",
-                    "match": "\\b(rex(?:Compile|Execute|Magic|Match(?:Assoc)?List|Matchp|Replace|Substitute))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "String Functions (PCRE)",
-                    "match": "\\b(pcre(?:Compile|Execute|(?:Gen|List)(?:Compile|Exec)OptBits|(?:Get|Set)RecursionLimit|Match(?:Assoc)?List|Matchp|Objectp|PrintLastMatchErr|Replace|SubpatCount|Substitute))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter a)",
-                    "match": "\\b(abs|add1|ato[fi])\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter c)",
-                    "match": "\\b(ceiling)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter d)",
-                    "match": "\\b(defMathConstants|difference)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter e)",
-                    "match": "\\b(evenp|expt?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter f)",
-                    "match": "\\b(fix[2p]?|floatp?|floor)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter i)",
-                    "match": "\\b(int|is(?:Infinity|NaN))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter l)",
-                    "match": "\\b(leftshift|log(?:10)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter m)",
-                    "match": "\\b(max|min(?:usp?)?|modf?|modulo)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter n)",
-                    "match": "\\b(nearlyEqual|negativep)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter o)",
-                    "match": "\\b(oddp|onep)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter p)",
-                    "match": "\\b(plusp?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter q)",
-                    "match": "\\b(quotient)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter r)",
-                    "match": "\\b(random|realp|remainder|rightshift|round2?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter s)",
-                    "match": "\\b(sort(?:car)?|sqrt|srandom|sub1)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter t)",
-                    "match": "\\b(times|truncate)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter x)",
-                    "match": "\\b(xdifference|xplus|xquotient|xtimes)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Arithmetic Functions (Letter z)",
-                    "match": "\\b(zerop|zxtd)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Bitwise Operator Functions",
-                    "match": "\\b(bn?and|(?:setq)?bitfield1?|bn?x?or|bnot)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Trigonometric Functions",
-                    "match": "\\b(a?(?:cos|sin|tan)|atan2)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Logical and Relational Functions",
-                    "match": "\\b(alphalessp|and|compareTime|n?eq(?:ual)?|eqv|geqp|greaterp|leqp|lessp|mem(?:ber|[qv])|null|numberp|or|sxtd)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter c)",
-                    "match": "\\b(caseq?|catch|cond)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter d)",
-                    "match": "\\b(decode|do)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter e)",
-                    "match": "\\b(existss?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter f)",
-                    "match": "\\b(for(?:all|each)?s?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter i)",
-                    "match": "\\b(if)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter g)",
-                    "match": "\\b(go)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter m)",
-                    "match": "\\b(map(?:c|ca[nr]|con|into|list)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter n)",
-                    "match": "\\b(not)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter r)",
-                    "match": "\\b(regExit(?:After|Before|Proc)|return)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter s)",
-                    "match": "\\b(setofs?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter u)",
-                    "match": "\\b(unless)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Flow Control Functions (Letter w)",
-                    "match": "\\b(when|while)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter c)",
-                    "match": "\\b(close|compress)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter d)",
-                    "match": "\\b(display|drain)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter e)",
-                    "match": "\\b(ed(?:it?|l)?|encrypt|expandMacroDeep)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter f)",
-                    "match": "\\b(file(?:Length|Seek|Tell|TimeModified)|fprintf|fscanf)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter g)",
-                    "match": "\\b(get(?:[cs]|_filename|DirFiles|Outstring))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter i)",
-                    "match": "\\b(in(?:clude|file|fo|portp|string)|is(?:Executable|File(?:Encrypted|Name)?|LargeFile|Link|PortAtEOF|Readable|Writable))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter l)",
-                    "match": "\\b(lineread(?:string)?|load(?:i|Port|string)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter m)",
-                    "match": "\\b(makeTempFileName)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter n)",
-                    "match": "\\b(newline|numOpenFiles)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter o)",
-                    "match": "\\b(openportp|out(?:file|portp|string))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter p)",
-                    "match": "\\b(portp|pp?rint|print(?:f|lev|ln)|putc)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter r)",
-                    "match": "\\b(read(?:Table)?|renameFile)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter s)",
-                    "match": "\\b(ss?canf|simplifyFilename(?:Unique)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter t)",
-                    "match": "\\b(truename)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Input Output Functions (Letter w)",
-                    "match": "\\b(which|write(?:Table)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter a)",
-                    "match": "\\b(addDefstructClass|alias|apply|arg[cv])\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter b)",
-                    "match": "\\b(begin)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter c)",
-                    "match": "\\b(clearExitProcs)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter d)",
-                    "match": "\\b(declare(?:(?:SQ)?N)?Lambda|def(?:dynamic|globalfun|ine(?:_syntax)?|macro|setf|un|UserInitProc)|destructuringBind|dynamic(?:Let)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter e)",
-                    "match": "\\b(err(?:or|set(?:string)?)?|eval(?:string)?|expandMacro)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter f)",
-                    "match": "\\b(fboundp|flet|funcall)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter g)",
-                    "match": "\\b(get(?:d|FnWriteProtect|FunType|VarWriteProtect)?|globalProc)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter i)",
-                    "match": "\\b(is(?:Callable|Macro)|labels|lambda|let(?:rec|seq)?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter m)",
-                    "match": "\\b(mprocedure)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter n)",
-                    "match": "\\b(nprocedure)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter p)",
-                    "match": "\\b(procedure(?:p)?|prog[12n]?|putd)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter s)",
-                    "match": "\\b(set(?:f_dynamic|(?:Fn|Var)WriteProtect))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter u)",
-                    "match": "\\b(unalias|unwindProtect)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Function and Program Structure (Letter w)",
-                    "match": "\\b(warn)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter c)",
-                    "match": "\\b(cds(?:Get(?:Inst|Tools)Path|Plat)|changeWorkingDir|cputime|createDir(?:Hier)?|csh)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter d)",
-                    "match": "\\b(delete(?:Dir|File))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter e)",
-                    "match": "\\b(exit)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter g)",
-                    "match": "\\b(get(?:CurrentTime|InstallPath|Login|Prompts|ShellEnvVar|SkillPath|(?:Temp|Working)Dir))\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter i)",
-                    "match": "\\b(isDir)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter p)",
-                    "match": "\\b(prependInstallPath)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter s)",
-                    "match": "\\b(setShell(?:EnvVar|Path)|sh(?:ell)?|system)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter u)",
-                    "match": "\\b(unsetShellEnvVar)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Environment Functions (Letter v)",
-                    "match": "\\b(vi[il]?)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Namespace Functions",
-                    "match": "\\b((?:make|find|(?:un)?use|addTo|getSymbol)Namespace|(?:(?:un)?import|find)Symbol|(?:addTo|removeFrom)ExportList|shadow(?:Import)?|removeShadowImport)\\(",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.cadence.skill.basic"
-                        }
-                    }
-                },
-                {
-                    "comment": "Boolean Constant",
-                    "match": "\\b(t|nil)",
+                    "comment": "boolean",
+                    "match": "\\b(t|nil)\\b",
                     "captures": {
                         "1": {
                             "name": "constant.language.cadence.skill.basic"
@@ -1075,8 +87,1019 @@
         "function": {
             "patterns": [
                 {
+                    "comment": "functions",
+                    "match": "\\b([[:word:]]+)\\(",
+                    "captures": {
+                        "1": {
+                            "patterns": [
+                                {
+                                    "include": "#builtin_function"
+                                },
+                                {
+                                    "include": "#other_function"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "builtin_function": {
+            "patterns": [
+                {
+                    "comment": "List Functions (Letter a)",
+                    "match": "\\b(append1?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter c)",
+                    "match": "\\b(c[ad]{1,4}r|cons(?:tar)?|copy)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter d)",
+                    "match": "\\b(dtpr)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter l)",
+                    "match": "\\b(last|lconc|length|lindex|listp?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter n)",
+                    "match": "\\b(ncon[cs]|nth(?:cdr|elem)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter p)",
+                    "match": "\\b(pairp)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter r)",
+                    "match": "\\b(range|rem(?:d|dq|q)|remove(?:ListDuplicates)?|reverse|rplac[ad])\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter s)",
+                    "match": "\\b(setc[ad]r)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter t)",
+                    "match": "\\b(tailp|tconc)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "List Functions (Letter [xy])",
+                    "match": "\\b(xcons|[xy]Coord)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Structures (Letter a)",
+                    "match": "\\b(array(?:p|ref)?|ass(?:oc|[qv]))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Structures (Letter d)",
+                    "match": "\\b(declare|def(?:prop|structp?|var))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Structures (Letter m)",
+                    "match": "\\b(make(?:Table|Vector))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Structures (Letter s)",
+                    "match": "\\b(setarray)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Structures (Letter t)",
+                    "match": "\\b(tablep|typep?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Structures (Letter v)",
+                    "match": "\\b(vectorp?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter a)",
+                    "match": "\\b(alphaNumCmp)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter c)",
+                    "match": "\\b(concat|copyDefstructDeep)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter g)",
+                    "match": "\\b(get(?:SG|qq?)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter i)",
+                    "match": "\\b(importSkillVar|integerp)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter o)",
+                    "match": "\\b(otherp)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter p)",
+                    "match": "\\b(plist|popf|post(?:Array(?:Dec|Inc|Set)|(?:de|in)crement)|pre(?:Array(?:Dec|Inc|Set)|(?:de|in)crement)|pushf|putprop(?:qq?)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter q)",
+                    "match": "\\b(quote)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter r)",
+                    "match": "\\b(remprop|rotatef)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Letter s)",
+                    "match": "\\b(setf?(?:_(?:arrayref|c[ad]{1,3}r|get(?:SGq?|ShellEnvVar|[dq]|qq)?|last|(?:left|right|top|bottom)Edge|lowerLeft|nth(?:[ce]dr|elem)?|slotValue|upperRight|[xy]Coord|([[:word:]]+)))?|set(?:guard|plist|q|SG)|symbolp|sym(?:eval|strp))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        },
+                        "2": {
+                            "name": "strong.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Operator Functions (Extension)",
+                    "match": "\\b((?:copy|make)_([[:word:]]+))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        },
+                        "2": {
+                            "name": "strong.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Type Conversion Functions",
+                    "match": "\\b(charToInt|intToChar|listToVector|stringTo(?:Function|Symbol|Time)|symbolToString|tableToList|timeTo(?:String|Tm)|tmToTime|vectorToList)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Letter b)",
+                    "match": "\\b(blankstrp|buildString)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Letter g)",
+                    "match": "\\b(getchar)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Letter l)",
+                    "match": "\\b(lsprintf)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Letter p)",
+                    "match": "\\b(parseString)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Letter r)",
+                    "match": "\\b(readstring)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Letter s)",
+                    "match": "\\b(sprintf|str(?:n?cat|n?cmp|len|pbrk)|stringp|sub(?:st|string))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Letter o)",
+                    "match": "\\b(outstringp)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Index)",
+                    "match": "\\b([nr]?index)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Case)",
+                    "match": "\\b((?:lower|upper)Case)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (Regular Expression)",
+                    "match": "\\b(rex(?:Compile|Execute|Magic|Match(?:Assoc)?List|Matchp|Replace|Substitute))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "String Functions (PCRE)",
+                    "match": "\\b(pcre(?:Compile|Execute|(?:Gen|List)(?:Compile|Exec)OptBits|(?:Get|Set)RecursionLimit|Match(?:Assoc)?List|Matchp|Objectp|PrintLastMatchErr|Replace|SubpatCount|Substitute))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter a)",
+                    "match": "\\b(abs|add1|ato[fi])\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter c)",
+                    "match": "\\b(ceiling)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter d)",
+                    "match": "\\b(defMathConstants|difference)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter e)",
+                    "match": "\\b(evenp|expt?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter f)",
+                    "match": "\\b(fix[2p]?|floatp?|floor)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter i)",
+                    "match": "\\b(int|is(?:Infinity|NaN))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter l)",
+                    "match": "\\b(leftshift|log(?:10)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter m)",
+                    "match": "\\b(max|min(?:usp?)?|modf?|modulo)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter n)",
+                    "match": "\\b(nearlyEqual|negativep)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter o)",
+                    "match": "\\b(oddp|onep)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter p)",
+                    "match": "\\b(plusp?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter q)",
+                    "match": "\\b(quotient)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter r)",
+                    "match": "\\b(random|realp|remainder|rightshift|round2?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter s)",
+                    "match": "\\b(sort(?:car)?|sqrt|srandom|sub1)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter t)",
+                    "match": "\\b(times|truncate)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter x)",
+                    "match": "\\b(xdifference|xplus|xquotient|xtimes)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Arithmetic Functions (Letter z)",
+                    "match": "\\b(zerop|zxtd)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Bitwise Operator Functions",
+                    "match": "\\b(bn?and|(?:setq)?bitfield1?|bn?x?or|bnot)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Trigonometric Functions",
+                    "match": "\\b(a?(?:cos|sin|tan)|atan2)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Logical and Relational Functions",
+                    "match": "\\b(alphalessp|and|compareTime|n?eq(?:ual)?|eqv|geqp|greaterp|leqp|lessp|mem(?:ber|[qv])|null|numberp|or|sxtd)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter c)",
+                    "match": "\\b(caseq?|catch|cond)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter d)",
+                    "match": "\\b(decode|do)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter e)",
+                    "match": "\\b(existss?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter f)",
+                    "match": "\\b(for(?:all|each)?s?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter i)",
+                    "match": "\\b(if)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter g)",
+                    "match": "\\b(go)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter m)",
+                    "match": "\\b(map(?:c|ca[nr]|con|into|list)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter n)",
+                    "match": "\\b(not)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter r)",
+                    "match": "\\b(regExit(?:After|Before|Proc)|return)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter s)",
+                    "match": "\\b(setofs?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter u)",
+                    "match": "\\b(unless)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flow Control Functions (Letter w)",
+                    "match": "\\b(when|while)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter c)",
+                    "match": "\\b(close|compress)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter d)",
+                    "match": "\\b(display|drain)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter e)",
+                    "match": "\\b(ed(?:it?|l)?|encrypt|expandMacroDeep)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter f)",
+                    "match": "\\b(file(?:Length|Seek|Tell|TimeModified)|fprintf|fscanf)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter g)",
+                    "match": "\\b(get(?:[cs]|_filename|DirFiles|Outstring))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter i)",
+                    "match": "\\b(in(?:clude|file|fo|portp|string)|is(?:Executable|File(?:Encrypted|Name)?|LargeFile|Link|PortAtEOF|Readable|Writable))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter l)",
+                    "match": "\\b(lineread(?:string)?|load(?:i|Port|string)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter m)",
+                    "match": "\\b(makeTempFileName)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter n)",
+                    "match": "\\b(newline|numOpenFiles)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter o)",
+                    "match": "\\b(openportp|out(?:file|portp|string))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter p)",
+                    "match": "\\b(portp|pp?rint|print(?:f|lev|ln)|putc)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter r)",
+                    "match": "\\b(read(?:Table)?|renameFile)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter s)",
+                    "match": "\\b(ss?canf|simplifyFilename(?:Unique)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter t)",
+                    "match": "\\b(truename)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter w)",
+                    "match": "\\b(which|write(?:Table)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter a)",
+                    "match": "\\b(addDefstructClass|alias|apply|arg[cv])\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter b)",
+                    "match": "\\b(begin)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter c)",
+                    "match": "\\b(clearExitProcs)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter d)",
+                    "match": "\\b(declare(?:(?:SQ)?N)?Lambda|def(?:dynamic|globalfun|ine(?:_syntax)?|macro|setf|un|UserInitProc)|destructuringBind|dynamic(?:Let)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter e)",
+                    "match": "\\b(err(?:or|set(?:string)?)?|eval(?:string)?|expandMacro)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter f)",
+                    "match": "\\b(fboundp|flet|funcall)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter g)",
+                    "match": "\\b(get(?:d|FnWriteProtect|FunType|VarWriteProtect)?|globalProc)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter i)",
+                    "match": "\\b(is(?:Callable|Macro)|labels|lambda|let(?:rec|seq)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter m)",
+                    "match": "\\b(mprocedure)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter n)",
+                    "match": "\\b(nprocedure)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter p)",
+                    "match": "\\b(procedure(?:p)?|prog[12n]?|putd)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter s)",
+                    "match": "\\b(set(?:f_dynamic|(?:Fn|Var)WriteProtect))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter u)",
+                    "match": "\\b(unalias|unwindProtect)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Function and Program Structure (Letter w)",
+                    "match": "\\b(warn)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter c)",
+                    "match": "\\b(cds(?:Get(?:Inst|Tools)Path|Plat)|changeWorkingDir|cputime|createDir(?:Hier)?|csh)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter d)",
+                    "match": "\\b(delete(?:Dir|File))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter e)",
+                    "match": "\\b(exit)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter g)",
+                    "match": "\\b(get(?:CurrentTime|InstallPath|Login|Prompts|ShellEnvVar|SkillPath|(?:Temp|Working)Dir))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter i)",
+                    "match": "\\b(isDir)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter p)",
+                    "match": "\\b(prependInstallPath)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter s)",
+                    "match": "\\b(setShell(?:EnvVar|Path)|sh(?:ell)?|system)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter u)",
+                    "match": "\\b(unsetShellEnvVar)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter v)",
+                    "match": "\\b(vi[il]?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Namespace Functions",
+                    "match": "\\b((?:make|find|(?:un)?use|addTo|getSymbol)Namespace|(?:(?:un)?import|find)Symbol|(?:addTo|removeFrom)ExportList|shadow(?:Import)?|removeShadowImport)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                }
+            ]
+        },
+        "other_function": {
+            "patterns": [
+                {
                     "comment": "Other Functions",
-                    "match": "\\b([[:word:]]*)\\(",
+                    "match": "\\b([[:word:]]*)\\b",
                     "captures": {
                         "1": {
                             "name": "entity.name.function.cadence.skill.basic"
