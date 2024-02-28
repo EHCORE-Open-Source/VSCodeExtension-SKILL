@@ -19,10 +19,24 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "languages": [
       {
-        "command": "VSCodeExtension-SKILL.helloWorld",
-        "title": "Hello World"
+        "id": "cadence-skill",
+        "aliases": [
+          "Cadence SKILL", 
+          "SKILL"
+        ],
+        "extensions": [
+          ".il"
+        ],
+        "configuration": "./syntax/skill/language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cadence-skill",
+        "scopeName": "source.cadence.skill",
+        "path": "./syntax/skill/tmLanguage.json"
       }
     ]
   },
