@@ -13,10 +13,16 @@
             "include": "#numeric"
         },
         {
+            "include": "#flavor"
+        },
+        {
             "include": "#function"
         },
         {
             "include": "#keyword"
+        },
+        {
+            "include": "#parameter"
         }
     ],
     "repository": {
@@ -134,6 +140,20 @@
                             "name": "constant.language.cadence.skill.basic"
                         }
                     }
+                }
+            ]
+        },
+        "flavor": {
+            "patterns": [
+                {
+                    "comment": "single quote",
+                    "match": "\\'(?:[[:word:]]*)\\b",
+                    "name": "strong.cadence.skill.flavor"
+                },
+                {
+                    "comment": "back quote",
+                    "match": "\\`(?:[[:word:]]*)",
+                    "name": "variable.cadence.skill.flavor strong.cadence.skill.flavor"
                 }
             ]
         },
@@ -1167,11 +1187,25 @@
         "other_function": {
             "patterns": [
                 {
-                    "comment": "Other Functions",
+                    "comment": "other function",
                     "match": "\\b([[:word:]]*)\\b",
                     "captures": {
                         "1": {
                             "name": "entity.name.function.cadence.skill.basic"
+                        }
+                    }
+                }
+            ]
+        },
+        "parameter": {
+            "patterns": [
+                {
+                    "comment": "parameter",
+                    "match": "(\\?)([[:word:]]*)\\b",
+                    "name": "variable.cadence.skill.parameter",
+                    "captures": {
+                        "1": {
+                            "name": "strong.cadence.skill.parameter.id"
                         }
                     }
                 }
