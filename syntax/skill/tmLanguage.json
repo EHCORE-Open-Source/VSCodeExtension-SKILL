@@ -1040,6 +1040,15 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
+                },
+                {
+                    "comment": "Namespace Functions",
+                    "match": "\\b((?:make|find|(?:un)?use|addTo|getSymbol)Namespace|(?:(?:un)?import|find)Symbol|(?:addTo|removeFrom)ExportList|shadow(?:Import)?|removeShadowImport)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
                 }
             ]
         },
