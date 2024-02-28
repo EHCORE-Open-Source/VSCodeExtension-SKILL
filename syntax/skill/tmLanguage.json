@@ -959,6 +959,87 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
+                },
+                {
+                    "comment": "Environment Functions (Letter c)",
+                    "match": "\\b(cds(?:Get(?:Inst|Tools)Path|Plat)|changeWorkingDir|cputime|createDir(?:Hier)?|csh)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter d)",
+                    "match": "\\b(delete(?:Dir|File))\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter e)",
+                    "match": "\\b(exit)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter g)",
+                    "match": "\\b(get(?:CurrentTime|InstallPath|Login|Prompts|ShellEnvVar|SkillPath|(?:Temp|Working)Dir))\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter i)",
+                    "match": "\\b(isDir)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter p)",
+                    "match": "\\b(prependInstallPath)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter s)",
+                    "match": "\\b(setShell(?:EnvVar|Path)|sh(?:ell)?|system)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter u)",
+                    "match": "\\b(unsetShellEnvVar)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Functions (Letter v)",
+                    "match": "\\b(vi[il]?)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
                 }
             ]
         },
