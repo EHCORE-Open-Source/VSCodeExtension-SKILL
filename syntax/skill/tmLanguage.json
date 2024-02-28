@@ -75,7 +75,7 @@
                 {
                     "comment": "numeric for scientific or symbol notation",
                     "name": "constant.numeric.cadence.skill.basic",
-                    "match": "\\b-?[0-9]+(?:\\.[0-9]+)?([eE][+-]?[0-9]+|[TGMKkmunpfa])?\\b",
+                    "match": "\\b-?[0-9]+(?:\\.[0-9]+)?([eE][+-]?[0-9]+|[TGMKkmunpfa%])?\\b",
                     "captures": {
                         "1": {
                             "name": "strong.cadence.skill.basic"
