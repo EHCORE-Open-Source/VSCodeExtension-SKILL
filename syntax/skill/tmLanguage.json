@@ -167,9 +167,6 @@
                             "patterns": [
                                 {
                                     "include": "#builtin_function"
-                                },
-                                {
-                                    "include": "#other_function"
                                 }
                             ]
                         }
