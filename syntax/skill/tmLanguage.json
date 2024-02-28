@@ -13,10 +13,10 @@
             "include": "#numeric"
         },
         {
-            "include": "#keyword"
+            "include": "#function"
         },
         {
-            "include": "#function"
+            "include": "#keyword"
         }
     ],
     "repository": {
@@ -135,8 +135,24 @@
         "function": {
             "patterns": [
                 {
-                    "comment": "functions",
-                    "match": "\\b([[:word:]]+)\\(",
+                    "comment": "lisp-style function",
+                    "match": "\\(\\s*(?i)([a-z][[:word:]]*)\\b",
+                    "captures": {
+                        "1": {
+                            "patterns": [
+                                {
+                                    "include": "#builtin_function"
+                                },
+                                {
+                                    "include": "#other_function"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "comment": "c-style function",
+                    "match": "\\b(?i)([a-z][[:word:]]*)\\(",
                     "captures": {
                         "1": {
                             "patterns": [
