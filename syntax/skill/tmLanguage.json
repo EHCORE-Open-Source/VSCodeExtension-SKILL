@@ -700,6 +700,141 @@
                     }
                 },
                 {
+                    "comment": "Input Output Functions (Letter c)",
+                    "match": "\\b(close|compress)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter d)",
+                    "match": "\\b(display|drain)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter e)",
+                    "match": "\\b(ed(?:it?|l)?|encrypt|expandMacroDeep)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter f)",
+                    "match": "\\b(file(?:Length|Seek|Tell|TimeModified)|fprintf|fscanf)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter g)",
+                    "match": "\\b(get(?:[cs]|_filename|DirFiles|Outstring))\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter i)",
+                    "match": "\\b(in(?:clude|file|fo|portp|string)|is(?:Executable|File(?:Encrypted|Name)?|LargeFile|Link|PortAtEOF|Readable|Writable))\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter l)",
+                    "match": "\\b(lineread(?:string)?|load(?:i|Port|string)?)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter m)",
+                    "match": "\\b(makeTempFileName)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter n)",
+                    "match": "\\b(newline|numOpenFiles)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter o)",
+                    "match": "\\b(openportp|out(?:file|portp|string))\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter p)",
+                    "match": "\\b(portp|pp?rint|print(?:f|lev|ln)|putc)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter r)",
+                    "match": "\\b(read(?:Table)?|renameFile)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter s)",
+                    "match": "\\b(ss?canf|simplifyFilename(?:Unique)?)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter t)",
+                    "match": "\\b(truename)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Input Output Functions (Letter w)",
+                    "match": "\\b(which|write(?:Table)?)\\(",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
                     "comment": "Function and Program Structure (Letter a)",
                     "match": "\\b(addDefstructClass|alias|apply|arg[cv])\\(",
                     "captures": {
