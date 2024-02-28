@@ -1049,6 +1049,15 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
+                },
+                {
+                    "comment": "Boolean Constant",
+                    "match": "\\b(t|nil)",
+                    "captures": {
+                        "1": {
+                            "name": "constant.language.cadence.skill.basic"
+                        }
+                    }
                 }
             ]
         },
