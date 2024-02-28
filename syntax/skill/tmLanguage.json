@@ -96,13 +96,26 @@
                             "comment": "white space characters",
                             "name": "constant.character.escape.cadence.skill.basic",
                             "match": "\\\\[tfrnv]"
-                        },
-                        {
-                            "comment": "common output format specifications",
-                            "name": "support.variable.cadence.skill.basic",
-                            "match": "\\%(?:-?[[:digit:]]*(?:\\.[[:digit:]]+)?[doxfegsnNA]|[LPB])"
                         }
                     ]	
+                }
+            ]
+        },
+        "input_spec": {
+            "patterns": [
+                {
+                    "comment": "common input format specifications",
+                    "name": "support.variable.cadence.skill.input.specification",
+                    "match": "\\%-?[[:digit:]]*(?:\\.[[:digit:]]+)?[dfseg]"
+                }
+            ]
+        },
+        "output_spec": {
+            "patterns": [
+                {
+                    "comment": "common output format specifications",
+                    "name": "support.variable.cadence.skill.output.specification",
+                    "match": "\\%(?:-?[[:digit:]]*(?:\\.[[:digit:]]+)?[doxfegsnNA]|[LPB])"
                 }
             ]
         },
