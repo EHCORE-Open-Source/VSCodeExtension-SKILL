@@ -31,7 +31,12 @@
                 {
                     "comment": "line comment",
                     "name": "comment.block.cadence.skill.basic",
-                    "match": ";.*"
+                    "match": ";\\s*(\\bTODO\\b)?.*",
+                    "captures": {
+                        "1": {
+                            "name": "markup.bold.cadence.skill.basic"
+                        }
+                    }
                 }
             ]
         },
