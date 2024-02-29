@@ -104,6 +104,11 @@
                             "match": "\\\\[tfrnv]"
                         },
                         {
+                            "comment": "special characters",
+                            "name": "constant.character.escape.cadence.skill.special",
+                            "match": "\\\\[\"]"
+                        },
+                        {
                             "comment": "octal characters for ASCII",
                             "name": "constant.character.set.regexp strong.cadence.skill.octal",
                             "match": "\\\\(?:[01][0-7]{2}|[0-7]{1,2}(?=[^0-7]))"

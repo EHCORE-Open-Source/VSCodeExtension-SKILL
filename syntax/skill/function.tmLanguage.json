@@ -12,7 +12,8 @@
             "patterns": [
                 {
                     "comment": "lisp-style function",
-                    "match": "\\(\\s*(?i)([a-z][[:word:]]*)\\b",
+                    "begin": "\\(\\s*(?i)([a-z][[:word:]]*)\\b",
+                    "end": ")",
                     "captures": {
                         "1": {
                             "patterns": [
@@ -25,8 +26,9 @@
                 },
                 {
                     "comment": "c-style function",
-                    "match": "\\b(?i)([a-z][[:word:]]*)\\(",
-                    "captures": {
+                    "begin": "\\b(?i)([a-z][[:word:]]*)\\(",
+                    "end": ")",
+                    "beginCaptures": {
                         "1": {
                             "patterns": [
                                 {
