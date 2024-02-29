@@ -45,6 +45,22 @@
             "patterns": [
                 {
                     "include": "#builtin_basic_function"
+                },
+                {
+                    "include": "#builtin_development_function"
+                }
+            ]
+        },
+        "other_function": {
+            "patterns": [
+                {
+                    "comment": "other function",
+                    "match": "\\b([[:word:]]*)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.function.cadence.skill.basic"
+                        }
+                    }
                 }
             ]
         },
@@ -1261,14 +1277,335 @@
                 }
             ]
         },
-        "other_function": {
+        "builtin_development_function": {
             "patterns": [
                 {
-                    "comment": "other function",
-                    "match": "\\b([[:word:]]*)\\b",
+                    "include": "#dev_lint_function"
+                },
+                {
+                    "include": "#dev_context_function"
+                },
+                {
+                    "include": "#dev_debug_function"
+                },
+                {
+                    "include": "#dev_finder_function"
+                },
+                {
+                    "include": "#dev_tabulator_function"
+                },
+                {
+                    "include": "#dev_skill_ide_functions"
+                }
+            ]
+        },
+        "dev_lint_function": {
+            "patterns": [
+                {
+                    "comment": "Lint Functions",
+                    "match": "\\b(sk(?:Disable|Ignore|Unignore)Message|sk(?:Disable|Enable)MessageBlock|sklint)\\b",
                     "captures": {
                         "1": {
-                            "name": "entity.name.function.cadence.skill.basic"
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                }
+            ]
+        },
+        "dev_context_function": {
+            "patterns": [
+                {
+                    "comment": "Context Functions (Letter c)",
+                    "match": "\\b(call(?:InitProc|UserAutoInitProc)|checkContextBit)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Context Functions (Letter d)",
+                    "match": "\\b(defCap(?:Depends|Prefixes)|defInitProc)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Context Functions (Letter g)",
+                    "match": "\\b(get(?:CurSave|Native|Compat)ContextVersion)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Context Functions (Letter i)",
+                    "match": "\\b(isContextLoaded)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Context Functions (Letter l)",
+                    "match": "\\b(load(?:Context|TopContextForms))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Context Functions (Letter s)",
+                    "match": "\\b((?:save|set)Context|setSaveContextVersion)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                }
+            ]
+        },
+        "dev_debug_function": {
+            "patterns": [
+                {
+                    "comment": "Debug Functions (Letter b)",
+                    "match": "\\b(break(?:pt(?:Method)?)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter c)",
+                    "match": "\\b(clear|cont(?:inue)|count)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter d)",
+                    "match": "\\b(debug(?:Quit|Status)|dump)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter g)",
+                    "match": "\\b(gcsummary|get(?:AllLoadedFiles|(?:Calling)?Function|GFbyClass))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter i)",
+                    "match": "\\b(ilAddTopLevelErrorHandler|ilDebugCountLevels|ilGet(?:GFbyClass|IdeSessionWindow|TCovFiles)|ilMergeTCovData|ilRemove(?:Method|TopLevelErrorHandler)|ilSlotBoundp|ilToolBox|inNext|inStepOut|installDebugger|list(?:Alias|Functions|Variables))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter m)",
+                    "match": "\\b(memoryAllocated)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter n)",
+                    "match": "\\b(next)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter p)",
+                    "match": "\\b(pp|print(?:Functions|Object|struct|Variables))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter r)",
+                    "match": "\\b(removeMethod|resume)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter s)",
+                    "match": "\\b(skill(?:Debugger|DevStatus)|stacktrace|step(?:end|out)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter t)",
+                    "match": "\\b(toplevel|trace(?:[fpv]|lev(?:un)?limit))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter u)",
+                    "match": "\\b(unbreakpt(?:Method)?|uncount|uninstallDebugger|untrace[pv]?|unwatch)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "Debug Functions (Letter w)",
+                    "match": "\\b(watch|where(?:Is)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                }
+            ]
+        },
+        "dev_finder_function": {
+            "patterns": [
+                {
+                    "comment": "Finder Functions",
+                    "match": "\\b(fndResetDb|startFinder)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                }
+            ]
+        },
+        "dev_tabulator_function": {
+            "patterns": [
+                {
+                    "comment": "Tabulator Functions",
+                    "match": "\\b(skTabulate(?:SKILL)?)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                }
+            ]
+        },
+        "dev_skill_ide_functions": {
+            "patterns": [
+                {
+                    "comment": "SKILL IDE Functions (Letter A)",
+                    "match": "\\b(ilg(?:AddRecentFiles|AppendText))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter C)",
+                    "match": "\\b(ilg(?:Copy|Cut))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter F)",
+                    "match": "\\b(ilg(?:Find(?:Ident|Parenthesis)|FoldLine))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter G)",
+                    "match": "\\b(ilgGet(?:CursorLocation|EditLock|Highlight|SelectedLocation|Text))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter I)",
+                    "match": "\\b(ilgInvokeIDE)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter L)",
+                    "match": "\\b(ilgLastDir)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter P)",
+                    "match": "\\b(ilg(?:Paste|PositionInComment))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter R)",
+                    "match": "\\b(ilg(?:RegisterSelectionCB|Reset(?:(?:Error|Warning)Marker|Highlight)|RunSKILLIDE))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter S)",
+                    "match": "\\b(ilg(?:ScrollToLocation|(?:Search|Select)Text|Set(?:Color|CursorLocation|EditLock|(?:Error|Warning)Marker|Highlight)))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                        }
+                    }
+                },
+                {
+                    "comment": "SKILL IDE Functions (Letter U)",
+                    "match": "\\b(ilg(?:UnfoldLine|UnregisterSelectionCB))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
                         }
                     }
                 }
