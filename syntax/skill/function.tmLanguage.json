@@ -88,6 +88,9 @@
                     "include": "#builtin_application_infrastructure_function"
                 },
                 {
+                    "include": "#builtin_virtuoso_design_environment"
+                },
+                {
                     "include": "#builtin_technology_data"
                 }
             ]
@@ -1240,6 +1243,263 @@
                     "comment": "Plotter Functions",
                     "match": "\\b(ps(?:ConfigLoaded|LoadCdsPlotInit|Query(?:PaperSizes?|Plotters)|QueueStatus))\\b",
                     "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                }
+            ]
+        },
+        "builtin_virtuoso_design_environment": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_graphics_editor_function"
+                }
+            ]
+        },
+        "virtuoso_graphics_editor_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_design_function"
+                },
+                {
+                    "include": "#virtuoso_automatic_menu_enabling_function"
+                },
+                {
+                    "include": "#virtuoso_edit_display_function"
+                },
+                {
+                    "include": "#virtuoso_refresh_function"
+                },
+                {
+                    "include": "#virtuoso_view_level_function"
+                },
+                {
+                    "include": "#virtuoso_procedural_level_function"
+                },
+                {
+                    "include": "#virtuoso_window_scroll_function"
+                },
+                {
+                    "include": "#virtuoso_selection_function"
+                }
+            ]
+        },
+        "virtuoso_design_function": {
+            "patterns": [
+                {
+                    "comment": "Design Functions",
+                    "match": "\\b(ge(?:Change(?:CellView|EditMode)|DiscardEdits|NewWindow|Return(?:ToLevel)?|Save(?:As|Hier)?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_automatic_menu_enabling_function": {
+            "patterns": [
+                {
+                    "comment": "Automatic Menu Enabling Functions",
+                    "match": "\\b(ge(?:(?:GetDisabled|UpdateWindow)Menus|[GS]et(?:EnablePredicate|WindowStatus)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_edit_display_function": {
+            "patterns": [
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geClear)",
+                    "match": "\\b(geClear(?:IgnoreProp|NetNameDisplayFilter))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geCompute and Suffix SelSet)",
+                    "match": "\\b(geComputeQueryBbox|ge(?:Copy|Delete|Edit)SelSet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geEdit)",
+                    "match": "\\b(geEdit(?:SingleObject|ToWindowPoint))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geEnable)",
+                    "match": "\\b(geEnableNetNameDisplay)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geEquiv)",
+                    "match": "\\b(geEquivWindow(?:Set)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geFind)",
+                    "match": "\\b(geFindPathToCellViewInst)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geGet)",
+                    "match": "\\b(geGet(?:(?:Edit)?CellViewWindow|(?:Edit|TopLevel|Window)CellView|EditRep|HierMemInst|InstHier(?:Path)?|NetNameDisplayFilter|ObjectSelectedSet|SortedSelectByLine|TopCellViewWindow|Window(?:Box|Rep)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geIs)",
+                    "match": "\\b(geIs(?:GraphicalWindow|NetNameDisplay(?:ActiveOnWindow|Enabled)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geMenu)",
+                    "match": "\\b(geMenuForObjectsUnderPoint)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geNet)",
+                    "match": "\\b(geNetNameDisplayOptionForm)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geSave)",
+                    "match": "\\b(geSaveNetNameDisplayFilter)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geSelect)",
+                    "match": "\\b(geSelect(?:(?:Next|Previous)InSelSet|ToggleObject))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geSet)",
+                    "match": "\\b(geSet(?:NetNameDisplayFilter|TCProbeDisplayStyle))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geTransparency)",
+                    "match": "\\b(geTransparencyOptions)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Prefix geWindow)",
+                    "match": "\\b(geWindowToEditPoint)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Automatic Menu Enabling Functions (Others)",
+                    "match": "\\b(g[etw]c)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_refresh_function": {
+            "patterns": [
+                {
+                    "comment": "Refresh Functions",
+                    "match": "\\b(geRefresh(?:CellViews?|Window|WorldView)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_view_level_function": {
+            "patterns": [
+                {
+                    "comment": "View-Level Functions",
+                    "match": "\\b(ge(?:Delete|Get)(?:All)?(?:Area|Inst)ViewLevel|geSet(?:Area|Inst)ViewLevel|ge(?:Restore|Save)WinView)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_procedural_level_function": {
+            "patterns": [
+                {
+                    "comment": "Procedural-Level Functions",
+                    "match": "\\b(ge(?:EditInPlace|Push|Switch(?:InContext)?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_window_scroll_function": {
+            "patterns": [
+                {
+                    "comment": "Window Scroll Functions",
+                    "match": "\\b(ge(?:Center|[GS]etScrollPercent|Scroll|Shift|ZoomToGrid))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_selection_function": {
+            "patterns": [
+                {
+                    "comment": "Selection Functions (Prefix geAdv, geAdd, and geAdjust)",
+                    "match": "\\b(ge(?:AdvWireSelection|AddSelect(?:Box|Point)|AdjustPoint))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geCycle)",
+                    "match": "\\b(geCycle(?:Potential|Select)SelectNext)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geDeselect)",
+                    "match": "\\b(geDeselect(?:All(?:Fig|Object)?|Area|Fig(?:s|NoFilter|Point)?|Object(?:NoFilter|Point)?|Point|Protected))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geDSA)",
+                    "match": "\\b(geDSAFreeze)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geGet)",
+                    "match": "\\b(geGet(?:PotentialSelection|Sel(?:Set(?:Count)?|ProtectedObjects|SetFigPoint)|Selected(?:Set|InstancesCount)|WindowSelProtection(?:Highlight|Selectability)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geHi)",
+                    "match": "\\b(geHi(?:DragFig|DisplaySelectionForm|(?:S|Uns)etSelProtectionEF))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geHighlight)",
+                    "match": "\\b(geHighlightProtected)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geIs)",
+                    "match": "\\b(geIs(?:(?:Fig|Object)(?:All|Partially)?Selected|SelProtection))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix gePoint)",
+                    "match": "\\b(gePoint(?:Query|ToFig))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geSelect)",
+                    "match": "\\b(geSelect(?:All(?:Fig)?|Area|By(?:(?:2Points)?Line)|Fig(?:s|NoFilter|Point)?|Object(?:NoFilter)?|Point|Protected|ViaPile))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geSet)",
+                    "match": "\\b(geSet(?:EnterFunctionSelectionMode|SelProtection(?:AllObjects|HighlightOption(?:s|Form))?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geSel)",
+                    "match": "\\b(geSelObjectsPartiallySelected)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geSingle and geSub)",
+                    "match": "\\b(ge(?:Single|Sub)Select(?:Box|Point))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geToggle)",
+                    "match": "\\b(geToggle(?:AreaSelectOption|DisplayResolution|PartialSelect|WindowSelProtection(?:Highlight|Selectability)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geUnhighlight)",
+                    "match": "\\b(geUnhighlightProtected)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Selection Functions (Prefix geUnset)",
+                    "match": "\\b(geUnset(?:All)?SelProtection)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
                 }
             ]
         },
