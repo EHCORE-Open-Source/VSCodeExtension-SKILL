@@ -964,6 +964,123 @@
                     }
                 },
                 {
+                    "comment": "Core Functions (Letter a)",
+                    "match": "\\b(arglist|assert|atom)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter b)",
+                    "match": "\\b(bcdp|booleanp|boundp)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter d)",
+                    "match": "\\b(describe)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter f)",
+                    "match": "\\b(fdoc)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter g)",
+                    "match": "\\b(gc|gensym|get(?:_pname|_string|MuffleWarnings|SkillVersion|Version|Warn))\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter h)",
+                    "match": "\\b(help)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter i)",
+                    "match": "\\b(in(?:Scheme|Skill)|isVarImported)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter m)",
+                    "match": "\\b(makeSymbol|measureTime|muffleWarnings)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter n)",
+                    "match": "\\b(needNCells)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter r)",
+                    "match": "\\b(restoreFloat)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter s)",
+                    "match": "\\b(saveFloat|schemeTopLevelEnv|setPrompts|s?status)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter t)",
+                    "match": "\\b(theEnvironment)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
+                    "comment": "Core Functions (Letter u)",
+                    "match": "\\b(unbindVar)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    }
+                },
+                {
                     "comment": "Function and Program Structure (Letter a)",
                     "match": "\\b(addDefstructClass|alias|apply|arg[cv])\\b",
                     "captures": {
