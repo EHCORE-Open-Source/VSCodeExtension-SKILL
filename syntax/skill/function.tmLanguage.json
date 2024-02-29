@@ -1278,6 +1278,33 @@
                 },
                 {
                     "include": "#virtuoso_selection_function"
+                },
+                {
+                    "include": "#virtuoso_stored_selection_function"
+                },
+                {
+                    "include": "#virtuoso_highlight_function"
+                },
+                {
+                    "include": "#virtuoso_background_cellview_function"
+                },
+                {
+                    "include": "#virtuoso_marker_function"
+                },
+                {
+                    "include": "#virtuoso_probe_function"
+                },
+                {
+                    "include": "#virtuoso_icon_creation_loading_function"
+                },
+                {
+                    "include": "#virtuoso_utility_function"
+                },
+                {
+                    "include": "#virtuoso_microwave_object_function"
+                },
+                {
+                    "include": "#virtuoso_mouse_function"
                 }
             ]
         },
@@ -1499,6 +1526,297 @@
                 {
                     "comment": "Selection Functions (Prefix geUnset)",
                     "match": "\\b(geUnset(?:All)?SelProtection)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_stored_selection_function": {
+            "patterns": [
+                {
+                    "comment": "Stored Selection Functions",
+                    "match": "\\b(ge(?:(?:Delete|Deselect|Select)StoredSelectionSet|GetStoredSelectionSets|HiStoreSelectionForm|IsAutoStoreSelectionOn|Select(?:Next|Previous)AutoStoreSet|SetAutoStoreSelection|StoreSelectionSet))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_highlight_function": {
+            "patterns": [
+                {
+                    "comment": "Highlight Functions (Prefix geAdd)",
+                    "match": "\\b(geAdd(?:Hilight(?:Arc|Blockage|Circle|Curved(?:Path|Polygon)|Distance|Do(?:nu)?t|Ellipse|Fig|Label|Line|Path(?:Seg)?|Polygon|Row|Ruler|Sliced(?:Circle|Donut)|TrackPattern|Rectangle)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geChange)",
+                    "match": "\\b(geChangeHilightPacketName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geCreate)",
+                    "match": "\\b(geCreate(?:Hilight(?:Group|Set)|WindowHilightSet))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geDelete)",
+                    "match": "\\b(geDelete(?:All(?:Window)?HilightSet|Hilight(?:Group|Set(?:InWindows)?)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geDraw)",
+                    "match": "\\b(geDrawHilightSet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geGet)",
+                    "match": "\\b(geGet(?:Current(?:Window)?HilightSet|FigHilightObjectId|HilightObjectFigId))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geInsert)",
+                    "match": "\\b(geInsertHilightObjectsInGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geIs)",
+                    "match": "\\b(geIsValidHilight(?:Group|Id|Object|Set))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix gePop)",
+                    "match": "\\b(gePop(?:Window)?HilightStack)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix gePush)",
+                    "match": "\\b(gePushHilightStack)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geReset and geSet)",
+                    "match": "\\b(ge(?:Res|S)etHilightSet(?:AlphaBlending|Halo)Parameters)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Highlight Functions (Prefix geShare)",
+                    "match": "\\b(geShareWindowHilightSet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_background_cellview_function": {
+            "patterns": [
+                {
+                    "comment": "Background Cellview Functions",
+                    "match": "\\b(ge(?:(?:Disable|Enable|Get|Reset|Set)?BackgroundCellView|ZoomToBackground(?:AndEdit)?CV))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_marker_function": {
+            "patterns": [
+                {
+                    "comment": "Marker Functions (Prefix geCreate)",
+                    "match": "\\b(geCreateMarker(?:ByBBox|ByPoints)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Marker Functions (Prefix geDelete)",
+                    "match": "\\b(geDeleteAllMarker)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Marker Functions (Prefix geGet)",
+                    "match": "\\b(geGetMarker(?:DisplayText|Owner|Reason|Type))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Marker Functions (Prefix geHas)",
+                    "match": "\\b(geHasMarker)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Marker Functions (Prefix geHi)",
+                    "match": "\\b(geHi(?:(?:Common)?Find|Delete(?:All)?|Explain)Marker)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Marker Functions (Prefix geIs)",
+                    "match": "\\b(geIsMarkerShape)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_probe_function": {
+            "patterns": [
+                {
+                    "comment": "Probe Functions (Prefix geAdd)",
+                    "match": "\\b(geAdd(?:(?:Inst|Path|Term)Probe|NetProbe(?:FromTo)?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geClear)",
+                    "match": "\\b(geClearProbeNetFilter)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geDelete)",
+                    "match": "\\b(geDelete(?:All|Inst|Net|Path|Term)?Probe)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geEnter)",
+                    "match": "\\b(geEnter(?:Add|Delete)(?:Inst|Net|Term)Probe)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geExplain)",
+                    "match": "\\b(geExplainProbe)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geGet)",
+                    "match": "\\b(geGet(?:AdjustedPath|AllProbe|CrossProbeValue|Probe(?:Net(?:Filter|StopLevel)|UserLPP)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geLoad)",
+                    "match": "\\b(geLoad(?:Next)?Probe)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geMake)",
+                    "match": "\\b(geMakeProbeWith(?:(?:On|out)?Color|Label))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix gei)",
+                    "match": "\\b(gei(?:Load|Save)Probe)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix gePrint)",
+                    "match": "\\b(gePrintAllProbe)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geProbe)",
+                    "match": "\\b(geProbeP)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geReg and geUnReg)",
+                    "match": "\\b(ge(?:Un)?RegCrossProbeTrigger)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geSave)",
+                    "match": "\\b(geSaveProbe(?:NetFilter)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Probe Functions (Prefix geSet)",
+                    "match": "\\b(geSet(?:CrossProbeValue|(?:Limited|MaxCreated)Probe|Probe(?:Direction|NetFilter|NetStopLevel|UserLPP)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_icon_creation_loading_function": {
+            "patterns": [
+                {
+                    "comment": "Icon Creation and Loading Functions",
+                    "match": "\\b(geCellViewToDlist|ge(?:Load|Save)Icon)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_utility_function": {
+            "patterns": [
+                {
+                    "comment": "Utility Functions (Prefix geAsk)",
+                    "match": "\\b(geAskOverwriteMode)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geClose)",
+                    "match": "\\b(geClosePolygon)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geCompress)",
+                    "match": "\\b(geCompressPointArray)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geCoordp)",
+                    "match": "\\b(geCoordp)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geCreate)",
+                    "match": "\\b(geCreatePacket)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geGet)",
+                    "match": "\\b(geGet(?:InstTransform|LockInfo))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geInst)",
+                    "match": "\\b(geInstIdToFileSpec)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geIs)",
+                    "match": "\\b(geIs(?:Path|Polygon)Reentrant)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geOpen)",
+                    "match": "\\b(geOpen)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geQuery)",
+                    "match": "\\b(geQuerySelSet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geReg)",
+                    "match": "\\b(geRegSaveAllTrigger)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geReset and geWrite)",
+                    "match": "\\b(ge(?:Reset|Write)CellView)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geTransform)",
+                    "match": "\\b(geTransformUser(?:BBox|Point))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                },
+                {
+                    "comment": "Utility Functions (Prefix geValidate)",
+                    "match": "\\b(geValidateWindow)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_microwave_object_function": {
+            "patterns": [
+                {
+                    "comment": "Microwave Object Functions",
+                    "match": "\\b(geCreate(?:Bend|Taper|Trl))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_mouse_function": {
+            "patterns": [
+                {
+                    "comment": "Mouse Functions",
+                    "match": "\\b(mouse(?:Add|Finish|Undo|(?:Add|Single|Sub)Select)Pt|mousePopUp)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
                 }
             ]
