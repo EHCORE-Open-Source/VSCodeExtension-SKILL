@@ -11,9 +11,32 @@
         "function": {
             "patterns": [
                 {
+                    "comment": "if-then-else iteration function",
+                    "begin": "(?:\\b(if)\\(|\\(\\s*(if)\\b)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        },
+                        "2": {
+                            "name": "keyword.control.cadence.skill.basic"
+                        }
+                    },
+                    "end": "\\)",
+                    "patterns": [
+                        {
+                            "include": "source.cadence.skill.basic"
+                        },
+                        {
+                            "comment": "if-then-else",
+                            "name": "keyword.control.cadence.skill.basic",
+                            "match": "\\b(then|else)\\b"
+                        }
+                    ]
+                },
+                {
                     "comment": "lisp-style function",
                     "begin": "\\(\\s*(?i)([a-z][[:word:]]*)\\b",
-                    "end": ")",
+                    "end": "\\)",
                     "captures": {
                         "1": {
                             "patterns": [
@@ -22,12 +45,17 @@
                                 }
                             ]
                         }
-                    }
+                    },
+                    "patterns": [
+                        {
+                            "include": "source.cadence.skill.basic"
+                        }
+                    ]
                 },
                 {
                     "comment": "c-style function",
                     "begin": "\\b(?i)([a-z][[:word:]]*)\\(",
-                    "end": ")",
+                    "end": "\\)",
                     "beginCaptures": {
                         "1": {
                             "patterns": [
@@ -39,7 +67,12 @@
                                 }
                             ]
                         }
-                    }
+                    },
+                    "patterns": [
+                        {
+                            "include": "source.cadence.skill.basic"
+                        }
+                    ]
                 }
             ]
         },
