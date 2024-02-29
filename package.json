@@ -23,7 +23,6 @@
       {
         "id": "cadence-skill",
         "aliases": [
-          "Cadence SKILL",
           "SKILL"
         ],
         "extensions": [
@@ -35,8 +34,12 @@
     "grammars": [
       {
         "language": "cadence-skill",
-        "scopeName": "source.cadence.skill",
-        "path": "./syntax/skill/tmLanguage.json"
+        "scopeName": "source.cadence.skill.basic",
+        "path": "./syntax/skill/basic.tmLanguage.json"
+      },
+      {
+        "scopeName": "source.cadence.skill.function",
+        "path": "./syntax/skill/function.tmLanguage.json"
       }
     ]
   },

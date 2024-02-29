@@ -1,0 +1,175 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "cadence-skill",
+    "scopeName": "source.cadence.skill.basic",
+    "patterns": [
+        {
+            "include": "#comment"
+        },
+        {
+            "include": "#strings"
+        },
+        {
+            "include": "#numeric"
+        },
+        {
+            "include": "#flavor"
+        },
+        {
+            "include": "source.cadence.skill.function"
+        },
+        {
+            "include": "#keyword"
+        },
+        {
+            "include": "#parameter"
+        }
+    ],
+    "repository": {
+        "comment": {
+            "patterns": [
+                {
+                    "comment": "block comment",
+                    "name": "comment.block.cadence.skill.basic",
+                    "begin": "/\\*",
+                    "end": "\\*/"
+                },
+                {
+                    "comment": "line comment",
+                    "name": "comment.block.cadence.skill.basic",
+                    "match": ";\\s*(\\bTODO\\b)?.*",
+                    "captures": {
+                        "1": {
+                            "name": "markup.bold.cadence.skill.basic"
+                        }
+                    }
+                }
+            ]
+        },
+        "numeric": {
+            "patterns": [
+                {
+                    "comment": "octal numeric notation",
+                    "name": "constant.numeric.cadence.skill.octal",
+                    "match": "\\b-?(0)[0-7]+\\b",
+                    "captures": {
+                        "1": {
+                            "name": "strong.cadence.skill.octal"
+                        }
+                    }
+                },
+                {
+                    "comment": "hexadecimal numeric notation",
+                    "name": "constant.numeric.cadence.skill.hexadecimal",
+                    "match": "\\b(?i)-?(0x)[0-9a-f]+\\b",
+                    "captures": {
+                        "1": {
+                            "name": "strong.cadence.skill.hexadecimal"
+                        }
+                    }
+                },
+                {
+                    "comment": "binary numeric notation",
+                    "name": "constant.numeric.cadence.skill.binary",
+                    "match": "\\b(?i)-?(0b)[01]+\\b",
+                    "captures": {
+                        "1": {
+                            "name": "strong.cadence.skill.binary"
+                        }
+                    }
+                },
+                {
+                    "comment": "numeric for scientific or symbol notation",
+                    "name": "constant.numeric.cadence.skill.basic",
+                    "match": "\\b-?[0-9]+(?:\\.[0-9]+)?([eE][+-]?[0-9]+|[TGMKkmunpfa%])?\\b",
+                    "captures": {
+                        "1": {
+                            "name": "strong.cadence.skill.basic"
+                        }
+                    }
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "comment": "double quotes",
+                    "name": "string.quoted.double.cadence.skill.basic",
+                    "begin": "\\\"", 
+                    "end": "\\\"",
+		            "patterns": [
+                        {
+                            "comment": "white space characters",
+                            "name": "constant.character.escape.cadence.skill.basic",
+                            "match": "\\\\[tfrnv]"
+                        },
+                        {
+                            "comment": "octal characters for ASCII",
+                            "name": "constant.character.set.regexp strong.cadence.skill.octal",
+                            "match": "\\\\(?:[01][0-7]{2}|[0-7]{1,2}(?=[^0-7]))"
+                        }
+                    ]	
+                }
+            ]
+        },
+        "input_spec": {
+            "patterns": [
+                {
+                    "comment": "common input format specifications",
+                    "name": "support.variable.cadence.skill.input.specification",
+                    "match": "\\%-?[[:digit:]]*(?:\\.[[:digit:]]+)?[dfseg]"
+                }
+            ]
+        },
+        "output_spec": {
+            "patterns": [
+                {
+                    "comment": "common output format specifications",
+                    "name": "support.variable.cadence.skill.output.specification",
+                    "match": "\\%(?:-?[[:digit:]]*(?:\\.[[:digit:]]+)?[doxfegsnNA]|[LPB])"
+                }
+            ]
+        },
+        "keyword": {
+            "patterns": [
+                {
+                    "comment": "boolean",
+                    "match": "\\b(t|nil)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "constant.language.cadence.skill.basic"
+                        }
+                    }
+                }
+            ]
+        },
+        "flavor": {
+            "patterns": [
+                {
+                    "comment": "single quote",
+                    "match": "\\'(?:[[:word:]]*)\\b",
+                    "name": "strong.cadence.skill.flavor"
+                },
+                {
+                    "comment": "back quote",
+                    "match": "\\`(?:[[:word:]]*)",
+                    "name": "variable.cadence.skill.flavor strong.cadence.skill.flavor"
+                }
+            ]
+        },
+        "parameter": {
+            "patterns": [
+                {
+                    "comment": "parameter",
+                    "match": "(\\?)([[:word:]]*)\\b",
+                    "name": "variable.cadence.skill.parameter",
+                    "captures": {
+                        "1": {
+                            "name": "strong.cadence.skill.parameter.id"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
