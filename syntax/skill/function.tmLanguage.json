@@ -44,6 +44,62 @@
         "builtin_function": {
             "patterns": [
                 {
+                    "include": "#builtin_basic_function"
+                }
+            ]
+        },
+        "builtin_basic_function": {
+            "patterns": [
+                {
+                    "include": "#basic_list_function"
+                },
+                {
+                    "include": "#basic_data_structure"
+                },
+                {
+                    "include": "#basic_data_operator_function"
+                },
+                {
+                    "include": "#basic_type_conversion_function"
+                },
+                {
+                    "include": "#basic_string_function"
+                },
+                {
+                    "include": "#basic_arithmetic_function"
+                },
+                {
+                    "include": "#basic_bitwise_operator_function"
+                },
+                {
+                    "include": "#basic_trigonometric_function"
+                },
+                {
+                    "include": "#basic_logical_relational_function"
+                },
+                {
+                    "include": "#basic_flow_control_function"
+                },
+                {
+                    "include": "#basic_input_output_function"
+                },
+                {
+                    "include": "#basic_core_function"
+                },
+                {
+                    "include": "#basic_function_program_structure"
+                },
+                {
+                    "include": "#basic_environment_function"
+                },
+                {
+                    "include": "#basic_namespace_function"
+                }
+            ]
+        },
+        "basic_list_function": {
+            "patterns": [
+                {
                     "comment": "List Functions (Letter a)",
                     "match": "\\b(append1?)\\b",
                     "captures": {
@@ -132,7 +188,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_data_structure": {
+            "patterns": [
                 {
                     "comment": "Data Structures (Letter a)",
                     "match": "\\b(array(?:p|ref)?|ass(?:oc|[qv]))\\b",
@@ -186,7 +246,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_data_operator_function": {
+            "patterns": [
                 {
                     "comment": "Data Operator Functions (Letter a)",
                     "match": "\\b(alphaNumCmp)\\b",
@@ -282,7 +346,11 @@
                             "name": "strong.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_type_conversion_function": {
+            "patterns": [
                 {
                     "comment": "Type Conversion Functions",
                     "match": "\\b(charToInt|intToChar|listToVector|stringTo(?:Function|Symbol|Time)|symbolToString|tableToList|timeTo(?:String|Tm)|tmToTime|vectorToList)\\b",
@@ -291,7 +359,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_string_function": {
+            "patterns": [
                 {
                     "comment": "String Functions (Letter b)",
                     "match": "\\b(blankstrp|buildString)\\b",
@@ -390,7 +462,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_arithmetic_function": {
+            "patterns": [
                 {
                     "comment": "Arithmetic Functions (Letter a)",
                     "match": "\\b(abs|add1|ato[fi])\\b",
@@ -543,7 +619,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_bitwise_operator_function": {
+            "patterns": [
                 {
                     "comment": "Bitwise Operator Functions",
                     "match": "\\b(bn?and|(?:setq)?bitfield1?|bn?x?or|bnot)\\b",
@@ -552,7 +632,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_trigonometric_function": {
+            "patterns": [
                 {
                     "comment": "Trigonometric Functions",
                     "match": "\\b(a?(?:cos|sin|tan)|atan2)\\b",
@@ -561,7 +645,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_logical_relational_function": {
+            "patterns": [
                 {
                     "comment": "Logical and Relational Functions",
                     "match": "\\b(alphalessp|and|compareTime|n?eq(?:ual)?|eqv|geqp|greaterp|leqp|lessp|mem(?:ber|[qv])|null|numberp|or|sxtd)\\b",
@@ -570,7 +658,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_flow_control_function": {
+            "patterns": [
                 {
                     "comment": "Flow Control Functions (Letter c)",
                     "match": "\\b(caseq?|catch|cond)\\b",
@@ -678,7 +770,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_input_output_function": {
+            "patterns": [
                 {
                     "comment": "Input Output Functions (Letter c)",
                     "match": "\\b(close|compress)\\b",
@@ -813,7 +909,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_core_function": {
+            "patterns": [
                 {
                     "comment": "Core Functions (Letter a)",
                     "match": "\\b(arglist|assert|atom)\\b",
@@ -930,7 +1030,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_function_program_structure": {
+            "patterns": [
                 {
                     "comment": "Function and Program Structure (Letter a)",
                     "match": "\\b(addDefstructClass|alias|apply|arg[cv])\\b",
@@ -1056,7 +1160,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_environment_function": {
+            "patterns": [
                 {
                     "comment": "Environment Functions (Letter c)",
                     "match": "\\b(cds(?:Get(?:Inst|Tools)Path|Plat)|changeWorkingDir|cputime|createDir(?:Hier)?|csh)\\b",
@@ -1137,7 +1245,11 @@
                             "name": "keyword.control.cadence.skill.basic"
                         }
                     }
-                },
+                }
+            ]
+        },
+        "basic_namespace_function": {
+            "patterns": [
                 {
                     "comment": "Namespace Functions",
                     "match": "\\b((?:make|find|(?:un)?use|addTo|getSymbol)Namespace|(?:(?:un)?import|find)Symbol|(?:addTo|removeFrom)ExportList|shadow(?:Import)?|removeShadowImport)\\b",
