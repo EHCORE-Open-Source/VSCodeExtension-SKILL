@@ -26,7 +26,8 @@
           "SKILL"
         ],
         "extensions": [
-          ".il"
+          ".il",
+          ".cdsinit"
         ],
         "configuration": "./syntax/skill/language-configuration.json"
       }
