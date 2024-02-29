@@ -51,6 +51,9 @@
                 },
                 {
                     "include": "#builtin_application_infrastructure_function"
+                },
+                {
+                    "include": "#builtin_technology_data"
                 }
             ]
         },
@@ -335,7 +338,7 @@
                 },
                 {
                     "comment": "String Functions (PCRE)",
-                    "match": "\\b(pcre(?:Compile|Execute|(?:Gen|List)(?:Compile|Exec)OptBits|(?:Get|Set)RecursionLimit|Match(?:Assoc)?List|Matchp|Objectp|PrintLastMatchErr|Replace|SubpatCount|Substitute))\\b",
+                    "match": "\\b(pcre(?:Compile|Execute|(?:Gen|List)(?:Compile|Exec)OptBits|[GS]etRecursionLimit|Match(?:Assoc)?List|Matchp|Objectp|PrintLastMatchErr|Replace|SubpatCount|Substitute))\\b",
                     "name": "keyword.control.cadence.skill.basic"
                 }
             ]
@@ -1191,7 +1194,7 @@
             "patterns": [
                 {
                     "comment": "Library Manager Functions",
-                    "match": "\\b(lmgr(?:(?:Add|Create|Delete|Insert|Manage|Sensitize)MenuItems|CreateMenu|DefineInits|DisplayMessage|(?:Get|Set)Object|LogShowPopup|MenuSubsInPopup|QueryNamedObjects|Verbose))\\b",
+                    "match": "\\b(lmgr(?:(?:Add|Create|Delete|Insert|Manage|Sensitize)MenuItems|CreateMenu|DefineInits|DisplayMessage|[GS]etObject|LogShowPopup|MenuSubsInPopup|QueryNamedObjects|Verbose))\\b",
                     "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
                 }
             ]
@@ -1202,6 +1205,421 @@
                     "comment": "Plotter Functions",
                     "match": "\\b(ps(?:ConfigLoaded|LoadCdsPlotInit|Query(?:PaperSizes?|Plotters)|QueueStatus))\\b",
                     "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                }
+            ]
+        },
+        "builtin_technology_data": {
+            "patterns": [
+                {
+                    "include": "#techfile_administrative_function"
+                },
+                {
+                    "include": "#techfile_control_function"
+                },
+                {
+                    "include": "#techfile_layer_function"
+                },
+                {
+                    "include": "#techfile_physical_constraint_function"
+                },
+                {
+                    "include": "#techfile_electrical_constraint_function"
+                },
+                {
+                    "include": "#techfile_place_route_function"
+                },
+                {
+                    "include": "#techfile_database_constraint_function"
+                },
+                {
+                    "include": "#techfile_site_definition_function"
+                },
+                {
+                    "include": "#techfile_via_definition_function"
+                },
+                {
+                    "include": "#techfile_via_variant_function"
+                },
+                {
+                    "include": "#techfile_via_spec_function"
+                },
+                {
+                    "include": "#techfile_device_function"
+                },
+                {
+                    "include": "#techfile_lsw_layer_function"
+                },
+                {
+                    "include": "#techfile_display_resource_function"
+                },
+                {
+                    "include": "#techfile_mpt_function"
+                },
+                {
+                    "include": "#techfile_display_form_function"
+                },
+                {
+                    "include": "#techfile_snap_pattern_function"
+                },
+                {
+                    "include": "#techfile_width_spacing_pattern_function"
+                },
+                {
+                    "include": "#techfile_width_spacing_pattern_group_function"
+                },
+                {
+                    "include": "#techfile_width_spacing_snap_pattern_function"
+                },
+                {
+                    "include": "#techfile_related_snap_pattern_function"
+                },
+                {
+                    "include": "#techfile_trim_layer_function"
+                },
+                {
+                    "include": "#techfile_wire_profile_finger_definition_function"
+                }
+            ]
+        },
+        "techfile_administrative_function": {
+            "patterns": [
+                {
+                    "comment": "Administrative Functions (Prefix tc)",
+                    "match": "\\b(tc(?:(?:Dump|Load)TechFile|(?:R|Unr)eg(?:Post(?:Attach|Dump|Load|SetRef)|Pre(?:Dump|Load))Trigger))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Administrative Functions (Prefix tech)",
+                    "match": "\\b(tech(?:(?:Bind|Close|Copy|Delete|Open(?:Default)?|Purge|Refresh|Reopen|Save|Truncate|Unattach)TechFile|GetDefaultTechName|GetOpenTechFiles|GetTechFile(?:DdId|Name)?|(?:Delete|[GS]et)TechLibName|[GS]etTimeStamp|MakeVirtuosoIccInfo|SetEvaluate|SetPrecision|VerifyTechFileId))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_control_function": {
+            "patterns": [
+                {
+                    "comment": "Controls Functions",
+                    "match": "\\b(tech(?:Get(?:FabricType|MfgGridResolution|Params?|Permissions?|ProcessNode|ViewTypeUnits)|IsMfgGridResolutionSet|IsReadPermission|Set(?:FabricType|MfgGridResolution|Param|Read(?:Write)?Permission)))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_layer_function": {
+            "patterns": [
+                {
+                    "comment": "Layers Functions (Prefix analysis)",
+                    "match": "\\b(analysisAttributeLocks)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Layers Functions (Prefix techCreate, techDelete, and techFind)",
+                    "match": "\\b(tech(?:CreateDerivedLayer|(?:Create|Delete)(?:Layer|LP|Purpose(?:Def)?)|DeleteTwoLayerProp|techFind(?:Layer|PurposeDef)))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Layers Functions (Prefix techGet)",
+                    "match": "\\b(techGet(?:DerivedLayer|(?:Equiv|Label)Layers|Layer(?:Abbrev|AnalysisAttribute(?:Lock)?|Functions?|MaskNumber|MfgResolutions?|Name|Num|Prop|Routing(?:Directions|Grids?))|LP(?:Attr|PacketName|PriorityInContext|Prop|sByPriority)?|Order(?:LeLsw|LPPriorityInContext)|OuterViaLayers))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Layers Functions (Prefix techHas, techIs, and techOrder)",
+                    "match": "\\b(tech(?:HasLayerAnalysisAttribute|IsLPValidBase|IsViaLayer|OrderLPPriorityInContext))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Layers Functions (Prefix techSet)",
+                    "match": "\\b(techSet(?:(?:Equiv|Label)Layers?|Layer(?:Abbrev|AnalysisAttribute(?:Lock)?|Functions?|MaskNumber|MfgResolutions?|Name|Prop|RoutingGrids?)|LP(?:Attr|PacketName|PriorityInContext)|StampLabelLayers?|TwoLayerProp))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Layers Functions (Prefix techSupport)",
+                    "match": "\\b(techSupportsLayerAnalysisAttributes)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_physical_constraint_function": {
+            "patterns": [
+                {
+                    "comment": "Physical Constraints Functions (Prefix techCreate)",
+                    "match": "\\b(techCreateSpacingRuleTable)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Physical Constraints Functions (Prefix techGet)",
+                    "match": "\\b(techGet(?:OrderedSpacingRules|SpacingRule(?:s|Table(?:Entry|s)?)|ViaStackLimits?))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Physical Constraints Functions (Prefix techSet)",
+                    "match": "\\b(techSet(?:OrderedSpacingRule|SpacingRule(?:TableEntry)?|ViaStackLimits?))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_electrical_constraint_function": {
+            "patterns": [
+                {
+                    "comment": "Electrical Constraints and Layer Attributes Functions (Prefix techCreate)",
+                    "match": "\\b(techCreateElectricalRuleTable)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Electrical Constraints and Layer Attributes Functions (Prefix techGet)",
+                    "match": "\\b(techGet(?:CurrentDensityRule(?:s|Tables?)|ElectricalRule(?:s|Table(?:Entry)?)|OrderedElectricalRules))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Electrical Constraints and Layer Attributes Functions (Prefix techSet)",
+                    "match": "\\b(techSet(?:ElectricalRule(?:TableEntry)?|OrderedElectricalRule))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_place_route_function": {
+            "patterns": [
+                {
+                    "comment": "Place and Route Functions (Prefix techGetPr)",
+                    "match": "\\b(techGetPr(?:GenVia(?:Rules|Params)|MastersliceLayers|NonDefault(?:Rules|Params)|Routing(?:Offset|Pitch|Layers|Direction)|StackVias|Via(?:Params|Rules|Types?)))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Place and Route Functions (Prefix techIsPr)",
+                    "match": "\\b(techIsPr(?:MastersliceLayer|RoutingLayer|StackVia|ViaDevice))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Place and Route Functions (Prefix techSet)",
+                    "match": "\\b(techSetPr(?:GenViaRule|MastersliceLayers?|NonDefaultRule|Routing(?:Offset|Layers?|Pitch)|StackVias?|ViaRule|ViaTypes?))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_database_constraint_function": {
+            "patterns": [
+                {
+                    "comment": "Database Constraints Functions",
+                    "match": "\\b(tech(?:IsDBUPerUUSet|IsUserUnitSet|[GS]etDBUPerUU|[GS]etUserUnit))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_site_definition_function": {
+            "patterns": [
+                {
+                    "comment": "Site Definitions Functions",
+                    "match": "\\b(tech(?:Create(?:Scalar|Array)SiteDef|DeleteSiteDef|FindSiteDefByName|GetCellViewSiteDefs))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_via_definition_function": {
+            "patterns": [
+                {
+                    "comment": "Via Definition SKILL Functions",
+                    "match": "\\b(cdsFixedViaDefs|tech(?:Create(?:(?:Gen|Std)ViaDef|CustomViaDef(?:ByName)?)|DeleteViaDef|FindViaDefByName|SetViaDefResistancePerCut))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_via_variant_function": {
+            "patterns": [
+                {
+                    "comment": "Via Variant SKILL Functions",
+                    "match": "\\b(tech(?:Create(?:Gen|Std|Custom)ViaVariant|FindViaVariantByName))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_via_spec_function": {
+            "patterns": [
+                {
+                    "comment": "Via Specifications SKILL Functions",
+                    "match": "\\b(tech(?:(?:Create|Delete|Find)ViaSpec|GetViaSpecTableEntr(?:ies(?:ByName)?|y)|SetViaSpecTableEntry))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_device_function": {
+            "patterns": [
+                {
+                    "comment": "Device Functions (Prefix techCreate and techDelete)",
+                    "match": "\\b(tech(?:(?:Create|Delete)WaveguideDef|DeleteDeviceClass))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Device Functions (Prefix techFind)",
+                    "match": "\\b(techFindWaveguideDefByLP)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Device Functions (Prefix techGet)",
+                    "match": "\\b(techGet(?:Device(?:CellView|Class(?:ViewList|Prop)?|[CF]Param|InClass|Prop|TechFile)|Extract(?:Devices|CAP|DIODE|MOS|RES)|InstDeviceClass|MPPTemplate(?:ByName|Names)))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Device Functions (Prefix techHas)",
+                    "match": "\\b(techHasWaveguideDefMinBendRadius)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Device Functions (Prefix techIs)",
+                    "match": "\\b(techIsDevice)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Device Functions (Prefix techRegister and techUnregister)",
+                    "match": "\\b(tech(?:R|Unr)egisterUserDevice)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Device Functions (Prefix techSet)",
+                    "match": "\\b(techSet(?:Device(?:ClassProp|Prop)|Extract(?:CAP|DIODE|MOS|RES)|MPPTemplate|WaveguideDefMinBendRadius))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_lsw_layer_function": {
+            "patterns": [
+                {
+                    "comment": "LSW Layers Functions",
+                    "match": "\\b(tech(?:GetLeLswLayers|IsLeLswLayer|OrderLeLsw|SetLeLswLayers?))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_display_resource_function": {
+            "patterns": [
+                {
+                    "comment": "Display Resource File Functions (Prefix drDelete)",
+                    "match": "\\b(drDelete(?:Color|Display|LineStyle|Packet|Stipple))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Display Resource File Functions (Prefix drDump)",
+                    "match": "\\b(drDumpDrf)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Display Resource File Functions (Prefix drFind)",
+                    "match": "\\b(drFindPacket)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Display Resource File Functions (Prefix drGet)",
+                    "match": "\\b(drGet(?:ActiveDisplayDrf|Color|Display(?:IdList|Name(?:List)?)?|(?:LineStyle|Stipple)(?:IndexByName)?|Packet(?:List|Alias|FillStyle)?))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Display Resource File Functions (Prefix drLoad)",
+                    "match": "\\b(drLoadDrf)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Display Resource File Functions (Prefix drSet)",
+                    "match": "\\b(drSetPacket)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_mpt_function": {
+            "patterns": [
+                {
+                    "comment": "Multi-Patterning Technology (MPT) Functions",
+                    "match": "\\b(tech(?:[GS]et(?:IntegrationColorModel|LayerNumColorMasks|(?:StdViaDef|Tech)CutColoring)|IsStdViaDefCutColoringSet))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_display_form_function": {
+            "patterns": [
+                {
+                    "comment": "Display Form Functions (Prefix tech)",
+                    "match": "\\b(techManagerOpen(?:Display|Tech)ToolBox)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Display Form Functions (Prefix tc without tcDisplay)",
+                    "match": "\\b(tc(?:NewLibDisplayRefTechForm|QcInstallDevices))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Display Form Functions (Prefix tcDisplay)",
+                    "match": "\\b(tcDisplay(?:(?:Attach|Comp|Discard|Dump|Load|New|Save)Tech|TechGraph)Form)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Display Form Functions (Prefix dre)",
+                    "match": "\\b(dreInvokeDre)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_snap_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "Snap Pattern Definition SKILL Functions",
+                    "match": "\\b(tech(?:(?:Create|Delete)SnapPatternDef|FindSnapPatternDefBy(?:LP|Name)))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_width_spacing_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "Width Spacing Pattern SKILL Functions",
+                    "match": "\\b(tech(?:CreateWidthSpacingPattern(?:WithColor)?|(?:Delete|Find)WidthSpacingPattern|GetWidthSpacingPattern(?:s|(?:Allowed|Default)RepeatMode)|SetWidthSpacingPatternRepeatMode))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_width_spacing_pattern_group_function": {
+            "patterns": [
+                {
+                    "comment": "Width Spacing Pattern Groups SKILL Functions",
+                    "match": "\\b(tech(?:(?:Create|Delete|Find)WidthSpacingPatternGroup|GetWidthSpacingPatternGroups))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_width_spacing_snap_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "Width Spacing Snap Pattern Definition SKILL Functions",
+                    "match": "\\b(tech(?:(?:Create|Delete)WidthSpacingSnapPatternDef|FindWidthSpacingSnapPatternDefByName|GetWidthSpacingSnapPatternDefsByLP))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_related_snap_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "Related Snap Patterns SKILL Functions",
+                    "match": "\\b(tech(?:Create|Delete|Find|Get)RelatedSnapPatterns)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_trim_layer_function": {
+            "patterns": [
+                {
+                    "comment": "Trim Layer Functions",
+                    "match": "\\b(techGetTrim(?:Layers?|medLayers))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                }
+            ]
+        },
+        "techfile_wire_profile_finger_definition_function": {
+            "patterns": [
+                {
+                    "comment": "Wire Profile and Finger Definition Functions (Prefix techCreate, techDelete, and techFind)",
+                    "match": "\\b(tech(?:Create|Delete|Find)(?:FingerDef|WireProfile(?:Group)?))\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Wire Profile and Finger Definition Functions (Prefix techImport and techExport)",
+                    "match": "\\b(tech(?:Im|Ex)portWireProfileSet)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
                 }
             ]
         }
