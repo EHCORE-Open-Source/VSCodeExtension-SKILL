@@ -48,6 +48,9 @@
                 },
                 {
                     "include": "#builtin_development_function"
+                },
+                {
+                    "include": "#builtin_application_infrastructure_function"
                 }
             ]
         },
@@ -1000,6 +1003,205 @@
                     "comment": "SKILL IDE Functions (Letter U)",
                     "match": "\\b(ilg(?:UnfoldLine|UnregisterSelectionCB))\\b",
                     "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                }
+            ]
+        },
+        "builtin_application_infrastructure_function": {
+            "patterns": [
+                {
+                    "include": "#app_gdm_function"
+                },
+                {
+                    "include": "#app_name_mapping_function"
+                },
+                {
+                    "include": "#app_cds_copy_function"
+                },
+                {
+                    "include": "#app_libmgr_function"
+                },
+                {
+                    "include": "#app_plotter_function"
+                }
+            ]
+        },
+        "app_gdm_function": {
+            "patterns": [
+                {
+                    "comment": "Generic Design Management (GDM) Functions (Lowercase)",
+                    "match": "\\b(gdm(?:cancel|c[io]|delete|export|history|set(?:defver|name)|status|submit|update))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Generic Design Management (GDM) Functions (Uppercase)",
+                    "match": "\\b(gdm(?:(?:AddSpecTo|NextFrom|Reset)SpecList|CreateSpec(?:FromDDID|List)?|Execute|InspectSpec|IsSpecId|ObjIsCreated|Removename|Spec(?:(?:List)?p|Type)))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                }
+            ]
+        },
+        "app_name_mapping_function": {
+            "patterns": [
+                {
+                    "comment": "Name Mapping Functions",
+                    "match": "\\b(nmpGetSpaceNames)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (ASCII to <NameSpace>)",
+                    "match": "\\b(nmpAsciiToSysVerilog)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (CDBA to <NameSpace>)",
+                    "match": "\\b(nmpCDBATo(?:Concept|CDBAFlat|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (CDBAFlat to <NameSpace>)",
+                    "match": "\\b(nmpCDBAFlatToCDBA)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Concept to <NameSpace>)",
+                    "match": "\\b(nmpConceptTo(?:CDBA|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Def to <NameSpace>)",
+                    "match": "\\b(nmpDefTo(?:CDBA|Concept|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Gcf to <NameSpace>)",
+                    "match": "\\b(nmpGcfTo(?:CDBA|Concept|Def|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Genesis to <NameSpace>)",
+                    "match": "\\b(nmpGcfTo(?:CDBA|Concept|Def|Gcf|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Lef to <NameSpace>)",
+                    "match": "\\b(nmpLefTo(?:CDBA|Concept|Def|Gcf|Genesis|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Print to <NameSpace>)",
+                    "match": "\\b(nmpPrintTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Sdf to <NameSpace>)",
+                    "match": "\\b(nmpSdfTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|Spf|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Spf to <NameSpace>)",
+                    "match": "\\b(nmpSpfTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|Sdf|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Spectre to <NameSpace>)",
+                    "match": "\\b(nmpSpectreTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|SpectreHDL|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (SpectreHDL to <NameSpace>)",
+                    "match": "\\b(nmpSpectreHDLTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Spef to <NameSpace>)",
+                    "match": "\\b(nmpSpefTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Spice to <NameSpace>)",
+                    "match": "\\b(nmpSpiceTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (SysVerilog to <NameSpace>)",
+                    "match": "\\b(nmpSysVerilogTo(?:Ascii|CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Verilog to <NameSpace>)",
+                    "match": "\\b(nmpVerilogTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (VerilogA to <NameSpace>)",
+                    "match": "\\b(nmpVerilogATo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (VerilogAMS to <NameSpace>)",
+                    "match": "\\b(nmpVerilogAMSTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|VerilogA?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (VHDL to <NameSpace>)",
+                    "match": "\\b(nmpVHDLTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (VHDLAMS to <NameSpace>)",
+                    "match": "\\b(nmpVHDLAMSTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (VHDL87 to <NameSpace>)",
+                    "match": "\\b(nmpVHDL87To(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (<NameSpace> To Identifier)",
+                    "match": "\\b(nmp(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?)ToIdent)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Identifier To <NameSpace>)",
+                    "match": "\\b(nmpIdentTo(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (IsLegal)",
+                    "match": "\\b(nmpIsLegal(?:CDBA|Concept|Def|Gcf|Genesis|Lef|Print|S[dp]f|Spectre(?:HDL)?|Spef|Spice|SysVerilog|Verilog(?:A|AMS)?|VHDL(?:AMS|87)?))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "Name Mapping Functions (Path)",
+                    "match": "\\b(nmpPathCDBATo(?:Verilog|VHDL))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                }
+            ]
+        },
+        "app_cds_copy_function": {
+            "patterns": [
+                {
+                    "comment": "Cadence Copy Functions",
+                    "match": "\\b(ccp(?:(?:Copy|Expand)(?:(?:Exact)?Design|Config)?|Dm(?:(?:Has)?Rename)|Rename(?:ReferenceLib)?|Reg(?:Monitor|Trigger)|RemoveTrigger))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                }
+            ]
+        },
+        "app_libmgr_function": {
+            "patterns": [
+                {
+                    "comment": "Library Manager Functions",
+                    "match": "\\b(lmgr(?:(?:Add|Create|Delete|Insert|Manage|Sensitize)MenuItems|CreateMenu|DefineInits|DisplayMessage|(?:Get|Set)Object|LogShowPopup|MenuSubsInPopup|QueryNamedObjects|Verbose))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                }
+            ]
+        },
+        "app_plotter_function": {
+            "patterns": [
+                {
+                    "comment": "Plotter Functions",
+                    "match": "\\b(ps(?:ConfigLoaded|LoadCdsPlotInit|Query(?:PaperSizes?|Plotters)|QueueStatus))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
                 }
             ]
         }
