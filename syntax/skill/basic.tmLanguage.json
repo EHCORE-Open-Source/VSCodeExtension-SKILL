@@ -100,7 +100,7 @@
 		            "patterns": [
                         {
                             "comment": "white space characters",
-                            "name": "constant.character.escape.cadence.skill.basic",
+                            "name": "constant.character.escape.cadence.skill.basic strong.cadence.skill.escape",
                             "match": "\\\\[tfrnv]"
                         },
                         {
@@ -112,26 +112,18 @@
                             "comment": "octal characters for ASCII",
                             "name": "constant.character.set.regexp strong.cadence.skill.octal",
                             "match": "\\\\(?:[01][0-7]{2}|[0-7]{1,2}(?=[^0-7]))"
+                        },
+                        {
+                            "comment": "common input format specifications",
+                            "name": "support.variable.cadence.skill.input.specification",
+                            "match": "(?<=\\b[fs]?scanf\\([^)]*)\\%-?[[:digit:]]*(?:\\.[[:digit:]]+)?[dfseg]"
+                        },
+                        {
+                            "comment": "common output format specifications",
+                            "name": "support.variable.cadence.skill.output.specification",
+                            "match": "(?<=\\b[fs]?printf\\([^)]*)\\%(?:-?[[:digit:]]*(?:\\.[[:digit:]]+)?[doxfegsnNA]|[LPB])"
                         }
                     ]	
-                }
-            ]
-        },
-        "input_spec": {
-            "patterns": [
-                {
-                    "comment": "common input format specifications",
-                    "name": "support.variable.cadence.skill.input.specification",
-                    "match": "\\%-?[[:digit:]]*(?:\\.[[:digit:]]+)?[dfseg]"
-                }
-            ]
-        },
-        "output_spec": {
-            "patterns": [
-                {
-                    "comment": "common output format specifications",
-                    "name": "support.variable.cadence.skill.output.specification",
-                    "match": "\\%(?:-?[[:digit:]]*(?:\\.[[:digit:]]+)?[doxfegsnNA]|[LPB])"
                 }
             ]
         },
