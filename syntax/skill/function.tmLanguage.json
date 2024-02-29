@@ -1250,6 +1250,9 @@
             "patterns": [
                 {
                     "include": "#virtuoso_graphics_editor_function"
+                },
+                {
+                    "include": "#virtuoso_database_access_function"
                 }
             ]
         },
@@ -1818,6 +1821,274 @@
                     "comment": "Mouse Functions",
                     "match": "\\b(mouse(?:Add|Finish|Undo|(?:Add|Single|Sub)Select)Pt|mousePopUp)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.graphics strong.cadence.skill.virtuoso.graphics"
+                }
+            ]
+        },
+        "virtuoso_database_access_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_data_stored_as_object"
+                },
+                {
+                    "include": "#virtuoso_inherited_connections_function"
+                },
+                {
+                    "include": "#virtuoso_undo_redo_function"
+                },
+                {
+                    "include": "#virtuoso_fluid_shape_function"
+                },
+                {
+                    "include": "#virtuoso_pcell_abutment_support_function"
+                },
+                {
+                    "include": "#virtuoso_object_creation_retrieval_function"
+                },
+                {
+                    "include": "#virtuoso_shape_conversion_function"
+                },
+                {
+                    "include": "#virtuoso_mosaic_creation_retrieval_function"
+                },
+                {
+                    "include": "#virtuoso_property_creation_modification_function"
+                },
+                {
+                    "include": "#virtuoso_group_creation_modification_function"
+                },
+                {
+                    "include": "#virtuoso_shape_transformation_function"
+                },
+                {
+                    "include": "#virtuoso_bounding_box_function"
+                }
+            ]
+        },
+        "virtuoso_data_stored_as_object": {
+            "patterns": [
+                {
+                    "comment": "Data Stored as Objects",
+                    "match": "\\b(dbGetDatabaseType|dbIsId|dbValidP|dbobjectp|dbDeleteObject)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_inherited_connections_function": {
+            "patterns": [
+                {
+                    "comment": "Inherited Connections Functions (Prefix dbCreate, dbDelete, dbGet, dbIsValid, dbParse, and dbReplace)",
+                    "match": "\\b(db(?:Create|Delete|Get|IsValid|Parse|Replace)(?:Sig|Term)NetExpr|dbGetCellViewInherited(?:Sig|Term))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Inherited Connections Functions (Prefix dbCVHas)",
+                    "match": "\\b(dbCVHas(?:Inherited(?:Sig|Term)|NetSetProp))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Inherited Connections Functions (Prefix dbFix)",
+                    "match": "\\b(dbFix)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Inherited Connections Functions (Prefix dbIs)",
+                    "match": "\\b(dbIs(?:Sig|Term)Inherited)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_undo_redo_function": {
+            "patterns": [
+                {
+                    "comment": "Undo and Redo Functions",
+                    "match": "\\b(db(?:SetUndo|(?:Un|Re)doTo)Handle|dbGet(?:Un|Re)doHandles|dbEnableUndo)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_fluid_shape_function": {
+            "patterns": [
+                {
+                    "comment": "Fluid Shape Functions",
+                    "match": "\\b(dbGetFluidShape(?:(?:By)?Name|s)|dbIsFluidPcell|db(?:Is|Set)FluidShape)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_pcell_abutment_support_function": {
+            "patterns": [
+                {
+                    "comment": "Pcell Abutment Support Functions (Prefix dbAbutIs)",
+                    "match": "\\b(dbAbutIs(?:Interactive|ReAbutGroup))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pcell Abutment Support Functions (Prefix dbHas, dbGet, and dbSet)",
+                    "match": "\\b(db(?:Has|[GS]et)FigAbut(?:Ref)?Name)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pcell Abutment Support Functions (Prefix dbFind)",
+                    "match": "\\b(dbFindAbutFig)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pcell Abutment Support Functions (Prefix dbUnabut)",
+                    "match": "\\b(dbUnabutGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_object_creation_retrieval_function": {
+            "patterns": [
+                {
+                    "comment": "Object Creation and Retrieval Functions (Prefix dbCopy, dbHas, and dbMove)",
+                    "match": "\\b(db(?:Copy|Has|Move)Shape)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Object Creation and Retrieval Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:Line|Path|Polygon|Rect|Ruler|Ellipse|Arc|Do(?:nu)?t|Label|TextDisplay))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Object Creation and Retrieval Functions (Prefix dbSet)",
+                    "match": "\\b(dbSetTextDisplayNameValueVisible)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_shape_conversion_function": {
+            "patterns": [
+                {
+                    "comment": "Shape Conversion Functions (Prefix dbConvert)",
+                    "match": "\\b(dbConvert(?:ArcToLine|(?:Donut|Ellipse|Path(?:Seg)?|Line|Rect)ToPolygon))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Shape Conversion Functions (Prefix dbCompress)",
+                    "match": "\\b(dbCompressPointArray)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_mosaic_creation_retrieval_function": {
+            "patterns": [
+                {
+                    "comment": "Mosaic Creation and Retrieval Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:ParamSimpleMosaic(?:ByMasterName)?|SimpleMosaic))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Mosaic Creation and Retrieval Functions (Prefix dbFind)",
+                    "match": "\\b(dbFindMosaicByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_property_creation_modification_function": {
+            "patterns": [
+                {
+                    "comment": "Property Creation and Modification Functions (Prefix dbCreate and dbReplace)",
+                    "match": "\\b(db(?:Create|Replace)(?:Range|Enum|Hier)?Prop)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Shape Conversion Functions (Prefix dbFind, dbCopy, dbReset, and Suffix Prop)",
+                    "match": "\\b(db(?:Find|Copy|Reset)Prop)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Shape Conversion Functions (Prefix dbCopy, dbReset, dbReplace and Suffix PropList)",
+                    "match": "\\b(db(?:Copy|Reset|Replace)PropList)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Shape Conversion Functions (Prefix dbDelete, dbGet, dbSearch and Suffix PropByName)",
+                    "match": "\\b(db(?:Delete|Get|Search)PropByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Shape Conversion Functions (Prefix dbCopy, dbMerge, and Suffix SingleProp)",
+                    "match": "\\b(db(?:Copy|Merge)SingleProp)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_group_creation_modification_function": {
+            "patterns": [
+                {
+                    "comment": "Group Creation and Modification Functions (Prefix dbAdd)",
+                    "match": "\\b(dbAddObjectToGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Group Creation and Modification Functions (Prefix dbChange)",
+                    "match": "\\b(dbChangeGroupType)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Group Creation and Modification Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreateGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Group Creation and Modification Functions (Prefix dbDelete)",
+                    "match": "\\b(dbDelete(?:Group(?:ByName|MemberFromGroup)|ObjectFromGroup))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Group Creation and Modification Functions (Prefix dbGet)",
+                    "match": "\\b(dbGetGroup(?:ByName|sWithDef))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Group Creation and Modification Functions (Prefix dbMove)",
+                    "match": "\\b(dbMoveGroupMember)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_shape_transformation_function": {
+            "patterns": [
+                {
+                    "comment": "Shape Transformation Functions (Prefix dbTransform)",
+                    "match": "\\b(dbTransform(?:CellView|Point(?:List)?|BBox))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Shape Transformation Functions (Prefix dbConcat)",
+                    "match": "\\b(dbConcatTransform)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Shape Transformation Functions (Prefix dbCanonicalize)",
+                    "match": "\\b(dbCanonicalizeAnyAngleTransform)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Shape Transformation Functions (Prefix dbConvert)",
+                    "match": "\\b(dbConvertAnyAngleTransformFromDbToMY)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_bounding_box_function": {
+            "patterns": [
+                {
+                    "comment": "Bounding Box Functions (Point)",
+                    "match": "\\b(lowerLeft|upperRight|centerBox)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Bounding Box Functions (Edge)",
+                    "match": "\\b((?:left|right|bottom|top)Edge)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Bounding Box Functions (Prefix is)",
+                    "match": "\\b(is(?:Location|BBox))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
         },
