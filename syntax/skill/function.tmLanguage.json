@@ -1280,6 +1280,9 @@
                 },
                 {
                     "include": "#virtuoso_figure_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_figure_set_database_access_function"
                 }
             ]
         },
@@ -3231,6 +3234,54 @@
                 {
                     "comment": "Figure Creation and Retrieval Functions (Prefix dbProduce)",
                     "match": "\\b(dbProduceOverlap(?:Inst)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_figure_set_database_access_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_figset_function"
+                },
+                {
+                    "include": "#virtuoso_figsetgroup_function"
+                }
+            ]
+        },
+        "virtuoso_figset_function": {
+            "patterns": [
+                {
+                    "comment": "FigSet Functions (Suffix FigSet)",
+                    "match": "\\b(tx(?:AppendObjectTo|Create|Clear|Clone|Concat|Copy|Delete|Find|Is|Make|Move|PrependObjectTo|RemoveObjectFrom)FigSet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "FigSet Functions (Suffix FigSetData)",
+                    "match": "\\b(tx(?:Get|Remove)FigSetData)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "FigSet Functions (Prefix txGet)",
+                    "match": "\\b(txGet(?:CellViewFigSets|FigSetBBox))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_figsetgroup_function": {
+            "patterns": [
+                {
+                    "comment": "FigSet Functions (Suffix FigSetGroup)",
+                    "match": "\\b(tx(?:Make|Find|Is|Delete)FigSetGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "FigSet Functions (Suffix FigSetGroupByName)",
+                    "match": "\\b(dbFindFigSetGroupByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "FigSet Functions (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:FigSetGroupName|CellViewFigSetGroups))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
