@@ -1259,6 +1259,9 @@
                 },
                 {
                     "include": "#virtuoso_instance_creation_retrieval_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_connectivity_database_access_function"
                 }
             ]
         },
@@ -2672,6 +2675,141 @@
                 {
                     "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbGet, dbSet and Suffix Symmetry, EEQMaster)",
                     "match": "\\b(db[GS]etCellView(?:Symmetry|EEQMaster))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_connectivity_database_access_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_connectivity_creation_modification_function"
+                },
+                {
+                    "include": "#virtuoso_equivalent_connectivity_time_function"
+                },
+                {
+                    "include": "#virtuoso_connectivity_access_function"
+                }
+            ]
+        },
+        "virtuoso_connectivity_creation_modification_function": {
+            "patterns": [
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix Net)",
+                    "match": "\\b(db(?:Create(?:NamedSub|UniqueNamed)?|DeleteAll|Make|Merge|Rename|AddFigTo|SubFigFrom)Net)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix Descend)",
+                    "match": "\\b(db(?:Is|Set)NetNameDescend)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix Trim)",
+                    "match": "\\b(dbCreate(?:Inst)?Term)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix VoltageRange)",
+                    "match": "\\b(db(?:[GS]|Uns)et(?:CellView)?NetVoltageRange)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix VoltageRangeSource)",
+                    "match": "\\b(db(?:[GS]|Uns)etNetVoltageRangeSource)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix VoltageRangeSet)",
+                    "match": "\\b(dbIs(?:CellView)?NetVoltageRangeSet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix PowerDomain)",
+                    "match": "\\b(db[GS]etNetPowerDomain)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix PowerDomainClusters)",
+                    "match": "\\b(dbGetPowerDomainClusters)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix PhysicalOnly)",
+                    "match": "\\b(db(?:Is|Unset)CellViewPhysicalOnly)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix Sensitivity)",
+                    "match": "\\b(db[GS]etAnyTerm(?:Ground|Supply)Sensitivity)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Suffix SensitivityConsistent)",
+                    "match": "\\b(dbIsAnyTerm(?:Ground|Supply)SensitivityConsistent)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:Conn(?:By(?:New)?Name)?|Pin))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Prefix dbHas)",
+                    "match": "\\b(dbHasShortedTerminals)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Creation and Modification Functions (Prefix dbNet)",
+                    "match": "\\b(dbNetIsSig)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_equivalent_connectivity_time_function": {
+            "patterns": [
+                {
+                    "comment": "Equivalent Connectivity Time Functions",
+                    "match": "\\b(db(?:CellViewHas|(?:[GS]|Uns)etCellView)EquivalentConnectivityTime)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_connectivity_access_function": {
+            "patterns": [
+                {
+                    "comment": "Connectivity Access Functions (Prefix dbDelete)",
+                    "match": "\\b(dbDeleteEmptyNet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Prefix dbFind)",
+                    "match": "\\b(dbFind(?:(?:Net|Term)ByName|SigBy(?:Name|Alias)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:(?:Max|Name)NumBit|MemName|MemNetSig(?:Name)?|NetTerms|SigNameMemNets))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Prefix dbIs)",
+                    "match": "\\b(dbIsSigNameGlobal)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Prefix dbExpand)",
+                    "match": "\\b(dbExpandToMemNameExpr)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Prefix dbMerge)",
+                    "match": "\\b(dbMergeSignal)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Prefix dbMove)",
+                    "match": "\\b(dbMove(?:Child|PinTo)Net)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
