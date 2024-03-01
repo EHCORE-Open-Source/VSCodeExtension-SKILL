@@ -7,6 +7,9 @@
             "include": "#comment"
         },
         {
+            "include": "#dictionary"
+        },
+        {
             "include": "#strings"
         },
         {
@@ -87,6 +90,16 @@
                             "name": "strong.cadence.skill.basic"
                         }
                     }
+                }
+            ]
+        },
+        "dictionary": {
+            "patterns": [
+                {
+                    "comment": "dictionary key string",
+                    "begin": "(?<=[[:word:]]+\\[\\s*)\\\"",
+                    "end": "\\\"(?=\\s*\\])",
+                    "name": "support.type.property-name.cadence.skill.basic"
                 }
             ]
         },
