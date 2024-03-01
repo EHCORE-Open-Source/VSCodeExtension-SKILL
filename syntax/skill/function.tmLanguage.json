@@ -1271,6 +1271,9 @@
                 },
                 {
                     "include": "#virtuoso_topology_pattern_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_generator_database_access_function"
                 }
             ]
         },
@@ -3136,6 +3139,20 @@
                 {
                     "comment": "Topology Pattern Database Access Functions (Suffix StrapObject)",
                     "match": "\\b(db(?:Add|Remove)StrapObject)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_generator_database_access_function": {
+            "patterns": [
+                {
+                    "comment": "Generator Database Access Functions (Prefix dbStart)",
+                    "match": "\\b(dbStartGen(?:AnyInstToInstTerm|InstHeader(?:ToAnyInst)?|LPPHeaderToShape|LPToShape|Marker|Net(?:ToInstTerm|ToRoute)?|Route|Shape|Term|ViaHeader(?:ToVia)?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Generator Database Access Functions (Prefix dbStop)",
+                    "match": "\\b(dbStopGen)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
