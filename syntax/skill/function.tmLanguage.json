@@ -1277,6 +1277,9 @@
                 },
                 {
                     "include": "#virtuoso_inplace_cover_obstruction_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_figure_database_access_function"
                 }
             ]
         },
@@ -3180,6 +3183,54 @@
                 {
                     "comment": "InPlace Cover Obstruction Database Access Functions (Prefix dbSet)",
                     "match": "\\b(dbSetInPlaceCoverObstruction(?:Abstract(?:File(?:Name|Path)|ViewName)|Bloat|Blockage(?:AttributeValue|Model)|DoughnutHalo|MergeDistance|NeedsRemodeling|Pin(?:CutOut|Remodeling)|SpacingModel))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_figure_database_access_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_figgroup_creation_modification_function"
+                },
+                {
+                    "include": "#virtuoso_figure_creation_retrieval_function"
+                }
+            ]
+        },
+        "virtuoso_figgroup_creation_modification_function": {
+            "patterns": [
+                {
+                    "comment": "FigGroup Creation and Modification Functions (Suffix FigGroup)",
+                    "match": "\\b(db(?:Create|AddFigTo|RemoveFigFrom)FigGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "FigGroup Creation and Modification Functions (Prefix dbGet)",
+                    "match": "\\b(dbGetFigGroupByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_figure_creation_retrieval_function": {
+            "patterns": [
+                {
+                    "comment": "Figure Creation and Retrieval Functions (Suffix Fig)",
+                    "match": "\\b(db(?:Copy|Move)Fig)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Figure Creation and Retrieval Functions (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:(?:True)?Overlaps|Neighbor(?:List)?|MaxHierDepth|Path(?:SegStyle|Boundary)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Figure Creation and Retrieval Functions (Prefix dbGet)",
+                    "match": "\\b(dbSetPathSegStyle)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Figure Creation and Retrieval Functions (Prefix dbProduce)",
+                    "match": "\\b(dbProduceOverlap(?:Inst)?)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
