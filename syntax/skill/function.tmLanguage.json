@@ -1256,6 +1256,9 @@
                 },
                 {
                     "include": "#virtuoso_cellview_input_output_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_instance_creation_retrieval_database_access_function"
                 }
             ]
         },
@@ -2610,6 +2613,65 @@
                 {
                     "comment": "Cellview Input/Output Database Access Functions (Prefix dbWrite)",
                     "match": "\\b(dbWriteSkill(?:WithLib)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_instance_creation_retrieval_database_access_function": {
+            "patterns": [
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:(?:Param)?Inst|ExtParamInst(?:ByMasterName)?|XformPCell|(?:Param)?InstByMasterName|ViaShapeArray))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbDump)",
+                    "match": "\\b(dbDump(?:PcDefinePcell|Pcell(?:WithLib)?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Suffix ParamCell)",
+                    "match": "\\b(db(?:Check|Eval|Fix)ParamCell)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbFreeze)",
+                    "match": "\\b(dbFreeze)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbHas)",
+                    "match": "\\b(dbHasInstance)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbIs)",
+                    "match": "\\b(dbIs(?:CellViewModified|AnyInstBaseNameUsed|SameMaster|ObjectBound|InstTransparent))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbReplace)",
+                    "match": "\\b(dbReplace(?:Param|InstParamList))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbFind)",
+                    "match": "\\b(dbFind(?:Any|Mem)InstByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:HierPathTransform|Inst(?:(?:ance)?ByName|NameNumInst|Transform)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbSet)",
+                    "match": "\\b(dbSetInst(?:HeaderMasterName|Transparent))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Instance Creation and Retrieval Database Access Functions (Prefix dbGet, dbSet and Suffix Symmetry, EEQMaster)",
+                    "match": "\\b(db[GS]etCellView(?:Symmetry|EEQMaster))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
