@@ -1274,6 +1274,9 @@
                 },
                 {
                     "include": "#virtuoso_generator_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_inplace_cover_obstruction_database_access_function"
                 }
             ]
         },
@@ -3153,6 +3156,30 @@
                 {
                     "comment": "Generator Database Access Functions (Prefix dbStop)",
                     "match": "\\b(dbStopGen)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_inplace_cover_obstruction_database_access_function": {
+            "patterns": [
+                {
+                    "comment": "InPlace Cover Obstruction Database Access Functions (Prefix dbCreate and dbDestroy)",
+                    "match": "\\b(db(?:Create|Destroy)InPlaceCoverObstruction)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "InPlace Cover Obstruction Database Access Functions (Prefix dbGet)",
+                    "match": "\\b(dbGetInPlaceCoverObstruction(?:Abstract(?:File(?:Name|Path)|ViewName)|Bloat|Blockage(?:AttributeValue|Model)|DoughnutHalo|Layers|(?:Max|Min)Mask|MergeDistance|NeedsRemodeling|Pin(?:CutOut|Remodeling)|SpacingModel))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "InPlace Cover Obstruction Database Access Functions (Prefix dbInPlace)",
+                    "match": "\\b(dbInPlaceCoverObstructionExists)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "InPlace Cover Obstruction Database Access Functions (Prefix dbSet)",
+                    "match": "\\b(dbSetInPlaceCoverObstruction(?:Abstract(?:File(?:Name|Path)|ViewName)|Bloat|Blockage(?:AttributeValue|Model)|DoughnutHalo|MergeDistance|NeedsRemodeling|Pin(?:CutOut|Remodeling)|SpacingModel))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
