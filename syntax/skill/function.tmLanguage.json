@@ -1268,6 +1268,9 @@
                 },
                 {
                     "include": "#virtuoso_placement_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_topology_pattern_database_access_function"
                 }
             ]
         },
@@ -3099,6 +3102,40 @@
                 {
                     "comment": "Miscellaneous Functions (ICADVM20.1 Only) (Prefix dbIs)",
                     "match": "\\b(dbIs(?:Implicit|InRowRegion))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_topology_pattern_database_access_function": {
+            "patterns": [
+                {
+                    "comment": "Topology Pattern Database Access Functions (Prefix dbCreate and dbDelete)",
+                    "match": "\\b(db(?:Create|Delete)(?:Topology|Trunk(?:Connect)?|Twig|Strap))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Topology Pattern Database Access Functions (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:(?:CellView|Net)Topologies|Topology(?:Name|Net|Objects|PatternType)|Trunk(?:Anchor|Connect(?:Name|Topology|Trunks)|Direction|LongOffset(?:[12]|Source[12]?)|Name|OrthoOffset|Side|Topology|Twigs)|Twig(?:(?:Pin)?Name|Object|Trunk)|(?:InstTerm|Shape|Via)(?:Twigs|Straps)|Strap(?:Name|Objects|Topology|Twig)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Topology Pattern Database Access Functions (Prefix dbSet)",
+                    "match": "\\b(dbSet(?:Topology(?:Name|Net)|Trunk(?:Anchor|Connect(?:Name|Trunks)|Direction|LongOffset(?:[12]|Source[12]?)|Name|OrthoOffset|Side)|Twig(?:(?:Pin)?Name|Object)|Strap(?:Name|Twig)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Topology Pattern Database Access Functions (Prefix dbIs)",
+                    "match": "\\b(dbIsTopologyPatternId)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Topology Pattern Database Access Functions (Prefix dbNet)",
+                    "match": "\\b(dbNetHasTopology)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Topology Pattern Database Access Functions (Suffix StrapObject)",
+                    "match": "\\b(db(?:Add|Remove)StrapObject)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
