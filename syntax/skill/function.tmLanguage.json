@@ -1253,6 +1253,9 @@
                 },
                 {
                     "include": "#virtuoso_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_cellview_input_output_database_access_function"
                 }
             ]
         },
@@ -2468,6 +2471,145 @@
                 {
                     "comment": "Remaster SKILL Functions",
                     "match": "\\b(dbRemaster(?:AnyInst|InstHeader))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_cellview_input_output_database_access_function": {
+            "patterns": [
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbAll)",
+                    "match": "\\b(dbAllCellViews)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbCellView)",
+                    "match": "\\b(dbCellViewHasVirtHier)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbCheck)",
+                    "match": "\\b(dbCheckRecursion)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbClose)",
+                    "match": "\\b(dbClose)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbCompute)",
+                    "match": "\\b(dbComputeBBox(?:NoNLP)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbCopy)",
+                    "match": "\\b(dbCopyCellView)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreateLib)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbDefine)",
+                    "match": "\\b(dbDefineProc)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbFeature)",
+                    "match": "\\b(dbFeaturePrintInfo)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbFind)",
+                    "match": "\\b(dbFindOpenCellView(?:ByName)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbFlatten)",
+                    "match": "\\b(dbFlattenInst2?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbFull)",
+                    "match": "\\b(dbFull(?:Lib)?Path)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:AnyInstSwitchMaster|CellViewDdId|LibDataCompressionLevel|OpenCellViews))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbHas)",
+                    "match": "\\b(dbHas(?:AutoSaved|Panic)File)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbIs)",
+                    "match": "\\b(dbIsNonSKILLPcell)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbOpen)",
+                    "match": "\\b(dbOpen(?:(?:AutoSaved|Panic|Param)CellView|CellViewByType|Hier|ScratchDesign))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbProduce)",
+                    "match": "\\b(dbProduceMemName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbPurge)",
+                    "match": "\\b(dbPurge)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbRefresh)",
+                    "match": "\\b(dbRefresh(?:CellView|LibDataCompressionLevel))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbReg and dbUnreg)",
+                    "match": "\\b(db(?:R|Unr)eg(?:PostSave(?:As)?|Purge|Save)Trigger)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbReopen)",
+                    "match": "\\b(dbReopen)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbRestore)",
+                    "match": "\\b(dbRestoreAndOpen(?:AutoSaved|Panic)File)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbSave)",
+                    "match": "\\b(dbSave)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbSearch)",
+                    "match": "\\b(dbSearchCDF)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbSet and dbUnset)",
+                    "match": "\\b(dbSetAutoSave(?:Callback)?|db(?:S|Uns)etLibDataCompressionLevel)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbUndefine)",
+                    "match": "\\b(dbUndefineProc)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Cellview Input/Output Database Access Functions (Prefix dbWrite)",
+                    "match": "\\b(dbWriteSkill(?:WithLib)?)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
