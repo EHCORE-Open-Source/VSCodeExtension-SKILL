@@ -1265,6 +1265,9 @@
                 },
                 {
                     "include": "#virtuoso_pin_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_placement_database_access_function"
                 }
             ]
         },
@@ -2936,6 +2939,166 @@
                 {
                     "comment": "Pin Group Guide Functions (Prefix dbSetPin and dbUnsetPin)",
                     "match": "\\b(db(?:S|Uns)etPin(?:GroupGuide(?:KeepoutSpacing|LayerPriorityOrder|MinPin(?:Spacing|Width)|ValidRoutingLayers)|MinPin(?:Spacing|Width)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_placement_database_access_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_background_definition_function"
+                },
+                {
+                    "include": "#virtuoso_component_type_set_definition_function"
+                },
+                {
+                    "include": "#virtuoso_rail_definition_function"
+                },
+                {
+                    "include": "#virtuoso_placement_area_definition_function"
+                },
+                {
+                    "include": "#virtuoso_row_base_function"
+                },
+                {
+                    "include": "#virtuoso_row_region_spec_function"
+                },
+                {
+                    "include": "#virtuoso_row_region_function"
+                },
+                {
+                    "include": "#virtuoso_miscellaneous_function"
+                }
+            ]
+        },
+        "virtuoso_background_definition_function": {
+            "patterns": [
+                {
+                    "comment": "Background Definition Functions",
+                    "match": "\\b(dbCreateBackgroundDef(?:ByAttr)?|dbGet(?:BackgroundDefAttr|CellViewBackgroundDef))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_component_type_set_definition_function": {
+            "patterns": [
+                {
+                    "comment": "Component Type Set Definition Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreateCompTypeSetDef(?:ByAttr)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Component Type Set Definition Functions (Prefix dbSet)",
+                    "match": "\\b(dbGet(?:CellViewCompTypeSetDef|CompTypeSetDefAttr))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Component Type Set Definition Functions (Suffix DefCompFilters)",
+                    "match": "\\b(db(?:[GS]|Uns)etCompTypeSetDefCompFilters)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_rail_definition_function": {
+            "patterns": [
+                {
+                    "comment": "Rail Definition Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreateRailDef(?:ByAttr)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Rail Definition Functions (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:CellViewRailDef|RailDefAttr))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Rail Definition Functions (Suffix DefFigType)",
+                    "match": "\\b(db[GS]etRailDefFigType)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_placement_area_definition_function": {
+            "patterns": [
+                {
+                    "comment": "Placement Area Definition Functions (Prefix dbAdd, dbGet, and dbRemove)",
+                    "match": "\\b(db(?:Add|Get|Remove)PlaceArea(?:Background|CompTypeSet|Rail)Def)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Placement Area Definition Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreatePlaceArea)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Placement Area Definition Functions (Prefix dbGet and dbSet)",
+                    "match": "\\b(db[GS]etPlace(?:Area(?:Orient|Utilization)|mentGrid))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_row_base_function": {
+            "patterns": [
+                {
+                    "comment": "Row-based Functions",
+                    "match": "\\b(db(?:Add|Get|Remove)Row(?:Background|CompTypeSet|Rail)Def)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_row_region_spec_function": {
+            "patterns": [
+                {
+                    "comment": "Row Region Specification Functions (ICADVM20.1 Only)",
+                    "match": "\\b(db(?:Create|Find)RowRegionSpec|dbGetCellViewRowRegionSpecs)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_row_region_function": {
+            "patterns": [
+                {
+                    "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbAttach)",
+                    "match": "\\b(dbAttachRowRegionToPRBoundary)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbCreate, dbDetach, dbFind, dbFlatten, and dbRebuild)",
+                    "match": "\\b(db(?:Create|DetachPRBoundaryFrom|Find|Flatten|Rebuild)RowRegion)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:CellViewRowRegions|RowRegion(?:AttachedToPRBoundary|PlaceRows|Points|RowRegionSpec|SpecRowRegions|UsesPartialRowSpec)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbIs)",
+                    "match": "\\b(dbIsRowRegion(?:AttachedToPRBoundary)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbRow)",
+                    "match": "\\b(dbRowRegionMatchesSpec)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbSet)",
+                    "match": "\\b(dbSetRowRegion(?:Points|RowRegionSpec|UsesPartialRowSpec))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_miscellaneous_function": {
+            "patterns": [
+                {
+                    "comment": "Miscellaneous Functions (ICADVM20.1 Only) (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:PlaceRow|RowRegion)Version)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Miscellaneous Functions (ICADVM20.1 Only) (Prefix dbIs)",
+                    "match": "\\b(dbIs(?:Implicit|InRowRegion))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
