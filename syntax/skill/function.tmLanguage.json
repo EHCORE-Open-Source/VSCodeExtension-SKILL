@@ -1861,6 +1861,81 @@
                 },
                 {
                     "include": "#virtuoso_bounding_box_function"
+                },
+                {
+                    "include": "#virtuoso_property_bag_function"
+                },
+                {
+                    "include": "#virtuoso_layer_boolean_function"
+                },
+                {
+                    "include": "#virtuoso_point_array_function"
+                },
+                {
+                    "include": "#virtuoso_softconnect_terminal_function"
+                },
+                {
+                    "include": "#virtuoso_information_retrieval_function"
+                },
+                {
+                    "include": "#virtuoso_blockage_function"
+                },
+                {
+                    "include": "#virtuoso_boundary_function"
+                },
+                {
+                    "include": "#virtuoso_bus_definition_bit_order_function"
+                },
+                {
+                    "include": "#virtuoso_cluster_function"
+                },
+                {
+                    "include": "#virtuoso_counter_function"
+                },
+                {
+                    "include": "#virtuoso_interconnect_function"
+                },
+                {
+                    "include": "#virtuoso_trim_function"
+                },
+                {
+                    "include": "#virtuoso_patch_function"
+                },
+                {
+                    "include": "#virtuoso_maker_function"
+                },
+                {
+                    "include": "#virtuoso_query_function"
+                },
+                {
+                    "include": "#virtuoso_row_function"
+                },
+                {
+                    "include": "#virtuoso_steiner_function"
+                },
+                {
+                    "include": "#virtuoso_supply_ground_sensitivity_function"
+                },
+                {
+                    "include": "#virtuoso_terminal_ordering_function"
+                },
+                {
+                    "include": "#virtuoso_terminal_antenna_function"
+                },
+                {
+                    "include": "#virtuoso_track_pattern_function"
+                },
+                {
+                    "include": "#virtuoso_gcell_pattern_function"
+                },
+                {
+                    "include": "#virtuoso_via_function"
+                },
+                {
+                    "include": "#virtuoso_optical_data_function"
+                },
+                {
+                    "include": "#virtuoso_remaster_function"
                 }
             ]
         },
@@ -2088,6 +2163,311 @@
                 {
                     "comment": "Bounding Box Functions (Prefix is)",
                     "match": "\\b(is(?:Location|BBox))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_property_bag_function": {
+            "patterns": [
+                {
+                    "comment": "Property Bag Functions (Suffix Bag)",
+                    "match": "\\b(db(?:Close|Purge|Refresh|(?:Re|Find)?Open|Save)Bag)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Property Bag Functions (Prefix dbMake)",
+                    "match": "\\b(dbMakeBagCurrent)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Property Bag Functions (Prefix dbIsBag)",
+                    "match": "\\b(dbIsBag(?:Id|Readable|Writable))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Property Bag Functions (Prefix dbGet)",
+                    "match": "\\b(dbGetBag(?:DdId|Owner|TimeStamp)?|dbGetOpenBags)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_layer_boolean_function": {
+            "patterns": [
+                {
+                    "comment": "Layer Boolean Functions",
+                    "match": "\\b(dbLayer(?:And(?:Not)?|Or|Xor|Size|Tile|Straddle|(?:No)?Holes|(?:In|Out)side|Enclose))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_point_array_function": {
+            "patterns": [
+                {
+                    "comment": "Point Array Functions",
+                    "match": "\\b(dbPointArray(?:And(?:Not)?|Or|Xor|Size))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_softconnect_terminal_function": {
+            "patterns": [
+                {
+                    "comment": "Soft Connect Terminal Functions (Prefix dbSetTerm and dbIsTerm)",
+                    "match": "\\b(db(?:Is|Set)TermSoftConnect)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Soft Connect Terminal Functions (Prefix dbGetSoft, dbSetSoft, and dbSoft)",
+                    "match": "\\b(db(?:[GS]etSoftConnectTerm|SoftConnectTermHas)(?:ConnectTo|Pinless)Layer)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_information_retrieval_function": {
+            "patterns": [
+                {
+                    "comment": "Information Retrieval Functions",
+                    "match": "\\b(dbDebugStats2|dbGet(?:BuildInfo|FileDatabaseType|Version)|dbSetNIMsgMode)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_blockage_function": {
+            "patterns": [
+                {
+                    "comment": "Blockage Functions",
+                    "match": "\\b(dbCreate(?:Area|Layer)(?:Blockage|Halo))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_boundary_function": {
+            "patterns": [
+                {
+                    "comment": "Boundary Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:(?:Area|Cluster|PR|Snap)Boundary|CoverObstruction))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Boundary Functions (Prefix dbFind)",
+                    "match": "\\b(dbFind(?:Area|Cluster)BoundaryByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Boundary Functions (Prefix dbSet)",
+                    "match": "\\b(dbSetBoundaryEdge)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_bus_definition_bit_order_function": {
+            "patterns": [
+                {
+                    "comment": "Bus Definition and Bit Order Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:Bus(?:Net|Term)|VectorInst)Def)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Bus Definition and Bit Order Functions (Prefix dbFind)",
+                    "match": "\\b(dbFind(?:Bus(?:Net|Term)|VectorInst)DefByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_cluster_function": {
+            "patterns": [
+                {
+                    "comment": "Cluster Functions",
+                    "match": "\\b(dbCreateCluster|dbFindClusterByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_counter_function": {
+            "patterns": [
+                {
+                    "comment": "Counter Functions (Suffix CellViewCounter)",
+                    "match": "\\b(db(?:Disable|Enable|Get)CellViewCounter)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Counter Functions (Suffix ConnCurrent)",
+                    "match": "\\b(db(?:Is|Set)ConnCurrent)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Counter Functions (Prefix dbGet and dbSet)",
+                    "match": "\\b(dbGetFileTimeStamp|dbSetInstHeadersCounter)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_interconnect_function": {
+            "patterns": [
+                {
+                    "comment": "Interconnect Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:Guide|PathSeg|Route|Via|(?:Custom|Std)ViaVariant))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Interconnect Functions (Prefix dbFind)",
+                    "match": "\\b(dbFindViaVariantByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Interconnect Functions (Prefix dbIs)",
+                    "match": "\\b(dbIsCellViewStdViaMaster)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Interconnect Functions (Prefix dbGet and dbSet)",
+                    "match": "\\b(dbGetViaLayer|dbSet(?:PathSegPoints|Via(?:ParamDefault|ShapePurpose))|db[GS]etRouteAuthor|db[GS]etRouteSubAuthor)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Interconnect Functions (Prefix xdvReplace)",
+                    "match": "\\b(xdvReplaceInstWithVias)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_trim_function": {
+            "patterns": [
+                {
+                    "comment": "Trim Functions (ICADVM20.1 Only)",
+                    "match": "\\b(dbGetAllTrimFillShapes|dbGetShapeTrimFillType)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_patch_function": {
+            "patterns": [
+                {
+                    "comment": "Patch Functions (ICADVM20.1 Only)",
+                    "match": "\\b(dbGetPatchType|dbSet(?:Begin|End|Full)Patch|dbSetPatchType)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_maker_function": {
+            "patterns": [
+                {
+                    "comment": "Maker Functions",
+                    "match": "\\b(db(?:Create|AddObjectsTo|RemoveObjectsFrom)Marker|db[GS]etMarkerName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_query_function": {
+            "patterns": [
+                {
+                    "comment": "Query Functions",
+                    "match": "\\b(db(?:Boundary|FigGroup|Guide|Inst|(?:Layer|Placement)Blockage|Marker|Row|Shape|Steiner|Via)Query)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_row_function": {
+            "patterns": [
+                {
+                    "comment": "Row Functions",
+                    "match": "\\b(dbCreateRow|dbFindRow(?:ByName|Header))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_steiner_function": {
+            "patterns": [
+                {
+                    "comment": "Steiner Functions",
+                    "match": "\\b(dbCreate(?:Tap)?Steiner|dbIsTapSteiner)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_supply_ground_sensitivity_function": {
+            "patterns": [
+                {
+                    "comment": "Supply and Ground Sensitivity Functions",
+                    "match": "\\b(db[GS]etTerm(?:Ground|Supply)Sensitivity)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_terminal_ordering_function": {
+            "patterns": [
+                {
+                    "comment": "Terminal Ordering Functions",
+                    "match": "\\b(db(?:CreateInst|Find)TermByPosition)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_terminal_antenna_function": {
+            "patterns": [
+                {
+                    "comment": "Terminal Antenna Functions",
+                    "match": "\\b(dbDeleteAllTerminalAntennaRules|db(?:Delete|[GS]et)TerminalAntennaRule(?:OnLayer|s)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_track_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "Track Pattern Functions",
+                    "match": "\\b(dbCreateTrackPattern)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_gcell_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "GCell Pattern Functions",
+                    "match": "\\b(dbCreateGCellPattern)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_via_function": {
+            "patterns": [
+                {
+                    "comment": "Via Functions (Prefix dbCreate)",
+                    "match": "\\b(dbCreateGenViaVariant)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Via Functions (Prefix dbFind)",
+                    "match": "\\b(dbFindViaHeaderByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Via Functions (Prefix dbIs)",
+                    "match": "\\b(dbIs(?:CellViewGenViaMaster|GenVia(?:Header|Variant)?|FixedVia))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Via Functions (Prefix dbSet)",
+                    "match": "\\b(dbSetGenViaParamDefault)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_optical_data_function": {
+            "patterns": [
+                {
+                    "comment": "Optical Data Functions",
+                    "match": "\\b(dbCellViewHasOpticalData|dbIsNetOptical|dbListTypes)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_remaster_function": {
+            "patterns": [
+                {
+                    "comment": "Remaster SKILL Functions",
+                    "match": "\\b(dbRemaster(?:AnyInst|InstHeader))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
