@@ -1283,6 +1283,9 @@
                 },
                 {
                     "include": "#virtuoso_figure_set_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_multipatterning_technology_database_access_function"
                 }
             ]
         },
@@ -3282,6 +3285,70 @@
                 {
                     "comment": "FigSet Functions (Prefix dbGet)",
                     "match": "\\b(dbGet(?:FigSetGroupName|CellViewFigSetGroups))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_multipatterning_technology_database_access_function": {
+            "patterns": [
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbCellView)",
+                    "match": "\\b(dbCellView(?:AreLayerShiftsValid|(?:Clear|Has|Update)LayerShifts|InitForLayerShifting|HasUnknownColorLockChanges|ResetAllColorLockTypes))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbClear)",
+                    "match": "\\b(dbClearUnusedOccShapeColorData)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:Diff|Same)MaskGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbColor)",
+                    "match": "\\b(dbColorShapeQuery2?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbInst)",
+                    "match": "\\b(dbInst(?:[GS]etLayerShifts2?|(?:Clear|Has)LayerShifts))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbIs)",
+                    "match": "\\b(dbIs(?:BlockageColor(?:ed|ingAllowed)?|ShapeColor(?:ingAllowed|ed|Locked)|ViaColorState(?:Layer)?Locked|TrackPatternColor(?:ed|ingAllowed|Alternating)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbGet and dbSet)",
+                    "match": "\\b(db[GS]et(?:(?:Blockage|Shape|TrackPatternFirstTrack)Color|ShapeColorLockType|ViaLayerColorLockType))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbGet)",
+                    "match": "\\b(dbGet(?:Via(?:Layer(?:[12]?Control|NumColorMasks)|CutLayerControl)|ColoredOccShapes|ShapeEffectiveColor(?:LockType)?|HierColorOverride))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbSet)",
+                    "match": "\\b(dbSet(?:ShapeColor|Via(?:(?:ColorState(?:Layer)?)Locked|ColorInfo|(?:CutLayer|Layer[12]?)Control)|OccShapeColor(?:Lock(?:ed|Type))?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbRemove)",
+                    "match": "\\b(dbRemoveLayerColorData)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Suffix ColorModel)",
+                    "match": "\\b(db[GS]et(?:Integration)?ColorModel)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Suffix MaskGroups)",
+                    "match": "\\b(dbGet(?:SameMaskDiff|ShapeSame)MaskGroups)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
