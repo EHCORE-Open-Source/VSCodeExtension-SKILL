@@ -119,7 +119,7 @@
                         {
                             "comment": "special characters",
                             "name": "constant.character.escape.cadence.skill.special",
-                            "match": "\\\\[\"]"
+                            "match": "\\\\[\"\\\\]"
                         },
                         {
                             "comment": "octal characters for ASCII",
