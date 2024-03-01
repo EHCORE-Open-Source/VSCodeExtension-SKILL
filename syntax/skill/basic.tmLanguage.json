@@ -154,7 +154,7 @@
                 {
                     "comment": "argument list parameters",
                     "match": "\\@(rest|optional|key|aux)\\b",
-                    "name": "constant.character.set.regexp.arguparam strong.cadence.skill.arguparam"
+                    "name": "entity.name.type.cadence.skill.basic"
                 }
             ]
         },
