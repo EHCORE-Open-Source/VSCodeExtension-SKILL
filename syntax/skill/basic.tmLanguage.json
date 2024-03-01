@@ -123,7 +123,7 @@
                         },
                         {
                             "comment": "octal characters for ASCII",
-                            "name": "constant.character.set.regexp strong.cadence.skill.octal",
+                            "name": "constant.character.set.regexp.octal",
                             "match": "\\\\(?:[01][0-7]{2}|[0-7]{1,2}(?=[^0-7]))"
                         },
                         {
@@ -150,6 +150,11 @@
                             "name": "constant.language.cadence.skill.basic"
                         }
                     }
+                },
+                {
+                    "comment": "argument list parameters",
+                    "match": "\\@(rest|optional|key|aux)\\b",
+                    "name": "constant.character.set.regexp.arguparam strong.cadence.skill.arguparam"
                 }
             ]
         },
