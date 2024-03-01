@@ -1262,6 +1262,9 @@
                 },
                 {
                     "include": "#virtuoso_connectivity_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_pin_database_access_function"
                 }
             ]
         },
@@ -2810,6 +2813,129 @@
                 {
                     "comment": "Connectivity Access Functions (Prefix dbMove)",
                     "match": "\\b(dbMove(?:Child|PinTo)Net)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_pin_database_access_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_pin_connection_function"
+                },
+                {
+                    "include": "#virtuoso_pin_group_guide_function"
+                }
+            ]
+        },
+        "virtuoso_pin_connection_function": {
+            "patterns": [
+                {
+                    "comment": "Connectivity Access Functions (Suffix AccessDirection)",
+                    "match": "\\b(dbTransformAccessDirection)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix Connection)",
+                    "match": "\\b(dbGetPinConnection)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix Connections)",
+                    "match": "\\b(dbHas(?:External|Must)Connections)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix ConnectPins)",
+                    "match": "\\b(db(?:Externally|Must|Weakly)ConnectPins)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix ConnectAllPins)",
+                    "match": "\\b(db(?:SetTerm|TermHas)MustConnectAllPins)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix AccessDirection, Name, and PlacementStatus)",
+                    "match": "\\b(db[GS]etPinFig(?:AccessDirection|Name|PlacementStatus))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix StrongGroup)",
+                    "match": "\\b(db(?:Create|Get|Strongly)StrongGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix StrongGroups)",
+                    "match": "\\b(db(?:Get|Merge)StrongGroups)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix FromPin)",
+                    "match": "\\b(dbSubFigs?FromPin)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix ToPin)",
+                    "match": "\\b(dbAddFigs?ToPin)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Connectivity Access Functions (Suffix MustJoin)",
+                    "match": "\\b(db(?:S|Uns)etTermMustJoin)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_pin_group_guide_function": {
+            "patterns": [
+                {
+                    "comment": "Pin Group Guide Functions (Suffix ByName)",
+                    "match": "\\b(dbFindPinGroupGuideByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Suffix PinGroupGuide)",
+                    "match": "\\b(db(?:Create(?:Area|Edge)|Get(?:AreaBoundary|Fig)|Add(?:Area|Fig|Pin)To|Sub(?:Area|Fig|Pin)From)PinGroupGuide)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Suffix PinGroupGuides)",
+                    "match": "\\b(dbGetPRBoundaryPinGroupGuides)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Suffix PinGroupGuideAreas)",
+                    "match": "\\b(dbGetAreaPinGroupGuideAreas)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Suffix PinGroupGuideEdge)",
+                    "match": "\\b(db(?:Remove|Set)PinGroupGuideEdge)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Suffix Offset)",
+                    "match": "\\b(dbSetPinGroupGuideEdge(?:Start|Stop)Offset)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Suffix LayerPriorityOrder and ValidRoutingLayers)",
+                    "match": "\\b(db(?:AreaBoundaryHas|(?:[GS]|Uns)etAreaBoundary)(?:LayerPriorityOrder|ValidRoutingLayers))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Prefix dbGet)",
+                    "match": "\\b(dbGetPinGroupGuide(?:s|Edge(?:Boundary|Name|(?:Start|Stop)Offset))|dbGetPinPinGroupGuides)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Prefix dbPin)",
+                    "match": "\\b(dbPin(?:GroupGuideHas(?:KeepoutSpacing|LayerPriorityOrder|MinPin(?:Spacing|Width)|ValidRoutingLayers)|HasMinPin(?:Spacing|Width)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pin Group Guide Functions (Prefix dbSetPin and dbUnsetPin)",
+                    "match": "\\b(db(?:S|Uns)etPin(?:GroupGuide(?:KeepoutSpacing|LayerPriorityOrder|MinPin(?:Spacing|Width)|ValidRoutingLayers)|MinPin(?:Spacing|Width)))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
