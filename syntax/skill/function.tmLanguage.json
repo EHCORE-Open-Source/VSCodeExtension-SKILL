@@ -1286,6 +1286,9 @@
                 },
                 {
                     "include": "#virtuoso_multipatterning_technology_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_width_spacing_pattern_database_access_function"
                 }
             ]
         },
@@ -3349,6 +3352,175 @@
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Suffix MaskGroups)",
                     "match": "\\b(dbGet(?:SameMaskDiff|ShapeSame)MaskGroups)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_width_spacing_pattern_database_access_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_width_spacing_pattern_function"
+                },
+                {
+                    "include": "#virtuoso_width_spacing_pattern_group_function"
+                },
+                {
+                    "include": "#virtuoso_width_spacing_snap_pattern_def_function"
+                },
+                {
+                    "include": "#virtuoso_related_snap_pattern_function"
+                },
+                {
+                    "include": "#virtuoso_pattern_region_function"
+                },
+                {
+                    "include": "#virtuoso_active_wire_type_function"
+                },
+                {
+                    "include": "#virtuoso_global_grid_offset_function"
+                }
+            ]
+        },
+        "virtuoso_width_spacing_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "Width Spacing Pattern Functions (ICADVM20.1 Only) (Prefix dbCreate)",
+                    "match": "\\b(dbCreateWidthSpacingPattern(?:WithColor)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Width Spacing Pattern Functions (ICADVM20.1 Only) (Prefix dbFind)",
+                    "match": "\\b(dbFindWidthSpacingPattern)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Width Spacing Pattern Functions (ICADVM20.1 Only) (Prefix dbGet)",
+                    "match": "\\b(dbGetWidthSpacingPattern(?:s|(?:Allowed|Default)RepeatMode))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Width Spacing Pattern Functions (ICADVM20.1 Only) (Prefix dbSet)",
+                    "match": "\\b(dbSetWidthSpacingPatternRepeatMode)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_width_spacing_pattern_group_function": {
+            "patterns": [
+                {
+                    "comment": "Width Spacing Pattern Group Functions (ICADVM20.1 Only) (Suffix Group)",
+                    "match": "\\b(db(?:Create|Find)WidthSpacingPatternGroup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Width Spacing Pattern Group Functions (ICADVM20.1 Only) (Suffix Groups)",
+                    "match": "\\b(dbGetWidthSpacingPatternGroups)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_width_spacing_snap_pattern_def_function": {
+            "patterns": [
+                {
+                    "comment": "Width Spacing Snap Pattern Definition Functions (ICADVM20.1 Only) (Suffix PatternDef)",
+                    "match": "\\b(db(?:Create|Delete)WidthSpacingSnapPatternDef)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Width Spacing Snap Pattern Definition Functions (ICADVM20.1 Only) (Prefix dbFind)",
+                    "match": "\\b(dbFindWidthSpacingSnapPatternDefByName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Width Spacing Snap Pattern Definition Functions (ICADVM20.1 Only) (Prefix dbGet)",
+                    "match": "\\b(dbGetWidthSpacingSnapPatternDefsByLP)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_related_snap_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "Related Snap Pattern Functions (ICADVM20.1 Only) (Suffix SnapPatterns)",
+                    "match": "\\b(db(?:Create|Get|Find)RelatedSnapPatterns)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_pattern_region_function": {
+            "patterns": [
+                {
+                    "comment": "Pattern Region Functions (ICADVM20.1 Only) (Suffix ActivePattern)",
+                    "match": "\\b(db(?:[GS]et|Has)PatternRegionActivePattern)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pattern Region Functions (ICADVM20.1 Only) (Suffix AllowedPatterns, AllowedPatternGroups, ShiftColor, Name, WidthSpacingSnapPatternDefName, DefaultRepeatMode, and RepeatMode)",
+                    "match": "\\b(db[GS]etPatternRegion(?:AllowedPattern(?:Group)?s|ShiftColor|(?:WidthSpacingSnapPatternDef)?Name|(?:Default)?RepeatMode))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pattern Region Functions (ICADVM20.1 Only) (Prefix dbGet)",
+                    "match": "\\b(dbGetPatternRegion(?:CommittedPattern(?:s|ShiftColor)|CreateType))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Pattern Region Functions (ICADVM20.1 Only) (Prefix dbHas)",
+                    "match": "\\b(dbHasPatternRegionInfo)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_active_wire_type_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_perdesign_database_basis_function"
+                },
+                {
+                    "include": "#virtuoso_perwidthspaceingsnappatterndef_function"
+                },
+                {
+                    "include": "#virtuoso_perpattern_region_function"
+                }
+            ]
+        },
+        "virtuoso_perdesign_database_basis_function": {
+            "patterns": [
+                {
+                    "comment": "Per-Design Database Basis Functions (ICADVM20.1 Only)",
+                    "match": "\\b(db(?:[GS]etCellView|ClearAll)ActiveWireTypes)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_perwidthspaceingsnappatterndef_function": {
+            "patterns": [
+                {
+                    "comment": "Per-widthSpacingSnapPatternDef Basis Functions (ICADVM20.1 Only)",
+                    "match": "\\b(db[GS]etCellViewActiveWireTypesForWidthSpacingSnapPatternDef)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_perpattern_region_function": {
+            "patterns": [
+                {
+                    "comment": "Per-Pattern Region Basis Functions (ICADVM20.1 Only) (Suffix ActiveWireTypes)",
+                    "match": "\\b(db[GS]etPatternRegionActiveWireTypes)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Per-Pattern Region Basis Functions (ICADVM20.1 Only) (Suffix NoActiveWireTypes)",
+                    "match": "\\b(db(?:Has|Set)PatternRegionNoActiveWireTypes)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_global_grid_offset_function": {
+            "patterns": [
+                {
+                    "comment": "Global Grid Offset Functions (ICADVM20.1 Only)",
+                    "match": "\\b(db[GS]etGlobalGrid(?:OffsetReferenceType|(?:Default)?RepeatMode))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
