@@ -2378,7 +2378,7 @@
                 {
                     "comment": "Trim Functions (ICADVM20.1 Only)",
                     "match": "\\b(dbGetAllTrimFillShapes|dbGetShapeTrimFillType)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -2387,7 +2387,7 @@
                 {
                     "comment": "Patch Functions (ICADVM20.1 Only)",
                     "match": "\\b(dbGetPatchType|dbSet(?:Begin|End|Full)Patch|dbSetPatchType)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3078,7 +3078,7 @@
                 {
                     "comment": "Row Region Specification Functions (ICADVM20.1 Only)",
                     "match": "\\b(db(?:Create|Find)RowRegionSpec|dbGetCellViewRowRegionSpecs)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3087,32 +3087,32 @@
                 {
                     "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbAttach)",
                     "match": "\\b(dbAttachRowRegionToPRBoundary)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbCreate, dbDetach, dbFind, dbFlatten, and dbRebuild)",
                     "match": "\\b(db(?:Create|DetachPRBoundaryFrom|Find|Flatten|Rebuild)RowRegion)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbGet)",
                     "match": "\\b(dbGet(?:CellViewRowRegions|RowRegion(?:AttachedToPRBoundary|PlaceRows|Points|RowRegionSpec|SpecRowRegions|UsesPartialRowSpec)))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbIs)",
                     "match": "\\b(dbIsRowRegion(?:AttachedToPRBoundary)?)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbRow)",
                     "match": "\\b(dbRowRegionMatchesSpec)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Row Region Functions (ICADVM20.1 Only) (Prefix dbSet)",
                     "match": "\\b(dbSetRowRegion(?:Points|RowRegionSpec|UsesPartialRowSpec))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3121,12 +3121,12 @@
                 {
                     "comment": "Miscellaneous Functions (ICADVM20.1 Only) (Prefix dbGet)",
                     "match": "\\b(dbGet(?:PlaceRow|RowRegion)Version)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Miscellaneous Functions (ICADVM20.1 Only) (Prefix dbIs)",
                     "match": "\\b(dbIs(?:Implicit|InRowRegion))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3303,62 +3303,62 @@
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbCellView)",
                     "match": "\\b(dbCellView(?:AreLayerShiftsValid|(?:Clear|Has|Update)LayerShifts|InitForLayerShifting|HasUnknownColorLockChanges|ResetAllColorLockTypes))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbClear)",
                     "match": "\\b(dbClearUnusedOccShapeColorData)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbCreate)",
                     "match": "\\b(dbCreate(?:Diff|Same)MaskGroup)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbColor)",
                     "match": "\\b(dbColorShapeQuery2?)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbInst)",
                     "match": "\\b(dbInst(?:[GS]etLayerShifts2?|(?:Clear|Has)LayerShifts))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbIs)",
                     "match": "\\b(dbIs(?:BlockageColor(?:ed|ingAllowed)?|ShapeColor(?:ingAllowed|ed|Locked)|ViaColorState(?:Layer)?Locked|TrackPatternColor(?:ed|ingAllowed|Alternating)))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbGet and dbSet)",
                     "match": "\\b(db[GS]et(?:(?:Blockage|Shape|TrackPatternFirstTrack)Color|ShapeColorLockType|ViaLayerColorLockType))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbGet)",
                     "match": "\\b(dbGet(?:Via(?:Layer(?:[12]?Control|NumColorMasks)|CutLayerControl)|ColoredOccShapes|ShapeEffectiveColor(?:LockType)?|HierColorOverride))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbSet)",
                     "match": "\\b(dbSet(?:ShapeColor|Via(?:(?:ColorState(?:Layer)?)Locked|ColorInfo|(?:CutLayer|Layer[12]?)Control)|OccShapeColor(?:Lock(?:ed|Type))?))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Prefix dbRemove)",
                     "match": "\\b(dbRemoveLayerColorData)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Suffix ColorModel)",
                     "match": "\\b(db[GS]et(?:Integration)?ColorModel)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Multi-Patterning Technology Database Access Functions (ICADVM20.1 Only) (Suffix MaskGroups)",
                     "match": "\\b(dbGet(?:SameMaskDiff|ShapeSame)MaskGroups)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3392,22 +3392,22 @@
                 {
                     "comment": "Width Spacing Pattern Functions (ICADVM20.1 Only) (Prefix dbCreate)",
                     "match": "\\b(dbCreateWidthSpacingPattern(?:WithColor)?)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Width Spacing Pattern Functions (ICADVM20.1 Only) (Prefix dbFind)",
                     "match": "\\b(dbFindWidthSpacingPattern)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Width Spacing Pattern Functions (ICADVM20.1 Only) (Prefix dbGet)",
                     "match": "\\b(dbGetWidthSpacingPattern(?:s|(?:Allowed|Default)RepeatMode))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Width Spacing Pattern Functions (ICADVM20.1 Only) (Prefix dbSet)",
                     "match": "\\b(dbSetWidthSpacingPatternRepeatMode)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3416,12 +3416,12 @@
                 {
                     "comment": "Width Spacing Pattern Group Functions (ICADVM20.1 Only) (Suffix Group)",
                     "match": "\\b(db(?:Create|Find)WidthSpacingPatternGroup)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Width Spacing Pattern Group Functions (ICADVM20.1 Only) (Suffix Groups)",
                     "match": "\\b(dbGetWidthSpacingPatternGroups)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3430,17 +3430,17 @@
                 {
                     "comment": "Width Spacing Snap Pattern Definition Functions (ICADVM20.1 Only) (Suffix PatternDef)",
                     "match": "\\b(db(?:Create|Delete)WidthSpacingSnapPatternDef)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Width Spacing Snap Pattern Definition Functions (ICADVM20.1 Only) (Prefix dbFind)",
                     "match": "\\b(dbFindWidthSpacingSnapPatternDefByName)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Width Spacing Snap Pattern Definition Functions (ICADVM20.1 Only) (Prefix dbGet)",
                     "match": "\\b(dbGetWidthSpacingSnapPatternDefsByLP)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3449,7 +3449,7 @@
                 {
                     "comment": "Related Snap Pattern Functions (ICADVM20.1 Only) (Suffix SnapPatterns)",
                     "match": "\\b(db(?:Create|Get|Find)RelatedSnapPatterns)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3458,22 +3458,22 @@
                 {
                     "comment": "Pattern Region Functions (ICADVM20.1 Only) (Suffix ActivePattern)",
                     "match": "\\b(db(?:[GS]et|Has)PatternRegionActivePattern)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Pattern Region Functions (ICADVM20.1 Only) (Suffix AllowedPatterns, AllowedPatternGroups, ShiftColor, Name, WidthSpacingSnapPatternDefName, DefaultRepeatMode, and RepeatMode)",
                     "match": "\\b(db[GS]etPatternRegion(?:AllowedPattern(?:Group)?s|ShiftColor|(?:WidthSpacingSnapPatternDef)?Name|(?:Default)?RepeatMode))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Pattern Region Functions (ICADVM20.1 Only) (Prefix dbGet)",
                     "match": "\\b(dbGetPatternRegion(?:CommittedPattern(?:s|ShiftColor)|CreateType))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Pattern Region Functions (ICADVM20.1 Only) (Prefix dbHas)",
                     "match": "\\b(dbHasPatternRegionInfo)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3495,7 +3495,7 @@
                 {
                     "comment": "Per-Design Database Basis Functions (ICADVM20.1 Only)",
                     "match": "\\b(db(?:[GS]etCellView|ClearAll)ActiveWireTypes)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3504,7 +3504,7 @@
                 {
                     "comment": "Per-widthSpacingSnapPatternDef Basis Functions (ICADVM20.1 Only)",
                     "match": "\\b(db[GS]etCellViewActiveWireTypesForWidthSpacingSnapPatternDef)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3513,12 +3513,12 @@
                 {
                     "comment": "Per-Pattern Region Basis Functions (ICADVM20.1 Only) (Suffix ActiveWireTypes)",
                     "match": "\\b(db[GS]etPatternRegionActiveWireTypes)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Per-Pattern Region Basis Functions (ICADVM20.1 Only) (Suffix NoActiveWireTypes)",
                     "match": "\\b(db(?:Has|Set)PatternRegionNoActiveWireTypes)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3527,7 +3527,7 @@
                 {
                     "comment": "Global Grid Offset Functions (ICADVM20.1 Only)",
                     "match": "\\b(db[GS]etGlobalGrid(?:OffsetReferenceType|(?:Default)?RepeatMode))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3684,7 +3684,7 @@
                 {
                     "comment": "Enable Virtuoso RF Solution and MultiTech Framework Functions (ICADVM20.1 Only)",
                     "match": "\\b(dbIs(?:MultiTech|VRF(?:Infra)?)Enabled)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3717,27 +3717,27 @@
                 {
                     "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix DefPin)",
                     "match": "\\b(pkx(?:AddFunc|(?:Create|Find)(?:Comp|Func))DefPin)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix Def)",
                     "match": "\\b(pkx(?:DeleteComp|(?:Create|Find)(?:Comp|Func))Def)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix DefPins and Defs)",
                     "match": "\\b(pkxGet(?:Comp|Func)Def(?:Pin)?s)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix Prop and Props)",
                     "match": "\\b(pkx(?:GetProps?|SetProp))\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 },
                 {
                     "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix PadFile)",
                     "match": "\\b(pkx(?:Un)?PadFile)\\b",
-                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
         },
@@ -3976,14 +3976,19 @@
         "techfile_device_function": {
             "patterns": [
                 {
-                    "comment": "Device Functions (Prefix techCreate and techDelete)",
-                    "match": "\\b(tech(?:(?:Create|Delete)WaveguideDef|DeleteDeviceClass))\\b",
+                    "comment": "Device Functions (Prefix techDelete)",
+                    "match": "\\b(techDeleteDeviceClass)\\b",
                     "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
                 },
                 {
-                    "comment": "Device Functions (Prefix techFind)",
+                    "comment": "Device Functions (ICADVM20.1 Only) (Suffix WaveguideDef)",
+                    "match": "\\b(tech(?:Create|Delete)WaveguideDef)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
+                },
+                {
+                    "comment": "Device Functions (ICADVM20.1 Only) (Prefix techFind)",
                     "match": "\\b(techFindWaveguideDefByLP)\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 },
                 {
                     "comment": "Device Functions (Prefix techGet)",
@@ -3991,9 +3996,9 @@
                     "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
                 },
                 {
-                    "comment": "Device Functions (Prefix techHas)",
+                    "comment": "Device Functions (ICADVM20.1 Only) (Prefix techHas)",
                     "match": "\\b(techHasWaveguideDefMinBendRadius)\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 },
                 {
                     "comment": "Device Functions (Prefix techIs)",
@@ -4007,8 +4012,13 @@
                 },
                 {
                     "comment": "Device Functions (Prefix techSet)",
-                    "match": "\\b(techSet(?:Device(?:ClassProp|Prop)|Extract(?:CAP|DIODE|MOS|RES)|MPPTemplate|WaveguideDefMinBendRadius))\\b",
+                    "match": "\\b(techSet(?:Device(?:ClassProp|Prop)|Extract(?:CAP|DIODE|MOS|RES)|MPPTemplate))\\b",
                     "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                },
+                {
+                    "comment": "Device Functions (ICADVM20.1 Only) (Prefix techSet)",
+                    "match": "\\b(techSetWaveguideDefMinBendRadius)\\b",
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         },
@@ -4058,9 +4068,9 @@
         "techfile_mpt_function": {
             "patterns": [
                 {
-                    "comment": "Multi-Patterning Technology (MPT) Functions",
+                    "comment": "Multi-Patterning Technology (MPT) Functions (ICADVM20.1 Only)",
                     "match": "\\b(tech(?:[GS]et(?:IntegrationColorModel|LayerNumColorMasks|(?:StdViaDef|Tech)CutColoring)|IsStdViaDefCutColoringSet))\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         },
@@ -4091,68 +4101,68 @@
         "techfile_snap_pattern_function": {
             "patterns": [
                 {
-                    "comment": "Snap Pattern Definition SKILL Functions",
+                    "comment": "Snap Pattern Definition SKILL Functions (ICADVM20.1 Only)",
                     "match": "\\b(tech(?:(?:Create|Delete)SnapPatternDef|FindSnapPatternDefBy(?:LP|Name)))\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         },
         "techfile_width_spacing_pattern_function": {
             "patterns": [
                 {
-                    "comment": "Width Spacing Pattern SKILL Functions",
+                    "comment": "Width Spacing Pattern SKILL Functions (ICADVM20.1 Only)",
                     "match": "\\b(tech(?:CreateWidthSpacingPattern(?:WithColor)?|(?:Delete|Find)WidthSpacingPattern|GetWidthSpacingPattern(?:s|(?:Allowed|Default)RepeatMode)|SetWidthSpacingPatternRepeatMode))\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         },
         "techfile_width_spacing_pattern_group_function": {
             "patterns": [
                 {
-                    "comment": "Width Spacing Pattern Groups SKILL Functions",
+                    "comment": "Width Spacing Pattern Groups SKILL Functions (ICADVM20.1 Only)",
                     "match": "\\b(tech(?:(?:Create|Delete|Find)WidthSpacingPatternGroup|GetWidthSpacingPatternGroups))\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         },
         "techfile_width_spacing_snap_pattern_function": {
             "patterns": [
                 {
-                    "comment": "Width Spacing Snap Pattern Definition SKILL Functions",
+                    "comment": "Width Spacing Snap Pattern Definition SKILL Functions (ICADVM20.1 Only)",
                     "match": "\\b(tech(?:(?:Create|Delete)WidthSpacingSnapPatternDef|FindWidthSpacingSnapPatternDefByName|GetWidthSpacingSnapPatternDefsByLP))\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         },
         "techfile_related_snap_pattern_function": {
             "patterns": [
                 {
-                    "comment": "Related Snap Patterns SKILL Functions",
+                    "comment": "Related Snap Patterns SKILL Functions (ICADVM20.1 Only)",
                     "match": "\\b(tech(?:Create|Delete|Find|Get)RelatedSnapPatterns)\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         },
         "techfile_trim_layer_function": {
             "patterns": [
                 {
-                    "comment": "Trim Layer Functions",
+                    "comment": "Trim Layer Functions (ICADVM20.1 Only)",
                     "match": "\\b(techGetTrim(?:Layers?|medLayers))\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         },
         "techfile_wire_profile_finger_definition_function": {
             "patterns": [
                 {
-                    "comment": "Wire Profile and Finger Definition Functions (Prefix techCreate, techDelete, and techFind)",
+                    "comment": "Wire Profile and Finger Definition Functions (ICADVM20.1 Only) (Prefix techCreate, techDelete, and techFind)",
                     "match": "\\b(tech(?:Create|Delete|Find)(?:FingerDef|WireProfile(?:Group)?))\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 },
                 {
-                    "comment": "Wire Profile and Finger Definition Functions (Prefix techImport and techExport)",
+                    "comment": "Wire Profile and Finger Definition Functions (ICADVM20.1 Only) (Prefix techImport and techExport)",
                     "match": "\\b(tech(?:Im|Ex)portWireProfileSet)\\b",
-                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
+                    "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
                 }
             ]
         }
