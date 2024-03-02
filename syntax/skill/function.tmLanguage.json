@@ -1292,6 +1292,9 @@
                 },
                 {
                     "include": "#virtuoso_hierarchical_design_function"
+                },
+                {
+                    "include": "#virtuoso_multitech_framework_function"
                 }
             ]
         },
@@ -3659,6 +3662,81 @@
                 {
                     "comment": "Parent/Child Database Functions (Prefix pcdbView)",
                     "match": "\\b(pcdbViewHasPcdbInfo)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_multitech_framework_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_enable_rf_solution_multitech_framework_function"
+                },
+                {
+                    "include": "#virtuoso_curved_shape_function"
+                },
+                {
+                    "include": "#virtuoso_rf_solution_package_intrastructure_function"
+                }
+            ]
+        },
+        "virtuoso_enable_rf_solution_multitech_framework_function": {
+            "patterns": [
+                {
+                    "comment": "Enable Virtuoso RF Solution and MultiTech Framework Functions (ICADVM20.1 Only)",
+                    "match": "\\b(dbIs(?:MultiTech|VRF(?:Infra)?)Enabled)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_curved_shape_function": {
+            "patterns": [
+                {
+                    "comment": "Curved Shape Functions (ICADVM20.1 Only) (Prefix dbCreate)",
+                    "match": "\\b(dbCreate(?:Curved(?:AreaBoundary|Path|Polygon)|MultipleCurvedPolygons|RegionBoundary))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Curved Shape Functions (ICADVM20.1 Only) (Prefix dbIs)",
+                    "match": "\\b(dbIs(?:Curved|RegionBoundary))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Curved Shape Functions (ICADVM20.1 Only) (Prefix dbGetRegion)",
+                    "match": "\\b(dbGetRegionBoundary(?:Layer(?:Type)?|Name))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Curved Shape Functions (ICADVM20.1 Only) (Suffix Points)",
+                    "match": "\\b(db[GS]etCurved(?:AreaBoundary|Polygon)Points)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_rf_solution_package_intrastructure_function": {
+            "patterns": [
+                {
+                    "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix DefPin)",
+                    "match": "\\b(pkx(?:AddFunc|(?:Create|Find)(?:Comp|Func))DefPin)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix Def)",
+                    "match": "\\b(pkx(?:DeleteComp|(?:Create|Find)(?:Comp|Func))Def)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix DefPins and Defs)",
+                    "match": "\\b(pkxGet(?:Comp|Func)Def(?:Pin)?s)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix Prop and Props)",
+                    "match": "\\b(pkx(?:GetProps?|SetProp))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix PadFile)",
+                    "match": "\\b(pkx(?:Un)?PadFile)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
