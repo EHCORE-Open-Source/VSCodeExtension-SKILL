@@ -1289,6 +1289,9 @@
                 },
                 {
                     "include": "#virtuoso_width_spacing_pattern_database_access_function"
+                },
+                {
+                    "include": "#virtuoso_hierarchical_design_function"
                 }
             ]
         },
@@ -3521,6 +3524,141 @@
                 {
                     "comment": "Global Grid Offset Functions (ICADVM20.1 Only)",
                     "match": "\\b(db[GS]etGlobalGrid(?:OffsetReferenceType|(?:Default)?RepeatMode))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_hierarchical_design_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_hierarchy_database_function"
+                },
+                {
+                    "include": "#virtuoso_occurrence_property_function"
+                },
+                {
+                    "include": "#virtuoso_parent_child_database_function"
+                }
+            ]
+        },
+        "virtuoso_hierarchy_database_function": {
+            "patterns": [
+                {
+                    "comment": "Hierarchy Database Functions (Basic)",
+                    "match": "\\b(hdb(Bind(?:Bit)?|Close|Open))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Suffix Bag)",
+                    "match": "\\b(hdb(?:AddConfigTo|CloseConfigsIn|CreateConfig)Bag)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Suffix PathVect and Cell)",
+                    "match": "\\b(hdb(?:Pop|Push)(?:PathVect|Cell))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Suffix PathVector)",
+                    "match": "\\b(hdb(?:Create|Destroy)PathVector)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Suffix Name)",
+                    "match": "\\b(hdbGet(?:Top)?(?:Cell|Lib|View)Name)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Suffix ListString)",
+                    "match": "\\b(hdbSetDefault(?:Lib|View|Stop)ListString)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Suffix Rules)",
+                    "match": "\\b(hdb(?:BitHas|HasIterInstBit|IterInstHasBit)Rules)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Prefix hdbCreate)",
+                    "match": "\\b(hdbCreatePathVectorStack)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Prefix hdbExplain)",
+                    "match": "\\b(hdbExplain(?:Binding|Signature|Stop))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Prefix hdbGet)",
+                    "match": "\\b(hdbGetPath(?:(?:Stack)?Str|VectorStackTop))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Prefix hdbIs)",
+                    "match": "\\b(hdbIs(?:AtStopPoint|(?:Open)?Config|IterInst))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Prefix hdbPush)",
+                    "match": "\\b(hdbPushBitCell)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Prefix hdbRe)",
+                    "match": "\\b(hdbReOpenNewConfig)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Prefix hdbSet)",
+                    "match": "\\b(hdbSet(?:ObjBindRule|TopCellViewName))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Hierarchy Database Functions (Prefix hdbSave)",
+                    "match": "\\b(hdbSave(?:A(?:s|Copy))?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_occurrence_property_function": {
+            "patterns": [
+                {
+                    "comment": "Occurrence Property Functions (Basic)",
+                    "match": "\\b(occp(?:Close|Open|Save))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Occurrence Property Functions (Suffix Prop)",
+                    "match": "\\b(occp(?:Create|GetBest|(?:[GS]et|Rm)(?:BitInst|Cell|Default|Inst|Path))Prop)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_parent_child_database_function": {
+            "patterns": [
+                {
+                    "comment": "Parent/Child Database Functions (Basic)",
+                    "match": "\\b(pcdb(?:Close|Open|Save))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Parent/Child Database Functions (Prefix pcdbGet)",
+                    "match": "\\b(pcdbGet(?:Inst(?:Master)?|IgnoredInstMaster)Gen)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Parent/Child Database Functions (Prefix pcdbInst)",
+                    "match": "\\b(pcdbInst(?:Master(?:Cell|Lib|View)(?:Fixed)?|Name|Width))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Parent/Child Database Functions (Prefix pcdbNext)",
+                    "match": "\\b(pcdbNextInst(?:Master)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Parent/Child Database Functions (Prefix pcdbView)",
+                    "match": "\\b(pcdbViewHasPcdbInfo)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
