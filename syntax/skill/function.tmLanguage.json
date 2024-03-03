@@ -1298,6 +1298,9 @@
                 },
                 {
                     "include": "#virtuoso_photonics_function"
+                },
+                {
+                    "include": "#virtuoso_pegasus_interactive_function"
                 }
             ]
         },
@@ -4006,6 +4009,15 @@
                     "comment": "Photonics Connector Functions (ICADVM20.1 Only)",
                     "match": "\\b(pho(?:Bend|Curve|SineDelta|Straight|WayPoint)Connector|phoDrawCompWaveguideLayout)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_pegasus_interactive_function": {
+            "patterns": [
+                {
+                    "comment": "Pegasus Interactive and Virtuoso Integrated Physical Verification System Functions",
+                    "match": "\\b(pgssDRC|pvsApplyDRC)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
         },
