@@ -79,18 +79,23 @@
         "builtin_function": {
             "patterns": [
                 {
+                    "comment": "Cadence SKILL Language Reference (sklangref)",
                     "include": "#builtin_basic_function"
                 },
                 {
+                    "comment": "Cadence SKILL Development Reference (skdevref)",   
                     "include": "#builtin_development_function"
                 },
                 {
+                    "comment": "Cadence Application Infrastructure SKILL Reference (caiskill)",
                     "include": "#builtin_application_infrastructure_function"
                 },
                 {
+                    "comment": "Virtuoso Design Environment SKILL Reference (skdfref)",
                     "include": "#builtin_virtuoso_design_environment"
                 },
                 {
+                    "comment": "Virtuoso Technology Data SKILL Reference (sktechfile)",
                     "include": "#builtin_technology_data"
                 }
             ]
@@ -844,6 +849,9 @@
         "builtin_development_function": {
             "patterns": [
                 {
+                    "include": "#dev_profiler_function"
+                },
+                {
                     "include": "#dev_lint_function"
                 },
                 {
@@ -860,6 +868,20 @@
                 },
                 {
                     "include": "#dev_skill_ide_functions"
+                }
+            ]
+        },
+        "dev_profiler_function": {
+            "patterns": [
+                {
+                    "comment": "Profiler Functions (Prefix profile)",
+                    "match": "\\b(profile(?:Reset|Summary)?)\\b",
+                    "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
+                },
+                {
+                    "comment": "Profiler Functions (Prefix unprofile)",
+                    "match": "\\b(unprofile)\\b",
+                    "name": "keyword.control.cadence.skill.development strong.cadence.skill.development"
                 }
             ]
         },
