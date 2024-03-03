@@ -1304,6 +1304,9 @@
                 },
                 {
                     "include": "#virtuoso_attribute_retrieval_modification_function"
+                },
+                {
+                    "include": "#virtuoso_design_management_function"
                 }
             ]
         },
@@ -4029,6 +4032,442 @@
                 {
                     "comment": "Attribute Retrieval and Modification Functions",
                     "match": "\\b(db[GS]etq?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_design_management_function": {
+            "patterns": [
+                {
+                    "comment": "Design Management Functions (Prefix ddArm)",
+                    "match": "\\b(ddAmUsingDM)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddAuto)",
+                    "match": "\\b(ddAuto(?:Check(?:in|out)|Ctl[GS]etVars))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddCat)",
+                    "match": "\\b(ddCatRefresh)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddCheck)",
+                    "match": "\\b(ddCheck(?:in|out))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddClear)",
+                    "match": "\\b(ddClearLibUnmanaged)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddCreate)",
+                    "match": "\\b(ddCreateLib)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddDelete)",
+                    "match": "\\b(ddCheck(?:Obj|Local))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddDump and ddUpdate)",
+                    "match": "\\b(dd(?:Dump|Update)LibList)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddGet)",
+                    "match": "\\b(ddGet(?:CoManagedSet|(?:Combine|Display)Value|ForcedLib(?:Ex)?|LibList|Obj(?:(?:Access|Children|Files|Group|LastModify|Owner|(?:Read|Write)Path|Size)(?:Ex)?|DMSys|Lib|Name|Parent|Type)?|PathDMSys|Startup|TmpdirWarn|TriggerList|UpdatedLib))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddIs)",
+                    "match": "\\b(ddIs(?:Id|HiddenCell|Obj(?:LibMarked|(?:Read|Writ)able(?:Ex)?)|PathManage(?:able|d)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddLib)",
+                    "match": "\\b(ddLib(?:Is5X|HasTmpDir))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddLock)",
+                    "match": "\\b(ddLock(?:Describe|Free|GetStatus|Path|Set(?:Ex)?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddMapGet)",
+                    "match": "\\b(ddMapGet(?:DataType(?:FileName|List)|File(?:(?:Data|View)Type|Tool)|ToolName(?:(?:Data|View)Type|List)|ViewType(?:FileName|List)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddMapGet)",
+                    "match": "\\b(ddMapIs(?:FileNameKnown|Tool(?:Legal|NameKnown)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddMark)",
+                    "match": "\\b(ddMarkObjMaster)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddNeed)",
+                    "match": "\\b(ddNeedCheckout)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddObj)",
+                    "match": "\\b(ddObj(?:HasNamedObj(?:Ex)?|IsInTmp))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddProduce)",
+                    "match": "\\b(ddProduceObjRelNames(?:Ex)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddReg and ddUnreg)",
+                    "match": "\\b(dd(?:R|Unr)eg(?:HiddenCellsFunc|Trigger))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddRelease)",
+                    "match": "\\b(ddReleaseObj)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Management Functions (Prefix ddSet)",
+                    "match": "\\b(ddSet(?:ForcedLib(?:Ex)?|Lib(?:Unmanaged|DmType)|TmpdirWarn))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "include": "#virtuoso_ciw_menu_customization"
+                },
+                {
+                    "include": "#virtuoso_design_data_service"
+                },
+                {
+                    "include": "#virtuoso_dmb_compatibility_function"
+                },
+                {
+                    "include": "#virtuoso_cell_category_function"
+                },
+                {
+                    "include": "#virtuoso_old_cell_category_function"
+                },
+                {
+                    "include": "#virtuoso_design_editor_function"
+                },
+                {
+                    "include": "#virtuoso_design_editor_overridable_function"
+                },
+                {
+                    "include": "#virtuoso_client_interface"
+                },
+                {
+                    "include": "#virtuoso_trigger_function"
+                },
+                {
+                    "include": "#virtuoso_licensing_function"
+                },
+                {
+                    "include": "#virtuoso_design_editor_support_routine"
+                }
+            ]
+        },
+        "virtuoso_ciw_menu_customization": {
+            "patterns": [
+                {
+                    "comment": "CIW Menu Customization",
+                    "match": "\\b(ciw(?:(?:Add|Remove)TranslatorItem|Create(?:Menu|Pulldown)|HiExit|Menu(?:Init|Install|LoadFile)))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_design_data_service": {
+            "patterns": [
+                {
+                    "comment": "Design Data Services (Prefix ddsAbout)",
+                    "match": "\\b(ddsAboutDFII)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsBrowser)",
+                    "match": "\\b(ddsBrowserAction)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsCheckin and ddsCheckout)",
+                    "match": "\\b(ddsCheck(?:in|out)Preferences)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsClose)",
+                    "match": "\\b(ddsCloseLibManager)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsEdit)",
+                    "match": "\\b(ddsEditProp)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsEnd)",
+                    "match": "\\b(ddsEndSyncWithForm)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsFile)",
+                    "match": "\\b(ddsFileBrowseCB)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsGet)",
+                    "match": "\\b(ddsGet(?:CurrentLib|CustomLibSelect|(?:LibManLogFile|Service)Name))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsHi)",
+                    "match": "\\b(ddsHi(?:CloseData|CreateLibrary|Defrag(?:CellView|Lib)|MakeReadOnly|OpenCdsLibEditor|Preferences|Refresh|SaveData))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsLE)",
+                    "match": "\\b(ddsLEWhatsNewAtStartup)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsOn)",
+                    "match": "\\b(ddsOnLineHelp)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsOpen)",
+                    "match": "\\b(ddsOpen(?:ConvertToolBox|LibManager))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsProgram)",
+                    "match": "\\b(ddsProgramName)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsRefresh)",
+                    "match": "\\b(ddsRefresh)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsServ)",
+                    "match": "\\b(ddsServSelect)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsSync and ddsUpdate)",
+                    "match": "\\b(dds(?:Update)?SyncWithForm)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsView)",
+                    "match": "\\b(ddsViewDDProp)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Prefix ddsWhats)",
+                    "match": "\\b(ddsWhatsNew)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Suffix LibManLCV)",
+                    "match": "\\b(dds[GS]etLibManLCV)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Suffix RefreshTrigger)",
+                    "match": "\\b(ddsReg(?:Pre|Post)RefreshTrigger)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Data Services (Suffix CustomLibSelect)",
+                    "match": "\\b(dds(?:R|Unr)egCustomLibSelect)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_dmb_compatibility_function": {
+            "patterns": [
+                {
+                    "comment": "dmb Compatibility Functions",
+                    "match": "\\b(dmb(?:GetCurrentLib|LibBrowserFormDone|OpenLibBrowser|SetBrowserInteractions|SyncWith(?:Cell)?Form|UpdateBrowser))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_cell_category_function": {
+            "patterns": [
+                {
+                    "comment": "Cell Category Functions",
+                    "match": "\\b(ddCat(?:Open(?:Ex)?|(?:Add|Sub)Item|Close|FindCat|Get(?:Cat(?:Name|Members)|CellsNotInCat|LibCats)|IsObjInCat|Remove|Save))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_old_cell_category_function": {
+            "patterns": [
+                {
+                    "comment": "Old Cell Category Functions",
+                    "match": "\\b(dm(?:AddCellTo|CreateCell|RemoveCell(?:From)?)Category)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_design_editor_function": {
+            "patterns": [
+                {
+                    "comment": "Design Editor Functions (Suffix App, Trigger, and Triggers)",
+                    "match": "\\b(de(?:Un)?Reg(?:App|UserTriggers|ProbeTrigger))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Suffix Enabling and Menus)",
+                    "match": "\\b(de(?:Un)Inherit(?:Enabling|Menus))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Suffix Plugin)",
+                    "match": "\\b(de(?:Find|Install|Reg|Remove)Plugin)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Suffix ConfigurePlugins)",
+                    "match": "\\b(de(?:Begin|End)ConfigurePlugins)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Prefix deFind)",
+                    "match": "\\b(deFindAssistant)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Prefix deGet)",
+                    "match": "\\b(deGet(?:App(?:Class)?Info|Plugins|ProbeTrigger))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Prefix deHi)",
+                    "match": "\\b(deHiSetDefaultApplication)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Prefix deSet)",
+                    "match": "\\b(deSetWorkspace)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_design_editor_overridable_function": {
+            "patterns": [
+                {
+                    "comment": "Design Editor Functions (Suffix Trigger)",
+                    "match": "\\b(deo(?:Enable|Exit|Menu|PostInstall)Trigger)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Prefix deoGet)",
+                    "match": "\\b(deoGet(?:AssistantList|Bindkeys))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Prefix deoOn)",
+                    "match": "\\b(deoOn(?:ApplicationChange|Event|TabSwitch))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Prefix deoRequire)",
+                    "match": "\\b(deoRequireToolbars)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Functions (Prefix deoUpdate)",
+                    "match": "\\b(deoUpdateToolbar)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_client_interface": {
+            "patterns": [
+                {
+                    "comment": "Client Interface",
+                    "match": "\\b(de(?:Back|Copy|CustomizeToolbars|EditInPlace|File(?:New|Open)|Forward|(?:New|Open)(?:CellView)?|Push|SetHistoryOpenMode|Swap|Toggle(?:Assistant(?:s|Visibility)|Toolbars)|(?:Find|(?:M|Unm)anage)Toolbar|Return))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_trigger_function": {
+            "patterns": [
+                {
+                    "comment": "Trigger Functions",
+                    "match": "\\b((?:app|data|enable|menu|user(?:App|Menu|PostInstall)|postInstall|probe)Trigger)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_licensing_function": {
+            "patterns": [
+                {
+                    "comment": "Licensing Functions (Prefix lbui)",
+                    "match": "\\b(lbui(?:GetCheckedOutLicenses|PrintLicenseUseReport))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Licensing Functions (Suffix CheckOutAndLock)",
+                    "match": "\\b((?:iclic|eli)CheckOutAndLock)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_design_editor_support_routine": {
+            "patterns": [
+                {
+                    "comment": "Design Editor Support Routines (Suffix CellView)",
+                    "match": "\\b(de(?:Get(?:Edit)?|Set)CellView)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Support Routines (Suffix ViewType and RootType)",
+                    "match": "\\b(deGet(?:Edit)?(?:Root|View)Type)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Support Routines (Suffix Context)",
+                    "match": "\\b(de(?:Get(?:Edit)?|IsEditIn|Set)Context)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Support Routines (Suffix ContextLevel)",
+                    "match": "\\b(deGetMaxInContextLevel)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Support Routines (Suffix ConfigId and ProbeContext)",
+                    "match": "\\b(de[GS]et(?:ConfigId|ProbeContext))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Support Routines (Suffix App)",
+                    "match": "\\b(de(?:Disable|Enable|GetLowerTier|Install)App)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Support Routines (Prefix deGet)",
+                    "match": "\\b(deGet(?:AllApplicationNames|All(?:Root|View)Types|(?:Max)?EditLevel|EIP|Pushed|RootViewTypeList|Vector))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Design Editor Support Routines (Prefix deMap)",
+                    "match": "\\b(deMap(?:UserTypeToView|ViewTypeToUser)Type)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
