@@ -1301,6 +1301,9 @@
                 },
                 {
                     "include": "#virtuoso_pegasus_interactive_function"
+                },
+                {
+                    "include": "#virtuoso_attribute_retrieval_modification_function"
                 }
             ]
         },
@@ -4017,6 +4020,15 @@
                 {
                     "comment": "Pegasus Interactive and Virtuoso Integrated Physical Verification System Functions",
                     "match": "\\b(pgssDRC|pvsApplyDRC)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_attribute_retrieval_modification_function": {
+            "patterns": [
+                {
+                    "comment": "Attribute Retrieval and Modification Functions",
+                    "match": "\\b(db[GS]etq?)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 }
             ]
