@@ -1295,6 +1295,9 @@
                 },
                 {
                     "include": "#virtuoso_multitech_framework_function"
+                },
+                {
+                    "include": "#virtuoso_photonics_function"
                 }
             ]
         },
@@ -3737,6 +3740,271 @@
                 {
                     "comment": "Virtuoso RF Solution Package Infrastructure Functions (ICADVM20.1 Only) (Suffix PadFile)",
                     "match": "\\b(pkx(?:Un)?PadFile)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_photonics_function": {
+            "patterns": [
+                {
+                    "comment": "Photonics Functions (ICADVM20.1 Only)",
+                    "match": "\\b(ccIsEnabled)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "include": "#virtuoso_curvy_core_mathematical_object_creation_function"
+                },
+                {
+                    "include": "#virtuoso_curvy_core_shape_creation_function"
+                },
+                {
+                    "include": "#virtuoso_curvy_core_shape_geometry_function"
+                },
+                {
+                    "include": "#virtuoso_curvy_core_mathematical_object_function"
+                },
+                {
+                    "include": "#virtuoso_curvy_core_mathematical_object_attribute_query_function"
+                },
+                {
+                    "include": "#virtuoso_curvy_core_shape_object_attribute_query_function"
+                },
+                {
+                    "include": "#virtuoso_transformation_function"
+                },
+                {
+                    "include": "#virtuoso_connector_function"
+                },
+                {
+                    "include": "#virtuoso_optical_rule_engine_function"
+                },
+                {
+                    "include": "#virtuoso_photonics_database_function"
+                },
+                {
+                    "include": "#virtuoso_photonics_flow_function"
+                },
+                {
+                    "include": "#virtuoso_photonics_symbol_generator_function"
+                },
+                {
+                    "include": "#virtuoso_photonics_connector_function"
+                }
+            ]
+        },
+        "virtuoso_curvy_core_mathematical_object_creation_function": {
+            "patterns": [
+                {
+                    "comment": "Curvy Core Mathematical Object Creation Functions (ICADVM20.1 Only)",
+                    "match": "\\b(ccCreate(?:(?:Poly)Curve|Facet|LineSegment))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_curvy_core_shape_creation_function": {
+            "patterns": [
+                {
+                    "comment": "Curvy Core Shape Creation Functions (ICADVM20.1 Only)",
+                    "match": "\\b(ccCreate(?:Ellipse|Line|Path|Pie|Polygon|Rect|Surface(?:FromPath)?))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_curvy_core_shape_geometry_function": {
+            "patterns": [
+                {
+                    "comment": "Curvy Core Shape Geometry Functions (ICADVM20.1 Only) (Suffix Fig)",
+                    "match": "\\b(cc(?:Copy|GenOffset|GetFrom|Move)Fig)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Curvy Core Shape Geometry Functions (ICADVM20.1 Only) (Suffix Figs)",
+                    "match": "\\b(cc(?:Gen|Remove)Figs)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Curvy Core Shape Geometry Functions (ICADVM20.1 Only) (Suffix Curvy)",
+                    "match": "\\b(ccConvertIntoCurvy)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_curvy_core_mathematical_object_function": {
+            "patterns": [
+                {
+                    "comment": "Curvy Core Mathematical Object Functions (ICADVM20.1 Only)",
+                    "match": "\\b(cc(?:LayerOffset|OffsetPolyCurve|RenameFacet))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_curvy_core_mathematical_object_attribute_query_function": {
+            "patterns": [
+                {
+                    "comment": "Curvy Core Mathematical Object Attribute Query Functions (ICADVM20.1 Only) (Prefix ccCubic)",
+                    "match": "\\b(ccCubicSplineConnector)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Curvy Core Mathematical Object Attribute Query Functions (ICADVM20.1 Only) (Prefix ccGet)",
+                    "match": "\\b(ccGet(?:Curve(?:Length|Point|Derivative)|PolyCurveMinRadius))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Curvy Core Mathematical Object Attribute Query Functions (ICADVM20.1 Only) (Prefix ccIs)",
+                    "match": "\\b(ccIsLinearCurve)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_curvy_core_shape_object_attribute_query_function": {
+            "patterns": [
+                {
+                    "comment": "Curvy Core Shape Object Attribute Query Functions (ICADVM20.1 Only)",
+                    "match": "\\b(ccGet(?:All|Path(?:Boundary|CenterLine|Edge))|ccFindSurfaceFacet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database" 
+                }
+            ]
+        },
+        "virtuoso_transformation_function": {
+            "patterns": [
+                {
+                    "comment": "Transformations Functions (ICADVM20.1 Only) (Prefix ccLayer)",
+                    "match": "\\b(ccLayer(?:And(?:Not)?|Or))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Transformations Functions (ICADVM20.1 Only) (Prefix ccMirror)",
+                    "match": "\\b(ccMirrorFacet)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Transformations Functions (ICADVM20.1 Only) (Prefix ccReverse)",
+                    "match": "\\b(ccReversePolyCurve)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Transformations Functions (ICADVM20.1 Only) (Prefix ccSmoothen)",
+                    "match": "\\b(ccSmoothen(?:Fig|PolyCurve))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Transformations Functions (ICADVM20.1 Only) (Prefix ccTransform)",
+                    "match": "\\b(ccTransform(?:Facet|PolyCurve))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_connector_function": {
+            "patterns": [
+                {
+                    "comment": "Transformations Functions (ICADVM20.1 Only) (Suffix Connector)",
+                    "match": "\\b(cc(?:Bend|Curve|Spiral|Trombone|Waypoint|Wide)Connector)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Transformations Functions (ICADVM20.1 Only) (Suffix ConnectorWidthExpressionList)",
+                    "match": "\\b(ccCreateConnectorWidthExpressionList)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_optical_rule_engine_function": {
+            "patterns": [
+                {
+                    "comment": "Optical Rule Engine Functions (ICADVM20.1 Only)",
+                    "match": "\\b(ccORE(?:Compile|GetContext(?:s|Object)?|PurgeContexts?)?)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_photonics_database_function": {
+            "patterns": [
+                {
+                    "comment": "Photonics Database Functions (ICADVM20.1 Only) (Prefix dbCell)",
+                    "match": "\\b(dbCellViewHasPhotonicPinFig)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Database Functions (ICADVM20.1 Only) (Prefix dbIs)",
+                    "match": "\\b(dbIsPhotonicsEnabled)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Database Functions (ICADVM20.1 Only) (Suffix Angle, Radius, and Width)",
+                    "match": "\\b(db(?:[GS]|Uns)etPhotonicPinFig(?:Angle|Radius|Width))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_photonics_flow_function": {
+            "patterns": [
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoAdd)",
+                    "match": "\\b(phoAddWaveguidePorts)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoCompose)",
+                    "match": "\\b(phoCompose)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoCompute)",
+                    "match": "\\b(phoComputeModeProps)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoHi)",
+                    "match": "\\b(phoHi(?:(?:C|Dec)ompose|EditCompositeWG))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoCreate)",
+                    "match": "\\b(phoCreatePort)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoGet)",
+                    "match": "\\b(phoGetConnectorAnchors)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoTech)",
+                    "match": "\\b(phoTech(?:(?:Delete|Has|Load)ModePropDataTable|GetModePropDataTableParamValues|HasModeProp|IsModePropLocalOnly))\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoRegister)",
+                    "match": "\\b(phoRegisterInstTermOpticalMonitorMenuItem)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Prefix phoOM)",
+                    "match": "\\b(phoOMGetObject)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                },
+                {
+                    "comment": "Photonics Flow Functions (ICADVM20.1 Only) (Suffix Waveguide)",
+                    "match": "\\b(pho(?:Gen|Is)Waveguide)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_photonics_symbol_generator_function": {
+            "patterns": [
+                {
+                    "comment": "Photonics Symbol Generator Functions (ICADVM20.1 Only)",
+                    "match": "\\b(phoDraw(?:BendConnector|CWLaser|(?:Comp|SBend|Straight)Waveguide|CrossBB|(?:CurveDelta|WayPoint)Connector|DC|EdgeCouplerBB|MMI|PhotoDiodeBB|StraightModulator)Symbol)\\b",
+                    "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "virtuoso_photonics_connector_function": {
+            "patterns": [
+                {
+                    "comment": "Photonics Connector Functions (ICADVM20.1 Only)",
+                    "match": "\\b(pho(?:Bend|Curve|SineDelta|Straight|WayPoint)Connector|phoDrawCompWaveguideLayout)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database constant.character.set.regexp.cadence.skill.virtuoso.database"
                 }
             ]
