@@ -97,6 +97,10 @@
                 {
                     "comment": "Virtuoso Technology Data SKILL Reference (sktechfile)",
                     "include": "#builtin_technology_data"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor SKILL Reference (skcompref)",
+                    "include": "#builtin_schematic_editor"
                 }
             ]
         },
@@ -4916,6 +4920,315 @@
                     "comment": "Wire Profile and Finger Definition Functions (ICADVM20.1 Only) (Prefix techImport and techExport)",
                     "match": "\\b(tech(?:Im|Ex)portWireProfileSet)\\b",
                     "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
+                }
+            ]
+        },
+        "builtin_schematic_editor": {
+            "patterns": [
+                {
+                    "include": "#schematic_editor_human_interface_function"
+                },
+                {
+                    "include": "#schematic_editor_procedural_interface_function"
+                },
+                {
+                    "include": "#schematic_library_management_commands"
+                },
+                {
+                    "include": "#schematic_amsdmv_function"
+                },
+                {
+                    "include": "#schematic_vsdp_function"
+                }
+            ]
+        },
+        "schematic_editor_human_interface_function": {
+            "patterns": [
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix ann)",
+                    "match": "\\b(ann(?:ToggleInfoBalloonVisibilityStatus|PinCurrentInfoBalloon))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix cds)",
+                    "match": "\\b(cds(?:Name|NetExpr|Param|Term))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix heHi)",
+                    "match": "\\b(heHi(?:EditConfig|SetInstBinding|ShowViewsFound|Update))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix hi)",
+                    "match": "\\b(hi(?:Prev|Nexi)WinView)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schAdd and schExtend)",
+                    "match": "\\b(sch(?:Add|Extend)SelectPt)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schDirect)",
+                    "match": "\\b(schDirectEdit)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter A)",
+                    "match": "\\b(schHi(?:About|AlternateView|Align))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter C)",
+                    "match": "\\b(schHi(?:CellViewProperty|ChangeEditMode|Check(?:AndSave|Hier)?|CloneSymbol|ComputePinRef|Copy|Create(?:BlockInst|Inst(?:Box)?|KanjiSymbol|MappingSchematic|NetExpression|Note(?:Label|Shape)|Patchcord|Pin|Sheet|Symbol(?:Label|Pin|Shape)|Wire(?:Label|Stubs)?)))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter D)",
+                    "match": "\\b(schHi(?:DefaultAction|Delete(?:Index|Sheet)?|Descend(?:Edit|Read)?|DisplayOptions|Distribute|DrawSymbolPin))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter E)",
+                    "match": "\\b(schHi(?:Edit(?:InPlace|Text|PinOrder|SheetSize|TitleBlock|orOptions)|EnvSaveLoad|ExtractConn))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter F)",
+                    "match": "\\b(schHi(?:Find(?:Marker)?|FollowPin|FontUpdate))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter G)",
+                    "match": "\\b(schHi(?:GotoSheet|GridOptions))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter H)",
+                    "match": "\\b(schHiHiliteLabel)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter I)",
+                    "match": "\\b(schHi(?:Ignore|InstToView))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter M)",
+                    "match": "\\b(schHi(?:MousePopUp|Move))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter N)",
+                    "match": "\\b(schHi(?:NetExpr(?:AvailProps|EvalNames)|NewCellView))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter O)",
+                    "match": "\\b(schHi(?:ObjectProperty|Open(?:Cell|Other|SymbolOrSchematic)View))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter P)",
+                    "match": "\\b(schHi(?:PinListToView|Plot(?:QueueStatus)?))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter R)",
+                    "match": "\\b(schHi(?:RegisterWireStubs|Renumber(?:(?:All)?Sheet|Instances)|Replace|ResetInvisibleLabels|Return(?:ToTop)?|Rotate|RouteFlightLine))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter S)",
+                    "match": "\\b(schHi(?:SaveCellView|Select(?:All|ByProperty)|SetSymbolOrigin|ShowScope|SnapToGrid|Solder|SRC|(?:Sym)?Stretch))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter T)",
+                    "match": "\\b(schHiTree)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter U)",
+                    "match": "\\b(schHiUpdate(?:PinOrder|PinsFromView))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter V)",
+                    "match": "\\b(schHi(?:VHDLProperty|VIC(?:AndSave)?|ViewToView))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix schHi and Letter Z)",
+                    "match": "\\b(schHiZoomToSelSet)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Human Interface (HI) Functions (Prefix sch)",
+                    "match": "\\b(sch(?:SelectByLine|SetSelectOptions|SingleSelectPt))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                }
+            ]
+        },
+        "schematic_editor_procedural_interface_function": {
+            "patterns": [
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix ann)",
+                    "match": "\\b(ann(?:Load|Save)AnnotationData)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix defcell)",
+                    "match": "\\b(defcell)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix hsm)",
+                    "match": "\\b(hsm(?:(?:Des|S)elect|GetSelectedSet))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix opc)",
+                    "match": "\\b(opc(?:(?:Add(?:List|Object)To|Clear|Create(?:Persist|Transi)ent|Destroy|Find|Release|RemoveObjectFrom)Set|AllSetsInCellView))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter A)",
+                    "match": "\\b(sch(?:AddIgnoreProp|Align|AttachLibToPackageTech))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter C)",
+                    "match": "\\b(sch(?:Check(?:Hier(?:Config)?)?|ClearConn|CloneSymbol|CmdOption|ComputePinRef|Copy|Create(?:Inst(?:Box)?|NetExpression|Note(?:Label|Shape)|Pin|Sheet|SplitPrimarySymbol|Symbol(?:Label|Pin|Shape)|Wire(?:Label)?)))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter D)",
+                    "match": "\\b(sch(?:Delete(?:Index|Sheet)?|DeselectAllFig|Distribute|DrawSymbolPin))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter E)",
+                    "match": "\\b(sch(?:Edit(?:PinOrder|SheetSize)|ExistsEditCap|ExtendSelSet|Extract(?:Conn|Status)))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter F)",
+                    "match": "\\b(schFindIgnorePropByName)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter G)",
+                    "match": "\\b(sch(?:Get(?:AllIgnoreProps|BundleDisplayMode|CellViewListInSearchScope|CheckGroups|Env|IgnoredStatus|MatchingObjects|PinOrder|(?:Post|Pre)CheckTriggers|PropertyDisplay|ShapeStyle|SignalTypeIntegrity|Split(?:Inst(?:ances|Terms)|PrimaryInst(?:Term)?)|Wire(?:Color|LineStyle))|GlueLabel))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter H)",
+                    "match": "\\b(sch(?:HdlPrint(?:File|Vars)|HDLReturn))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter I)",
+                    "match": "\\b(sch(?:Ignore|InhCon(?:Find|Set)|Inst(?:allHDL|ToView)|Is(?:FlightLine|HDLCapEnabled|InCheckHier|(?:Index|Sheet)CV|(?:Sch|Sym)EditOk|Split(?:(?:Primary)?(?:Inst|Symbol))|TextEditable|UsingSplitFeature|ViewCapEnabled|Wire(?:Label)?)))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter L)",
+                    "match": "\\b(schLayoutToPinList)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter M)",
+                    "match": "\\b(sch(?:MouseApplyOrFinish|Move))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter N)",
+                    "match": "\\b(schNetExpr(?:AvailProps|EvalNames))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter P)",
+                    "match": "\\b(sch(?:PinListTo(?:(?:Schem|Symbol)(?:Gen)?|Verilog|View)|Plot|Produce(?:CVHierConfig|UniqueCVHier)))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter R)",
+                    "match": "\\b(sch(?:Reg(?:ister(?:Check(?:Group|Rule)|(?:Fixed|PopUp)Menu)|(?:Post|Pre)CheckTrigger)|ReportCheckFailure|ReinitializeShapeStyles|RemoveIgnoreProp|Renumber(?:(?:All)?Sheet|Instances)|ReplaceProperty))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter S)",
+                    "match": "\\b(sch(?:SaveCurrentPlotOptions|SchemToPinList|Select(?:AllFig|Point)|Set(?:AndLoadTsgTemplateType|BundleDisplayMode|CmdOption|Env|IgnorePropEnabled|(?:Symbol)?Origin|PropertyDisplay|ShapeStyle|SignalTypeIntegrity|Split(?:PrimaryInst|Symbol)|TextDisplayBBox|Wire(?:Color|LineStyle))|ShiftCmdOption|SingleSelectBox|SnapTo(?:Conn|Grid)|Solder|SplitNumber|SRC|Stretch|SubSelectBox|SymbolToPinList|Sync))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter T)",
+                    "match": "\\b(schTraceNet)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter U)",
+                    "match": "\\b(sch(?:Unreg(?:ister(?:Fixed|PopUp)Menu|(?:Post|Pre)CheckTrigger)|UpdateUserSRCErrorAndWarn))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter V)",
+                    "match": "\\b(sch(?:VerilogToPinList|VIC|ViewToView))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter Z)",
+                    "match": "\\b(schZoomFit)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix tree)",
+                    "match": "\\b(treeSave(?:Hierarchy|Screen))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix tsg)",
+                    "match": "\\b(tsg)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                }
+            ]
+        },
+        "schematic_library_management_commands": {
+            "patterns": [
+                {
+                    "comment": "Library Management Commands (Prefix lm)",
+                    "match": "\\b(lm(?:Check(?:Term|View)|CloseLib|(?:Def|Delete|Print(?:Lib)?)(?:Cell|(?:Term|View)Prop)|GetValue|LoadData|OpenLib|PrintTerm|Reset|SimView))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Library Management Commands (Prefix sim)",
+                    "match": "\\b(simRep)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                }
+            ]
+        },
+        "schematic_amsdmv_function": {
+            "patterns": [
+                {
+                    "comment": "Function for amsDmv (IC6.1.8 Only)",
+                    "match": "\\b(dmvStart)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic constant.character.set.regexp.cadence.skill.schematic"
+                }
+            ]
+        },
+        "schematic_vsdp_function": {
+            "patterns": [
+                {
+                    "comment": "VSDP SKILL Functions (IC6.1.8 Only) (Prefix sip)",
+                    "match": "\\b(sipImportLgaBgaTextSkill)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic constant.character.set.regexp.cadence.skill.schematic"
+                },
+                {
+                    "comment": "VSDP SKILL Functions (IC6.1.8 Only) (Prefix vsdpi)",
+                    "match": "\\b(vsdpi(?:WriteCDF|RunDieExport|[GS]etValueOfDieExportField|SaveXML))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic constant.character.set.regexp.cadence.skill.schematic"
                 }
             ]
         }
