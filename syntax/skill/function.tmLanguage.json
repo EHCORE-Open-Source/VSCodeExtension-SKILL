@@ -103,6 +103,10 @@
                     "include": "#builtin_technology_data"
                 },
                 {
+                    "comment": "Virtuoso Analog Design Environment (ADE) SKILL Reference (maeSKILLref)",
+                    "include": "#builtin_virtuoso_ade"
+                },
+                {
                     "comment": "Virtuoso Schematic Editor SKILL Reference (skcompref)",
                     "include": "#builtin_schematic_editor"
                 }
@@ -5023,6 +5027,96 @@
                     "comment": "Wire Profile and Finger Definition Functions (ICADVM20.1 Only) (Prefix techImport and techExport)",
                     "match": "\\b(tech(?:Im|Ex)portWireProfileSet)\\b",
                     "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology constant.character.set.regexp.cadence.skill.virtuoso.technology"
+                }
+            ]
+        },
+        "builtin_virtuoso_ade": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ade_maestro_cellview_function"
+                }
+            ]
+        },
+        "virtuoso_ade_maestro_cellview_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ade_l_xl_state_to_maestro_cellview_migrate_function"
+                },
+                {
+                    "include": "#virtuoso_ade_create_view_edit_save_setup_function"
+                }
+            ]
+        },
+        "virtuoso_ade_l_xl_state_to_maestro_cellview_migrate_function": {
+            "patterns": [
+                {
+                    "comment": "Functions to Migrate ADE L or ADE XL States to Maestro Cellviews",
+                    "match": "\\b(mae(?:ConvertAndCombineMultiADELToAssembler|MigrateADE(?:LState|XL)ToMaestro))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_create_view_edit_save_setup_function": {
+            "patterns": [
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter A)",
+                    "match": "\\b(mae(?:AddOutput|ApplyCornerEditingOptions))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter C)",
+                    "match": "\\b(mae(?:CreateTest|CloseSession|ConvertViewFor(?:(?:Integrated|Separate)HistoryManagement|ReferencedAndLocalRunPlanCorners)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter D)",
+                    "match": "\\b(maeDelete(?:Corner|ExplorerHistory|MultiWildCardOutputs|Output|Parameter|Tags|Test|Var))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter E)",
+                    "match": "\\b(mae(?:Enable(?:Corner|GlobalVar|Parameter|Tests)|Export(?:GlobalVariablesToCSV|SetupForExplorer|RunPreview)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter G)",
+                    "match": "\\b(maeGet(?:AllExplorerHistoryNames|CornerEditingOptions|CurrentRunMode|(?:Enabled)?Analysis|EnvOption|ExplorerTestName|HistoryLock|Setup|Sessions|SimOption|Tags|Test(?:EnvVar|Session)|Var))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter I)",
+                    "match": "\\b(mae(?:ImportSetupForExplorer|Is(?:SetupModified|SingleTest|ValidMaestroSession)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter L)",
+                    "match": "\\b(maeLoad(?:Corners|SetupState|StateForTest))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter M)",
+                    "match": "\\b(maeMake(?:Editable|Readonly))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter O)",
+                    "match": "\\b(maeOpenSetup)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter R)",
+                    "match": "\\b(mae(?:RegTimer|ResetCornerEditingOptions|RunDspfChecker))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter S)",
+                    "match": "\\b(mae(?:SaveSetup(?:State(?:ForOptimization)?)?|Set(?:Analysis|Corner(?:EditingOptions)?|CurrentRunMode|Design|EnableTestVar|EnvOption|HistoryLock|Parameter|Spec|Setup(?:Library)?|SimOption|StartingPointForOptimization|Tags|(?:TestEnv)?Var)|Stm(?:ConsolidateStimuli|GenerateWaveforms)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Create, View, Edit, and Save Setup (Letter U)",
+                    "match": "\\b(maeUpdateImplicitSignals)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
         },
