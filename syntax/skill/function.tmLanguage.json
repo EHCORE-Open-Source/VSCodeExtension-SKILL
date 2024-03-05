@@ -91,6 +91,10 @@
                     "include": "#builtin_application_infrastructure_function"
                 },
                 {
+                    "comment": "Cadence PDK Automation System (PAS) Graphical Technology Editor (GTE) PCell Reference (pasgtepcellref)",
+                    "include": "#builtin_pas_gte_pcell_utility_function"
+                },
+                {
                     "comment": "Virtuoso Design Environment SKILL Reference (skdfref)",
                     "include": "#builtin_virtuoso_design_environment"
                 },
@@ -1268,6 +1272,105 @@
                 {
                     "comment": "Plotter Functions",
                     "match": "\\b(ps(?:ConfigLoaded|LoadCdsPlotInit|Query(?:PaperSizes?|Plotters)|QueueStatus))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                }
+            ]
+        },
+        "builtin_pas_gte_pcell_utility_function": {
+            "patterns": [
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasAttention)",
+                    "match": "\\b(PasAttention)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasCalc)",
+                    "match": "\\b(PasCalcMosFingers)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasConstants)",
+                    "match": "\\b(PasConstants)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasCdf)",
+                    "match": "\\b(PasCdf(?:CallCallbacks|(?:Commit|Last|Set|Return)Value|Done|FormInit|Get(?:Dpt|Float|Int)|(?:Get|Put)Prop|Validate(?:Float|Int)))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasCeiling)",
+                    "match": "\\b(PasCeiling)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasConstrain)",
+                    "match": "\\b(PasConstrainSpacing)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasError)",
+                    "match": "\\b(PasError)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasFloat)",
+                    "match": "\\b(PasFloat2String)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasFloor)",
+                    "match": "\\b(PasFloor)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasGet)",
+                    "match": "\\b(PasGet(?:(?:BBox|Rod)Union|(?:Cell|Device|Lib)Props|Obj(?:Cell|Lib)Props|PCellParamTable|PdkParams|RodUnionByName))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasInfo)",
+                    "match": "\\b(PasInfo)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasMsg)",
+                    "match": "\\b(PasMsg(?:Get(?:Type|Msg)|Reset|SetDialog))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasSet)",
+                    "match": "\\b(PasSetInstParamValue)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasSize)",
+                    "match": "\\b(PasSize(?:BBox|Spacing))\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasReset)",
+                    "match": "\\b(PasResetPdkProps)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasRound)",
+                    "match": "\\b(PasRound)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasUpper)",
+                    "match": "\\b(PasUpperFirstLetter)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasWarn)",
+                    "match": "\\b(PasWarn)\\b",
+                    "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                },
+                {
+                    "comment": "PAS GTE PCell SKILL Utility Functions (Prefix PasXor)",
+                    "match": "\\b(PasXor)\\b",
                     "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
                 }
             ]
