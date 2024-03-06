@@ -5042,6 +5042,9 @@
                     "include": "#virtuoso_ade_session_function"
                 },
                 {
+                    "include": "#virtuoso_ade_setup_database_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5437,6 +5440,100 @@
                 {
                     "comment": "Session Functions (Prefix axlTool)",
                     "match": "\\b(axlToolSetOpPointInfo)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_setup_database_function": {
+            "patterns": [
+                {
+                    "comment": "Setup Database Functions (Prefix axlClose)",
+                    "match": "\\b(axlCloseSetupDB)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlCommit)",
+                    "match": "\\b(axlCommitSetupDB(?:AndHistoryAs|as)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlDiff)",
+                    "match": "\\b(axlDiffSetup)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlExport)",
+                    "match": "\\b(axlExportSetup)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlDelete)",
+                    "match": "\\b(axlDeleteNote)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlGet)",
+                    "match": "\\b(axlGet(?:ActiveSetup|(?:CopyRefResults|ReuseNetlist)Option|ElementParent|Enabled|HistoryGroupChildren(?:Entry)?|LocalResultsDir|Note|Point(?:Netlist|Psf|Run|Troubleshoot)Dir|ResultsLocation|Script(?:Path|s)?|SessionFromSetupDB|Setup(?:DBDir|Info)|TopLevel|UseIncremental))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlImport)",
+                    "match": "\\b(axlImportSetup)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlIs)",
+                    "match": "\\b(axlIsLocalResultsDir)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlLoad)",
+                    "match": "\\b(axlLoadSetupState)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlNew)",
+                    "match": "\\b(axlNewSetupDB(?:LCV)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlPut)",
+                    "match": "\\b(axlPut(?:Note|Script|Test))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlRemove)",
+                    "match": "\\b(axlRemoveElement)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlReset)",
+                    "match": "\\b(axlResetActive)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlSave)",
+                    "match": "\\b(axlSaveSetup(?:ToLib)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlSet)",
+                    "match": "\\b(axlSet(?:AllSweepsEnabled|(?:CopyRefResults|ReuseNetlist)Option|Enabled|ReferenceHistoryItemName|UseIncremental|ScriptPath))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlSDB)",
+                    "match": "\\b(axlSDB(?:DebugPrint|Get(?:Child(?:ren|Val)|Extension|Name|Value)|Hp|PutExtension|Set(?:Child|MultipleEntry|Value)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix axlWrite)",
+                    "match": "\\b(axlWriteDatasheet(?:Form)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setup Database Functions (Prefix maeGet)",
+                    "match": "\\b(maeGetReferenceHistories)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
