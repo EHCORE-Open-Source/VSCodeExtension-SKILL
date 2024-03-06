@@ -5054,6 +5054,9 @@
                     "include": "#virtuoso_ade_model_function"
                 },
                 {
+                    "include": "#virtuoso_ade_output_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5585,6 +5588,60 @@
                 {
                     "comment": "Model Functions (Prefix axlSet)",
                     "match": "\\b(axlSetModel(?:Block|File|GroupName|PermissibleSectionLists|Section|Test))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_output_function": {
+            "patterns": [
+                {
+                    "comment": "Output Functions (Prefix ALIAS)",
+                    "match": "\\b(ALIAS)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix axlAdd)",
+                    "match": "\\b(axlAddOutput(?:s(?:Column)?|Expr|Signal))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix axlDelete)",
+                    "match": "\\b(axlDeleteOutput(?:sColumn)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix axlOutput)",
+                    "match": "\\b(axlOutput(?:Result|s(?:ExportToFile|ImportFromFile)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix axlGet)",
+                    "match": "\\b(axlGet(?:CustomOutputResultMenu|Output(?:UserDefinedData|Notation|SignificantDigits|Suffix|Units)|UserDefinedOutputsColumns|TemperatureForCurrentPointInRun))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix axlPut)",
+                    "match": "\\b(axlPutOutput(?:Notation|SignificantDigits|Suffix|Units))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix axlRename)",
+                    "match": "\\b(axlRenameOutputsColumn)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix axlSet)",
+                    "match": "\\b(axlSetOutputUserDefinedData)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix calcVal)",
+                    "match": "\\b(calcVal)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Output Functions (Prefix measureAcross)",
+                    "match": "\\b(measureAcross)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
