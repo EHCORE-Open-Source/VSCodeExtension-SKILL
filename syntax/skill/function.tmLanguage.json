@@ -5066,6 +5066,9 @@
                     "include": "#virtuoso_ade_corner_function"
                 },
                 {
+                    "include": "#virtuoso_ade_optimization_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5728,6 +5731,15 @@
                 {
                     "comment": "Corners Functions (Prefix axlSet)",
                     "match": "\\b(axlSet(?:(?:DefaultCorner|AllCorners)Enabled|(?:Nominal)?Corner(?:Name|TestEnabled)|WCCTime))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_optimization_function": {
+            "patterns": [
+                {
+                    "comment": "Optimization Functions",
+                    "match": "\\b(axl[GS]etWYCSigmaTargetLimit)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
