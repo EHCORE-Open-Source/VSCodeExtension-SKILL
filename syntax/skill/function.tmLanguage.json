@@ -5040,6 +5040,9 @@
                 },
                 {
                     "include": "#virtuoso_ade_session_function"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_function"
                 }
             ]
         },
@@ -5434,6 +5437,148 @@
                 {
                     "comment": "Session Functions (Prefix axlTool)",
                     "match": "\\b(axlToolSetOpPointInfo)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ade_cdf_creating_description"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_query_description"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_saving_description"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_dumping_editing_description"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_deleting_description"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_copying_finding_description"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_setting_scale_factor"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_other_function"
+                },
+                {
+                    "include": "#virtuoso_ade_cdf_invoking_edit_cdf_form_function"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_creating_description": {
+            "patterns": [
+                {
+                    "comment": "Creating Descriptions",
+                    "match": "\\b(cdfCreate(?:(?:Base|User)(?:Cell|Lib)CDF|Param))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_query_description": {
+            "patterns": [
+                {
+                    "comment": "Query Descriptions",
+                    "match": "\\b(cdfGet(?:(?:Base|User)?(?:Cell|Lib)|Inst)CDF)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_saving_description": {
+            "patterns": [
+                {
+                    "comment": "Saving Descriptions",
+                    "match": "\\b(cdfSaveCDF)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_dumping_editing_description": {
+            "patterns": [
+                {
+                    "comment": "Dumping and Editing Descriptions",
+                    "match": "\\b(cdfDump(?:All)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_deleting_description": {
+            "patterns": [
+                {
+                    "comment": "Deleting Descriptions",
+                    "match": "\\b(cdfDelete(?:CDF|Param))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_copying_finding_description": {
+            "patterns": [
+                {
+                    "comment": "Copying, Finding, and Updating Data and Parameters (Prefix cdfCopy)",
+                    "match": "\\b(cdfCopy(?:CDF|Param))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Copying, Finding, and Updating Data and Parameters (Prefix cdfFind)",
+                    "match": "\\b(cdfFindParamByName)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Copying, Finding, and Updating Data and Parameters (Prefix cdfUpdate)",
+                    "match": "\\b(cdfUpdateInstParam)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Copying, Finding, and Updating Data and Parameters (Prefix cdfRefresh)",
+                    "match": "\\b(cdfRefreshCDF)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Copying, Finding, and Updating Data and Parameters (Prefix aed)",
+                    "match": "\\b(aed(?:Copy|Delete)CDF)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_setting_scale_factor": {
+            "patterns": [
+                {
+                    "comment": "Setting Scale Factors (Prefix cdfGet and cdfSet)",
+                    "match": "\\b(cdf[GS]etUnitScaleFactor)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setting Scale Factors (Prefix cdfEdit)",
+                    "match": "\\b(cdfEditScaleFactors)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Setting Scale Factors (Suffix RetentionForZero)",
+                    "match": "\\b(cdf(?:En|Dis)ableScaleFactorRetentionForZero)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_other_function": {
+            "patterns": [
+                {
+                    "comment": "Other SKILL Functions",
+                    "match": "\\b(cdf(?:(?:Format|Parse)FloatString|SyncInstParamValue|UpdateInstSingleParam))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_cdf_invoking_edit_cdf_form_function": {
+            "patterns": [
+                {
+                    "comment": "Invoking the Edit CDF Form",
+                    "match": "\\b(aedEditCDF|cdfGetCustomViaCDF|cdfUpdateCustomViaParam)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
