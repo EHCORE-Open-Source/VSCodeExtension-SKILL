@@ -5044,6 +5044,27 @@
                 },
                 {
                     "include": "#virtuoso_ade_create_view_edit_save_setup_function"
+                },
+                {
+                    "include": "#virtuoso_ade_work_with_simulation_result_function"
+                },
+                {
+                    "include": "#virtuoso_ade_check_assert_function"
+                },
+                {
+                    "include": "#virtuoso_ade_run_plan_function"
+                },
+                {
+                    "include": "#virtuoso_ade_work_with_plotting_function"
+                },
+                {
+                    "include": "#virtuoso_ade_sensitivity_analysis_function"
+                },
+                {
+                    "include": "#virtuoso_ade_xml_file_management_function"
+                },
+                {
+                    "include": "#virtuoso_ade_work_with_locally_scoped_model_option_function"
                 }
             ]
         },
@@ -5116,6 +5137,154 @@
                 {
                     "comment": "Functions to Create, View, Edit, and Save Setup (Letter U)",
                     "match": "\\b(maeUpdateImplicitSignals)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_work_with_simulation_result_function": {
+            "patterns": [
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix getSim)",
+                    "match": "\\b(getSimRunInfo)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeClose)",
+                    "match": "\\b(maeCloseResults)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeDelete)",
+                    "match": "\\b(maeDeleteSimulationData)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeExport)",
+                    "match": "\\b(maeExportOutputView)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeForce)",
+                    "match": "\\b(maeForceRdbStatus)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeGet)",
+                    "match": "\\b(maeGet(?:NBestDesignPoints|OutputValue|Overall(?:SpecStatus|Yield)|Param(?:eter|Conditions)|Result(?:sViewSelectedCellsDetails|Outputs|Tests)|SpecStatus|TestOutputs))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeImport)",
+                    "match": "\\b(maeImportHistory)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeOpen)",
+                    "match": "\\b(maeOpenResults)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeRead)",
+                    "match": "\\b(maeReadResDB)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeRestore)",
+                    "match": "\\b(maeRestoreHistory)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Simulation Results (Prefix maeWrite)",
+                    "match": "\\b(maeWriteDatasheet)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_check_assert_function": {
+            "patterns": [
+                {
+                    "comment": "Functions for Checks and Asserts",
+                    "match": "\\b(mae(?:(?:Close|Open)ViolationDb|RefreshViolationDisplay|(?:Un)?WaiveViolation))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_run_plan_function": {
+            "patterns": [
+                {
+                    "comment": "Functions for Run Plan (Suffix RunScript)",
+                    "match": "\\b(maeAdd(?:Post|Pre)RunScript)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions for Run Plan (Suffix SimulationOptions)",
+                    "match": "\\b(mae(?:Copy|Edit)SimulationOptions)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions for Run Plan (Suffix Run)",
+                    "match": "\\b(mae(?:CreateNew|Delete|Enable)Run)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions for Run Plan (Suffix RunCondition)",
+                    "match": "\\b(mae(?:Create|Delete)RunCondition)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions for Run Plan (Suffix RunCopy)",
+                    "match": "\\b(maeCreateRunCopy)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions for Run Plan (Prefix maeGet)",
+                    "match": "\\b(maeGet(?:CurrentRunPlanName|(?:Enabled|NumberOfExecuted)Runs|History(?:LockFlag|NameForCurrentRunInRunPlan)|RunPlan))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions for Run Plan (Prefix maeIs)",
+                    "match": "\\b(maeIs(?:FirstRunInRunPlan|FinalRunCompleted))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_work_with_plotting_function": {
+            "patterns": [
+                {
+                    "comment": "Functions to Work with Plotting Templates (Suffix Templates)",
+                    "match": "\\b(maeGetAllPlottingTemplates)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Functions to Work with Plotting Templates (Suffix Template)",
+                    "match": "\\b(mae(?:PlotWith|SaveImagesUsing)PlottingTemplate)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_sensitivity_analysis_function": {
+            "patterns": [
+                {
+                    "comment": "Functions for Sensitivity Analysis Setup",
+                    "match": "\\b(maeSens(?:Delete(?:Model(?:Group)?|Parameter|Var)|Enable(?:Design|Stat)Variation|Get(?:Model(?:s|Group)?|Parameters?|Vars?)|Set(?:Method|Model(?:Group)?|Parameter|Var)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_xml_file_management_function": {
+            "patterns": [
+                {
+                    "comment": "Functions for XML File Management",
+                    "match": "\\b(sev(?:ConvertStateFormat|(?:Close|Open)XmlFile|(?:Read|Write)(?:Table|Value)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_work_with_locally_scoped_model_option_function": {
+            "patterns": [
+                {
+                    "comment": "Functions to Work with the Locally Scoped Models and Options (MTS Options)",
+                    "match": "\\b(mae[GS]etMTS(?:Block|Mode))\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
