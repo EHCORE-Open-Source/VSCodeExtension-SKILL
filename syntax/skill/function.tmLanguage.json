@@ -5072,6 +5072,9 @@
                     "include": "#virtuoso_ade_run_related_function"
                 },
                 {
+                    "include": "#virtuoso_ade_history_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5797,6 +5800,55 @@
                 {
                     "comment": "Run-Related Functions (Prefix axlRead)",
                     "match": "\\b(axlRead(?:History)?ResDB)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_history_function": {
+            "patterns": [
+                {
+                    "comment": "History Functions (Prefix axlGet)",
+                    "match": "\\b(axlGet(?:CurrentHistory|DataViewHistoryUserMenu|History(?:Checkpoint|Entry|Group|Lock|Name|Prefix|Results)?|OverwriteHistory(?:Name)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "History Functions (Prefix axlLoad and axlRestore)",
+                    "match": "\\b(axl(?:Load|Restore)History)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "History Functions (Prefix axlSet)",
+                    "match": "\\b(axlSet(?:History(?:Lock|Name|PrefixInPreRunTrigger)|OverwriteHistory(?:Name)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "History Functions (Prefix axlOpen)",
+                    "match": "\\b(axlOpenResDB)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "History Functions (Prefix axlPut)",
+                    "match": "\\b(axlPutHistoryEntry)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "History Functions (Prefix axlRe and axlRemove)",
+                    "match": "\\b(axl(?:ReEvaluateHistory|RemoveSimulationResults))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "History Functions (Prefix axlView)",
+                    "match": "\\b(axlViewHistoryResults)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "History Functions (Prefix axlWrite)",
+                    "match": "\\b(axlWriteMonteCarloResultsCSV)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "History Functions (Prefix maeGet)",
+                    "match": "\\b(maeGetHistoryCloudUUID)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
