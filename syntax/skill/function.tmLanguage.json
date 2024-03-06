@@ -5045,6 +5045,9 @@
                     "include": "#virtuoso_ade_setup_database_function"
                 },
                 {
+                    "include": "#virtuoso_ade_variable_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5534,6 +5537,15 @@
                 {
                     "comment": "Setup Database Functions (Prefix maeGet)",
                     "match": "\\b(maeGetReferenceHistories)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_variable_function": {
+            "patterns": [
+                {
+                    "comment": "Variable Functions",
+                    "match": "\\b(axl(?:GetVar(?:s|Value)?|PutVar|[GS]etAllVarsDisabled|Set(?:DefaultVariables|DesignVariablePerTest)))\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
