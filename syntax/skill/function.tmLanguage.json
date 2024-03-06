@@ -5057,6 +5057,9 @@
                     "include": "#virtuoso_ade_output_function"
                 },
                 {
+                    "include": "#virtuoso_ade_test_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5642,6 +5645,40 @@
                 {
                     "comment": "Output Functions (Prefix measureAcross)",
                     "match": "\\b(measureAcross)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_test_function": {
+            "patterns": [
+                {
+                    "comment": "Test Functions (Prefix axlGet)",
+                    "match": "\\b(axlGet(?:CornersForATest|EnabledGlobalVarPerTest|EnabledTests|OrigTestToolArgs|Tests?|TestToolArgs))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Test Functions (Prefix axlSave)",
+                    "match": "\\b(axlSaveResValue)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Test Functions (Prefix axlSet)",
+                    "match": "\\b(axlSetTestToolArgs)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Test Functions (Prefix axlTool)",
+                    "match": "\\b(axlToolSet(?:Original)?SetupOptions)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Test Functions (Prefix axlCustom)",
+                    "match": "\\b(axlCustomADETestName)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Test Functions (Prefix axlWrite)",
+                    "match": "\\b(axlWriteOceanScriptLCV)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
