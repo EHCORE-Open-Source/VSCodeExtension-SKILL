@@ -5060,6 +5060,9 @@
                     "include": "#virtuoso_ade_test_function"
                 },
                 {
+                    "include": "#virtuoso_ade_specification_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5679,6 +5682,15 @@
                 {
                     "comment": "Test Functions (Prefix axlWrite)",
                     "match": "\\b(axlWriteOceanScriptLCV)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_specification_function": {
+            "patterns": [
+                {
+                    "comment": "Specification Functions",
+                    "match": "\\b(axl(?:AddSpecToOutput|GetSpec(?:s|Data|Weight)?))\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
