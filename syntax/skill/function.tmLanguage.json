@@ -5037,6 +5037,9 @@
                 },
                 {
                     "include": "#virtuoso_ade_fault_simulation_function"
+                },
+                {
+                    "include": "#virtuoso_ade_session_function"
                 }
             ]
         },
@@ -5372,6 +5375,65 @@
                 {
                     "comment": "Fault Simulation Functions (Prefix maeSwitch)",
                     "match": "\\b(maeSwitchActiveFaultGroupForCurrentRun)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_session_function": {
+            "patterns": [
+                {
+                    "comment": "Session Functions (Prefix axlClose and axlNo)",
+                    "match": "\\b(axl(?:Close|No)Session(?:InWindow)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlCreate)",
+                    "match": "\\b(axlCreateSession)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlGet)",
+                    "match": "\\b(axlGet(?:CurrentResultSimulationHost|MainSetupDB|Session(?:(?:Cell|Lib|View)Name|WindowNumber)|(?:Tool|Window)Session))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlIs)",
+                    "match": "\\b(axlIs(?:SessionReadOnly|ValidAXLSession))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlMain)",
+                    "match": "\\b(axlMainAppSaveSetup)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlRemove and axlSave)",
+                    "match": "\\b(axl(?:Remove|Save)SetupState)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlSession)",
+                    "match": "\\b(axlSession(?:(?:C|Disc)onnect|RegisterCreationCallback|Signal(?:List|Signature)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlSet)",
+                    "match": "\\b(axlSetMainSetupDB(?:LCV)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlSetup)",
+                    "match": "\\b(axlSetupStates)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlSuppress and axlShow)",
+                    "match": "\\b(axl(?:Suppress|Show)PersistedQuestionDialog)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Session Functions (Prefix axlTool)",
+                    "match": "\\b(axlToolSetOpPointInfo)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
