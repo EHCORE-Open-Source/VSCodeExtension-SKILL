@@ -5069,6 +5069,9 @@
                     "include": "#virtuoso_ade_optimization_function"
                 },
                 {
+                    "include": "#virtuoso_ade_run_related_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5740,6 +5743,60 @@
                 {
                     "comment": "Optimization Functions",
                     "match": "\\b(axl[GS]etWYCSigmaTargetLimit)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_run_related_function": {
+            "patterns": [
+                {
+                    "comment": "Run-Related Functions (Prefix mae)",
+                    "match": "\\b(mae(?:Get(?:SimulationMessages|MappingForJobAndPoint)|OpenLogViewer|(?:Resume|Run|Stop|Suspend)Simulation|Set(?:PreRunScript|RunOption)|WaitUntilDone|WriteScript))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlExport)",
+                    "match": "\\b(axlExportOutputView)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlGet)",
+                    "match": "\\b(axlGet(?:AllSweepsEnabled|CurrentRunMode|Parasitic(?:RunMode|(?:Para|Sch)LCV)|PreRunScript|Run(?:DistributeOptions|Data|Modes?|Option(?:s|Name|Value)?|Status)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlImport)",
+                    "match": "\\b(axlImportPreRunScript)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlIs)",
+                    "match": "\\b(axlIsSimUsingStatParams)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlPut)",
+                    "match": "\\b(axlPutRunOption)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlRun)",
+                    "match": "\\b(axlRun(?:AllTests(?:WithCallback)?|Simulation))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlSet)",
+                    "match": "\\b(axlSet(?:(?:Current|Parasitic)RunMode|PreRunScript(?:Enabled)?|Run(?:DistributeOptions|Option(?:Name|Value))))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlStop)",
+                    "match": "\\b(axlStop(?:All)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Run-Related Functions (Prefix axlRead)",
+                    "match": "\\b(axlRead(?:History)?ResDB)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
