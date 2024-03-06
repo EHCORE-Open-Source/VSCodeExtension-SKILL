@@ -5034,6 +5034,9 @@
             "patterns": [
                 {
                     "include": "#virtuoso_ade_maestro_cellview_function"
+                },
+                {
+                    "include": "#virtuoso_ade_fault_simulation_function"
                 }
             ]
         },
@@ -5285,6 +5288,90 @@
                 {
                     "comment": "Functions to Work with the Locally Scoped Models and Options (MTS Options)",
                     "match": "\\b(mae[GS]etMTS(?:Block|Mode))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_fault_simulation_function": {
+            "patterns": [
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeAdd)",
+                    "match": "\\b(maeAdd(?:Fault(?:sToFaultGroup|Rule)|UndetectedFaultsFromHistoryToGroup))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeClear)",
+                    "match": "\\b(maeClearExistingFaultsForRevalidation)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeCopy)",
+                    "match": "\\b(maeCopyFaultGroups)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeCreate)",
+                    "match": "\\b(maeCreateOrRenameFaultGroup)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeDelete)",
+                    "match": "\\b(maeDeleteFault(?:Group|Rule))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeEdit)",
+                    "match": "\\b(maeEditFaultRule)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeEnable)",
+                    "match": "\\b(maeEnableFaults)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeGet)",
+                    "match": "\\b(maeGet(?:DUTForFaults|Fault(?:Group(?:s|ToRun)|Rules?|(?:RunMode|Sampling)Options|s)|GlobalFaultOptions|NumberOfUndetectedFaultsFromHistory))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeRun)",
+                    "match": "\\b(maeRunFaultSimulationWithFaultDroppingForActiveTests)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeSet)",
+                    "match": "\\b(maeSet(?:DUTForFaults|Fault(?:AnalysisType|(?:DFARunMode|Sampling|TFARunMode)Options|GroupToRun)|GlobalFaultOptions))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeGlobal)",
+                    "match": "\\b(maeSetGlobalFaultOptions)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeGenerate)",
+                    "match": "\\b(maeGenerateFuSaReport)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeMerge)",
+                    "match": "\\b(maeMergeFaultHistories)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maePrint)",
+                    "match": "\\b(maePrintFaultDroppingStatistics)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeSave)",
+                    "match": "\\b(maeSaveFaultsRunCount)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Fault Simulation Functions (Prefix maeSwitch)",
+                    "match": "\\b(maeSwitchActiveFaultGroupForCurrentRun)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
