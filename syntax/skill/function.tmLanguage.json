@@ -5063,6 +5063,9 @@
                     "include": "#virtuoso_ade_specification_function"
                 },
                 {
+                    "include": "#virtuoso_ade_corner_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5691,6 +5694,40 @@
                 {
                     "comment": "Specification Functions",
                     "match": "\\b(axl(?:AddSpecToOutput|GetSpec(?:s|Data|Weight)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_corner_function": {
+            "patterns": [
+                {
+                    "comment": "Corners Functions (Prefix axlGet)",
+                    "match": "\\b(axlGet(?:AllCornersEnabled|Corner(?:s|DisabledTests|CountForName|NameForCurrentPointInRun)?|NominalCorner(?:Test)?Enabled|StatVars|WCC(?:Corner|History|Result|Specs?|Test|Time|RangeBound|Var(?:Monotonicity|s)?)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Corners Functions (Prefix axlCorners)",
+                    "match": "\\b(axlCorners)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Corners Functions (Prefix axlLoad)",
+                    "match": "\\b(axlLoadCorners(?:FromPcfToSetupDB)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Corners Functions (Prefix axlPlot)",
+                    "match": "\\b(axlPlotAcrossDesignPoints)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Corners Functions (Prefix axlPut)",
+                    "match": "\\b(axlPut(?:Disabled)?Corner)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Corners Functions (Prefix axlSet)",
+                    "match": "\\b(axlSet(?:(?:DefaultCorner|AllCorners)Enabled|(?:Nominal)?Corner(?:Name|TestEnabled)|WCCTime))\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
