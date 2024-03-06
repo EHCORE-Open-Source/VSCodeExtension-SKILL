@@ -5051,6 +5051,9 @@
                     "include": "#virtuoso_ade_parameter_function"
                 },
                 {
+                    "include": "#virtuoso_ade_model_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5558,6 +5561,30 @@
                 {
                     "comment": "Parameter Functions",
                     "match": "\\b(axl(?:Get(?:Parameter(?:s|Value)?|AllParametersDisabled)|RegisterCustomDeviceFilter|Set(?:Parameter|AllParametersDisabled)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_model_function": {
+            "patterns": [
+                {
+                    "comment": "Model Functions (Prefix axlAdd)",
+                    "match": "\\b(axlAddModelPermissibleSectionLists)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Model Functions (Prefix axlGet)",
+                    "match": "\\b(axlGetModel(?:Block|File|Group(?:s|Name)?|PermissibleSectionLists|Sections?|Test|s)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Model Functions (Prefix axlPut)",
+                    "match": "\\b(axlPutModel(?:Group)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Model Functions (Prefix axlSet)",
+                    "match": "\\b(axlSetModel(?:Block|File|GroupName|PermissibleSectionLists|Section|Test))\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
