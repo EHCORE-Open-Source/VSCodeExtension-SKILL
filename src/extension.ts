@@ -6,6 +6,23 @@ import {default as skillCompletion} from './config/completion.skill.json';
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+    
+    // Use the console to output diagnostic information (console.log) and errors (console.error)
+    // This line of code will only be executed once when your extension is activated
+    
+    // const defaultCompletionProvider = vscode.languages.registerCompletionItemProvider('cadence-skill', {
+    //     provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+    //         var completionList = new Array();
+
+    //         skillCompletion.default.forEach(item => 
+    //             completionList.push(new vscode.CompletionItem(item))
+    //         );
+    //         return completionList;
+    //     }
+    // });
+
+    // context.subscriptions.push(defaultCompletionProvider);
+
     console.log('Congratulations, the extension "VSCodeExtension-SKILL" is now active!');
 }
 
