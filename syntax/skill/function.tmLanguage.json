@@ -99,6 +99,10 @@
                     "include": "#builtin_virtuoso_design_environment"
                 },
                 {
+                    "comment": "Cadence SKILL++ Object System Reference (skoopref)",
+                    "include": "#builtin_skill_oop_system"
+                },
+                {
                     "comment": "Virtuoso Technology Data SKILL Reference (sktechfile)",
                     "include": "#builtin_technology_data"
                 },
@@ -4602,6 +4606,150 @@
                     "comment": "Design Editor Support Routines (Prefix deMap)",
                     "match": "\\b(deMap(?:UserTypeToView|ViewTypeToUser)Type)\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
+                }
+            ]
+        },
+        "builtin_skill_oop_system": {
+            "patterns": [
+                {
+                    "include": "#skill_oop_class_instance"
+                },
+                {
+                    "include": "#skill_oop_generic_function_method"
+                },
+                {
+                    "include": "#skill_oop_generic_specializer"
+                },
+                {
+                    "include": "#skill_oop_subclass_superclass"
+                },
+                {
+                    "include": "#skill_oop_dependency_maintenance_protocol_function"
+                }
+            ]
+        },
+        "skill_oop_class_instance": {
+            "patterns": [
+                {
+                    "comment": "Classes and Instances (Suffix Class)",
+                    "match": "\\b((?:change|find|is)Class)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Suffix Instance)",
+                    "match": "\\b((?:allocate|initialize|make)Instance)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix class)",
+                    "match": "\\b(class(?:Name|Of|p))\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix defclass)",
+                    "match": "\\b(defclass)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix printself)",
+                    "match": "\\b(printself)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix set)",
+                    "match": "\\b(setSlotValue)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix shared)",
+                    "match": "\\b(sharedInitialize)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix slot)",
+                    "match": "\\b(slot(?:Boundp|Unbound|Value))\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                }
+            ]
+        },
+        "skill_oop_generic_function_method": {
+            "patterns": [
+                {
+                    "comment": "Classes and Instances (Prefix ansi)",
+                    "match": "\\b(ansiDefmethod)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix call)",
+                    "match": "\\b(call(?:As|NextMethod))\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix def)",
+                    "match": "\\b(def(?:generic|method))\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix get)",
+                    "match": "\\b(get(?:GF(?:byClass|proxy)|ApplicableMethods|Method(?:Name|Role|Spec)))\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix is)",
+                    "match": "\\b(isGeneric)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix next)",
+                    "match": "\\b(nextMethodp)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix remove)",
+                    "match": "\\b(removeMethod)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Classes and Instances (Prefix update)",
+                    "match": "\\b(updateInstanceFor(?:Different|Redefined)Class)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                }
+            ]
+        },
+        "skill_oop_generic_specializer": {
+            "patterns": [
+                {
+                    "comment": "Generic Specializers",
+                    "match": "\\b(il(?:(?:ArgMatches|Generate)Specializer|EquivalentSpecializers|SpecMoreSpecificp))\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                }
+            ]
+        },
+        "skill_oop_subclass_superclass": {
+            "patterns": [
+                {
+                    "comment": "Subclasses and Superclasses (Prefix sub)",
+                    "match": "\\b(subclass(?:esOf|p))\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Subclasses and Superclasses (Prefix super)",
+                    "match": "\\b(superclassesOf)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                }
+            ]
+        },
+        "skill_oop_dependency_maintenance_protocol_function": {
+            "patterns": [
+                {
+                    "comment": "Dependency Maintenance Protocol Functions (Suffix Dependent)",
+                    "match": "\\b((?:add|remove|update)Dependent)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
+                },
+                {
+                    "comment": "Dependency Maintenance Protocol Functions (Suffix Dependents)",
+                    "match": "\\b(getDependents)\\b",
+                    "name": "keyword.control.cadence.skill.oop strong.cadence.skill.oop"
                 }
             ]
         },
