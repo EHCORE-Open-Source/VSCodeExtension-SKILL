@@ -5075,6 +5075,9 @@
                     "include": "#virtuoso_ade_history_function"
                 },
                 {
+                    "include": "#virtuoso_ade_job_policy_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -5849,6 +5852,85 @@
                 {
                     "comment": "History Functions (Prefix maeGet)",
                     "match": "\\b(maeGetHistoryCloudUUID)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_job_policy_function": {
+            "patterns": [
+                {
+                    "comment": "Job Policy Functions (Suffix JobPolicy)",
+                    "match": "\\b(axl(?:Add|Attach|Delete|Detach|Save)JobPolicy)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix axlGet)",
+                    "match": "\\b(axlGet(?:AttachedJobPolicy|Policy(?:Types)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix axlIs)",
+                    "match": "\\b(axlIsICRPProcess)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix axlJob)",
+                    "match": "\\b(axlJobIntfc(?:Debug(?:Printf|ToFile|p)|(?:Exit|Health|Start)Method|SetDebug))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix axlJPGUI)",
+                    "match": "\\b(axlJPGUICust(?:Differ|HiddenSections|HIFields|Offset|(?:ReadFrom|WriteTo)Form|Selected))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix axlRegister)",
+                    "match": "\\b(axlRegister(?:JobIntfc|JPGUICust|edJobIntfcNames))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix axlSet)",
+                    "match": "\\b(axlSetJobPolicyProperty)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix axlStop)",
+                    "match": "\\b(axlStop(?:AllJobs|Job))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix maeClear)",
+                    "match": "\\b(maeClear(?:AllTestJobPolicies|TestJobPolicy))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix maeCreate)",
+                    "match": "\\b(maeCreateNetlistForCorner)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix maeGet)",
+                    "match": "\\b(maeGet(?:AllJobPolicies|Job(?:ControlMode|Policy(?:ByName)?)))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix maeHas)",
+                    "match": "\\b(maeHasTestJobPolicy)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix maeIs)",
+                    "match": "\\b(maeIs(?:Evaluator|Netlist)Process)\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix maeSet)",
+                    "match": "\\b(maeSetJob(?:ControlMode|Policy))\\b",
+                    "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                },
+                {
+                    "comment": "Job Policy Functions (Prefix maeStop)",
+                    "match": "\\b(maeStop(?:AllJobs|Job))\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 }
             ]
