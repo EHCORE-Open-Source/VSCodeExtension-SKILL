@@ -5226,6 +5226,9 @@
                     "include": "#virtuoso_ade_job_policy_function"
                 },
                 {
+                    "include": "#virtuoso_ade_core_netlister_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -6080,6 +6083,244 @@
                     "comment": "Job Policy Functions (Prefix maeStop)",
                     "match": "\\b(maeStop(?:AllJobs|Job))\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlister_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ade_core_netlisting_option_function"
+                },
+                {
+                    "include": "#virtuoso_ade_core_initialization_function"
+                },
+                {
+                    "include": "#virtuoso_ade_core_netlisting_invocation_function"
+                },
+                {
+                    "include": "#virtuoso_ade_core_netlist_function"
+                }
+            ]
+        },
+        "virtuoso_ade_core_initialization_function": {
+            "patterns": [
+                {
+                    "comment": "Initialization Functions",
+                    "match": "\\b(asi(?:Init(?:(?:Adv)?Analysis|DataAccessFunction|(?:Env|Sim)Option|(\\S+))|[GS]etPageCallBack|RegisterTool))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.core"
+                        }
+                    }
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlisting_invocation_function": {
+            "patterns": [
+                {
+                    "comment": "Netlisting Invocation Functions for Direct Integration",
+                    "match": "\\b(asi(?:Create(?:CdsenvFile|Formatter)|[GS]etNetlistFormatterClass|Get(?:Formatter|SimInputFile(?:Name|Suffix))))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlist_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ade_core_netlist_nlAnalogFormatter_class"
+                },
+                {
+                    "include": "#virtuoso_ade_core_netlist_netlister_object"
+                },
+                {
+                    "include": "#virtuoso_ade_core_netlist_method_for_instance"
+                },
+                {
+                    "include": "#virtuoso_ade_core_netlist_cellview"
+                },
+                {
+                    "include": "#virtuoso_ade_core_netlist_design"
+                },
+                {
+                    "include": "#virtuoso_ade_core_other_customization_procedure"
+                },
+                {
+                    "include": "#virtuoso_ade_core_other_backend_netlister_function"
+                },
+                {
+                    "include": "#virtuoso_ade_core_hspice_function"
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlist_nlAnalogFormatter_class": {
+            "patterns": [
+                {
+                    "comment": "The nlAnalogFormatter Class (Prefix netlist)",
+                    "match": "\\b(netlistDir)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The nlAnalogFormatter Class (Prefix nlGet)",
+                    "match": "\\b(nlGet(?:Netlister|PCellParamSource|ScratchInstance|SwitchMaster|ToolName))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The nlAnalogFormatter Class (Prefix nlInclude)",
+                    "match": "\\b(nlInclude(?:Db(?:DSPF|SPICEMODEL)Text|Pspice|Veriloga?)File)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The nlAnalogFormatter Class (Prefix nlInitialize)",
+                    "match": "\\b(nlInitialize)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The nlAnalogFormatter Class (Prefix nlIs)",
+                    "match": "\\b(nlIs(?:Pcell(?:Instance|Param)|SmartExtractedView))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The nlAnalogFormatter Classs (Prefix nlPrint)",
+                    "match": "\\b(nlPrint(?:Footer|Header(?:Comments)?|Inst(?:Comments|End|Name|Signals|Parameters)?|ModelName|(?:Subckt|TopCell)(?:Foot|Head)er(?:Comments)?|Subckt(?:Begin|End|Name|Parameters|TerminalList)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlist_netlister_object": {
+            "patterns": [
+                {
+                    "comment": "The Netlister Object (Prefix nlGet)",
+                    "match": "\\b(nlGet(?:CurrentSwitchMaster|Design|GlobalNets|Netlist(?:Dir|edStopCellViewList)|Option(?:NameList)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The Netlister Object (Prefix nlMap)",
+                    "match": "\\b(nlMapGlobalNet)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The Netlister Object (Prefix nlInfo)",
+                    "match": "\\b(nlInfo)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The Netlister Object (Prefix nlWarning)",
+                    "match": "\\b(nlWarning)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The Netlister Object (Prefix nlPrint)",
+                    "match": "\\b(nlPrint(?:Comment|IndentString|String(?:NoFold)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The Netlister Object (Suffix Error)",
+                    "match": "\\b(nl(?:Obj)?Error)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "The Netlister Object (Suffix Option)",
+                    "match": "\\b(nl(?:Display|Set)Option)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlist_method_for_instance": {
+            "patterns": [
+                {
+                    "comment": "Methods for Instances (Prefix nlIs)",
+                    "match": "\\b(nlIsModelNameInherited)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Methods for Instances (Prefix nlGet)",
+                    "match": "\\b(nlGet(?:Formatter|Id|(?:Model|Sim)Name|SignalList|Terminal(?:List|SignalName)|NumberOfBits|Param(?:List|StringValue)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Methods for Instances (Prefix nlInclude)",
+                    "match": "\\b(nlIncludeSrcFile)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Methods for Instances (Prefix nlPrint)",
+                    "match": "\\b(nlPrintComments)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Methods for Instances (Prefix hnlGet)",
+                    "match": "\\b(hnlGetInstanceCount)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlist_cellview": {
+            "patterns": [
+                {
+                    "comment": "Cellviews",
+                    "match": "\\b(nlGet(?:(?:Cell|Lib|View)Name|(?:Sim)?TerminalNets|SwitchViewList))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlist_design": {
+            "patterns": [
+                {
+                    "comment": "Designs",
+                    "match": "\\b(nl(?:GetTop(?:Cell|Lib|View)|TranslateFlatIEPath)Name)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_other_customization_procedure": {
+            "patterns": [
+                {
+                    "comment": "Other Customization Procedures (Prefix nlSet)",
+                    "match": "\\b(nlSetPcellName)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Other Customization Procedures (Prefix ansCdl)",
+                    "match": "\\b(ansCdl(?:CompPrim|Get(?:Multiplicity|Segment(?:Connections|Info|InstParams)|SimPropValue)|HnlPrintInst|Print(?:Connections|String|InheritedParams|Inst(?:Params|Props|Name)|(?:Model|Module)Name|SwitchPCell(?:Inst(?:Param)?|Sub(?:cktConn|Circuit)))))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Other Customization Procedures (Prefix auCdl)",
+                    "match": "\\b(auCdl)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_other_backend_netlister_function": {
+            "patterns": [
+                {
+                    "comment": "Other Backend Netlister Functions",
+                    "match": "\\b(acdl(?:ArtPrintIncludedNetlist|CurrentInstName)|au(?:Lvs|ProbeAddDevsForNet)|LVS)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_hspice_function": {
+            "patterns": [
+                {
+                    "comment": "HSPICE Functions",
+                    "match": "\\b(hnlHspice(?:InstPropVal|Print(?:InstProp(?:Eq)?Val|MOSfetModel|NMOSfetElement)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_netlisting_option_function": {
+            "patterns": [
+                {
+                    "comment": "Netlisting Option Functions for Socket Interfaces",
+                    "match": "\\b(asi(?:Display|[GS]et|Init(\\S+))NetlistOption)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.core"
+                        }
+                    }
                 }
             ]
         },
