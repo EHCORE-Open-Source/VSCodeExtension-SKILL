@@ -6092,6 +6092,9 @@
                     "include": "#virtuoso_ade_core_netlisting_option_function"
                 },
                 {
+                    "include": "#virtuoso_ade_core_mixed_signal_simulation_function"
+                },
+                {
                     "include": "#virtuoso_ade_core_initialization_function"
                 },
                 {
@@ -6106,7 +6109,7 @@
             "patterns": [
                 {
                     "comment": "Initialization Functions",
-                    "match": "\\b(asi(?:Init(?:(?:Adv)?Analysis|DataAccessFunction|(?:Env|Sim)Option|(\\S+))|[GS]etPageCallBack|RegisterTool))\\b",
+                    "match": "\\b(asi(?:Init(?:(?:Adv)?Analysis|DataAccessFunction|(?:Env|Sim)Option|([[:word:]]+))|[GS]etPageCallBack|RegisterTool))\\b",
                     "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core",
                     "captures": {
                         "2": {
@@ -6314,13 +6317,94 @@
             "patterns": [
                 {
                     "comment": "Netlisting Option Functions for Socket Interfaces",
-                    "match": "\\b(asi(?:Display|[GS]et|Init(\\S+))NetlistOption)\\b",
+                    "match": "\\b(asi(?:Display|[GS]et|Init([[:word:]]+))NetlistOption)\\b",
                     "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core",
                     "captures": {
                         "2": {
                             "name": "markup.underline.ade.core"
                         }
                     }
+                }
+            ]
+        },
+        "virtuoso_ade_core_mixed_signal_simulation_function": {
+            "comment": "Mixed-Signal Simulation Functions",
+            "patterns": [
+                {
+                    "include": "#virtuoso_ade_core_simulation_function_for_direct_interface"
+                },
+                {
+                    "include": "#virtuoso_ade_core_simulation_function_for_direct_socket_interface"
+                },
+                {
+                    "include": "#virtuoso_ade_core_function_for_formatting_hierarchical_interface_element"
+                }
+            ]
+        },
+        "virtuoso_ade_core_simulation_function_for_direct_interface": {
+            "patterns": [
+                {
+                    "comment": "Simulation Functions for Direct Interfaces",
+                    "match": "\\b(asi(?:CheckDigitalSimulationSuccess|ConstructDigitalNetlist|Get(?:DigitalNetlistFileName|(?:Digital|Verilog)CommandLineOption)|(?:InitializeNetlister|Netlist)Mixed|PrepareDigitalSimulation|VerilogNetlistMoreCB))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_simulation_function_for_direct_socket_interface": {
+            "patterns": [
+                {
+                    "comment": "Simulation Functions for Direct and Socket Interfaces (Prefix asiEdit)",
+                    "match": "\\b(asiEditDigitalStimulus)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Functions for Direct and Socket Interfaces (Prefix asiGet)",
+                    "match": "\\b(asiGet(?:Digital(?:SimExec|(?:SimulatorLog|Stimulus)File)Name|NetworkId))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Functions for Direct and Socket Interfaces (Prefix asiInit)",
+                    "match": "\\b(asiInit(?:MixedKeepOption|Verilog(?:(?:(?:[FH]NL)?Env|Sim)Option)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Functions for Direct and Socket Interfaces (Prefix asiPartition)",
+                    "match": "\\b(asiPartitionDesign)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Functions for Direct and Socket Interfaces (Suffix Host and HostMode)",
+                    "match": "\\b(asi[GS]etVerilogHost(?:Mode)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Functions for Direct and Socket Interfaces (Suffix RunDir and KeepList)",
+                    "match": "\\b(asiGet(?:Analog|Digital)(?:KeepList|RunDir))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Functions for Direct and Socket Interfaces (Suffix Simulator)",
+                    "match": "\\b(asiSet(?:Analog|Digital)Simulator)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Functions for Direct and Socket Interfaces (Prefix msp)",
+                    "match": "\\b(msp(?:DisplaySetPartSetupForm|EditIEProps))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_core_function_for_formatting_hierarchical_interface_element": {
+            "patterns": [
+                {
+                    "comment": "Functions for Formatting Hierarchical Interface Elements (Prefix hnlVerilog)",
+                    "match": "\\b(hnlVerilogPrint(?:C|NmosP)mos)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Functions for Formatting Hierarchical Interface Elements (Prefix nlGet)",
+                    "match": "\\b(nlGetCdf)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
                 }
             ]
         },
