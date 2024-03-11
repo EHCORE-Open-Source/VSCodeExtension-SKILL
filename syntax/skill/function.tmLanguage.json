@@ -5229,6 +5229,9 @@
                     "include": "#virtuoso_ade_core_netlister_function"
                 },
                 {
+                    "include": "#virtuoso_ade_simulation_environment_function"
+                },
+                {
                     "include": "#virtuoso_ade_cdf_function"
                 }
             ]
@@ -6404,6 +6407,240 @@
                 {
                     "comment": "Functions for Formatting Hierarchical Interface Elements (Prefix nlGet)",
                     "match": "\\b(nlGetCdf)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_simulation_environment_function": {
+            "patterns": [
+                {
+                    "comment": "Simulation Environment Functions (Suffix SelectedAna)",
+                    "match": "\\b(sev(?:Non)?ActiveSelectedAna)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix SelectedAnas)",
+                    "match": "\\b(sev(?:Activate|Delete)SelectedAnas)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix Annotation)",
+                    "match": "\\b(sev(?:GetRegistered|Register)PcellsForAnnotation)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix Displayed)",
+                    "match": "\\b(sevParasitics(?:Not)?Displayed)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix MenuItemLists)",
+                    "match": "\\b(sev(?:Add|Set)MenuItemLists)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix Engine)",
+                    "match": "\\b(sev(?:Run|Stop)Engine)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix Environment)",
+                    "match": "\\b(sev(?:No)?Environment)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix Results)",
+                    "match": "\\b(sev(?:Annotate|Delete|Print|Save|Select)Results)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix SaveDir)",
+                    "match": "\\b(sev(?:Set)?TopSaveDir)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix Selections)",
+                    "match": "\\b(sevNo(?:Ana|Out|Var)Selections)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix State)",
+                    "match": "\\b(sev(?:Load|Save)State)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix Tool)",
+                    "match": "\\b(sev(?:About|BALM|BPM|Corners|Kmodel|LMG|MonteCarlo|Optimization|Parametric|PCM|PKG)Tool)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Suffix Vars)",
+                    "match": "\\b(sev(?:Delete|Find)SelectedVars)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevAdd)",
+                    "match": "\\b(sevAddExpression)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevChange)",
+                    "match": "\\b(sevChangeOutsOnSchematic)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevChoose)",
+                    "match": "\\b(sevChoose(?:Design|EnvironmentOptions|Simulator|Temperature))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevCircuit)",
+                    "match": "\\b(sevCircuitCond)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevConvergence, sevDebug, sevIcon, sevReset, sevRun, sevSession, sevSimulator, sevQuit, and sevWhatsNew)",
+                    "match": "\\b(sev(?:Convergence|Debug|Icon|Reset|Run|Session|Simulator|Quit|WhatsNew))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevCopy)",
+                    "match": "\\b(sevCopy(?:CellViewVariables|VariablesToCellView))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevCreate)",
+                    "match": "\\b(sevCreateMainWindow)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevDelete)",
+                    "match": "\\b(sevDeleteSelect(?:ions|ed(?:OpPoints|Outs|Subckts)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevDev)",
+                    "match": "\\b(sevDevChecking)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevDirect)",
+                    "match": "\\b(sevDirectPlotMenu)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevDisplay)",
+                    "match": "\\b(sevDisplayViolations)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevEdit)",
+                    "match": "\\b(sevEdit(?:Models|(?:Plotting)?Options|Selected(?:Ana|Out|Var)s|SimulationFile|Stimulus))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevExport and sevImport)",
+                    "match": "\\b(sev(?:ExportOutputsTo|ImportOutputsFrom)(?:CSV|File|Txt))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevEvaluate)",
+                    "match": "\\b(sevEvaluateAndPlotExpressions)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevGet)",
+                    "match": "\\b(sevGet(?:Expressions|SessionType))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevInvoke)",
+                    "match": "\\b(sevInvoke(?:NCBrowse|Simvision(?:Debugger)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevIs)",
+                    "match": "\\b(sevIsContinuable)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevMenu)",
+                    "match": "\\b(sevMenuItems)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevMpu)",
+                    "match": "\\b(sevMpuTool)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevMTS)",
+                    "match": "\\b(sevMTS(?:Mode|Options))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevNetlist)",
+                    "match": "\\b(sevNetlist(?:And(?:Debug|Run)|File))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevNo)",
+                    "match": "\\b(sevNo(?:Design|Log|OutputLog|Plottable(?:Expressions|Outputs|Signals)|Results|ViolationsFound))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevNon)",
+                    "match": "\\b(sevNonMixedSignal)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevOpen)",
+                    "match": "\\b(sevOpen(?:Calculator|DRLBrowser|Encap|JobMonitor|(?:Plot|Print)Window|Schematic|Xterm))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevPlot)",
+                    "match": "\\b(sevPlot(?:AllOutputs|Signals))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevRemove)",
+                    "match": "\\b(sevRemovePlotWindow)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevReturn)",
+                    "match": "\\b(sevReturnVariablesWithEmptyValues)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevRetrieve)",
+                    "match": "\\b(sevRetrieveFromEffectiveCDF)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevSave)",
+                    "match": "\\b(sevSave(?:OceanScript|Options))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevSet)",
+                    "match": "\\b(sevSet(?:ConnectModules|EngineOptions|MainWindowPulldownMenus|MTSMode|PropertyForSelectedOuts|(?:Schematic|TypeInWindow)PulldownMenus|SimDataDir|Solver))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevSetup)",
+                    "match": "\\b(sevSetup(?:SimulationFiles|Stimuli))\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (IC6.1.8 only) (Prefix sevStart)",
+                    "match": "\\b(sevStartSession)\\b",
+                    "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core constant.character.set.regexp.cadence.skill.ade.core"
+                },
+                {
+                    "comment": "Simulation Environment Functions (Prefix sevView)",
+                    "match": "\\b(sevView(?:(?:Compiler|Elab|Ncverilog|Netlister|Sim)Log|SimulatorOutput))\\b",
                     "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
                 }
             ]
