@@ -35,15 +35,26 @@
                     "comment": "block comment",
                     "name": "comment.block.cadence.skill.basic",
                     "begin": "/\\*",
-                    "end": "\\*/"
+                    "end": "\\*/",
+                    "patterns": [
+                        {
+                            "match": "\\b(TODO)\\b",
+                            "name": "markup.bold.cadence.skill.basic"
+                        }
+                    ]
                 },
                 {
                     "comment": "line comment",
                     "name": "comment.block.cadence.skill.basic",
-                    "match": ";\\s*(\\bTODO\\b)?.*",
+                    "match": "//(.*)",
                     "captures": {
                         "1": {
-                            "name": "markup.bold.cadence.skill.basic"
+                            "patterns": [
+                                {
+                                    "match": "\\b(TODO)\\b",
+                                    "name": "markup.bold.cadence.skill.basic"
+                                }
+                            ]
                         }
                     }
                 }
