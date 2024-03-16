@@ -6439,6 +6439,24 @@
                 },
                 {
                     "include": "#virtuoso_ade_integrator_overloadable_method_for_formatting_control_statement"
+                },
+                {
+                    "include": "#virtuoso_ade_utility_function"
+                },
+                {
+                    "include": "#virtuoso_ade_flowchart_function"
+                },
+                {
+                    "include": "#virtuoso_ade_keep_option_function"
+                },
+                {
+                    "include": "#virtuoso_ade_reliability_function"
+                },
+                {
+                    "include": "#virtuoso_ade_stimulus_generation_function"
+                },
+                {
+                    "include": "#virtuoso_ade_miscellaneous_function"
                 }
             ]
         },
@@ -6655,6 +6673,370 @@
                 {
                     "comment": "Integrator Overloadable Methods for Formatting Control Statements (Prefix asiInvalidate)",
                     "match": "\\b(asiInvalidateControlStmts)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_utility_function": {
+            "patterns": [
+                {
+                    "comment": "Utility Functions (Prefix artInvalidate)",
+                    "match": "\\b(artInvalidateAmap)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Utility Functions (Prefix asiGet)",
+                    "match": "\\b(asiGet(?:Analysis(?:(?:Sig|SimField)List|Type)|CommandLineOption|(?:Definition|TextStimulus|SimInput)FileList|FormattedVal|ModelLib(?:File|Section|SelectionList)|SelObj(?:Name|Type|Value)|SimExecName))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Utility Functions (Prefix asiMap)",
+                    "match": "\\b(asiMapOutputName)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }                
+            ]
+        },
+        "virtuoso_ade_flowchart_function": {
+            "patterns": [
+                {
+                    "comment": "Flowchart Functions (Prefix asiAdd and asiDelete)",
+                    "match": "\\b(asi(?:Add|Delete)Flowchart(?:Link|Step))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Flowchart Functions (Prefix asiChange and asiInvalidate)",
+                    "match": "\\b(asi(?:Change|Invalidate)FlowchartStep)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Flowchart Functions (Prefix asiCreate, asiDisplay, asiExecute, asiGet, and asiInit)",
+                    "match": "\\b(asi(?:Create|Display|Execute|Get|Init([[:word:]]+))Flowchart)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.customize"
+                        }
+                    }
+                },
+                {
+                    "comment": "Flowchart Functions (Prefix asiFinal and asiRaw)",
+                    "match": "\\b(asi(?:Final|Raw)Netlist)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Flowchart Functions (Prefix asiSend)",
+                    "match": "\\b(asiSend(?:Analysis|ControlStmts|DesignVars|Init(?:Cond|File)|KeepList|ModelPath|Netlist|NodeSets|Options|Restore|UpdateFile))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_keep_option_function": {
+            "patterns": [
+                {
+                    "comment": "Keep Option Functions (Prefix asiAdd, asiDelete, and asiInit)",
+                    "match": "\\b(asi(?:Add|Delete|Init([[:word:]]+))KeepOption)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.customize"
+                        }
+                    }
+                },
+                {
+                    "comment": "Keep Option Functions (Prefix asiChange, asiDisplay)",
+                    "match": "\\b(asi(?:Change|Display)KeepOption(?:FormProperties)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Keep Option Functions (Prefix asiGet and asiSet)",
+                    "match": "\\b(asi[GS]etKeepOption(?:Choices|Val))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_reliability_function": {
+            "patterns": [
+                {
+                    "comment": "Reliability Functions (Prefix asiFormat)",
+                    "match": "\\b(asiFormatSpecialParameterForRel)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix calcVal)",
+                    "match": "\\b(calcValForRel)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix maeAdd, maeCopy, maeDelete, and maeRename)",
+                    "match": "\\b(mae(?:Add|Copy|Delete|Rename)RelxSetup)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix maeCreate)",
+                    "match": "\\b(maeCreateNetlistForRel)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix maeGet)",
+                    "match": "\\b(maeGet(?:Reliability(?:AnalysisEnabled|Model|OptionVal|VarValue)|Relx(?:Setup(?:s|Enabled)|StressFile|Test(?:Enabled)?)|StressFile))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix maeSet)",
+                    "match": "\\b(maeSet(?:Reliability(?:AnalysisEnabled|Model|OptionVal|VarValue)|Relx(?:(?:Setup|Test)(?:Enabled)?|StressFile)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxAdd)",
+                    "match": "\\b(relxAdd(?:SetupRelxOption|Reliability(?:InStateComponent|Option)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxCreate)",
+                    "match": "\\b(relxCreate(?:CustomizedTab|RunObjectFile))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxCustomize)",
+                    "match": "\\b(relxCustomizeDisplayOrEnableStatus)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxDisplay)",
+                    "match": "\\b(relxDisplay(?:DiscField|ReliabilityForm|Result))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxEnable)",
+                    "match": "\\b(relxEnable(?:FormTab|DiscField))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxFormat)",
+                    "match": "\\b(relxFormatRXControlFile)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxHide)",
+                    "match": "\\b(relxHideAgeCalculationApproachField)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxHigh)",
+                    "match": "\\b(relxHighLightDevices)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxGet)",
+                    "match": "\\b(relxGet(?:CustomTabName|ModifyNetlistVal|MosAgingTime(?:Unit)?Val|ReliabilityOption(?:Choices|Val)|RelxStage|RXControlFileName|SimulationRunCommand|SpecifiedReliabilityStateFileName|StressFileDir|UserCmdLine))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxInit)",
+                    "match": "\\b(relxInit(?:(?:Adapter)?ReliabilityOption|OptionsInCdsenv))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxIs)",
+                    "match": "\\b(relxIs(?:AgingOn|ReliabilityEnabled|StressOn))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxPost)",
+                    "match": "\\b(relxPostSimulation)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxRun)",
+                    "match": "\\b(relxRunSimulation)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Reliability Functions (Prefix relxSet)",
+                    "match": "\\b(relxSet(?:AgingVal|Reliability(?:Option(?:FormProperties|Val)|Val)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_stimulus_generation_function": {
+            "patterns": [
+                {
+                    "comment": "Stimulus Generation Functions",
+                    "match": "\\b(asiStm(?:Generate(?:Netlist|Waveform)|RunSimulation|SupportWaveformGeneration))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_miscellaneous_function": {
+            "patterns": [
+                {
+                    "comment": "Miscellaneous Functions (Prefix ahdl)",
+                    "match": "\\b(ahdlUpdateViewInfo)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix add)",
+                    "match": "\\b(addCheck)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix almDefineParam)",
+                    "match": "\\b(almDefineParam(?:_(?:additionalParam|fq|(?:noise|other|tran(?:Advan)?)ParaLabel|nportFileB))?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix almGet and almSet)",
+                    "match": "\\b(alm[GS]et(?:ModuleName|NamePrefix|NetlistProcedure|OpPointParamMap|ParameterList|(?:(?:Other|String)Parameter|PropMapping)List|Terminal(?:List|Map)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix almGet)",
+                    "match": "\\b(almGet(?:NetlistType|ViewInfoNameList))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix almHas)",
+                    "match": "\\b(almHasViewInformation)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix ams)",
+                    "match": "\\b(ams(?:OSSUnlExecutePostNetlistTrigger|UpdateTextviews))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix amse)",
+                    "match": "\\b(amse(?:General|Quick)SetupForm)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix anc)",
+                    "match": "\\b(anc(?:AdjustNameCase|GetSimInstName))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix ann)",
+                    "match": "\\b(annRetrieveFromEffectiveCDF)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix art)",
+                    "match": "\\b(art(?:BlankString|CurrentInstSimName|EnableAnnotationBalloon|GenerateHierSymbolCDF|Get(?:CdfTargetCV|CellViewDesignVarList)|ListToWaveform|MakeString(?:Prec15)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiAdd)",
+                    "match": "\\b(asiAdd(?:DesignVarList|ModelLibSelection|VerilogArgs))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiCheck)",
+                    "match": "\\b(asiCheck(?:Blank(?:(?:Inst|Net)Exists|Numeric(?:Greater|Nequal)?)|DesignVariable|Expression(?:Greater)?|MultipleGreater|SimulationSuccess)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiCreate)",
+                    "match": "\\b(asiCreateLogFileVerilog)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiDc)",
+                    "match": "\\b(asiDcStore)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiGet)",
+                    "match": "\\b(asiGet(?:CurrentSession|(?:DesignVar|LogFile|Output)List|FormField(?:Choices|Val)|(?:Netlist|Psf)Dir|(?:Keep|March|Plot)List|OutputListSession|Session|SimName|Tool|TopCellView))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiLoad ans asiSave)",
+                    "match": "\\b(asi(?:Load|Save)State)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiMap)",
+                    "match": "\\b(asiMap(?:Instance|Net|Terminal)Name)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiReg and asiUnReg)",
+                    "match": "\\b(asi(?:Un)?RegCallBackOnSimComp(?:ForDist)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiRemove)",
+                    "match": "\\b(asiRemoveAllModelLibSelection)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiSend)",
+                    "match": "\\b(asiSendSim)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiSet)",
+                    "match": "\\b(asiSet(?:DesignVarList|FormField(?:Choices|Val)|(?:Keep|March|Plot)List|SyncFlag))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix asiTransient)",
+                    "match": "\\b(asiTransientStore)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix captab)",
+                    "match": "\\b(captabSummary)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Suffix Checks)",
+                    "match": "\\b((?:delete|(?:dis|en)able(?:All)?|display)Checks)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Suffix Checking)",
+                    "match": "\\b((?:dis|en)ableDeviceChecking)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix density)",
+                    "match": "\\b(densityEstimateWaveform)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix drb)",
+                    "match": "\\b(drbBrowseFormCB)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix evm)",
+                    "match": "\\b(evmOFDM)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix msg)",
+                    "match": "\\b(msgHelp)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix print)",
+                    "match": "\\b(printViolations)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix relx)",
+                    "match": "\\b(relxOption)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix set)",
+                    "match": "\\b(setDevCheckOptions)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Miscellaneous Functions (Prefix vms)",
+                    "match": "\\b(vmsUpdateCellViews)\\b",
                     "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
                 }
             ]
