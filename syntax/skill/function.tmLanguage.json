@@ -91,7 +91,7 @@
                     "include": "#builtin_application_infrastructure_function"
                 },
                 {
-                    "comment": "Cadence Interprocess Communication SKILL Reference",
+                    "comment": "Cadence Interprocess Communication SKILL Reference (skipcref)",
                     "include": "#builtin_interprocess_communication"
                 },
                 {
