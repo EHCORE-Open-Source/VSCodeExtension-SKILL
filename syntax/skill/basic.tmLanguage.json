@@ -46,7 +46,7 @@
                 {
                     "comment": "line comment",
                     "name": "comment.block.cadence.skill.basic",
-                    "match": "//(.*)",
+                    "match": ";(.*)",
                     "captures": {
                         "1": {
                             "patterns": [
