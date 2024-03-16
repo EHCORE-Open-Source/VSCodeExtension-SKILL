@@ -91,6 +91,10 @@
                     "include": "#builtin_application_infrastructure_function"
                 },
                 {
+                    "comment": "Cadence Interprocess Communication SKILL Reference",
+                    "include": "#builtin_interprocess_communication"
+                },
+                {
                     "comment": "Cadence PDK Automation System (PAS) Graphical Technology Editor (GTE) PCell Reference (pasgtepcellref)",
                     "include": "#builtin_pas_gte_pcell_utility_function"
                 },
@@ -1281,6 +1285,88 @@
                     "comment": "Plotter Functions",
                     "match": "\\b(ps(?:ConfigLoaded|LoadCdsPlotInit|Query(?:PaperSizes?|Plotters)|QueueStatus))\\b",
                     "name": "keyword.control.cadence.skill.infrastructure strong.cadence.skill.infrastructure"
+                }
+            ]
+        },
+        "builtin_interprocess_communication": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ipc_interprocess_communication_function"
+                },
+                {
+                    "include": "#virtuoso_ipc_photonic_interprocess_communication_function"
+                }
+            ]
+        },
+        "virtuoso_ipc_interprocess_communication_function": {
+            "patterns": [
+                {
+                    "comment": "Interprocess Communication Functions (Suffix Process)",
+                    "match": "\\b(ipc(?:Batch|Begin|Close|Cont|Is(?:Active|Alive)|Kill|Read|Signal|Skill|Stop|WaitFor|Write)Process)\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess"
+                },
+                {
+                    "comment": "Interprocess Communication Functions (Prefix ipcActivate)",
+                    "match": "\\b(ipcActivate(?:Batch|Messages))\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess"
+                },
+                {
+                    "comment": "Interprocess Communication Functions (Prefix ipcGet)",
+                    "match": "\\b(ipcGet(?:ExitStatus|Pid|Priority))\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess"
+                },
+                {
+                    "comment": "Interprocess Communication Functions (Prefix ipcKill)",
+                    "match": "\\b(ipcKillAllProcesses)\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess"
+                },
+                {
+                    "comment": "Interprocess Communication Functions (Prefix ipcSet)",
+                    "match": "\\b(ipcSetPriority)\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess"
+                },
+                {
+                    "comment": "Interprocess Communication Functions (Prefix ipcSleep)",
+                    "match": "\\b(ipcSleep(?:Milli)?)\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess"
+                },
+                {
+                    "comment": "Interprocess Communication Functions (Prefix ipcSoft)",
+                    "match": "\\b(ipcSoftInterrupt)\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess"
+                },
+                {
+                    "comment": "Interprocess Communication Functions (Prefix ipcWait)",
+                    "match": "\\b(ipcWait)\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess"
+                }
+            ]
+        },
+        "virtuoso_ipc_photonic_interprocess_communication_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ipc_server_registration_check_function"
+                },
+                {
+                    "include": "#virtuoso_ipc_message_processor_function"
+                }
+            ]
+        },
+        "virtuoso_ipc_server_registration_check_function": {
+            "patterns": [
+                {
+                    "comment": "Photonic Interprocess Communication Functions (ICADVM20.1 Photonics Only)",
+                    "match": "\\b(phoIPC(?:Get|Register)?ServerCheck)\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess constant.character.set.regexp.cadence.skill.interprocess"
+                }
+            ]
+        },
+        "virtuoso_ipc_message_processor_function": {
+            "patterns": [
+                {
+                    "comment": "Message Processor Functions (ICADVM20.1 Photonics Only)",
+                    "match": "\\b(phoIPC(?:GetMessageProcessor|Process(?:Markers|Ports|ServerMessage|Shapes)|RegisterMessageProcessor))\\b",
+                    "name": "keyword.control.cadence.skill.interprocess strong.cadence.skill.interprocess constant.character.set.regexp.cadence.skill.interprocess"
                 }
             ]
         },
