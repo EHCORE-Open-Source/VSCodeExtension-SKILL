@@ -5187,6 +5187,9 @@
                     "include": "#virtuoso_ade_customize_simulator_integration_function"
                 },
                 {
+                    "include": "#virtuoso_ade_access_simulation_result_function"
+                },
+                {
                     "include": "#virtuoso_ade_fault_simulation_function"
                 },
                 {
@@ -7038,6 +7041,37 @@
                     "comment": "Miscellaneous Functions (Prefix vms)",
                     "match": "\\b(vmsUpdateCellViews)\\b",
                     "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_access_simulation_result_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ade_data_access_function"
+                }
+            ]
+        },
+        "virtuoso_ade_data_access_function": {
+            "patterns": [
+                {
+                    "comment": "Data Access Functions (Prefix asi)",
+                    "match": "\\b(asi(?:DefineData(?:Access|Mapping)Function|GetCalcResultsDir|Init([[:word:]]+)DataAccessFunction))\\b",
+                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.access"
+                        }
+                    }
+                },
+                {
+                    "comment": "Data Access Functions (others)",
+                    "match": "\\b(DATA|MP|NG|OPT?|VAR|VN(?:2|PP?)?|VPD|[IV](?:[FST]|DC))\\b",
+                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.access"
+                        }
+                    }
                 }
             ]
         },
