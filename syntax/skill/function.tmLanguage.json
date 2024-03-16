@@ -7048,6 +7048,18 @@
             "patterns": [
                 {
                     "include": "#virtuoso_ade_data_access_function"
+                },
+                {
+                    "include": "#virtuoso_ade_selection_function"
+                },
+                {
+                    "include": "#virtuoso_ade_waveform_data_object"
+                },
+                {
+                    "include": "#virtuoso_ade_direct_plot_function_for_rf_analyses"
+                },
+                {
+                    "include": "#virtuoso_ade_ocean_script_function"
                 }
             ]
         },
@@ -7065,13 +7077,49 @@
                 },
                 {
                     "comment": "Data Access Functions (others)",
-                    "match": "\\b(DATA|MP|NG|OPT?|VAR|VN(?:2|PP?)?|VPD|[IV](?:[FST]|DC))\\b",
-                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access",
-                    "captures": {
-                        "2": {
-                            "name": "markup.underline.ade.access"
-                        }
-                    }
+                    "match": "\\b(DATA|MP|NG|OPT?|VAR|VN(?:2|PP?)?|VPD|[IV](?:[FST]|DC)|SIMULATOR)\\b",
+                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access"
+                }
+            ]
+        },
+        "virtuoso_ade_selection_function": {
+            "patterns": [
+                {
+                    "comment": "Selection Functions",
+                    "match": "\\b(asiSelect(?:Analysis(?:CompParam|Inst|Net|Source)|Inst|Net|SourceInst|Term(?:Net)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access"
+                }
+            ]
+        },
+        "virtuoso_ade_waveform_data_object": {
+            "patterns": [
+                {
+                    "comment": "Waveform Data Objects (Prefix dr)",
+                    "match": "\\b(dr(?:(?:Add|[GS]et)Elem|Create(?:(?:Empty)?Waveform|Vec)|GetWaveform[XY](?:Type|Vec)|Is(?:DataVector|ParamWave|Waveform)|PutWaveform[XY]Vec|Type|VectorLength))\\b",
+                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access"
+                },
+                {
+                    "comment": "Waveform Data Objects (Prefix fam)",
+                    "match": "\\b(fam(?:AddValue|CreateFamily|GetSweep(?:Name|Values)|IsFamily|Map|Value))\\b",
+                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access"
+                }
+            ]
+        },
+        "virtuoso_ade_direct_plot_function_for_rf_analyses": {
+            "patterns": [
+                {
+                    "comment": "Direct Plot Functions for RF Analyses",
+                    "match": "\\b(drpl(?:ACPRWithMask|(?:Mcp|WrlsAcpr)Value|Evm(?:Bpsk|Wrls)|Jitter|PacVolGnExpDen|(?:ParamSweep)?RFJcc?|RFValueAt|Sprobe(?:[HYZ]PM|Port(?:SPData|VSWR)|ZM)|Swp(?:[HSY]p|Z[mp])))\\b",
+                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access"
+                }
+            ]
+        },
+        "virtuoso_ade_ocean_script_function": {
+            "patterns": [
+                {
+                    "comment": "OCEAN Script Functions",
+                    "match": "\\b(asi(?:Close|Open|Write)OceanScript)\\b",
+                    "name": "keyword.control.cadence.skill.ade.access strong.cadence.skill.ade.access"
                 }
             ]
         },
