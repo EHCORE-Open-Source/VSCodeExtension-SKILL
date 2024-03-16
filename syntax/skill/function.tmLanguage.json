@@ -5184,6 +5184,9 @@
                     "include": "#virtuoso_ade_maestro_cellview_function"
                 },
                 {
+                    "include": "#virtuoso_ade_customize_simulator_integration_function"
+                },
+                {
                     "include": "#virtuoso_ade_fault_simulation_function"
                 },
                 {
@@ -6408,6 +6411,251 @@
                     "comment": "Functions for Formatting Hierarchical Interface Elements (Prefix nlGet)",
                     "match": "\\b(nlGetCdf)\\b",
                     "name": "keyword.control.cadence.skill.ade.core strong.cadence.skill.ade.core"
+                }
+            ]
+        },
+        "virtuoso_ade_customize_simulator_integration_function": {
+            "patterns": [
+                {
+                    "include": "#virtuoso_ade_environment_variable_function"
+                },
+                {
+                    "include": "#virtuoso_ade_oasis_function"
+                },
+                {
+                    "include": "#virtuoso_ade_oasis_print_function"
+                },
+                {
+                    "include": "#virtuoso_ade_simulator_option_function"
+                },
+                {
+                    "include": "#virtuoso_ade_analysis_function"
+                },
+                {
+                    "include": "#virtuoso_ade_asiAnalog_class"
+                },
+                {
+                    "include": "#virtuoso_ade_integrator_overloadable_method_for_invoking_simulation"
+                },
+                {
+                    "include": "#virtuoso_ade_integrator_overloadable_method_for_formatting_control_statement"
+                }
+            ]
+        },
+        "virtuoso_ade_environment_variable_function": {
+            "patterns": [
+                {
+                    "comment": "Environment Variable Functions (Prefix asiAdd, asiDelete, and asiInit)",
+                    "match": "\\b(asi(?:Add|Delete|Init([[:word:]]+))EnvOption)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.customize"
+                        }
+                    }
+                },
+                {
+                    "comment": "Environment Variable Functions (Prefix asiChange and asiDisplay)",
+                    "match": "\\b(asi(?:Change|Display)EnvOption(?:FormProperties)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Environment Variable Functions (Prefix asiGet and asiSet)",
+                    "match": "\\b(asi[GS]etEnvOption(?:Choices|Val))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_oasis_function": {
+            "patterns": [
+                {
+                    "comment": "OASIS Functions (Prefix ansAnalog)",
+                    "match": "\\b(ansAnalogRegCDFsimInfo)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiAdd)",
+                    "match": "\\b(asiAddOceanAlias)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiAnalog)",
+                    "match": "\\b(asiAnalogAutoloadProc)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiCheck)",
+                    "match": "\\b(asiCheck(?:AcEnabledWhenNoiseEnabled|Analysis|Blank(?:Numeric[GL]eq)?))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiCreate)",
+                    "match": "\\b(asiCreateIncludeStatementFile)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiDisplay)",
+                    "match": "\\b(asiDisplayHighPerformanceOption)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiExtract)",
+                    "match": "\\b(asiExtractQRCTechPathFrom(?:DSPF|Session))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiFormat)",
+                    "match": "\\b(asiFormatGraphicalStimul(?:i|usFileList))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiGet)",
+                    "match": "\\b(asiGet(?:AdvAnalysis|(?:Analog|Digital)Simulator|AnalysisField|(?:Available|Supported)MCOptions|Design(?:Cell|Lib|View)Name|DrlData|(?:EMIR|HighPerformance)OptionVal|Id|IterationUpdateFile|NetlistFileListToSymLink|Results(?:Netlist|Psf)Dir|SimCommandLineOrder|SimulatorList|Stimulus(?:Global|Input)s))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiIs)",
+                    "match": "\\b(asiIsConfigDesign)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "OASIS Functions (Prefix asiSet)",
+                    "match": "\\b(asiSet(?:EMIROptionVal|HighPerformanceOptionVal|Valid))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_oasis_print_function": {
+            "patterns": [
+                {
+                    "comment": "OASIS Print Functions",
+                    "match": "\\b(art(?:Close(?:AllFiles)?|Flush|Fprintf|ListOpenFiles|Outfile))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_simulator_option_function": {
+            "patterns": [
+                {
+                    "comment": "Simulator Option Functions (Prefix asiAdd, asiDelete, and asiInit)",
+                    "match": "\\b(asi(?:Add|Delete|Init([[:word:]]+))SimOption)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.customize"
+                        }
+                    }
+                },
+                {
+                    "comment": "Simulator Option Functions (Prefix asiChange)",
+                    "match": "\\b(asi(?:Change|Display)SimOption(?:FormProperties)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Environment Variable Functions (Prefix asiGet)",
+                    "match": "\\b(asiGet(?:ReservedWordList|SimOption(?:Choices|NameList|SendMethod|Val)|SimulationRunCommand|SimulatorSrcList))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Environment Variable Functions (Prefix asiIs)",
+                    "match": "\\b(asiIsCaseSensitive)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Simulator Option Functions (Prefix asiSet)",
+                    "match": "\\b(asiSet(?:HostOptions|SimOption(?:Choices|Val)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_analysis_function": {
+            "patterns": [
+                {
+                    "comment": "Analysis Functions (Prefix apaExport and apaStop)",
+                    "match": "\\b(apa(?:Export|Stop)(?:CB)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Analysis Functions (Prefix asiAdd and asiDelete)",
+                    "match": "\\b(asi(?:Add|Delete)Analysis(?:Field|Option)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Analysis Functions (Prefix asiChange and asiDisplay)",
+                    "match": "\\b(asi(?:Change|Display)Analysis(?:Field|Option(?:FormProperties)?)?)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Analysis Functions (Prefix asiCreate)",
+                    "match": "\\b(asiCreateAnalysis(?:Field|Option))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Analysis Functions (Prefix asiDisable, asiEnable, and asiFormat)",
+                    "match": "\\b(asi(?:(?:Dis|En)able|Format)Analysis)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Analysis Functions (Prefix asiGet)",
+                    "match": "\\b(asiGet(?:Analysis(?:Field(?:Choices|List|Val)|Form(?:Field(?:Choices|Val)|Obj)|Name(?:List)?|Option(?:Choices|List|SendMethod|Val)|ParamNameList)?|EnabledAnalysisList))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Analysis Functions (Prefix asiInit)",
+                    "match": "\\b(asiInit([[:word:]]+)Analysis)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize",
+                    "captures": {
+                        "2": {
+                            "name": "markup.underline.ade.customize"
+                        }
+                    }
+                },
+                {
+                    "comment": "Analysis Functions (Prefix asiIs)",
+                    "match": "\\b(asiIsAnalysisEnabled)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Analysis Functions (Prefix asiSet)",
+                    "match": "\\b(asiSetAnalysis(?:Field(?:Choices|Val)|Form(?:Field(?:Choices|Val)|Width)|Option(?:Choices|FormProperties|Val)))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_asiAnalog_class": {
+            "patterns": [
+                {
+                    "comment": "The asiAnalog Class: Initialization and Simulation Control",
+                    "match": "\\b(asi(?:Initialize|InterruptSim|Netlist|SetProjectDirChangeSetup|QuitSimulator))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_integrator_overloadable_method_for_invoking_simulation": {
+            "patterns": [
+                {
+                    "comment": "Integrator Overloadable Methods for Invoking Simulation",
+                    "match": "\\b(asi(?:Get(?:CommandFooter|PredefinedCommandLineOption)|RunSimulation))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                }
+            ]
+        },
+        "virtuoso_ade_integrator_overloadable_method_for_formatting_control_statement": {
+            "patterns": [
+                {
+                    "comment": "Integrator Overloadable Methods for Formatting Control Statements (Prefix asiFormat)",
+                    "match": "\\b(asiFormat(?:Analysis(?:List)?|ControlStmts|(?:Definition|TextStimulus)FileList|DesignVarList|InitCond|ModelLibSelectionList|NodeSet|KeepList|SimulatorOptions))\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Integrator Overloadable Methods for Formatting Control Statements (Prefix asiNeed)",
+                    "match": "\\b(asiNeedSuffixEvaluation)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
+                },
+                {
+                    "comment": "Integrator Overloadable Methods for Formatting Control Statements (Prefix asiInvalidate)",
+                    "match": "\\b(asiInvalidateControlStmts)\\b",
+                    "name": "keyword.control.cadence.skill.ade.customize strong.cadence.skill.ade.customize"
                 }
             ]
         },
