@@ -7594,6 +7594,10 @@
                 {
                     "comment": "Command Interpreter Window",
                     "include": "#virtuoso_ui_command_interpreter_window"
+                },
+                {
+                    "comment": "Menu Functions",
+                    "include": "#virtuoso_ui_menu_functions"
                 }
             ]
         },
@@ -7805,6 +7809,50 @@
                 {
                     "comment": "Cdsenv Editor Functions (Prefix envStore)",
                     "match": "\\b(envStoreEnv)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                }
+            ]
+        },
+        "virtuoso_ui_menu_functions": {
+            "patterns": [
+                {
+                    "comment": "Menu Functions (Prefix hiAdd, hiDisable, hiEnable, and hiInsert)",
+                    "match": "\\b(hi(?:Add|(?:Dis|En)able|Insert)MenuItem)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Menu Functions (Prefix hiCreate)",
+                    "match": "\\b(hiCreate(?:(?:2D|HorizontalFixed|Pulldown|Simple|VerticalFixed)?Menu|(?:Separator|Slider|Typein)?MenuItem))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Menu Functions (Prefix hiDelete)",
+                    "match": "\\b(hiDeleteMenu(?:Item)?)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Menu Functions (Prefix hiDisplay)",
+                    "match": "\\b(hiDisplay(?:Fixed|Window)?Menu)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Menu Functions (Prefix hiFixed)",
+                    "match": "\\b(hiFixedMenuDown)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Menu Functions (Prefix hiGet)",
+                    "match": "\\b(hiGet(?:MenuItems|WindowMenu))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Menu Functions (Prefix hiIs)",
+                    "match": "\\b(hiIs(?:2DMenu|Icon|Menu(?:ItemEnabled)?))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Menu Functions (Prefix hiSet)",
+                    "match": "\\b(hiSet(?:TypeinMenuItemCompleterList|MenuItem(?:Callback|StatusTip|Text)|WindowMenu))\\b",
                     "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
                 }
             ]
