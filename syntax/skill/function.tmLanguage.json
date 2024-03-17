@@ -115,6 +115,10 @@
                     "include": "#builtin_virtuoso_ade"
                 },
                 {
+                    "comment": "Cadence User Interface SKILL Reference (skuiref)",
+                    "include": "#builtin_virtuoso_user_interface"
+                },
+                {
                     "comment": "Virtuoso Schematic Editor SKILL Reference (skcompref)",
                     "include": "#builtin_schematic_editor"
                 }
@@ -7582,6 +7586,226 @@
                     "comment": "Invoking the Edit CDF Form",
                     "match": "\\b(aedEditCDF|cdfGetCustomViaCDF|cdfUpdateCustomViaParam)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "builtin_virtuoso_user_interface": {
+            "patterns": [
+                {
+                    "comment": "Command Interpreter Window",
+                    "include": "#virtuoso_ui_command_interpreter_window"
+                }
+            ]
+        },
+        "virtuoso_ui_command_interpreter_window": {
+            "patterns": [
+                {
+                    "comment": "General Environmental Functions",
+                    "include": "#virtuoso_ui_general_environmental_function"
+                },
+                {
+                    "comment": "Process Control Functions",
+                    "include": "#virtuoso_ui_process_control_function"
+                },
+                {
+                    "comment": "Log File Functions",
+                    "include": "#virtuoso_ui_log_file_function"
+                },
+                {
+                    "comment": "Resource Management Functions",
+                    "include": "#virtuoso_ui_resource_management_function"
+                },
+                {
+                    "comment": "Text Attribute Functions",
+                    "include": "#virtuoso_ui_text_attribute_function"
+                },
+                {
+                    "comment": "Cdsenv Editor Functions",
+                    "include": "#virtuoso_ui_cdsenv_editor_function"
+                }
+            ]
+        },
+        "virtuoso_ui_general_environmental_function": {
+            "patterns": [
+                {
+                    "comment": "General Environmental Functions (Prefix dplp)",
+                    "match": "\\b(dplp)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiAdd)",
+                    "match": "\\b(hiAdd(?:ExtraRepeatCommand|NonRepeatPrefix))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiBox)",
+                    "match": "\\b(hiBoxCenter)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiDisplay)",
+                    "match": "\\b(hiDisplaySaveForRestoreDialog)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiEditfile)",
+                    "match": "\\b(hiEditfile)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiEnqueue)",
+                    "match": "\\b(hiEnqueueCmd)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiFlush)",
+                    "match": "\\b(hiFlush(?:CIW|Info|LogFile)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiFocus)",
+                    "match": "\\b(hiFocusToCIW)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiGet)",
+                    "match": "\\b(hiGet(?:Attention|(?:Banner|Command)?Point|BeepVolume|CIWindow|DisplayName|ExtraRepeatCommands|Mouse(?:MoveSampleRate|StopDetectTime)|MultiClickTime|NonRepeatPrefixes|ScreenSize|RepeatCommand))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiGraphic)",
+                    "match": "\\b(hiGraphicMode)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiInsert)",
+                    "match": "\\b(hiInsertBlankCIWOutputPage)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiIs and hiRemove)",
+                    "match": "\\b(hiIsExtraRepeatCommand)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiQuit)",
+                    "match": "\\b(hiQuit)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiReg)",
+                    "match": "\\b(hiRegTimer)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiRemove)",
+                    "match": "\\b(hiRemove(?:ExtraRepeatCommand|NonRepeatPrefix))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiRepeat)",
+                    "match": "\\b(hiRepeat)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiSave)",
+                    "match": "\\b(hiSaveForRestore)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiScale)",
+                    "match": "\\b(hiScaleBox)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiSet)",
+                    "match": "\\b(hiSet(?:BeepVolume|Mouse(?:MoveSampleRate|StopDetectTime)|MultiClickTime|UserPreferences|Window(?:DefaultPrompt|Focus)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "General Environmental Functions (Prefix hiSync and hiSynchronize)",
+                    "match": "\\b(hiSync(?:hronize)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_process_control_function": {
+            "patterns": [
+                {
+                    "comment": "Process Control Functions",
+                    "match": "\\b(hi(?:Check|GetUser|Reset|Set)Abort)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                }
+            ]
+        },
+        "virtuoso_ui_log_file_function": {
+            "patterns": [
+                {
+                    "comment": "Log File Functions",
+                    "match": "\\b(hi(?:(?:End|Start)Log|GetLogFileName|IsInReplay|LogDragEvents|(?:PrintToLog|Replay)File|SetFilter(?:Options)?))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                }
+            ]
+        },
+        "virtuoso_ui_resource_management_function": {
+            "patterns": [
+                {
+                    "comment": "Resource Management Functions",
+                    "match": "\\b(hiGet(?:BBox|Geometry|String)Resource)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                }
+            ]
+        },
+        "virtuoso_ui_text_attribute_function": {
+            "patterns": [
+                {
+                    "comment": "Text Attribute Functions",
+                    "match": "\\b(hi(?:Get(?:Font(?:Info)?|XFontName|TextWidth)|(?:Query|Set)Font|TextWidth))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                }
+            ]
+        },
+        "virtuoso_ui_cdsenv_editor_function": {
+            "patterns": [
+                {
+                    "comment": "Cdsenv Editor Functions (Prefix start)",
+                    "match": "\\b(startCdsenvEditor)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Cdsenv Editor Functions (Prefix envCyclic)",
+                    "match": "\\b(envCyclic(?:IndexToString|StringToIndex))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Cdsenv Editor Functions (Prefix envGet)",
+                    "match": "\\b(envGet(?:(?:Available|Loaded|Modified)Tools|DefVal|Val|VarType))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Cdsenv Editor Functions (Prefix envIs)",
+                    "match": "\\b(envIs(?:ToolModified|Val))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Cdsenv Editor Functions (Prefix envLoad)",
+                    "match": "\\b(envLoad(?:File|Vals))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Cdsenv Editor Functions (Prefix envReg and envUnreg)",
+                    "match": "\\b(env(?:R|Unr)eg(?:LoadDump|Set)Trigger)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Cdsenv Editor Functions (Prefix envSet)",
+                    "match": "\\b(envSet(?:(?:Tool|Var)(?:CurrValToDefault|DefaultToCurrVal)|Val))\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Cdsenv Editor Functions (Prefix envStore)",
+                    "match": "\\b(envStoreEnv)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
                 }
             ]
         },
