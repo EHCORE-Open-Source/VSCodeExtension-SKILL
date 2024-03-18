@@ -7602,6 +7602,10 @@
                 {
                     "comment": "Toolbar Functions",
                     "include": "#virtuoso_ui_toolbar_functions"
+                },
+                {
+                    "comment": "Dialog Boxes",
+                    "include": "#virtuoso_ui_dialog_box"
                 }
             ]
         },
@@ -7916,6 +7920,100 @@
                 {
                     "comment": "Toolbar Functions (Prefix hiSet)",
                     "match": "\\b(hiSet(?:ActionChecked|ToolbarObjName))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_dialog_box": {
+            "patterns": [
+                {
+                    "comment": "General Dialog Box Functions",
+                    "include": "#virtuoso_ui_dialog_box_function"
+                },
+                {
+                    "comment": "File Selection Dialog Box Functions",
+                    "include": "#virtuoso_ui_file_selection_dialog_box_function"
+                },
+                {
+                    "comment": "Progress Dialog Box Functions",
+                    "include": "#virtuoso_ui_progress_dialog_box_function"
+                },
+                {
+                    "comment": "Color Dialog Functions",
+                    "include": "#virtuoso_ui_color_dialog_function"
+                },
+                {
+                    "comment": "Old Dialog Box Functions",
+                    "include": "#virtuoso_ui_old_dialog_box_function"
+                }
+            ]
+        },
+        "virtuoso_ui_dialog_box_function": {
+            "patterns": [
+                {
+                    "comment": "General Dialog Box Functions",
+                    "match": "\\b(hi(?:Display(?:App|User)DBox|DBox(?:Cancel|OK)|[GS]etDBoxDefaultLocation))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_file_selection_dialog_box_function": {
+            "patterns": [
+                {
+                    "comment": "File Selection Dialog Box Functions",
+                    "match": "\\b(hi(?:DisplayFileDialog|FileDialog(?:Done|(?:Set)?Selection)|Get(?:AnyFile|Existing(?:Directory|Files?))))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_progress_dialog_box_function": {
+            "patterns": [
+                {
+                    "comment": "Progress Dialog Box Functions (Suffix ProgressBox)",
+                    "match": "\\b(hi(?:Cancel|Display|Reset)ProgressBox)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Progress Dialog Box Functions (Suffix ProgressBar)",
+                    "match": "\\b(hi(?:Hide|Show)ProgressBar)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Progress Dialog Box Functions (Prefix hiAdvance)",
+                    "match": "\\b(hiAdvanceProgressBarOneStep)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Progress Dialog Box Functions (Prefix hiGet)",
+                    "match": "\\b(hiGetProgress(?:BarCurrentStep|(?:Bar)?TotalSteps)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Progress Dialog Box Functions (Prefix hiIs)",
+                    "match": "\\b(hiIsProgressBoxCancelled)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Progress Dialog Box Functions (Prefix hiSet)",
+                    "match": "\\b(hiSetProgress(?:Text|TotalSteps|(?:And|Banner|Button)Text|Bar|Label)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_color_dialog_function": {
+            "patterns": [
+                {
+                    "comment": "Color Dialog Function",
+                    "match": "\\b(hiDisplayColorDialog)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_old_dialog_box_function": {
+            "patterns": [
+                {
+                    "comment": "Old Dialog Box Functions",
+                    "match": "\\b(hiDisplay(?:Blocking|Modal|Modeless|NonBlocking)DBox)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
