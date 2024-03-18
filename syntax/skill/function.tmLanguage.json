@@ -7626,6 +7626,10 @@
                 {
                     "comment": "Window Banner Functions",
                     "include": "#virtuoso_ui_window_banner_function"
+                },
+                {
+                    "comment": "Bindkey Functions",
+                    "include": "#virtuoso_ui_bindkey_function"
                 }
             ]
         },
@@ -8315,6 +8319,60 @@
                 {
                     "comment": "Window Banner Functions",
                     "match": "\\b(hi(?:(?:Change|Delete)BannerLabel|DeleteBannerMenus?|Get(?:Banner(?:Labels|Menus)|NumMenus)|InsertBannerMenu|IsMenuSlotFilled|ReplaceAllBannerMenus))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_bindkey_function": {
+            "patterns": [
+                {
+                    "comment": "Bindkey Functions (Prefix hiBind)",
+                    "match": "\\b(hiBindKeyModifiers)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiConfigure)",
+                    "match": "\\b(hiConfigureBindKeys)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiDisable and hiEnable)",
+                    "match": "\\b(hi(?:Dis|En)ableAsstBindKeyPrefix)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiGet)",
+                    "match": "\\b(hiGet(?:BindKey(?:s|Inherit(?:Alias|Root)|PrefixList)?|DisabledAsstBindKeyPrefixes))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiInherit)",
+                    "match": "\\b(hiInheritBindKey)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiPrint)",
+                    "match": "\\b(hiPrintBindKeyUsage)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiSet)",
+                    "match": "\\b(hiSetBindKeys?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiShow)",
+                    "match": "\\b(hiShowBindKeys(?:ByAppType|ByWindow)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiReg)",
+                    "match": "\\b(hiRegSetBindKeyProc)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix hiRegister)",
+                    "match": "\\b(hiRegisterBindKeyPrefix)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
