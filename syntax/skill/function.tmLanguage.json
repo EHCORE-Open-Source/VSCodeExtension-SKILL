@@ -7614,6 +7614,10 @@
                 {
                     "comment": "Icon Functions",
                     "include": "#virtuoso_ui_icon_function"
+                },
+                {
+                    "comment": "Form Functions",
+                    "include": "#virtuoso_ui_from_function"
                 }
             ]
         },
@@ -8050,6 +8054,176 @@
                 {
                     "comment": "Icon Functions (Prefix name)",
                     "match": "\\b(nameToColor)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_from_function": {
+            "patterns": [
+                {
+                    "comment": "hiLayout Form Functions",
+                    "include": "#virtuoso_ui_hiLayout_form_function"
+                },
+                {
+                    "comment": "Form and Field Functions",
+                    "include": "#virtuoso_ui_form_field_function"
+                }
+            ]
+        },
+        "virtuoso_ui_hiLayout_form_function": {
+            "patterns": [
+                {
+                    "comment": "hiLayout Form Functions (Prefix hiAdd)",
+                    "match": "\\b(hiAdd(?:Fields?|ItemToLayout))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "hiLayout Form Functions (Prefix hiCreate)",
+                    "match": "\\b(hiCreate(?:(?:Form|Grid|(?:Horizontal||Vertical)Box|Stacked)Layout|LayoutForm))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "hiLayout Form Functions (Prefix hiDelete)",
+                    "match": "\\b(hiDelete(?:Fields?|ItemFromLayout))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_form_field_function": {
+            "patterns": [
+                {
+                    "comment": "Form and Field Functions (Prefix dd)",
+                    "match": "\\b(ddHi(?:Create(?:Cell|Library|View)ComboField|LinkFields))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix ddo)",
+                    "match": "\\b(ddo(?:Accepts|Preferred))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiAdd)",
+                    "match": "\\b(hiAddCyclicChoice)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiChange)",
+                    "match": "\\b(hiChangeForm(?:Callback|Title))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiCollapse)",
+                    "match": "\\b(hiCollapseTreeItem)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiCreate)",
+                    "match": "\\b(hiCreate(?:(?:App|Options)Form|(?:BBox|Combo|Cyclic|FileSelector|Float|Frame|(?:Simple)?Hypertext|Int|LayerCyclic|List(?:Box)?|MLText|OutputString|Point(?:List)?|Radio|Report|Scale|Separator|String|Tab|Toggle)Field|BooleanButton|Button(?:BoxField)?|Disclosure(?:Button|Triangle)|Form(?:Button|Label)?|Label|ScrollRegion|(?:Float)?SpinBox|Tree(?:Item|Table)?))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiDelete and hiDisplay)",
+                    "match": "\\b(hi(?:Delete|Display)Form)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiEdit)",
+                    "match": "\\b(hiEditPropList)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiEscape)",
+                    "match": "\\b(hiEscape(?:StringChars|HTMLTags))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiExpand)",
+                    "match": "\\b(hiExpandTreeItem)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiForm)",
+                    "match": "\\b(hiForm(?:Apply|Cancel|Close|Defaults|Done|Finish|List|Unmap))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiGet)",
+                    "match": "\\b(hiGet(?:ButtonAreaHeight|ChoiceStrings|Current(?:Field|Form)|(?:Cyclic|Radio)ValueString|Field(?:Attachments|Info|MinSize)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiHighlight, hiResize, and hiReattach)",
+                    "match": "\\b(hi(?:Highlight|Resize|Reattach)Field)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiHypertext)",
+                    "match": "\\b(hiHypertext(?:Readin|Replace|Scroll))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiIgnore, hiIn, hiInsert, hiInstantiate, and hiItem)",
+                    "match": "\\b(hi(?:IgnoreProp|InFormApply|InsertItemToLayout|InstantiateForm|Item(?:Insert|Remove)Tree))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiIs)",
+                    "match": "\\b(hiIs(?:Form(?:Displayed)?|Instantiated|InFieldCancel|ScrollRegion))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiLayer)",
+                    "match": "\\b(hiLayer(?:MatchCyclicStr|StringToLPP))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiLayout)",
+                    "match": "\\b(hiLayoutUTp)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiLaunch)",
+                    "match": "\\b(hiLaunchBrowser)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiMove)",
+                    "match": "\\b(hiMove(?:(?:ToForm)?Field|InsBarToEnd))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiGet)",
+                    "match": "\\b(hiGet(?:Field(?:Overlaps|Scope)|Form(?:Location|Size)|GridLayoutItemLocation|InsertionPosition|ItemOfLayout|KeyboardFocusField|LayerCyclicValue|Layout(?:ChildLayouts|Fields|Frame|Item(?:s|Index)|Margins|Type)|ListBoxValue|NumVisibleItems|ScrollBarInfo|StackedLayoutCurrentIndex|TextFieldFit|TopListItem|Tree(?:Item(?:s|Description|Icons|Parent)|Parent)?))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiOffset)",
+                    "match": "\\b(hiOffsetFields?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiReport)",
+                    "match": "\\b(hiReport(?:(?:Des|S)elect(?:AllItems|Items?)|GetSelectedItems))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiSet)",
+                    "match": "\\b(hiSet(?:Button(?:Icon|Label)|CallbackStatus|Current(?:Field|Form)|Field(?:Editable|Enabled|MinSize)|Form(?:Block|ButtonEnabled|Highlights|MinMaxSize|Name|Position|Size|ToDefaults)|InsertionPosition|KeyboardFocusField|LayerCyclicValue|Layout(?:FrameTitle|Margins)|ListItem(?:Center|Visible)|ScrollBarValue|StackedLayoutCurrentIndex|TopListItem|TreeItem(?:Description|Icons)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiShow, hiStore, and hiSwap)",
+                    "match": "\\b(hi(?:ShowFieldBorders|StoreFormLocation|SwapTreeItemSelectionIcons))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiTree)",
+                    "match": "\\b(hiTree(?:(?:Ap|Pre)pendItems?|(?:Remove|Table(?:Des|S)elect)(?:AllItems|Items?)|TableGet(?:Expanded|Selected)?Item(?:Count|s)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Form and Field Functions (Prefix hiUpdate)",
+                    "match": "\\b(hiUpdateFormBlock)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
