@@ -7610,6 +7610,10 @@
                 {
                     "comment": "List Box Functions",
                     "include": "#virtuoso_ui_list_box_function"
+                },
+                {
+                    "comment": "Icon Functions",
+                    "include": "#virtuoso_ui_icon_function"
                 }
             ]
         },
@@ -8027,6 +8031,25 @@
                 {
                     "comment": "List Box Functions",
                     "match": "\\b(hi(?:(?:Display|Show)ListBox|GetListBoxFieldFit|ListBox(?:Cancel|Done)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_icon_function": {
+            "patterns": [
+                {
+                    "comment": "Icon Functions (Prefix color)",
+                    "match": "\\b(colorIndex)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Icon Functions (Prefix hi)",
+                    "match": "\\b(hi(?:(?:Add|Get|Remove)IconOverrides|CreateColorArray|Load(?:Icon(?:Data|File)|ImageFile)|MatchColor(?:ByName)?|SaveIconData|(?:SetDisabled|StringTo)Icon))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Icon Functions (Prefix name)",
+                    "match": "\\b(nameToColor)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
