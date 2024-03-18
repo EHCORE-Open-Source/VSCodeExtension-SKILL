@@ -7622,6 +7622,10 @@
                 {
                     "comment": "Window Functions",
                     "include": "#virtuoso_ui_window_function"
+                },
+                {
+                    "comment": "Window Banner Functions",
+                    "include": "#virtuoso_ui_window_banner_function"
                 }
             ]
         },
@@ -8302,6 +8306,15 @@
                 {
                     "comment": "Window Functions (Suffix FixedMenu)",
                     "match": "\\b(hi(?:Add|Move|Remove)FixedMenu)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_window_banner_function": {
+            "patterns": [
+                {
+                    "comment": "Window Banner Functions",
+                    "match": "\\b(hi(?:(?:Change|Delete)BannerLabel|DeleteBannerMenus?|Get(?:Banner(?:Labels|Menus)|NumMenus)|InsertBannerMenu|IsMenuSlotFilled|ReplaceAllBannerMenus))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
