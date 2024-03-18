@@ -7598,6 +7598,10 @@
                 {
                     "comment": "Menu Functions",
                     "include": "#virtuoso_ui_menu_functions"
+                },
+                {
+                    "comment": "Toolbar Functions",
+                    "include": "#virtuoso_ui_toolbar_functions"
                 }
             ]
         },
@@ -7738,7 +7742,7 @@
                 {
                     "comment": "Process Control Functions",
                     "match": "\\b(hi(?:Check|GetUser|Reset|Set)Abort)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
         },
@@ -7747,7 +7751,7 @@
                 {
                     "comment": "Log File Functions",
                     "match": "\\b(hi(?:(?:End|Start)Log|GetLogFileName|IsInReplay|LogDragEvents|(?:PrintToLog|Replay)File|SetFilter(?:Options)?))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
         },
@@ -7756,7 +7760,7 @@
                 {
                     "comment": "Resource Management Functions",
                     "match": "\\b(hiGet(?:BBox|Geometry|String)Resource)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
         },
@@ -7765,7 +7769,7 @@
                 {
                     "comment": "Text Attribute Functions",
                     "match": "\\b(hi(?:Get(?:Font(?:Info)?|XFontName|TextWidth)|(?:Query|Set)Font|TextWidth))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
         },
@@ -7774,42 +7778,42 @@
                 {
                     "comment": "Cdsenv Editor Functions (Prefix start)",
                     "match": "\\b(startCdsenvEditor)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Cdsenv Editor Functions (Prefix envCyclic)",
                     "match": "\\b(envCyclic(?:IndexToString|StringToIndex))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Cdsenv Editor Functions (Prefix envGet)",
                     "match": "\\b(envGet(?:(?:Available|Loaded|Modified)Tools|DefVal|Val|VarType))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Cdsenv Editor Functions (Prefix envIs)",
                     "match": "\\b(envIs(?:ToolModified|Val))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Cdsenv Editor Functions (Prefix envLoad)",
                     "match": "\\b(envLoad(?:File|Vals))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Cdsenv Editor Functions (Prefix envReg and envUnreg)",
                     "match": "\\b(env(?:R|Unr)eg(?:LoadDump|Set)Trigger)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Cdsenv Editor Functions (Prefix envSet)",
                     "match": "\\b(envSet(?:(?:Tool|Var)(?:CurrValToDefault|DefaultToCurrVal)|Val))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Cdsenv Editor Functions (Prefix envStore)",
                     "match": "\\b(envStoreEnv)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
         },
@@ -7818,42 +7822,101 @@
                 {
                     "comment": "Menu Functions (Prefix hiAdd, hiDisable, hiEnable, and hiInsert)",
                     "match": "\\b(hi(?:Add|(?:Dis|En)able|Insert)MenuItem)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Menu Functions (Prefix hiCreate)",
                     "match": "\\b(hiCreate(?:(?:2D|HorizontalFixed|Pulldown|Simple|VerticalFixed)?Menu|(?:Separator|Slider|Typein)?MenuItem))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Menu Functions (Prefix hiDelete)",
                     "match": "\\b(hiDeleteMenu(?:Item)?)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Menu Functions (Prefix hiDisplay)",
                     "match": "\\b(hiDisplay(?:Fixed|Window)?Menu)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Menu Functions (Prefix hiFixed)",
                     "match": "\\b(hiFixedMenuDown)\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Menu Functions (Prefix hiGet)",
                     "match": "\\b(hiGet(?:MenuItems|WindowMenu))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Menu Functions (Prefix hiIs)",
                     "match": "\\b(hiIs(?:2DMenu|Icon|Menu(?:ItemEnabled)?))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 },
                 {
                     "comment": "Menu Functions (Prefix hiSet)",
                     "match": "\\b(hiSet(?:TypeinMenuItemCompleterList|MenuItem(?:Callback|StatusTip|Text)|WindowMenu))\\b",
-                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_toolbar_functions": {
+            "patterns": [
+                {
+                    "comment": "Toolbar Functions (Prefix ddHiCreate)",
+                    "match": "\\b(ddHiCreate(?:Cell|Library|View)ToolbarComboBox)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiAdd)",
+                    "match": "\\b(hiAddToolbarItems?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiCreate)",
+                    "match": "\\b(hiCreate(?:Action|Toolbar(?:ComboBox|Typein|Separator)?))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiDelete and hiInsert)",
+                    "match": "\\b(hi(?:Delete|Insert)Toolbar(?:Break|Items?)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiFocus)",
+                    "match": "\\b(hiFocusToToolbarItem?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiGet)",
+                    "match": "\\b(hiGet(?:SharedIcon|ToolbarObjName|WindowToolbars))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiHas)",
+                    "match": "\\b(hiHasToolbarBreak)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiHide, hiReattach, and hiShow)",
+                    "match": "\\b(hi(?:Hide|Reattach|Show)Toolbar)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiList)",
+                    "match": "\\b(hiListFocusableToolbarItems)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiPlace)",
+                    "match": "\\b(hiPlaceToolbar(?:Break)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Toolbar Functions (Prefix hiSet)",
+                    "match": "\\b(hiSet(?:ActionChecked|ToolbarObjName))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
         },
