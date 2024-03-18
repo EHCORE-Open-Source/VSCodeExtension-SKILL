@@ -7618,6 +7618,10 @@
                 {
                     "comment": "Form Functions",
                     "include": "#virtuoso_ui_from_function"
+                },
+                {
+                    "comment": "Window Functions",
+                    "include": "#virtuoso_ui_window_function"
                 }
             ]
         },
@@ -8224,6 +8228,80 @@
                 {
                     "comment": "Form and Field Functions (Prefix hiUpdate)",
                     "match": "\\b(hiUpdateFormBlock)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_window_function": {
+            "patterns": [
+                {
+                    "comment": "Window Functions (Prefix dwindow, swindow, and window)",
+                    "match": "\\b([ds]?windowp?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix wtypep)",
+                    "match": "\\b(wtypep)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix get)",
+                    "match": "\\b(get(?:CurrentWindow|MaxScreenCoords))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix set)",
+                    "match": "\\b(setCurrentWindow)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix hiFocus)",
+                    "match": "\\b(hiFocusToCursor)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix hiGet)",
+                    "match": "\\b(hiGet(?:AbsWindowScreenBBox|ActiveTabWindow|AppType|Current(?:EnterFunPoints|Window)|Cursor(?:ByName|Name)?|DbuPoint|(?:EF)?DrawThruDelta|EFunCursor|Help|IconName|MaxScreenCoords|ScreenPoint|SessionWindow|Window(?:(?:Display|Iconify)?State|FixedMenu|List|Name)|WidgetType|WMOffsets))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix hiIs)",
+                    "match": "\\b(hiIs(?:WidgetType|WindowSpecifier))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix hiLower and hiRaise)",
+                    "match": "\\b(hi(?:Lower|Raise)Tab)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix hiReg and hiUnreg)",
+                    "match": "\\b(hi(?:R|Unr)eg(?:CloseProc|CurWindowTrigger))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix hiRemove)",
+                    "match": "\\b(hiRemovePromptLine)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix hiSet)",
+                    "match": "\\b(hiSet(?:CurrentWindow|Cursor|(?:EF)?DrawThruDelta|EFunCursor|IconName|SessionFocus|ShadowMode|TabWindow(?:Icon|Tip|Title)|Win(?:dow(?:Atts|Name|Icon)|Style)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Prefix hiSwitch)",
+                    "match": "\\b(hiSwitchWindowType)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Suffix Window)",
+                    "match": "\\b(hi(?:Close|Create(?:Dock)?|Deiconify|Display|Dock|Iconify|Lower|Map|Move|Open|Raise|Resize|Pick|Un(?:dock|map))Window)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Window Functions (Suffix FixedMenu)",
+                    "match": "\\b(hi(?:Add|Move|Remove)FixedMenu)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
