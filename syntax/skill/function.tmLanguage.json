@@ -7606,6 +7606,10 @@
                 {
                     "comment": "Dialog Boxes",
                     "include": "#virtuoso_ui_dialog_box"
+                },
+                {
+                    "comment": "List Box Functions",
+                    "include": "#virtuoso_ui_list_box_function"
                 }
             ]
         },
@@ -8014,6 +8018,15 @@
                 {
                     "comment": "Old Dialog Box Functions",
                     "match": "\\b(hiDisplay(?:Blocking|Modal|Modeless|NonBlocking)DBox)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_list_box_function": {
+            "patterns": [
+                {
+                    "comment": "List Box Functions",
+                    "match": "\\b(hi(?:(?:Display|Show)ListBox|GetListBoxFieldFit|ListBox(?:Cancel|Done)))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
