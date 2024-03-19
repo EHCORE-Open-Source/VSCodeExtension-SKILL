@@ -7634,6 +7634,10 @@
                 {
                     "comment": "User Entry Functions",
                     "include": "#virtuoso_ui_user_entry_function"
+                },
+                {
+                    "comment": "Encapsulation Window",
+                    "include": "#virtuoso_ui_encapsulation_window"
                 }
             ]
         },
@@ -8437,6 +8441,15 @@
                 {
                     "comment": "Nesting Enterfunctions (Prefix set)",
                     "match": "\\b(setEFunFlightLineTarget)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_encapsulation_window": {
+            "patterns": [
+                {
+                    "comment": "Encapsulation Window",
+                    "match": "\\b(hi(?:(?:AppendInput|GetEncapSkill)Cmd|(?:FocusTo)?Encap|SetEncap(?:History|Prompt|SkillCmd)))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
