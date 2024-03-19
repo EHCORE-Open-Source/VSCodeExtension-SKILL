@@ -7646,6 +7646,10 @@
                 {
                     "comment": "Online Help Mechanism",
                     "include": "#virtuoso_ui_online_help_mechanism"
+                },
+                {
+                    "comment": "QtReplay Functions",
+                    "include": "#virtuoso_ui_QtReplay_function"
                 }
             ]
         },
@@ -8583,6 +8587,40 @@
                 {
                     "comment": "Online Help Functions",
                     "match": "\\b(hi(?:(?:(?:Modal|Modeless)DBox)?Help|LookupHRFtag|ObShowTag))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_QtReplay_function": {
+            "patterns": [
+                {
+                    "comment": "QtReplay Functions (Prefix nrDialog)",
+                    "match": "\\b(nrDialogAccept)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "QtReplay Functions (Prefix nrGet)",
+                    "match": "\\b(nrGet(?:IndexesFromSelection|SelectedIndexes))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "QtReplay Functions (Prefix nrList)",
+                    "match": "\\b(nrList(?:Column(?:Move|Sort)|Item(?:Action|Expand|Rename)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "QtReplay Functions (Prefix nrResize)",
+                    "match": "\\b(nrResizeWindow)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "QtReplay Functions (Prefix nrSet)",
+                    "match": "\\b(nrSet(?:CurrentWindow|FileFilter|WindowVisibility))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "QtReplay Functions (Prefix nrUpdate)",
+                    "match": "\\b(nrUpdateMenu)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
