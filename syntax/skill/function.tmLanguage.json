@@ -7658,6 +7658,10 @@
                 {
                     "comment": "Display Lists",
                     "include": "#virtuoso_ui_display_list"
+                },
+                {
+                    "comment": "Graph Browser",
+                    "include": "#virtuoso_ui_graph_browser"
                 }
             ]
         },
@@ -8764,6 +8768,48 @@
                 {
                     "comment": "View Display List Functions (Prefix dlSet)",
                     "match": "\\b(dlSet(?:Dlist(?:Position|Scale)|WidgetName))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_graph_browser": {
+            "patterns": [
+                {
+                    "comment": "dag Functions",
+                    "include": "#virtuoso_ui_dag_function"
+                }
+            ]
+        },
+        "virtuoso_ui_dag_function": {
+            "patterns": [
+                {
+                    "comment": "dag Functions (Suffix Object)",
+                    "match": "\\b(dag(?:AddActionTo|DeleteActionFrom|GetCurrent|Refresh)Object)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "dag Functions (Prefix dagCreate)",
+                    "match": "\\b(dagCreate(?:Class|Node))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "dag Functions (Prefix dagDestroy)",
+                    "match": "\\b(dagDestroyNode)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "dag Functions (Prefix dagSet)",
+                    "match": "\\b(dagSet(?:(?:Expanded)?ActionStatus|CurrentTool|Font))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "dag Functions (Suffix Tools)",
+                    "match": "\\b(dag(?:Display|GetCurrent|NumTo|Open|Pop|Push)Tool)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "dag Functions (Suffix Child)",
+                    "match": "\\b(dag(?:LinkParentTo|UnlinkParentFrom)Child)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
