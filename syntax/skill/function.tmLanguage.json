@@ -7662,6 +7662,14 @@
                 {
                     "comment": "Graph Browser",
                     "include": "#virtuoso_ui_graph_browser"
+                },
+                {
+                    "comment": "Interprocess Communication",
+                    "include": "#virtuoso_ui_interprocess_communication"
+                },
+                {
+                    "comment": "Stroke Functions",
+                    "include": "#virtuoso_ui_stroke_function"
                 }
             ]
         },
@@ -8810,6 +8818,24 @@
                 {
                     "comment": "dag Functions (Suffix Child)",
                     "match": "\\b(dag(?:LinkParentTo|UnlinkParentFrom)Child)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_interprocess_communication": {
+            "patterns": [
+                {
+                    "comment": "Interprocess Communication",
+                    "match": "\\b(hiSleep)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_stroke_function": {
+            "patterns": [
+                {
+                    "comment": "Stroke Functions",
+                    "match": "\\b(hi(?:GetStroke(?:BBox|(?:First|Last)Pt)|Stroke))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
