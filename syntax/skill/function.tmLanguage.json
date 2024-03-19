@@ -7642,6 +7642,10 @@
                 {
                     "comment": "Functions of Viewfile Window",
                     "include": "#virtuoso_ui_viewfile_window_function"
+                },
+                {
+                    "comment": "Online Help Mechanism",
+                    "include": "#virtuoso_ui_online_help_mechanism"
                 }
             ]
         },
@@ -8570,6 +8574,15 @@
                 {
                     "comment": "Miscellaneous Viewfile Functions",
                     "match": "\\b(hiGetText(?:(?:CharAt|Disp|Index)Loc|SourceLength|LineColumn))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_online_help_mechanism": {
+            "patterns": [
+                {
+                    "comment": "Online Help Functions",
+                    "match": "\\b(hi(?:(?:(?:Modal|Modeless)DBox)?Help|LookupHRFtag|ObShowTag))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
