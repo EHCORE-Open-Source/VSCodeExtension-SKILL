@@ -119,6 +119,10 @@
                     "include": "#builtin_virtuoso_user_interface"
                 },
                 {
+                    "comment": "Virtuoso Parameterized Cell SKILL Reference (skpcellref)",
+                    "include": "#builtin_virtuoso_pcell"
+                },
+                {
                     "comment": "Virtuoso Schematic Editor SKILL Reference (skcompref)",
                     "include": "#builtin_schematic_editor"
                 }
@@ -8837,6 +8841,215 @@
                     "comment": "Stroke Functions",
                     "match": "\\b(hi(?:GetStroke(?:BBox|(?:First|Last)Pt)|Stroke))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "builtin_virtuoso_pcell": {
+            "patterns": [
+                {
+                    "comment": "Parameterized Cell Functions",
+                    "include": "#virtuoso_pcell_parameterized_cell_function"
+                },
+                {
+                    "comment": "Graphical Parameterized Cell Functions",
+                    "include": "#virtuoso_pcell_graphical_parameterized_cell_function"
+                },
+                {
+                    "comment": "Express Pcells Data Management Functions",
+                    "include": "#virtuoso_pcell_express_data_management_function"
+                }
+            ]
+        },
+        "virtuoso_pcell_parameterized_cell_function": {
+            "patterns": [
+                {
+                    "comment": "Parameterized Cell Functions",
+                    "match": "\\b(pc(?:ExprToString|TechFile))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                }
+            ]
+        },
+        "virtuoso_pcell_graphical_parameterized_cell_function": {
+            "patterns": [
+                {
+                    "comment": "Graphical Pcell Functions",
+                    "include": "#virtuoso_pcell_graphical_function"
+                },
+                {
+                    "comment": "Pcell Compiler Customization SKILL Functions",
+                    "include": "#virtuoso_pcell_compiler_customization"
+                }
+            ]
+        },
+        "virtuoso_pcell_graphical_function": {
+            "patterns": [
+                {
+                    "comment": "Graphical Pcell Functions (Prefix au)",
+                    "match": "\\b(auHiUltraPCell)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcColinear)",
+                    "match": "\\b(pcColinearPoints)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcConcat)",
+                    "match": "\\b(pcConcatOrient)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcDefine)",
+                    "match": "\\b(pcDefine(?:Condition|InheritParam|Param(?:Cell|Label|Layer|Path|Polygon|Prop|Rect|RefPointObject|Slot)|(?:PathRefPoint|Stepped)Object|PP?Cell|Repeat|StretchLine))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcDelete)",
+                    "match": "\\b(pcDelete(?:Condition|Param(?:Layer|Prop|Shape)?|RefPoint|Repeat|SteppedObject))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcDraw)",
+                    "match": "\\b(pcDraw)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcExpr)",
+                    "match": "\\b(pcExprToProp)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcFilter)",
+                    "match": "\\b(pcFilterPoints)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcFix)",
+                    "match": "\\b(pcFix)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcGet)",
+                    "match": "\\b(pcGet(?:BendAngle|CodeParam(?:Names|Value)|Conditions|DefaultParamsFromClass|(?:InheritParam|RefPoint|Repeat|SteppedObject)(?:Defn|s)|Offset(?:Path|Polygon)|Param(?:eters|(?:Label|Layer|Shape)(?:Defn|s)|Props|Slot(?:Type|Value))|PathRefPoint|StepDirection|Stretch(?:Defn|es|Summary)))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcGrow)",
+                    "match": "\\b(pcGrow(?:Box|Points))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcIs)",
+                    "match": "\\b(pcIsParamSlot)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcModify)",
+                    "match": "\\b(pcModifyParam)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcRedefine)",
+                    "match": "\\b(pcRedefineStretchLine)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcRestrict)",
+                    "match": "\\b(pcRestrictStretchToObjects)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcRound)",
+                    "match": "\\b(pcRound)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcSet)",
+                    "match": "\\b(pcSet(?:FTermWidth|ParamSlot(?:sFromMaster|Value)))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcSkill)",
+                    "match": "\\b(pcSkillGen)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcStep)",
+                    "match": "\\b(pcStepAlongShape)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcHICompile)",
+                    "match": "\\b(pcHICompileToSkill)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcHIDefine)",
+                    "match": "\\b(pcHIDefine(?:Condition|InheritedParameter|Label|Layer|Param(?:Cell|eterizedShape)|(?:Param|Path)RefPointObject|Prop|Repeat|SteppedObject|Stretch))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcHIDelete)",
+                    "match": "\\b(pcHIDelete(?:Condition|Layer|ParameterizedShape|Prop|(?:RefPoint|Stepped)Object|Repeat))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcHIDisplay)",
+                    "match": "\\b(pcHIDisplay(?:Condition|InheritedParameter|Layer|Param(?:s|eterizedShape)|Prop|(?:RefPoint|Stepped)Object|Repeat))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcHIEdit)",
+                    "match": "\\b(pcHIEditParameters)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcHIModify)",
+                    "match": "\\b(pcHIModify(?:Condition|Label|Layer|Params|(?:RefPoint|Stepped)Object|Repeat|StretchLine))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Prefix pcHISummarize)",
+                    "match": "\\b(pcHISummarizeParams)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Graphical Pcell Functions (Suffix StretchLine)",
+                    "match": "\\b(pcHI(?:Qualify|Redefine)StretchLine)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                }
+            ]
+        },
+        "virtuoso_pcell_compiler_customization": {
+            "patterns": [
+                {
+                    "comment": "Pcell Compiler Customization SKILL Functions",
+                    "match": "\\b(pcUser(?:AdjustParameters|Generate(?:Array|Instance(?:sOfMaster)?|LPP|Pin|Property|Shape|Terminal)|InitRepeat|PostProcess(?:CellView|Object)|PreProcessCellView|SetTermNetName))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                }
+            ]
+        },
+        "virtuoso_pcell_express_data_management_function": {
+            "patterns": [
+                {
+                    "comment": "Express Pcells Data Management Functions (Prefix dbClear)",
+                    "match": "\\b(dbClearPcellCache)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Express Pcells Data Management Functions (Prefix dbSave)",
+                    "match": "\\b(dbSavePcellCache(?:ForCV(?:Only)?)?)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Express Pcells Data Management Functions (Prefix dbUpdate)",
+                    "match": "\\b(dbUpdatePcellCache)\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
+                },
+                {
+                    "comment": "Express Pcells Data Management Functions (Prefix xpc)",
+                    "match": "\\b(xpc(?:DumpCache|EnableExpressPcell))\\b",
+                    "name": "keyword.control.cadence.skill.pcell strong.cadence.skill.pcell"
                 }
             ]
         },
