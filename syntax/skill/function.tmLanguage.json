@@ -7654,6 +7654,10 @@
                 {
                     "comment": "Performance Diagnostic Functions",
                     "include": "#virtuoso_ui_preformance_diagnostic_function"
+                },
+                {
+                    "comment": "Display Lists",
+                    "include": "#virtuoso_ui_display_list"
                 }
             ]
         },
@@ -8634,6 +8638,132 @@
                 {
                     "comment": "Performance Diagnostic Functions",
                     "match": "\\b(perf(?:DiagInstall|RefreshControl|(?:Start|Stop)CallStackProc))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_display_list": {
+            "patterns": [
+                {
+                    "comment": "Add Objects to the Display List",
+                    "include": "#virtuoso_ui_add_object_to_display_list"
+                },
+                {
+                    "comment": "Display List Draw Functions",
+                    "include": "#virtuoso_ui_display_list_draw_function"
+                },
+                {
+                    "comment": "Display List Pen Functions",
+                    "include": "#virtuoso_ui_display_list_pen_function"
+                },
+                {
+                    "comment": "View Display List Functions",
+                    "include": "#virtuoso_ui_view_display_list_function"
+                }
+            ]
+        },
+        "virtuoso_ui_add_object_to_display_list": {
+            "patterns": [
+                {
+                    "comment": "Add Objects to the Display List (Prefix dlAdd)",
+                    "match": "\\b(dlAdd(?:Arc|Box|Circle|Donut|(?:Event|Skill)Object|Path|Point|Polygon|(?:Raster|Stroke)Text|Segment))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Add Objects to the Display List (Prefix dlMake)",
+                    "match": "\\b(dlMakeDisplayList)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Add Objects to the Display List (Prefix dlSet)",
+                    "match": "\\b(dlSetClearOnDraw)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_display_list_draw_function": {
+            "patterns": [
+                {
+                    "comment": "Display List Draw Functions",
+                    "match": "\\b(dlDraw(?:Arc|Box|Circle|Donut|Path|Point|Polygon|(?:Raster|Stroke)Text|Segment))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_display_list_pen_function": {
+            "patterns": [
+                {
+                    "comment": "Display List Pen Functions (Prefix dlMake)",
+                    "match": "\\b(dlMake(?:PenTable|Stipple))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Display List Pen Functions (Prefix dlSet)",
+                    "match": "\\b(dlSet(?:CurrentPen|Pen(?:Color|FillStyle|Filled|Stipple|Table)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_view_display_list_function": {
+            "patterns": [
+                {
+                    "comment": "View Display List Functions (Suffix Button)",
+                    "match": "\\b(dl(?:Configure|MakeDlist|Move|Resize)Button)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Suffix Widget)",
+                    "match": "\\b(dl(?:Close|Make|(?:Un)?Map)Widget)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlAttach and dlDetach)",
+                    "match": "\\b(dl(?:AttachDlistTo|DetachDlistFrom)(?:Widget|Window))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlClear)",
+                    "match": "\\b(dlClearDisplayList)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlDisplay)",
+                    "match": "\\b(dlDisplay)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlDlist)",
+                    "match": "\\b(dlDlistToIcon)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlEnable)",
+                    "match": "\\b(dlEnableItem)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlGet)",
+                    "match": "\\b(dlGetRasterTextWidth)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlFit)",
+                    "match": "\\b(dlFitDlistOnDraw)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlQuery)",
+                    "match": "\\b(dlQueryRasterFont)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlSave)",
+                    "match": "\\b(dlSaveDlist)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "View Display List Functions (Prefix dlSet)",
+                    "match": "\\b(dlSet(?:Dlist(?:Position|Scale)|WidgetName))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
