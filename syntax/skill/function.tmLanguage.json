@@ -7650,6 +7650,10 @@
                 {
                     "comment": "QtReplay Functions",
                     "include": "#virtuoso_ui_QtReplay_function"
+                },
+                {
+                    "comment": "Performance Diagnostic Functions",
+                    "include": "#virtuoso_ui_preformance_diagnostic_function"
                 }
             ]
         },
@@ -8621,6 +8625,15 @@
                 {
                     "comment": "QtReplay Functions (Prefix nrUpdate)",
                     "match": "\\b(nrUpdateMenu)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_preformance_diagnostic_function": {
+            "patterns": [
+                {
+                    "comment": "Performance Diagnostic Functions",
+                    "match": "\\b(perf(?:DiagInstall|RefreshControl|(?:Start|Stop)CallStackProc))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
