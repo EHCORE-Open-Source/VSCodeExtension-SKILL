@@ -7630,6 +7630,10 @@
                 {
                     "comment": "Bindkey Functions",
                     "include": "#virtuoso_ui_bindkey_function"
+                },
+                {
+                    "comment": "User Entry Functions",
+                    "include": "#virtuoso_ui_user_entry_function"
                 }
             ]
         },
@@ -8373,6 +8377,66 @@
                 {
                     "comment": "Bindkey Functions (Prefix hiRegister)",
                     "match": "\\b(hiRegisterBindKeyPrefix)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_user_entry_function": {
+            "patterns": [
+                {
+                    "comment": "Callback Procedures",
+                    "include": "#virtuoso_ui_callback_precedure"
+                },
+                {
+                    "comment": "Nesting Enterfunctions",
+                    "include": "#virtuoso_ui_nesting_enterfunction"
+                }
+            ]
+        },
+        "virtuoso_ui_callback_precedure": {
+            "patterns": [
+                {
+                    "comment": "Callback Procedures",
+                    "match": "\\b((?:(?:add|del)Point|done|form)Proc)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_nesting_enterfunction": {
+            "patterns": [
+                {
+                    "comment": "Nesting Enterfunctions (Suffix Point)",
+                    "match": "\\b((?:add|delete)Point)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Nesting Enterfunctions (Suffix EnterFun)",
+                    "match": "\\b((?:apply|cancel|change(?:Next)?|finish|hiIn|(?:un)?draw)EnterFun)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Nesting Enterfunctions (Prefix clear)",
+                    "match": "\\b(clearAllEnterFunctions)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Nesting Enterfunctions (Prefix enter)",
+                    "match": "\\b(enter(?:Arc|Circle|Donut|Ellipse|FunNestLevel|Line|Number|Path|Points?|Polygon|(?:Screen)?Box|Segment|MultiRep|String))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Nesting Enterfunctions (Prefix hi)",
+                    "match": "\\b(hi(?:GetCurrentCmd|Mark(?:Non)?Nestable|ToggleEnterForm|Update))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Nesting Enterfunctions (Prefix pre)",
+                    "match": "\\b(preXY)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Nesting Enterfunctions (Prefix set)",
+                    "match": "\\b(setEFunFlightLineTarget)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
