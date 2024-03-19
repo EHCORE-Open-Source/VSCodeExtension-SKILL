@@ -7638,6 +7638,10 @@
                 {
                     "comment": "Encapsulation Window",
                     "include": "#virtuoso_ui_encapsulation_window"
+                },
+                {
+                    "comment": "Functions of Viewfile Window",
+                    "include": "#virtuoso_ui_viewfile_window_function"
                 }
             ]
         },
@@ -8450,6 +8454,122 @@
                 {
                     "comment": "Encapsulation Window",
                     "match": "\\b(hi(?:(?:AppendInput|GetEncapSkill)Cmd|(?:FocusTo)?Encap|SetEncap(?:History|Prompt|SkillCmd)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_viewfile_window_function": {
+            "patterns": [
+                {
+                    "comment": "Viewfile Management",
+                    "include": "#virtuoso_ui_viewfile_management"
+                },
+                {
+                    "comment": "Text Customization Functions",
+                    "include": "#virtuoso_ui_text_customization_function"
+                },
+                {
+                    "comment": "Word Delimiters",
+                    "include": "#virtuoso_ui_word_delimiter"
+                },
+                {
+                    "comment": "Miscellaneous Viewfile Functions",
+                    "include": "#virtuoso_ui_miscellaneous_viewfile_function"
+                }
+            ]
+        },
+        "virtuoso_ui_viewfile_management": {
+            "patterns": [
+                {
+                    "comment": "Viewfile Management (Suffix Clipboard)",
+                    "match": "\\b(hi(?:Clear|[GS]et)Clipboard)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Suffix ByLoc)",
+                    "match": "\\b(hi(?:GetTextSel|SelectText)ByLoc)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Suffix CurrentIndex and TextClass)",
+                    "match": "\\b(hi[GS]et(?:CurrentIndex|TextClass))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Suffix TextIndex)",
+                    "match": "\\b(hi(?:Start)?GenTextIndex)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Suffix TextSelection)",
+                    "match": "\\b(hi(?:(?:Clear|Get)Current|[GS]et)TextSelection)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Suffix TextSelectionLoc)",
+                    "match": "\\b(hi[GS]etCurrentTextSelectionLoc)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Suffix Viewfile)",
+                    "match": "\\b(hi(?:(?:Dis|En)ableTail|Save(?:As)?|Set)?Viewfile)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Prefix hiGo)",
+                    "match": "\\b(hiGoTo(?:Index|Line))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Prefix hiSet)",
+                    "match": "\\b(hiSetTextSelectAll)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Prefix hiScroll)",
+                    "match": "\\b(hiScrollWindow(?:Left|Right|Up|Down|Top|Bottom|To(?:(?:Current)?Index|Name)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Prefix hiUnselect)",
+                    "match": "\\b(hiUnselectText(?:All|ByLoc|Class)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Prefix hiView)",
+                    "match": "\\b(hiViewTextFile)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewfile Management (Prefix view)",
+                    "match": "\\b(view)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_text_customization_function": {
+            "patterns": [
+                {
+                    "comment": "Text Customization Functions",
+                    "match": "\\b(hi(?:SetTextHighlightColor|TextDisplayString|RefreshTextWindow|UpdateTextSelectionColors))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_word_delimiter": {
+            "patterns": [
+                {
+                    "comment": "Word Delimiters",
+                    "match": "\\b(hi(?:Add|Get|Remove|Replace)TextWordDelimiter)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_miscellaneous_viewfile_function": {
+            "patterns": [
+                {
+                    "comment": "Miscellaneous Viewfile Functions",
+                    "match": "\\b(hiGetText(?:(?:CharAt|Disp|Index)Loc|SourceLength|LineColumn))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
