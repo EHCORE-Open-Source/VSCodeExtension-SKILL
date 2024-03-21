@@ -125,6 +125,10 @@
                 {
                     "comment": "Virtuoso Schematic Editor SKILL Reference (skcompref)",
                     "include": "#builtin_schematic_editor"
+                },
+                {
+                    "comment": "Virtuoso Layout Suite SKILL Reference (sklayoutref)",
+                    "include": "#builtin_layout_suite"
                 }
             ]
         },
@@ -9359,6 +9363,873 @@
                     "comment": "VSDP SKILL Functions (IC6.1.8 Only) (Prefix vsdpi)",
                     "match": "\\b(vsdpi(?:WriteCDF|RunDieExport|[GS]etValueOfDieExportField|SaveXML))\\b",
                     "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic constant.character.set.regexp.cadence.skill.schematic"
+                }
+            ]
+        },
+        "builtin_layout_suite": {
+            "patterns": [
+                {
+                    "comment": "Basic Editing Functions",
+                    "include": "#layout_basic_editing_function"
+                }
+            ]
+        },
+        "layout_basic_editing_function": {
+            "patterns": [
+                {
+                    "comment": "Environment Variable Functions",
+                    "include": "#layout_environment_variable_function"
+                },
+                {
+                    "comment": "Layout Viewer Functions",
+                    "include": "#layout_layout_view_function"
+                },
+                {
+                    "comment": "Object Creation and Plotting Functions",
+                    "include": "#layout_object_creation_plotting_function"
+                },
+                {
+                    "comment": "Object Editing Functions",
+                    "include": "#layout_object_editing_function"
+                },
+                {
+                    "comment": "Selection Functions",
+                    "include": "#layout_selection_function"
+                },
+                {
+                    "comment": "Reference Point Functions",
+                    "include": "#layout_reference_point_function"
+                },
+                {
+                    "comment": "Measurement Functions",
+                    "include": "#layout_measuremnet_function"
+                },
+                {
+                    "comment": "Info Balloon Functions",
+                    "include": "#layout_info_balloon_function"
+                },
+                {
+                    "comment": "Search and Replace Functions",
+                    "include": "#layout_search_replace_function"
+                },
+                {
+                    "comment": "Hierarchy Traversal Functions",
+                    "include": "#layout_hierarchy_traversal_function"
+                },
+                {
+                    "comment": "Binary and Unary Functions",
+                    "include": "#layout_binary_unary_function"
+                },
+                {
+                    "comment": "Bindkey Functions",
+                    "include": "#layout_bindkey_function"
+                },
+                {
+                    "comment": "Menu Builder Functions",
+                    "include": "#layout_menu_builder_function"
+                },
+                {
+                    "comment": "Interactive Functions",
+                    "include": "#layout_interactive_function"
+                },
+                {
+                    "comment": "Start Router Functions",
+                    "include": "#layout_start_router_function"
+                },
+                {
+                    "comment": "Via Functions",
+                    "include": "#layout_via_function"
+                },
+                {
+                    "comment": "Mark Net Functions",
+                    "include": "#layout_mark_net_function"
+                },
+                {
+                    "comment": "Palette Assistant Functions",
+                    "include": "#layout_palette_assistant_function"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions",
+                    "include": "#layout_finfet_width_spacing_pattern_function"
+                },
+                {
+                    "comment": "Track Pattern Assistant Functions",
+                    "include": "#layout_track_pattern_assistant_function"
+                }
+            ]
+        },
+        "layout_environment_variable_function": {
+            "patterns": [
+                {
+                    "comment": "Environment Variable Functions",
+                    "match": "\\b(le(?:EnvLoad|[GS]etEnv))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_layout_view_function": {
+            "patterns": [
+                {
+                    "comment": "Layout Viewer Functions",
+                    "match": "\\b(leIsLayoutViewer(?:AppEnabled|Window))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_object_creation_plotting_function": {
+            "patterns": [
+                {
+                    "comment": "Object Creation and Plotting Functions",
+                    "match": "\\b(le(?:Create(?:AutoPin|Path|Pin)|DefineMPPTemplate|HiCreateSlot|Plot))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_object_editing_function": {
+            "patterns": [
+                {
+                    "comment": "Object Editing Functions (Prefix leAlign)",
+                    "match": "\\b(leAlign)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leAttach)",
+                    "match": "\\b(leAttachFig)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leChop)",
+                    "match": "\\b(leChopShape)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leCompute)",
+                    "match": "\\b(leCompute(?:AreaDensity|FigArea))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leConvert)",
+                    "match": "\\b(leConvert(?:InstToMosaic|MosaicToModgen|PolygonToPath|SelectedDynamicShapes|ShapeTo(?:PathSeg|Polygon)|TrimmedShapesToPRStyle))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leCopy)",
+                    "match": "\\b(leCopyTemplatesToCellView)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leCreate)",
+                    "match": "\\b(leCreate(?:Layer|Net)Field)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leCycle)",
+                    "match": "\\b(leCycleSnapModes)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leDecrement)",
+                    "match": "\\b(leDecrementStopLevelByOne)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leDefine)",
+                    "match": "\\b(leDefine(?:(?:Ex|In)ternal|PP|WeaklyConnected)Pins)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leEnable)",
+                    "match": "\\b(leEnableInstPropEditFields)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leHi)",
+                    "match": "\\b(leHi(?:AreaDensity|(?:As|Unas)signNet|ConvertMosaicTo(?:Inst|Modgen)|EditSlot))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leFlatten, leFreeze, and leUnfreeze)",
+                    "match": "\\b(le(?:Flatten|(?:F|Unf)reeze)Inst)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leIO)",
+                    "match": "\\b(leIOZoomToFigGroupTopLevelContext)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leLmb)",
+                    "match": "\\b(leLmb(?:Ctrl|Shift)Option)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leMake)",
+                    "match": "\\b(leMake(?:Cell|HierReadonlyOrEditableMC))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leMerge)",
+                    "match": "\\b(leMergeShapes)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leMicro)",
+                    "match": "\\b(leMicroEdit)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leModify)",
+                    "match": "\\b(leModifyCorner)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leMove)",
+                    "match": "\\b(leMoveCellViewOrigin)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix lePaste and leYank)",
+                    "match": "\\b(le(?:Paste|Yank)Figs)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix lePl)",
+                    "match": "\\b(lePlGetEditorName)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leQuick)",
+                    "match": "\\b(leQuickAlignToggleMode)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leReturn)",
+                    "match": "\\b(leReturn(?:To(?:Level|Top))?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leSet)",
+                    "match": "\\b(leSetStopLevelToEditLevel)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leSize)",
+                    "match": "\\b(leSizeShape)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leSlice)",
+                    "match": "\\b(leSlice)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leSplit)",
+                    "match": "\\b(leSplitShape)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leStretch)",
+                    "match": "\\b(leStretch(?:Fig|Shape))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Object Editing Functions (Prefix leUpdate)",
+                    "match": "\\b(leUpdateInstanceCDFParameterValues)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_selection_function": {
+            "patterns": [
+                {
+                    "comment": "Selection Functions (Prefix leApply)",
+                    "match": "\\b(leApply(?:AreaFunction|LastCopyTransform))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leFull)",
+                    "match": "\\b(leFullSelectFigOfSelSet)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leGet)",
+                    "match": "\\b(leGet(?:AreaEstima(?:tionDisplayNames|tor(?:Function|ParamList|RunMode))|EditFigGroup|EntryLayer|Object(?:Selectable|Visible)|Snap(?:Options|Transform)|(?:TechForm|Valid(?:Layer|Purpose))List))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leIs)",
+                    "match": "\\b(leIs(?:(?:Fig|Inst|Pin)Selectable|Layer(?:Selectable|Valid|Visible)|NewODCInfraEnabled|PointInsideFig))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leLSW)",
+                    "match": "\\b(leLSW(?:[GS]et(?:Blockage(?:Selectable|Visible)|RoutingGridVisible)|SetTrackPatternVisible))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix lePrint)",
+                    "match": "\\b(lePrintHierarchyTree)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leRaise and leResize)",
+                    "match": "\\b(le(?:Raise|Resize)LSW)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leReg)",
+                    "match": "\\b(leReg(?:(?:Area|ClusterBdy)Estimator|User(?:Layer|Object)SelectionFilter))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leRegister)",
+                    "match": "\\b(leRegister(?:PPNetNameFn|UseGravity))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leRepeat)",
+                    "match": "\\b(leRepeatCopyMoveStretch)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leReport)",
+                    "match": "\\b(leReportTrimmedShapesInCustomStyle)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leSet)",
+                    "match": "\\b(leSet(?:All(?:GridObjectsVisible|Layer(?:Selectable|Valid|Visible)|Objects(?:Selectable|Visible))|AreaEstimatorParameters|EditFigGroup|EntryLayer|FocusToEditableFieldsInStatusToolbar|FormSnapMode|(?:Inst|Pin)Selectable|Layer(?:Attributes|Selectable|Valid|Visible)|LSWFilter|Object(?:Selectable|Visible)|StopLevelToMaxHierDepth))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leToggle)",
+                    "match": "\\b(leToggle(?:AutoZoomPan|Gravity|KeepFirstName|Magnifier|MaintainConnections|RuleGravity|SmartSnap))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leUnregister)",
+                    "match": "\\b(leUnregisterUseGravity)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leUnreg)",
+                    "match": "\\b(leUnregUser(?:Layer|Object)SelectionFilter)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leUn)",
+                    "match": "\\b(leUnReg(?:Area|ClusterBdy)Estimator)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Selection Functions (Prefix leZoom)",
+                    "match": "\\b(leZoomTo(?:Point|SelSet))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_reference_point_function": {
+            "patterns": [
+                {
+                    "comment": "Reference Point Functions",
+                    "match": "\\b(le(?:GetRefPoint|IsRefPointActive|MoveCursor(?:ToRefPoint)?|SetRefPoint(?:Inactive)?))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_measuremnet_function": {
+            "patterns": [
+                {
+                    "comment": "Measurement Functions",
+                    "match": "\\b(le(?:(?:ClearAll|(?:Hi)?Create)Measurement|HiClearMeasurement(?:InHier)?))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_info_balloon_function": {
+            "patterns": [
+                {
+                    "comment": "Info Balloon Functions",
+                    "match": "\\b(le(?:Balloon(?:CycleThru|ToggleOnOff)|HiEdit(?:BalloonOptions|ObjectInfo)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_search_replace_function": {
+            "patterns": [
+                {
+                    "comment": "Search and Replace Functions",
+                    "match": "\\b(le(?:RemasterInstances|Replace(?:AnyInstMaster)?|SearchHierarchy))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_hierarchy_traversal_function": {
+            "patterns": [
+                {
+                    "comment": "Hierarchy Traversal Functions",
+                    "match": "\\b(le(?:Descend|DoubleClick|EditInPlace|EIPZoomAbsoluteScale|UniquifyCellView))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_binary_unary_function": {
+            "patterns": [
+                {
+                    "comment": "Binary and Unary Functions",
+                    "match": "\\b(leLayer(?:And(?:Not)?|Or|Size|Xor))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_bindkey_function": {
+            "patterns": [
+                {
+                    "comment": "Bindkey Functions (Prefix cmd)",
+                    "match": "\\b(cmd(?:Ctrl|Shift)?Option)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Bindkey Functions (Prefix le)",
+                    "match": "\\b(le(?:ArrowFunc|SelBoxOrStretch|SpaceBarFunc))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_menu_builder_function": {
+            "patterns": [
+                {
+                    "comment": "Menu Builder Functions (Prefix hi)",
+                    "match": "\\b(hiMakeLPChoiceList)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Menu Builder Functions (Prefix mb)",
+                    "match": "\\b(mb(?:(?:Get|(?:R|Unr)egister)Action|Register(?:(?:Custom|Hier)Menu|MenuItem)|SetContextData))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_interactive_function": {
+            "patterns": [
+                {
+                    "comment": "Interactive Functions (Prefix hi)",
+                    "match": "\\b(hiLayerDispMainForm)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leClose)",
+                    "match": "\\b(leCloseWindow)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leDesign)",
+                    "match": "\\b(leDesignSummary)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leEdit)",
+                    "match": "\\b(leEditDesignProperties)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leExport)",
+                    "match": "\\b(leExportLabel)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leGet)",
+                    "match": "\\b(leGetCoordinateForm)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiConvert)",
+                    "match": "\\b(leHiConvert(?:InstToMosaic|PolygonToPath|ShapeTo(?:PathSeg|Polygon)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiCreate)",
+                    "match": "\\b(leHiCreate(?:(?:Area|PR|Snap)Boundary|Bend|Blockage|ChoiceOfPin|Circle|Cluster(?:Boundary|s)|Donut|Ellipse|Group|GuardRing|Inst|Label|MPP|Path|Pin(?:sFromLabels)?|PlacementArea|Polygon|Rect|Row|Ruler|Taper|Trl|Via))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiDelete)",
+                    "match": "\\b(leHiDelete(?:AllAreaViewLevel|AreaViewLevel|ShapeFromNet)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiDisplay)",
+                    "match": "\\b(leHiDisplay(?:PadOpeningInfo|TechGraph)Form)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiEdit)",
+                    "match": "\\b(leHiEdit(?:DisplayOptions|(?:DRD(?:Rule)?|DynamicMeasurement|Editor)Options|InPlace|Prop))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiIncremental)",
+                    "match": "\\b(leHiIncrementalViolation(?:Updater)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiSave)",
+                    "match": "\\b(leHiSave(?:ACopy|Hier)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiSet)",
+                    "match": "\\b(leHiSet(?:AreaViewLevel|RefPoint))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHiShow)",
+                    "match": "\\b(leHiShow(?:Angles|Coords|SelSet))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix leHi)",
+                    "match": "\\b(leHi(?:About|AddShapeToNet|AddToGroup|Align|Attach|CellviewTrackPatterns|Chop|ClearRuler|Copy|Descend|Flatten|Flip|Layer(?:Gen|Tap)|MakeCell|Merge|ModifyCorner|MousePopUp|Move(?:Origin)?|OptionLayer|Paste|PlotQueueStatus|PropagateNets|Query|QuickAlign|ReShape|RemasterInstances|RemoveFromGroup|RepeatCopy|Rotate|Search|Size|Split|Stretch|SubmitPlot|Summary|Tree|Ungroup|Yank))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix lePin)",
+                    "match": "\\b(lePinModelInitFunction)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix lei)",
+                    "match": "\\b(leiDiscardEdits)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive Functions (Prefix update)",
+                    "match": "\\b(updateReturnPopupMenuItem)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_start_router_function": {
+            "patterns": [
+                {
+                    "comment": "Start Router Functions",
+                    "match": "\\b(le(?:HiDisplayStartRouterForm|StartRouter))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_via_function": {
+            "patterns": [
+                {
+                    "comment": "Via Functions (Prefix viaFind)",
+                    "match": "\\b(viaFindTransitions)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Via Functions (Prefix viaGenerate)",
+                    "match": "\\b(viaGenerateVias(?:AtPoint|FromShapes|InArea))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Via Functions (Prefix viaGet)",
+                    "match": "\\b(viaGetViaOptions)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Via Functions (Prefix viaLoad and viaSave)",
+                    "match": "\\b(via(?:Load|Save)ViaVariants)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Via Functions (Prefix viaRecompute)",
+                    "match": "\\b(viaRecomputeVias(?:AtPoint|InArea)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Via Functions (Prefix viaRegister and viaUnregister)",
+                    "match": "\\b(via(?:R|Unr)egister(?:CreateViaInit|PostVia(?:Engine|Server)|PreViaEngine)Callback)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Via Functions (Prefix viaSet)",
+                    "match": "\\b(viaSetDefault(?:CutClasses|ValidViaDefs))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_mark_net_function": {
+            "patterns": [
+                {
+                    "comment": "Mark Net Functions (Prefix leHi)",
+                    "match": "\\b(leHi(?:(?:SaveAllHighLight)?MarkNet|UnmarkNet(?:All)?))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Mark Net Functions (Prefix leIs)",
+                    "match": "\\b(leIsAnyMarkNetHighLighted)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Mark Net Functions (Prefix leMark)",
+                    "match": "\\b(leMarkNet(?:GetNumThreads)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Mark Net Functions (Prefix leSave and leUnmark)",
+                    "match": "\\b(le(?:SaveMark|Unmark)Net)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_palette_assistant_function": {
+            "patterns": [
+                {
+                    "comment": "Palette Assistant Functions (Prefix le)",
+                    "match": "\\b(le[GS]etWirebondProfileVisible)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteCancel)",
+                    "match": "\\b(pteCancelForm)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteClear)",
+                    "match": "\\b(pteClearSearchHistory)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteClose)",
+                    "match": "\\b(pteClose(?:LayerSetEdition|MPTSupportMode))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteCollapse, pteDeselect, and pteExpand)",
+                    "match": "\\b(pte(?:Collapse|Deselect|Expand)(?:All)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteContext)",
+                    "match": "\\b(pteContextMenu)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteDelete, pteExport, pteImport, and pteReload)",
+                    "match": "\\b(pte(?:Delete|(?:Ex|Im)port|Reload)LayerSet)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteDiscard)",
+                    "match": "\\b(pteDiscardLayerSetEdition)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteDock, pteMap, pteUndock, and pteUnmap)",
+                    "match": "\\b(pte(?:Dock|Map|Undock|Unmap)Window)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteEdit)",
+                    "match": "\\b(pteEditLayerSet(?:Validity)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteFind)",
+                    "match": "\\b(pteFind(?:Next|Prev))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteGet)",
+                    "match": "\\b(pteGet(?:ActiveScopeModes|(?:All(?:Active)?|Next|Prev)LayerSets|CurrentPanel|Layer(?:Path|Set(?:ColoredLpp|Members))|LPPDisplayedInPalette|LSAtPosition|MPTSupportMode|Selection))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteHide)",
+                    "match": "\\b(pteHideAllTools)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteInfra)",
+                    "match": "\\b(pteInfraGetPaletteMode)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteIs)",
+                    "match": "\\b(pteIs(?:Selecta|Visi)ble)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteLoad)",
+                    "match": "\\b(pteLoad(?:Config|Defaults|FromTechFile|GDSNumber|LayerSet|LSWInfo))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteMinimize)",
+                    "match": "\\b(pteMinimizeSingleWindowPalette)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteMove)",
+                    "match": "\\b(pteMove(?:LayerSelection|SingleWindowPalette))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteMPT)",
+                    "match": "\\b(pteMPTSupportMode)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteOpen)",
+                    "match": "\\b(pteOpenForm)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix ptePropagate)",
+                    "match": "\\b(ptePropagate(?:Selecta|Visi)bility)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteRaise and pteResize)",
+                    "match": "\\b(pte(?:Raise|Resize)SingleWindowPalette)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteRegister)",
+                    "match": "\\b(pteRegisterUser(?:LSManager|Selection)Trigger)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteSave)",
+                    "match": "\\b(pteSave(?:As(?:Synchronized)?LayerSet|Config|GDSNumber|LayerSet(?:List(?:InRepository)?)?|LSWInfo|ToTechFile))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteSelect)",
+                    "match": "\\b(pteSelect(?:All)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteSet)",
+                    "match": "\\b(pteSet(?:ActiveLpp(?:Color(?:Lock)?)?|All(?:LayerSetMember|LSEnable|Selectable|Stipple|Validity|Visible)|Bindkeys|Config|FindModeOn|LayerSet(?:ColoredLpp|Member)|LppVisibleByString|LS(?:Active|Enable|Position|Selectable|Visible)|MPTSupportMode|None(?:LayerSetMember|Selectable|Stipple|Validity|Visible)|(?:Only)?(?:Selectable|Visible)(?:WithDepth)?|Option(?:String)?|RoutingDirection|Search(?:Match(?:Case|Type)|Operator|Text)|Show(?:L|Unl)ockedColors|Stipple|Validity|WindowSynchro))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteShow)",
+                    "match": "\\b(pteShow(?:AllTools|(?:MPT|Routing|Used|Valid)LPP))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteToggle)",
+                    "match": "\\b(pteToggle(?:All(?:LayerSetMember|Selectable|Stipple|Tools|Validity|Visible)|LayerSet(?:Validity)?Edition|LSActive|Panels|PropagateAll(?:Selectable|Visible)|Show(?:MPT|Routing|Used|Valid)LPP|Toolbars|WindowSynchro))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteUn)",
+                    "match": "\\b(pteUnRegisterUser(?:LSManager|Selection)Trigger)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Palette Assistant Functions (Prefix pteUnset)",
+                    "match": "\\b(pteUnsetLSActive)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_finfet_width_spacing_pattern_function": {
+            "patterns": [
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix leCycle)",
+                    "match": "\\b(leCycleSnapPatternDisplay)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix leGet)",
+                    "match": "\\b(leGet(?:(?:Global|Local)GridsVisible|Snap(?:PatternVisible|ToSPTransform)|WidthSpacing(?:Grids|SnapPattern)Visible))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix leSet)",
+                    "match": "\\b(leSet(?:(?:Global|Local)Grids|(?:WidthSpacing)?SnapPattern)Visible)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix leToggle)",
+                    "match": "\\b(leToggleAllGravity)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspCheck)",
+                    "match": "\\b(wspCheckActive)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspCreate)",
+                    "match": "\\b(wspCreateWS(?:P(?:ByAttr|Group)?|SPDef(?:ByAttr)?))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspDelete)",
+                    "match": "\\b(wspDelete(?:CellViewAllWSPData|MetalFill))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspDump)",
+                    "match": "\\b(wspDumpToFile)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspGet)",
+                    "match": "\\b(wspGet(?:LineEndGrids|WSSPDefLP))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspRegion)",
+                    "match": "\\b(wspRegion(?:FindBy(?:Layer|WSSPDef)|Get(?:ActivePattern|AllowedPattern(?:Group)?s|WSSPDef)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspSet)",
+                    "match": "\\b(wspSetWSSPDefRegionPurpose)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspSP)",
+                    "match": "\\b(wspSPDefFind)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspWSP)",
+                    "match": "\\b(wspWSP(?:FindByName|GetFlatAttr|GroupFindByName))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "FinFET and Width Spacing Pattern Functions (Prefix wspWSSP)",
+                    "match": "\\b(wspWSSP(?:Def(?:AddTo(?:AllowedPattern(?:Group)?s|Enabled(?:Overrides)?)|ClearEnabledOverrides|Find(?:ByName)?|[GS]et(?:ActivePattern|AllowedPattern(?:Group)?s|EnabledOverrides)|GetAttr|RemoveFrom(?:AllowedPattern(?:Group)?s|Enabled)|Rename)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_track_pattern_assistant_function": {
+            "patterns": [
+                {
+                    "comment": "Track Pattern Assistant Functions (Prefix tpaDeselect)",
+                    "match": "\\b(tpaDeselect)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Track Pattern Assistant Functions (Prefix tpaSelect)",
+                    "match": "\\b(tpaSelect(?:WSSPDef)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Track Pattern Assistant Functions (Prefix tpaSet)",
+                    "match": "\\b(tpaSet(?:ActivePattern|(?:AllDefs|Def)Visible|FilterBy(?:Name|Number)|Region(?:ActivePattern|DefVisible|WireType)|WireType))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Track Pattern Assistant Functions (Prefix tpaToggle)",
+                    "match": "\\b(tpaToggle(?:Def|(?:Region)?Layer))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
         }
