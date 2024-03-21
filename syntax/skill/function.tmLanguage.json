@@ -2134,6 +2134,7 @@
                     "include": "#virtuoso_object_creation_retrieval_function"
                 },
                 {
+                    "comment": "Shape Conversion Functions",
                     "include": "#virtuoso_shape_conversion_function"
                 },
                 {
@@ -2326,7 +2327,7 @@
             "patterns": [
                 {
                     "comment": "Shape Conversion Functions (Prefix dbConvert)",
-                    "match": "\\b(dbConvert(?:ArcToLine|(?:Donut|Ellipse|Path(?:Seg)?|Line|Rect)ToPolygon))\\b",
+                    "match": "\\b(dbConvert(?:ArcToLine|(?:Donut|Ellipse|Path(?:Seg)?|Line|Rect)ToPolygon|LineToPath))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 },
                 {
