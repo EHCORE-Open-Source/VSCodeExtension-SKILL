@@ -9235,8 +9235,13 @@
                 },
                 {
                     "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter C)",
-                    "match": "\\b(sch(?:Check(?:Hier(?:Config)?)?|ClearConn|CloneSymbol|CmdOption|ComputePinRef|Copy|Create(?:Inst(?:Box)?|NetExpression|Note(?:Label|Shape)|Pin|Sheet|SplitPrimarySymbol|Symbol(?:Label|Pin|Shape)|Wire(?:Label)?)))\\b",
+                    "match": "\\b(sch(?:Check(?:Hier(?:Config)?)?|ClearConn|CloneSymbol|CmdOption|ComputePinRef|Copy|Create(?:Inst(?:Box)?|NetExpression|Note(?:Label|Shape)|Pin|Sheet|Symbol(?:Label|Pin|Shape)|Wire(?:Label)?)))\\b",
                     "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic"
+                },
+                {
+                    "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (ICADVM20.1 Only) (Prefix schCreate)",
+                    "match": "\\b(schCreateSplitPrimarySymbol)\\b",
+                    "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic constant.character.set.regexp.cadence.skill.schematic"
                 },
                 {
                     "comment": "Virtuoso Schematic Editor Procedural Interface (PI) Functions (Prefix sch and Letter D)",
