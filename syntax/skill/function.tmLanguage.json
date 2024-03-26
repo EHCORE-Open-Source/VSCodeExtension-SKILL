@@ -9385,6 +9385,10 @@
                 {
                     "comment": "Fluid Guard Ring Functions",
                     "include": "#layout_fluid_guard_ring_function"
+                },
+                {
+                    "comment": "Router Translation Functions",
+                    "include": "#layout_router_translation_function"
                 }
             ]
         },
@@ -10701,6 +10705,15 @@
                 {
                     "comment": "Fluid Guard Ring Functions (Prefix vfoUpdate)",
                     "match": "\\b(vfoUpdateModelShape)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_router_translation_function": {
+            "patterns": [
+                {
+                    "comment": "Router Translation Functions",
+                    "match": "\\b(icc(?:IsConnected|Send(?:Skill)?Command))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
