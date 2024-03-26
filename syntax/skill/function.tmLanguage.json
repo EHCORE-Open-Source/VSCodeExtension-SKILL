@@ -9377,6 +9377,10 @@
                 {
                     "comment": "Basic Editing Functions",
                     "include": "#layout_basic_editing_function"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions",
+                    "include": "#layout_connectivity_driven_editing_function"
                 }
             ]
         },
@@ -10235,6 +10239,330 @@
                 {
                     "comment": "Track Pattern Assistant Functions (Prefix tpaToggle)",
                     "match": "\\b(tpaToggle(?:Def|(?:Region)?Layer))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_connectivity_driven_editing_function": {
+            "patterns": [
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix ab)",
+                    "match": "\\b(ab(?:Get(?:Assistant|CurrentIncompleteNetFilter)|HiFindMarker|SetIncompleteNetFilter))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix bnd and suffix BindingByName)",
+                    "match": "\\b(bnd(?:(?:Add|Replace|Set)Insts|RemoveInst|RemoveTerm|(?:Replace|Set)Terms)BindingByName)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix bnd and suffix ObjectsBinding)",
+                    "match": "\\b(bnd(?:Add|Replace|Set)ObjectsBinding)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix bnd and suffix ObjectBinding)",
+                    "match": "\\b(bnd(?:Remove)ObjectBinding)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix bnd and suffix BoundObjects)",
+                    "match": "\\b(bndGet(?:Sibling)?BoundObjects)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix bnd and suffix RemoveDeviceGetSurvivingNet)",
+                    "match": "\\b(bnd(?:R|Unr)egRemoveDeviceGetSurvivingNet)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceAdd)",
+                    "match": "\\b(lceAddSimpleStopLayers)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceClear)",
+                    "match": "\\b(lceClearLogicalConn)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceDestroy and lceRegenerate)",
+                    "match": "\\b(lce(?:Destroy|Regenerate)VoidShapes)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceExtract)",
+                    "match": "\\b(lceExtract(?:Areas?|Nets?|UnverifiedAreas)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceGet)",
+                    "match": "\\b(lceGet(?:ExtractLayers|FracturedShapes(?:FromNet)?|IncompleteNet(?:Marker)?s|NetNamesFromArea|Option|ShortMarkers))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceHi and lceHier)",
+                    "match": "\\b(lceHi(?:er)?Extract)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceIs)",
+                    "match": "\\b(lceIsExtractLayer)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lcePrint)",
+                    "match": "\\b(lcePrint(?:ConstraintGroupWarnings|Extract(?:Layer|Via)s|TechDiagnostics))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceSet)",
+                    "match": "\\b(lceSetOption)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lceShort)",
+                    "match": "\\b(lceShortLocator(?:ChaseAndSave|RaiseForm))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntAdd)",
+                    "match": "\\b(lntAddTrace)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntClear, lntHide, lntNeighbors, and lntShow)",
+                    "match": "\\b(lnt(?:Clear|Hide|Show)?Neighbors)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntCont)",
+                    "match": "\\b(lntContSteps)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntGet)",
+                    "match": "\\b(lntGet(?:AllTraces|CurrentStep|SavedViewNames|TailVal|TraceInfo))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntHi)",
+                    "match": "\\b(lntHi(?:EditTrace|NetTracer))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntIs)",
+                    "match": "\\b(lntIs(?:NeighborsVisible|StepTrace))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntNext and lntPrev)",
+                    "match": "\\b(lnt(?:Next(?:ToSet)?|Prev)Step)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntRemove)",
+                    "match": "\\b(lntRemove(?:All(?:Traces)?|Trace))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntSave and lntShow)",
+                    "match": "\\b(lnt(?:Save|ShowHideAll)Traces)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lntSet)",
+                    "match": "\\b(lntSet(?:CurrentStep|TailVal|Trace(?:Color|Visibility)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxAbut)",
+                    "match": "\\b(lxAbutGetNeighbors)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxChain)",
+                    "match": "\\b(lxChain(?:Anchor2D)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxCheck)",
+                    "match": "\\b(lxCheck(?:AgainstSource|Lib)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxCmd)",
+                    "match": "\\b(lxCmd(?:Shift)?Options)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxCompute)",
+                    "match": "\\b(lxComputeViaParams)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxConvert)",
+                    "match": "\\b(lxConvertSlotToPolygon)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxCreate)",
+                    "match": "\\b(lxCreate(?:BndFile|SynchronousClonesFromFigGroups))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxDelete)",
+                    "match": "\\b(lxDelete(?:SchematicDummies|SynchronousCloneFamily))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxFold and lxUnfold)",
+                    "match": "\\b(lx(?:F|Unf)old)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxGenerate)",
+                    "match": "\\b(lxGenerate(?:Finish|Get(?:AvailableBoundaryLPPs|PinNets)|Set(?:(?:AreaEstimation|Boundary|Generate)Options|NetPinSpecs)|Start))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxGen)",
+                    "match": "\\b(lxGenFromSource)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxGet)",
+                    "match": "\\b(lxGet(?:AvailablePinLPPs|CloneFamilyName|ConnRef|(?:Edited)?SyncClone|LXInfo|OtherClonesInFamily|PermutedInstTerms|PinNets|Schematic|Source|ValidViaDefs))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxHier)",
+                    "match": "\\b(lxHier(?:Check(?:AgainstSource)?|UpdateComponentsAndNets))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxHi)",
+                    "match": "\\b(lxHi(?:About|Align|BackAnnotate(?:AllActive|Selected)Dummies|Chain|Check(?:AllTerminalInterfaces)?|Clone|ConnectInstPin|Create(?:Group|InstFromSch|MPP|PinsFromLabels)|DefineDeviceCorr|EditComponentTypes|GenerateSelectedFromLayout|IChain|(?:L|Unl)ockSelected|MoveAutomatically|Probe|ReInitDesign|Set(?:Correspondence|Options)|Stack|Swap(?:Comps)?|Update(?:AllTerminalInterfaces|Binding|BusTerminals|CellViewPair|ComponentsAndNets|Layout(?:Constraint|Parameter)s|SchematicParameters|TerminalNetExpressions)|VerifyDesign))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxLaunch)",
+                    "match": "\\b(lxLaunchLayoutXL)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (ICADVM20.1 Only) (Prefix lxLaunch)",
+                    "match": "\\b(lxLaunchLayoutEXL)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (IC6.1.8 Only) (Prefix lxLaunch)",
+                    "match": "\\b(lxLaunchLayoutGXL)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxMake)",
+                    "match": "\\b(lxMake(?:Dummy|PrBoundary(?:S|Uns)electable))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxPerm)",
+                    "match": "\\b(lxPermPermutePins)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxProbe)",
+                    "match": "\\b(lxProbeRemoveAll)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxReg)",
+                    "match": "\\b(lxReg(?:MasterDiffName|(?:Post|Pre)UpdateComponentsAndNets|PrePosition))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxRemove)",
+                    "match": "\\b(lxRemoveSynchronousCloneFromFamily)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxRun)",
+                    "match": "\\b(lxRunCmdInV?XL)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxSelect)",
+                    "match": "\\b(lxSelectSynchronousFamily)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxSelected)",
+                    "match": "\\b(lxSelected(?:DeleteNetRouting|Extend(?:Chain|Expanded|Schematic|Selection)|(?:(?:L|Unl)ock|Route)(?:Net)?|RemoveIgnore(?:ForCheck)?|Select(?:(?:Attached|(?:Ex|In)ternal)(?:Global|Signal)?Nets|NetsShapes)|Update(?:FromSource|Ignore(?:ForCheck)?)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxSet)",
+                    "match": "\\b(lxSet(?:(?:AreaEstimation|Boundary|Generate|PreserveFloorplanning|Update)Options|CloneFamilyName|(?:Config|Conn)Ref|NetPinSpecs|SchematicDriven))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxShape)",
+                    "match": "\\b(lxShapeSlotting)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxShow)",
+                    "match": "\\b(lxShow(?:CommonIncompleteNetsForSelectedInsts|HideIncompleteNets))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxToggle)",
+                    "match": "\\b(lxToggle(?:LocalAbutment|Show(?:All)?IncompleteNets))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxUn)",
+                    "match": "\\b(lxUnSlotVia)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxUnreg)",
+                    "match": "\\b(lxUnreg(?:MasterDiffName|PrePosition))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxUpdate)",
+                    "match": "\\b(lxUpdate(?:(?:AllPhys)?Binding|ComponentsAndNets(?:Finish|Start)?|PhysBinding|PlacementStatus))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix lxVerify)",
+                    "match": "\\b(lxVerifyCloneFamily)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix ncl)",
+                    "match": "\\b(ncl(?:RunConstraintValidation|ToggleCAEMode))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix soi)",
+                    "match": "\\b(soiEnableDrcDfm)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix techGet)",
+                    "match": "\\b(techGetLx(?:ExtractLayers|NoOverlapLayers))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix techIs)",
+                    "match": "\\b(techIsLx(?:Extract|NoOverlap)Layer)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Connectivity Driven Editing Functions (Prefix techSet)",
+                    "match": "\\b(techSetLx(?:Extract|NoOverlap)Layers?)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
