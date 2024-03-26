@@ -9393,6 +9393,10 @@
                 {
                     "comment": "Custom Digital Placer Functions",
                     "include": "#layout_custom_digital_placer_function"
+                },
+                {
+                    "comment": "Space-based Router Functions",
+                    "include": "#layout_space_based_router_function"
                 }
             ]
         },
@@ -10732,6 +10736,70 @@
                 {
                     "comment": "Custom Digital Placer Functions (Prefix vcpfe)",
                     "match": "\\b(vcpfe(?:CreateRows|Place(?:BoundaryCells|ConstraintGroup|Fillers|TapCells)|RegisterPostPlacementProc|RunCustomDigitalPlacer))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_space_based_router_function": {
+            "patterns": [
+                {
+                    "comment": "Space-based Router Functions (Prefix rde)",
+                    "match": "\\b(rde(?:CloseSession|Create(?:ChamferFill|WireChamfer)|Done|Eval|[GS]etVar|Hide|Inspect|OpenCurrentDesign|RemoveChamferFill|Replay|Sequencer|Show|Source))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteCheck)",
+                    "match": "\\b(rteCheck(?:Antenna|DataForRouting|Routability))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteCompose and rteDecompose)",
+                    "match": "\\b(rte(?:C|Dec)omposeTrunks)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteCover)",
+                    "match": "\\b(rteCoverObstruction(?:Un)?Hilite)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteCreate)",
+                    "match": "\\b(rteCreate(?:BlockRing|CellRows|CoreRing|PadRing|PinToTrunk|Stripes|Vias)Scheme)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteDelete)",
+                    "match": "\\b(rteDeleteRoutedNets)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteFix)",
+                    "match": "\\b(rteFix(?:Antenna|Violations))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteGeom)",
+                    "match": "\\b(rteGeom(?:And(?:Not)?|Not|Or|Size|Xor))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteOptimize)",
+                    "match": "\\b(rteOptimizeRoute)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rtePower)",
+                    "match": "\\b(rtePowerRoute(?:(?:Block|Core|Pad)Ring|CellRow|PinToTrunk|(?:Trim)?Stripes|TieShield|ViaInsertion))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix rteSearch)",
+                    "match": "\\b(rteSearchAndRepair)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Space-based Router Functions (Prefix vsr)",
+                    "match": "\\b(vsr(?:Delete|Load|Save)Preset)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
