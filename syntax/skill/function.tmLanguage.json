@@ -9397,6 +9397,10 @@
                 {
                     "comment": "Space-based Router Functions",
                     "include": "#layout_space_based_router_function"
+                },
+                {
+                    "comment": "Floorplanner Functions",
+                    "include": "#layout_floorplanner_function"
                 }
             ]
         },
@@ -10800,6 +10804,70 @@
                 {
                     "comment": "Space-based Router Functions (Prefix vsr)",
                     "match": "\\b(vsr(?:Delete|Load|Save)Preset)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_floorplanner_function": {
+            "patterns": [
+                {
+                    "comment": "Floorplanner Functions (Prefix adp)",
+                    "match": "\\b(adp(?:InitFloorplan|nlSetEnv))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpAlign)",
+                    "match": "\\b(vfpAlignPins)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpAuto)",
+                    "match": "\\b(vfpAutoPin)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpCPH)",
+                    "match": "\\b(vfpCPH(?:GenPhysicalHier(?:NoPropFile)?|LoadFloorplanFile))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpCreate)",
+                    "match": "\\b(vfpCreateBoundaryPinsForSelectedShapes)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpHiPush and vfpPush)",
+                    "match": "\\b(vfp(?:Hi)?PushPreRoutesDown)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpLoad)",
+                    "match": "\\b(vfpLoadPhysicalView)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpPin)",
+                    "match": "\\b(vfpPin(?:ConnectivitySetting|SnapToEdge))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpPt)",
+                    "match": "\\b(vfpPt(?:(?:Add|Remove|Run)PinResizeEstimator|GetPinResizeEstimators|LoadPinResizeFile))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpReport)",
+                    "match": "\\b(vfpReportIOPadLocation)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vfpSb)",
+                    "match": "\\b(vfpSb(?:(?:Define|Delete)Obstruction|Edit(?:IOPin|SoftBlockType)|Set(?:Polygonal|Rectangular)Boundary))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Floorplanner Functions (Prefix vpa)",
+                    "match": "\\b(vpaOptimizePins)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
