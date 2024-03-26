@@ -9389,6 +9389,10 @@
                 {
                     "comment": "Router Translation Functions",
                     "include": "#layout_router_translation_function"
+                },
+                {
+                    "comment": "Custom Digital Placer Functions",
+                    "include": "#layout_custom_digital_placer_function"
                 }
             ]
         },
@@ -10714,6 +10718,20 @@
                 {
                     "comment": "Router Translation Functions",
                     "match": "\\b(icc(?:IsConnected|Send(?:Skill)?Command))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_custom_digital_placer_function": {
+            "patterns": [
+                {
+                    "comment": "Custom Digital Placer Functions (Prefix lx)",
+                    "match": "\\b(lx(?:DressingTemplateEditor|Edit(?:PinPlacement|PlacementStyle)|Hi(?:AutoPlace|Place(?:BoundaryCell|Filler))|MovePorts))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Custom Digital Placer Functions (Prefix vcpfe)",
+                    "match": "\\b(vcpfe(?:CreateRows|Place(?:BoundaryCells|ConstraintGroup|Fillers|TapCells)|RegisterPostPlacementProc|RunCustomDigitalPlacer))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
