@@ -35,7 +35,7 @@
                 },
                 {
                     "comment": "lisp-style function",
-                    "begin": "\\(\\s*(?i)([a-z][[:word:]]*)\\b",
+                    "begin": "\\(\\s*(?i)((?:[a-z][[:word:]]*[?])\\s|(?:[a-z][[:word:]]*)\\b)",
                     "end": "\\)",
                     "captures": {
                         "1": {
@@ -54,7 +54,7 @@
                 },
                 {
                     "comment": "c-style function",
-                    "begin": "\\b(?i)([a-z][[:word:]]*)\\(",
+                    "begin": "\\b(?i)([a-z][[:word:]]*[?]?)\\(",
                     "end": "\\)",
                     "beginCaptures": {
                         "1": {
@@ -9381,6 +9381,10 @@
                 {
                     "comment": "Connectivity Driven Editing Functions",
                     "include": "#layout_connectivity_driven_editing_function"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions",
+                    "include": "#layout_fluid_guard_ring_function"
                 }
             ]
         },
@@ -10563,6 +10567,140 @@
                 {
                     "comment": "Connectivity Driven Editing Functions (Prefix techSet)",
                     "match": "\\b(techSetLx(?:Extract|NoOverlap)Layers?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_fluid_guard_ring_function": {
+            "patterns": [
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoAbut)",
+                    "match": "\\b(vfoAbut)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoAdv)",
+                    "match": "\\b(vfoAdvGRUpdateCDF)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoAllocate)",
+                    "match": "\\b(vfoAllocate(?:ProtocolObj|ShapeData))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoChop)",
+                    "match": "\\b(vfoChopInstance)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoConvert)",
+                    "match": "\\b(vfoConvertToPolygon)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoCreate)",
+                    "match": "\\b(vfoCreate(?:AutoFGR|Obstructions?|ShapeData))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoDelete)",
+                    "match": "\\b(vfoDeleteObstruction)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoDo)",
+                    "match": "\\b(vfoDoSnapToSnapPattern)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoDraw)",
+                    "match": "\\b(vfoDrawFluidShape)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoGet)",
+                    "match": "\\b(vfoGet(?:(?:Device(?:Class|Formal))?Param|FileListWithLoadSequence|ImplementationClassName|InstWithMissingCache|ProtocolClassName|Version))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoGr)",
+                    "match": "\\b(vfoGrCreateCDF)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoGR)",
+                    "match": "\\b(vfoGR(?:(?:Clean|(?:Dis|En)able)VersionCache|CompareParams|CreateDeviceClass|Get(?:CreateForm(?:FieldProp|Identifier|Pointer)|CommonQPtr|ExtraArgument(?:Name)?|QueuePointer)|Geometry|MaximizeShapes|NewCreateForm|RegCreateFormUpdateCallback|Set(?:CreateForm(?:AllFieldsInvisible|FieldProp)|ExtraArgument)|Smoothen|Update(?:CreateFormSize|Tunnel(?:LPP|Option)s|VersionCache)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoInstall)",
+                    "match": "\\b(vfoInstallFluidDeviceFiles)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoIs)",
+                    "match": "\\b(vfoIs(?:CommandInDragMode|GuardRing))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoMerge)",
+                    "match": "\\b(vfoMergeInstances)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoPost)",
+                    "match": "\\b(vfoPost(?:Chop|Reshape|Split|Stretch)CBHandler)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoRe)",
+                    "match": "\\b(vfoReInstall(?:AllFluidGuardRingDevices|GuardRingDevice))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoRotate)",
+                    "match": "\\b(vfoRotateInstance)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoSet)",
+                    "match": "\\b(vfoSet(?:Params?|ProtocolClassName))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoSf)",
+                    "match": "\\b(vfoSf(?:Draw|Finalize|Initialize|OuterEdgeCornerContRemoval))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoSmoothen)",
+                    "match": "\\b(vfoSmoothen)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoSupports)",
+                    "match": "\\b(vfoSupports(?:Rotation|VersionCache)\\b)",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions with Question Mark (Prefix vfoSupports)",
+                    "match": "\\b(vfoSupports(?:Abut|Chop|ConvertToPolygon|CreateObstructions?|DeleteObstruction|Merge|UpdateModelShape)[?])",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoTransform)",
+                    "match": "\\b(vfoTransformFluidShape)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoTunnel)",
+                    "match": "\\b(vfoTunnelHigherMetalLayers)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Fluid Guard Ring Functions (Prefix vfoUpdate)",
+                    "match": "\\b(vfoUpdateModelShape)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
