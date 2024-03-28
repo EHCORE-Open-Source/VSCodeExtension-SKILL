@@ -9401,6 +9401,10 @@
                 {
                     "comment": "Floorplanner Functions",
                     "include": "#layout_floorplanner_function"
+                },
+                {
+                    "comment": "Analog Placer Functions (IC6.1.8 Only)",
+                    "include": "#layout_analog_placer_function"
                 }
             ]
         },
@@ -10869,6 +10873,30 @@
                     "comment": "Floorplanner Functions (Prefix vpa)",
                     "match": "\\b(vpaOptimizePins)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_analog_placer_function": {
+            "patterns": [
+                {
+                    "comment": "Analog Placer Functions (IC6.1.8 Only) (Prefix nclAnalog)",
+                    "match": "\\b(nclAnalog(?:AdjCell(?:Pin|Side)s|AutoPlaceCB|FixDRCs|QuickPlace(?:LikeSchemCB)?))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Analog Placer Functions (IC6.1.8 Only) (Prefix nclCreate)",
+                    "match": "\\b(nclCreateXSym)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Analog Placer Functions (IC6.1.8 Only) (Prefix nclReg and nclUnreg)",
+                    "match": "\\b(ncl(?:R|Unr)eg(?:Post|Pre)PlacementTrigger)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Analog Placer Functions (IC6.1.8 Only) (Prefix nclSet)",
+                    "match": "\\b(nclSetAspectRatioRange)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
                 }
             ]
         }
