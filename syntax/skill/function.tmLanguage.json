@@ -9413,6 +9413,10 @@
                 {
                     "comment": "Cell Planner Functions (IC6.1.8 Only)",
                     "include": "#layout_cell_planner_function"
+                },
+                {
+                    "comment": "Configure Physical Hierarchy Functions",
+                    "include": "#layout_configure_physical_hierarchy_function"
                 }
             ]
         },
@@ -11224,6 +11228,280 @@
                     "comment": "Cell Planner Functions (IC6.1.8 Only)",
                     "match": "\\b(nclCP(?:Exit|SaveConstraint|ToolBarSelect))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_configure_physical_hierarchy_function": {
+            "patterns": [
+                {
+                    "comment": "Uprev Functions",
+                    "include": "#layout_uprev_function"
+                },
+                {
+                    "comment": "Access Functions",
+                    "include": "#layout_access_function"
+                },
+                {
+                    "comment": "Top Cell Pane Functions",
+                    "include": "#layout_top_cell_pane_function"
+                },
+                {
+                    "comment": "Global Bindings Pane Functions",
+                    "include": "#layout_global_binding_pane_function"
+                },
+                {
+                    "comment": "Tree Pane Functions",
+                    "include": "#layout_tree_pane_function"
+                },
+                {
+                    "comment": "Hierarchy Configuration Attributes Pane Functions",
+                    "include": "#layout_hierarchy_configuration_attribute_pane_function"
+                },
+                {
+                    "comment": "Component Types Attributes Pane Functions",
+                    "include": "#layout_component_type_attribute_pane_function"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions",
+                    "include": "#layout_soft_block_attribute_pane_function"
+                },
+                {
+                    "comment": "Visitor Functions",
+                    "include": "#layout_visitor_function"
+                },
+                {
+                    "comment": "Virtuoso Parameterized Layout Generator Functions",
+                    "include": "#layout_virtuoso_parameterized_layout_generator_function"
+                }
+            ]
+        },
+        "layout_uprev_function": {
+            "patterns": [
+                {
+                    "comment": "Uprev Functions",
+                    "match": "\\b(cphUprev(?:Design|Incremental|Library))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_access_function": {
+            "patterns": [
+                {
+                    "comment": "Access Functions (Prefix cphChange)",
+                    "match": "\\b(cphChangeEditMode)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Access Functions (Prefix cphClose)",
+                    "match": "\\b(cphClose(?:Config|Window))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Access Functions (Prefix cphCreate, cphFind, and cphSave)",
+                    "match": "\\b(cph(?:CreatePhys|FindOpen|Save(?:As)?)Config)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Access Functions (Prefix cphGet)",
+                    "match": "\\b(cphGet(?:AllOpenConfigs|Cell|LayoutXLConfig|Lib|PhysicalTermName|SelectedSet|View|WinConfig|WindowId))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Access Functions (Prefix cphIs)",
+                    "match": "\\b(cphIs(?:ConfigModified|Leaf|ReadOnly|RemoveDevice|UnderPhysConfig))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Access Functions (Prefix cphLaunch)",
+                    "match": "\\b(cphLaunchFromLayout)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Access Functions (Prefix cphOpen)",
+                    "match": "\\b(cphOpen(?:Config|Window))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Access Functions (Prefix cphReplace)",
+                    "match": "\\b(cphReplace(?:Cell|Lib|View)Name)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_top_cell_pane_function": {
+            "patterns": [
+                {
+                    "comment": "Top Cell Pane Functions",
+                    "match": "\\b(cphGetTop(?:Cell(?:Name|View)|(?:Lib|View)Name))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_global_binding_pane_function": {
+            "patterns": [
+                {
+                    "comment": "Global Bindings Pane Functions",
+                    "match": "\\b(cph[GS]et(?:Cst|Lib|Stop|View)List)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_tree_pane_function": {
+            "patterns": [
+                {
+                    "comment": "Tree Pane Functions (Prefix cphClear)",
+                    "match": "\\b(cphClear(?:(?:Sch)?(?:Cell|Inst)|Occur)PhysicalBinding)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Tree Pane Functions (Prefix cphGet and suffix ForceDescend)",
+                    "match": "\\b(cph[GS]et(?:Cell|(?:Sch)?Inst|Occur)?ForceDescend)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Tree Pane Functions (Prefix cphGet and suffix PhysicalBinding)",
+                    "match": "\\b(cphGet(?:Cell|Sch(?:Cell|Inst))PhysicalBinding)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Tree Pane Functions (Prefix cphGet and suffix PhysicalCell, PhysicalLib, and PhysicalView)",
+                    "match": "\\b(cphGet(?:Cell|Inst|Occur)?Physical(?:Cell|Lib|View))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Tree Pane Functions (Prefix cphGet and suffix StopList, ViewBinding, and ViewList)",
+                    "match": "\\b(cph[GS]et(?:Cell|Inst|Occur)(?:StopList|View(?:Binding|List)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Tree Pane Functions (Prefix cphGet)",
+                    "match": "\\b(cphGet(?:StopPoint|ViewBinding))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Tree Pane Functions (Prefix cphSet and suffix PhysicalBinding)",
+                    "match": "\\b(cphSet(?:(?:Sch)?(?:Cell|Inst)|Occur)PhysicalBinding)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Tree Pane Functions (Prefix cphSet and suffix StopPoint)",
+                    "match": "\\b(cphSet(?:Inst|Occur)StopPoint)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_hierarchy_configuration_attribute_pane_function": {
+            "patterns": [
+                {
+                    "comment": "Hierarchy Configuration Attributes Pane Functions (Prefix cphDelete and chpSet)",
+                    "match": "\\b(cph(?:Delete|Set)(?:(?:Cell|Inst|Occur)(?:(?:Finger|[MS]Factor)Split|(?:Param|Term)?IgnoreFor(?:Check|Gen)|ParamToCheck|RemoveDevice|Rounding)|Cell(?:(?:Param|Term)NameMapping|VLGen)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Hierarchy Configuration Attributes Pane Functions (Prefix cphGet)",
+                    "match": "\\b(cphGet(?:(?:Cell|Inst|Occur)?(?:(?:Finger|[MS]Factor)Split|(?:Param|Term)?IgnoreFor(?:Check|Gen)|ParamToCheck|RemoveDevice|Rounding)|(?:Cell)?(?:Param|Term)NameMapping|CellVLGen))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Hierarchy Configuration Attributes Pane Functions (Prefix cphIs)",
+                    "match": "\\b(cphIs(?:Param|Term)IgnoredFor(?:Check|Gen))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_component_type_attribute_pane_function": {
+            "patterns": [
+                {
+                    "comment": "Component Types Attributes Pane Functions (Prefix ctAdd, ctCreate, and ctDelete)",
+                    "match": "\\b(ct(?:AddCellTo|Create|Delete(?:CellFrom)?)CompTypeGroup)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Component Types Attributes Pane Functions (Prefix ctGet)",
+                    "match": "\\b(ctGet(?:CellCompTypeGroups?|CompType(?:Cells|GroupAttr|Names)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Component Types Attributes Pane Functions (Prefix ctSet)",
+                    "match": "\\b(ctSetCompTypeGroupAttr)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_soft_block_attribute_pane_function": {
+            "patterns": [
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbAdd and cphSbIsValid)",
+                    "match": "\\b(cphSb(?:Add|IsValid)IOPin)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbDisplay)",
+                    "match": "\\b(cphSbDisplay(?:(?:AllIOPins|Boundary|CovObstruction|IOPin)Info|Obstruction|SoftBlockAttributes))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbDefine)",
+                    "match": "\\b(cphSbDefine(?:CovObstruction|IOPinLabelFlag|Obstruction|SoftBlock))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbDel)",
+                    "match": "\\b(cphSbDel(?:CovObstruction|IOPin(?:ById)?|Obstruction))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbEdit)",
+                    "match": "\\b(cphSbEdit(?:IOPin(?:ById)?|SoftBlockAttributes))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbGet)",
+                    "match": "\\b(cphSbGet(?:(?:All|Filtered)IOPins|IOPin(?:Id|Name)|SoftBlock(?:Id|s)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbHas)",
+                    "match": "\\b(cphSbHasCovObstruction)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbLoad and cphSbSave)",
+                    "match": "\\b(cphSb(?:Load|Save)SoftBlocks)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbRemove)",
+                    "match": "\\b(cphSbRemoveSoftBlock)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Soft Block Attributes Pane Functions (Prefix cphSbSet)",
+                    "match": "\\b(cphSbSet(?:PolygonalBoundary|RectangularBoundary(?:UsingUtil)?))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_visitor_function": {
+            "patterns": [
+                {
+                    "comment": "Visitor Functions",
+                    "match": "\\b(cphVisit(?:ed(?:Instance|Path|SwitchMaster|Target)|NextNode|Start|Stop))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_virtuoso_parameterized_layout_generator_function": {
+            "patterns": [
+                {
+                    "comment": "Virtuoso Parameterized Layout Generator Functions (Prefix chp)",
+                    "match": "\\b(cph(?:DeleteCellVPLGen|[GS]etCellVPLGen(?:Params)?))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Virtuoso Parameterized Layout Generator Functions (Prefix db)",
+                    "match": "\\b(db(?:IsVPLGen|(?:R|Unr)egVPLGenCreateCellName))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
         }
