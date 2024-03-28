@@ -9421,6 +9421,10 @@
                 {
                     "comment": "Object Display Control Functions",
                     "include": "#layout_object_display_control_function"
+                },
+                {
+                    "comment": "Interactive and Assisted Routing Functions",
+                    "include": "#layout_interactive_assisted_routing_function"
                 }
             ]
         },
@@ -11514,6 +11518,20 @@
                 {
                     "comment": "Object Display Control Functions",
                     "match": "\\b(odcReg(?:Blockage|Boundary|CPA|Instance|isterCustomFunc|Label|Marker|Modgen|Pin|Row(?:Region)?|Ruler|Shape(?:Circle|Donut|Ellipse|MPP|Path(?:Seg)?|Polygon|Rect)|TextDisplay|Via|VirtualFigGroup))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_interactive_assisted_routing_function": {
+            "patterns": [
+                {
+                    "comment": "Interactive and Assisted Routing Functions (Prefix le)",
+                    "match": "\\b(le(?:Finish(?:Trunk|Wire)|Hi(?:AddWireVia|CancelStitch|Create(?:Bus|(?:Geometric|Stranded)?Wire)|P2P|StitchToLayer)|WE(?:Cycle(?:ControlWire|Snap)|NoSnap)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Interactive and Assisted Routing Functions (Prefix we)",
+                    "match": "\\b(we(?:(?:Add|Remove)CustomTransitionMenuItem|CWHoldWidth|Cycle(?:CutColorVia|PatternGravityLayerTransitionType)|GatherBusWires|Get(?:AdjustedWidthForTracks|CustomTransitionMenuItems|PathSegWidth)|Hi(?:CycleViaDef(?:Down|Up)|EditBus|InteractiveRouting|WireTo45)|ScaleMagnifierOr(?:De|In)creaseWidth|ScrollOrCycle(?:Down|Up)WireViaAlignment|SetPathSegWidth))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
