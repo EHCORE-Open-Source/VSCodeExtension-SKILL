@@ -9409,6 +9409,10 @@
                 {
                     "comment": "Module Generator Functions",
                     "include": "#layout_module_generator_function"
+                },
+                {
+                    "comment": "Cell Planner Functions (IC6.1.8 Only)",
+                    "include": "#layout_cell_planner_function"
                 }
             ]
         },
@@ -11211,6 +11215,15 @@
                     "comment": "Modgen Placement and Routing Functions (Suffix ChannelWidthEntry)",
                     "match": "\\b(gpe(?:Clear|Create|[GS]et)ChannelWidthEntry)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_cell_planner_function": {
+            "patterns": [
+                {
+                    "comment": "Cell Planner Functions (IC6.1.8 Only)",
+                    "match": "\\b(nclCP(?:Exit|SaveConstraint|ToolBarSelect))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
                 }
             ]
         }
