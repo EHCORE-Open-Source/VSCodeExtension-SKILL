@@ -9425,6 +9425,10 @@
                 {
                     "comment": "Interactive and Assisted Routing Functions",
                     "include": "#layout_interactive_assisted_routing_function"
+                },
+                {
+                    "comment": "Slot Functions",
+                    "include": "#layout_slot_function"
                 }
             ]
         },
@@ -11532,6 +11536,15 @@
                 {
                     "comment": "Interactive and Assisted Routing Functions (Prefix we)",
                     "match": "\\b(we(?:(?:Add|Remove)CustomTransitionMenuItem|CWHoldWidth|Cycle(?:CutColorVia|PatternGravityLayerTransitionType)|GatherBusWires|Get(?:AdjustedWidthForTracks|CustomTransitionMenuItems|PathSegWidth)|Hi(?:CycleViaDef(?:Down|Up)|EditBus|InteractiveRouting|WireTo45)|ScaleMagnifierOr(?:De|In)creaseWidth|ScrollOrCycle(?:Down|Up)WireViaAlignment|SetPathSegWidth))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_slot_function": {
+            "patterns": [
+                {
+                    "comment": "Slot Functions",
+                    "match": "\\b(slt(?:SetContextSpecificationCells|ShapeConsecutiveSlotting))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
