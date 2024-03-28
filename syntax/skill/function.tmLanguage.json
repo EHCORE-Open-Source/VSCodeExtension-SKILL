@@ -9405,6 +9405,10 @@
                 {
                     "comment": "Analog Placer Functions (IC6.1.8 Only)",
                     "include": "#layout_analog_placer_function"
+                },
+                {
+                    "comment": "Module Generator Functions",
+                    "include": "#layout_module_generator_function"
                 }
             ]
         },
@@ -10897,6 +10901,316 @@
                     "comment": "Analog Placer Functions (IC6.1.8 Only) (Prefix nclSet)",
                     "match": "\\b(nclSetAspectRatioRange)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_module_generator_function": {
+            "patterns": [
+                {
+                    "comment": "Modgen Editor Functions",
+                    "include": "#layout_modgen_editor_function"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions",
+                    "include": "#layout_modgen_placement_routing_function"
+                }
+            ]
+        },
+        "layout_modgen_editor_function": {
+            "patterns": [
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgAbut)",
+                    "match": "\\b(mgAbut(?:All)?CB)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgAdd)",
+                    "match": "\\b(mgAdd(?:BodyContact|CopyDummies|Dummy(?:RC)?(?:Bottom|Left|Right|Top)CB|(?:EmptyRC|GuardRing)CB|ShapeToTopo|TopologyToModgen))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgCreate)",
+                    "match": "\\b(mgCreate(?:MatchGroupInModgen|Modgen(?:Constraint)?AsLayout|OrEdit))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgDelete)",
+                    "match": "\\b(mgDelete(?:All(?:BodyContacts|Dummies|(?:Dummy|Empty)RowColumnCB)|(?:EmptyRowColumn)?CB))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgDestroy)",
+                    "match": "\\b(mgDestroyMatchGroupOnObject)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgEdit, mgExit, and mgPattern)",
+                    "match": "\\b(mg(?:EditGuardRing|Exit|Pattern)CB)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgExec)",
+                    "match": "\\b(mgExecNoConObs)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgEval and mgRegenerate)",
+                    "match": "\\b(mg(?:EvalInBackground|Regenerate)Modgen)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgFGR)",
+                    "match": "\\b(mgFGR(?:(?:Enter|Exit|Is)HandEdit))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgFlatten)",
+                    "match": "\\b(mgFlattenModgens)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgFlip)",
+                    "match": "\\b(mgFlip(?:Horizontal|Vertical)CB)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgGet)",
+                    "match": "\\b(mgGet(?:BoxLPPArea|ChannelTrunks|(?:Column|Row)RoutingChannelWidth|ConstraintFromFG|DummyRefDirectionParams|GuardRingConnectObject|IsLocalTrunk|LayerSpacing|MatchGroupMembers|Modgen(?:(?:Constraint|FigGroup)FromTopology|FGFromConstraint)|RegisteredDummy(?:NetProc|OverrideParameters)|RegUserProc|Strap(?:(?:Has)?(?:Direction|Offset)|LongOffset[12])|Topo(?:logyFromModgen|(?:Trunk)?Shapes)|Trunk(?:Channel|Ref(?:LayerPurpose|LPPEnclosure)|Topo)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgHilight)",
+                    "match": "\\b(mgHilightEmptyRowColumnCB)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgIs)",
+                    "match": "\\b(mgIs(?:InBackAnnotation|TopologyInsideModgen))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgModgen)",
+                    "match": "\\b(mgModgenHasTopology)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgObject)",
+                    "match": "\\b(mgObjectHasMatchGroup)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgReg)",
+                    "match": "\\b(mgRegUserProc)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgRegister)",
+                    "match": "\\b(mgRegisterDummy(?:NetProc|OverrideParameters|ParamsRefDirection))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgRemove)",
+                    "match": "\\b(mgRemove(?:MemberFromMatchGroup|TopologyFromModgen))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgRotate)",
+                    "match": "\\b(mgRotate(?:Left|M[XY]|R(?:27|9)0|Right)CB)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgRoute)",
+                    "match": "\\b(mgRoute(?:PToT)?CB)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgSelect and mgSwap)",
+                    "match": "\\b(mg(?:SelectRowCol|Swap)CB)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgSet)",
+                    "match": "\\b(mgSet(?:IsLocalTrunk|Strap(?:(?:Has)?(?:Direction|Offset)|LongOffset[12])|TrunkRefLayerPurpose|(?:Column|Row)RoutingChannelWidth))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgUn)",
+                    "match": "\\b(mgUn(?:AbutCB|RegisterDummyNetProc|RegUserProc))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgUnregister)",
+                    "match": "\\b(mgUnregisterDummy(?:OverrideParameters|ParamRefDirection))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix mgUpdate)",
+                    "match": "\\b(mgUpdate(?:EmptyRowColumnHilight|(?:Hori|Vert)Align)?CB)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeAdd and gpeRemove)",
+                    "match": "\\b(gpe(?:Add|Remove)Instance)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeClear)",
+                    "match": "\\b(gpeClearPresetGenerators)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeExtract)",
+                    "match": "\\b(gpeExtract(?:ReuseTemplate(?:sFromLCV)?|TemplateFromMG))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeFind)",
+                    "match": "\\b(gpeFindArrayPatternDiffs)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeGet)",
+                    "match": "\\b(gpeGet(?:GridValue|Selection))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeIs)",
+                    "match": "\\b(gpeIs(?:PresetGenDisplayable|RegisteredPresetGen))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeLoad)",
+                    "match": "\\b(gpeLoadReuseTemplate)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeMove)",
+                    "match": "\\b(gpeMove)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpePreset)",
+                    "match": "\\b(gpePresetReorientResistor)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeRegister)",
+                    "match": "\\b(gpeRegisterPresetGen)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeRegister, gpeRun, and gpeUnregister)",
+                    "match": "\\b(gpe(?:Run|(?:R|Unr)egister)PresetGen)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeSelect)",
+                    "match": "\\b(gpeSelect)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeSet)",
+                    "match": "\\b(gpeSet(?:Grid(?:Text|Value)|OrientText|Size))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Editor Functions (Prefix gpeUpdate)",
+                    "match": "\\b(gpeUpdateInstanceFromSchematic)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_modgen_placement_routing_function": {
+            "patterns": [
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeAbut, gpeClear, gpePlace, and gpeUnAbut)",
+                    "match": "\\b(gpe(?:(?:Un)?Abut|Clear|Place)GridEntries)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeAdd)",
+                    "match": "\\b(gpeAddDummy(?:InEmptyCells|Surround)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeCancel, gpeEdit, gpeFinish, gpeStart, gpeSync, and gpeUnSync)",
+                    "match": "\\b(gpe(?:Cancel|Edit|Finish|Start|(?:Un)?Sync)Sandbox)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeClear)",
+                    "match": "\\b(gpeClearTopo)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeCopy)",
+                    "match": "\\b(gpeCopy(?:Col|Row)Abutment)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeCreate)",
+                    "match": "\\b(gpeCreate(?:Abut(?:Entries|Type)|Alignment(?:AndSpacing)?|DummyConfig(?:Net|Param)?|(?:Grid|Map|MatchGroup)Entry|Sandbox|InstTermEntries|Trunk(?:Chain|Entries)|TwigEntries))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeDelete)",
+                    "match": "\\b(gpeDelete(?:DummyEntries|Sandbox))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeGet)",
+                    "match": "\\b(gpeGet(?:Abut(?:Type(?:List|Name))?|Constraints|DefaultAbutType|FigGroup|Grid(?:(?:Col|Row)Count|Entr(?:y|ies)|Selection)?|Map(?:Entry)?|TwigEntries))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeInsert)",
+                    "match": "\\b(gpeInsertEmpty(?:Column|Row)s)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeIs)",
+                    "match": "\\b(gpeIs(?:SandboxSync|ValidAbutType))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeRemove)",
+                    "match": "\\b(gpeRemoveEmptyRowsAndColumns)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeSboxp)",
+                    "match": "\\b(gpeSboxp)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeSet)",
+                    "match": "\\b(gpeSet(?:Abut(?:Entries)?|(?:Grid|Map)(?:Entry)?|MergeLayer|Router))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Prefix gpeStacks)",
+                    "match": "\\b(gpeStacks(?:AreCompressed|(?:C|Unc)ompress))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Suffix MatchGroups)",
+                    "match": "\\b(gpe(?:Add|Clear)MatchGroups)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Suffix StrapEntries)",
+                    "match": "\\b(gpe(?:Add|Clear|Create|Get)StrapEntries)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Suffix TrunkChains)",
+                    "match": "\\b(gpe(?:Add|Clear|Get)TrunkChains)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Modgen Placement and Routing Functions (Suffix ChannelWidthEntry)",
+                    "match": "\\b(gpe(?:Clear|Create|[GS]et)ChannelWidthEntry)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
         }
