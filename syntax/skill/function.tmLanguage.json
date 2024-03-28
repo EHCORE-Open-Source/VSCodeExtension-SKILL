@@ -9417,6 +9417,10 @@
                 {
                     "comment": "Configure Physical Hierarchy Functions",
                     "include": "#layout_configure_physical_hierarchy_function"
+                },
+                {
+                    "comment": "Object Display Control Functions",
+                    "include": "#layout_object_display_control_function"
                 }
             ]
         },
@@ -11501,6 +11505,15 @@
                 {
                     "comment": "Virtuoso Parameterized Layout Generator Functions (Prefix db)",
                     "match": "\\b(db(?:IsVPLGen|(?:R|Unr)egVPLGenCreateCellName))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_object_display_control_function": {
+            "patterns": [
+                {
+                    "comment": "Object Display Control Functions",
+                    "match": "\\b(odcReg(?:Blockage|Boundary|CPA|Instance|isterCustomFunc|Label|Marker|Modgen|Pin|Row(?:Region)?|Ruler|Shape(?:Circle|Donut|Ellipse|MPP|Path(?:Seg)?|Polygon|Rect)|TextDisplay|Via|VirtualFigGroup))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
