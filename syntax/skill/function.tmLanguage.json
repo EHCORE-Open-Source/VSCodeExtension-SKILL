@@ -9433,6 +9433,10 @@
                 {
                     "comment": "Design Rule Driven Editing Functions",
                     "include": "#layout_design_rule_driven_editing_function"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only)",
+                    "include": "#layout_multipatterning_technology_function"
                 }
             ]
         },
@@ -11644,6 +11648,130 @@
                     "comment": "Design Rule Driven Editing Functions (Prefix le)",
                     "match": "\\b(le(?:HiBatchChecker|ToggleDrdMode))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_multipatterning_technology_function": {
+            "patterns": [
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptActivate)",
+                    "match": "\\b(mptActivate)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptCheck)",
+                    "match": "\\b(mptCheck(?:Flow|HierarchicalLocks))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptClean)",
+                    "match": "\\b(mptClean(?:Clusters|ColoredDataOnSingleMaskLayer))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptColor)",
+                    "match": "\\b(mptColorRemastering)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptDelete)",
+                    "match": "\\b(mptDeleteClusters)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptDefine)",
+                    "match": "\\b(mptDefineFlow)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptDo)",
+                    "match": "\\b(mptDo(?:ColorChecks|ToolbarAction))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptFix)",
+                    "match": "\\b(mptFixCVUncoloredAndUnlocked)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptGet)",
+                    "match": "\\b(mptGet(?:Color(?:edPurposes|ShiftingLayers)|DefaultColoringMethod|Flow(?:Name|Setting)s|Layer(?:ColoringMethod|DefaultColor(?:Setting)?)|LockDefaultColors|OutdatedDesigns|TrackPatternPattern|UpToDateDesigns))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptHi)",
+                    "match": "\\b(mptHi(?:Un)?Stitch)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptIs)",
+                    "match": "\\b(mptIsMaskColorShown)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptLPP)",
+                    "match": "\\b(mptLPPMergeToColor)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptLock and mptUnlock)",
+                    "match": "\\b(mpt(?:L|Unl)ockAll)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptMarkers)",
+                    "match": "\\b(mptMarkersTo(?:ColoredBlockages|MaskColors))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptPropagate)",
+                    "match": "\\b(mptPropagate(?:Locks|SameMaskGroups))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptPurge)",
+                    "match": "\\b(mptPurgePcell)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptReColor)",
+                    "match": "\\b(mptReColor(?:FromShapes|Selection|Wsp)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptReconstruct)",
+                    "match": "\\b(mptReconstructStitch)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptReport)",
+                    "match": "\\b(mptReport(?:ColoredShapesOnSingleMaskLayer|CurrentSettings))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptSet)",
+                    "match": "\\b(mptSet(?:DefaultColoringMethod|Flow|Layer(?:ColoringMethod|DefaultColor)|LockDefaultColors|TrackPatternPattern))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptSetup)",
+                    "match": "\\b(mptSetupComplianceChecker)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptShow)",
+                    "match": "\\b(mptShowMaskColor)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptUnpropagate)",
+                    "match": "\\b(mptUnpropagateLocks)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptUpdate)",
+                    "match": "\\b(mptUpdateColor)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
                 }
             ]
         }
