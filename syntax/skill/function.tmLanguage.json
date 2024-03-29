@@ -9449,6 +9449,10 @@
                 {
                     "comment": "Virtuoso Placer Functions (ICADVM20.1 EXL Only)",
                     "include": "#layout_virtuoso_placer_function"
+                },
+                {
+                    "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only)",
+                    "include": "#layout_automated_device_placement_routing_flow_function"
                 }
             ]
         },
@@ -11886,6 +11890,45 @@
                 {
                     "comment": "Virtuoso Placer Functions (ICADVM20.1 EXL Only) (Prefix lobUnregister)",
                     "match": "\\b(lobUnregisterFillOverrideParameters)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_automated_device_placement_routing_flow_function": {
+            "patterns": [
+                {
+                    "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only) (Prefix apCustom)",
+                    "match": "\\b(apCustomPDKSettings)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only) (Prefix apEnable)",
+                    "match": "\\b(apEnableM0OnFlow)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only) (Prefix apPDKSetup)",
+                    "match": "\\b(apPDKSetupGet(?:CdsEnvs|(?:Fill|ModgenDummy)Params|Param(?:Func|List)|RegProcs|VtNameList))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only) (Prefix apPlace)",
+                    "match": "\\b(apPlaceAuto)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only) (Prefix apReset)",
+                    "match": "\\b(apResetPDKSetup)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only) (Prefix apSnap)",
+                    "match": "\\b(apSnapInsts)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only) (Prefix lob)",
+                    "match": "\\b(lob(?:AddCopyFill|BaseLayerDummyFill(?:Wrapper)?CB|(?:Is|Remove)CopyFill))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
                 }
             ]
