@@ -129,6 +129,10 @@
                 {
                     "comment": "Virtuoso Layout Suite SKILL Reference (sklayoutref)",
                     "include": "#builtin_layout_suite"
+                },
+                {
+                    "comment": "Virtuoso Relative Object Design SKILL Reference (rodskillref)",
+                    "include": "#builtin_relative_object_design"
                 }
             ]
         },
@@ -12055,6 +12059,106 @@
                     "comment": "Concurrent Layout User Trigger Functions (ICADVM20.1 Only)",
                     "match": "\\b(cle(?:Get|(?:R|Unr)eg)UserTriggers)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "builtin_relative_object_design": {
+            "patterns": [
+                {
+                    "comment": "Relative Object Design Functions",
+                    "include": "#relative_object_design_function"
+                },
+                {
+                    "comment": "Relative Object Design Coordinate Functions",
+                    "include": "#relative_object_design_coordinate_function"
+                }
+            ]
+        },
+        "relative_object_design_function": {
+            "patterns": [
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodAdd)",
+                    "match": "\\b(rodAdd(?:MPPChopHole|Points|SubPart|To[XY]))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodAlign and rodUnAlign)",
+                    "match": "\\b(rod(?:Un)?Align)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodAssign)",
+                    "match": "\\b(rodAssignHandleToParameter)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodCheck)",
+                    "match": "\\b(rodCheck(?:AllMPPsInCellView|MPPs)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodCreate)",
+                    "match": "\\b(rodCreate(?:Handle|Path|Polygon|Rect))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodDelete)",
+                    "match": "\\b(rodDelete(?:Handle|SubPart))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodFill)",
+                    "match": "\\b(rodFill(?:BBox)?WithRects)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodForce)",
+                    "match": "\\b(rodForceUpdate)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodGet)",
+                    "match": "\\b(rodGet(?:BBox|Handle|NamedShapes|Obj|SubPart))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodIs)",
+                    "match": "\\b(rodIs(?:FigNameUnused|Handle|MasterChoppable|Obj))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodName)",
+                    "match": "\\b(rodName(?:Object|Shape))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodPoint)",
+                    "match": "\\b(rodPoint[XY])\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodSet)",
+                    "match": "\\b(rodSetMasterChoppable)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodSub)",
+                    "match": "\\b(rodSubPoints)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                },
+                {
+                    "comment": "Relative Object Design Functions (Prefix rodUnName)",
+                    "match": "\\b(rodUnNameShape)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                }
+            ]
+        },
+        "relative_object_design_coordinate_function": {
+            "patterns": [
+                {
+                    "comment": "Relative Object Design Coordinate Functions",
+                    "match": "\\b(rodCoord(?:Bisect|Create|(?:Define|Get|IsOn)Grid|Fix|ParseString|Partition|Snap|To(?:Float|Int|String)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
                 }
             ]
         }
