@@ -9445,6 +9445,10 @@
                 {
                     "comment": "Symbolic Placement of Devices Functions",
                     "include": "#layout_symbolic_placement_device_function"
+                },
+                {
+                    "comment": "Virtuoso Placer Functions (ICADVM20.1 EXL Only)",
+                    "include": "#layout_virtuoso_placer_function"
                 }
             ]
         },
@@ -11859,6 +11863,30 @@
                     "comment": "SPD User Flow Callback Functions",
                     "match": "\\b(spd(?:Get|(?:R|Unr)eg)UserFlowProc)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_virtuoso_placer_function": {
+            "patterns": [
+                {
+                    "comment": "Virtuoso Placer Functions (ICADVM20.1 EXL Only) (Prefix lobGet)",
+                    "match": "\\b(lobGetReg(?:istered(?:AdjacentFillDefsProc|FillOverrideParameters|TransitionFillDefsProc)|UserProc))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Virtuoso Placer Functions (ICADVM20.1 EXL Only) (Prefix lobRegister and lobReg)",
+                    "match": "\\b(lobReg(?:ister(?:AdjacentFillDefsProc|FillOverrideParameters|TransitionFillDefsProc)|UserProc))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Virtuoso Placer Functions (ICADVM20.1 EXL Only) (Prefix lobUnRegister)",
+                    "match": "\\b(lobUnReg(?:ister(?:AdjacentFillDefsProc|TransitionFillDefsProc)|UserProc))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Virtuoso Placer Functions (ICADVM20.1 EXL Only) (Prefix lobUnregister)",
+                    "match": "\\b(lobUnregisterFillOverrideParameters)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
                 }
             ]
         }
