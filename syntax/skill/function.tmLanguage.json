@@ -9429,6 +9429,10 @@
                 {
                     "comment": "Slot Functions",
                     "include": "#layout_slot_function"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions",
+                    "include": "#layout_design_rule_driven_editing_function"
                 }
             ]
         },
@@ -11545,6 +11549,100 @@
                 {
                     "comment": "Slot Functions",
                     "match": "\\b(slt(?:SetContextSpecificationCells|ShapeConsecutiveSlotting))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_design_rule_driven_editing_function": {
+            "patterns": [
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdAdd)",
+                    "match": "\\b(drdAddTarget)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdBatch)",
+                    "match": "\\b(drdBatchCheck(?:LicenseAvailable)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdChecked)",
+                    "match": "\\b(drdChecked(?:Constraint|Layer|Rule)GroupItem)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdCompact)",
+                    "match": "\\b(drdCompact(?:Objects|SelSet))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdCompactor)",
+                    "match": "\\b(drdCompactorOptions)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdConstraint and drdLayer)",
+                    "match": "\\b(drd(?:Constraint|Layer)(?:(?:Group)?Header|Item)Clicked)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdEnable)",
+                    "match": "\\b(drdEnablePixelThreshold)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdGet)",
+                    "match": "\\b(drdGet(?:AllowedWidth|Min(?:SpanLength|Voltage)?Spacing))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdIs)",
+                    "match": "\\b(drdIsPixelThresholdEnabled)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdList)",
+                    "match": "\\b(drdListConstraintCategoryRules)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdOption)",
+                    "match": "\\b(drdOptionUpdate(?:Constraint|Layer))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdOptions)",
+                    "match": "\\b(drdOptionsSet)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdRemove)",
+                    "match": "\\b(drdRemoveTarget)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdRule)",
+                    "match": "\\b(drdRule(?:(?:Group|ID|Type)Header|(?:ID|Type)Item)Clicked)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdSelect)",
+                    "match": "\\b(drdSelect(?:Constraint|Layer|SignOffRule)GroupItem)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdToggle)",
+                    "match": "\\b(drdToggleSmartSnapMode(?:ForDiscreteSpacing)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix drdVerify)",
+                    "match": "\\b(drdVerifySelSet)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Rule Driven Editing Functions (Prefix le)",
+                    "match": "\\b(le(?:HiBatchChecker|ToggleDrdMode))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
