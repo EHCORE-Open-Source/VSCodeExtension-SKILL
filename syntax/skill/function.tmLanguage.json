@@ -9441,6 +9441,10 @@
                 {
                     "comment": "Advanced Boolean Engine Functions",
                     "include": "#layout_advanced_boolean_engine_function"
+                },
+                {
+                    "comment": "Symbolic Placement of Devices Functions",
+                    "include": "#layout_symbolic_placement_device_function"
                 }
             ]
         },
@@ -11824,6 +11828,36 @@
                 {
                     "comment": "Advanced Boolean Engine Functions (Prefix abeShapes)",
                     "match": "\\b(abeShapes(?:In|Out)side)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_symbolic_placement_device_function": {
+            "patterns": [
+                {
+                    "comment": "SPD User-Defined Abutment Functions (ICADVM20.1 Only)",
+                    "include": "#layout_spd_user_defined_abutment_function"
+                },
+                {
+                    "comment": "SPD User Flow Callback Functions",
+                    "include": "#layout_spd_user_flow_callback_function"
+                }
+            ]
+        },
+        "layout_spd_user_defined_abutment_function": {
+            "patterns": [
+                {
+                    "comment": "SPD User-Defined Abutment Functions (ICADVM20.1 Only)",
+                    "match": "\\b(spd(?:CalcOdSpacingWithPoly|Get(?:Abut(?:Name|Strategy)|SymDeviceInfo|UserAbutProc)|PerformAbutment|(?:R|Unr)egUserAbutProc))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_spd_user_flow_callback_function": {
+            "patterns": [
+                {
+                    "comment": "SPD User Flow Callback Functions",
+                    "match": "\\b(spd(?:Get|(?:R|Unr)eg)UserFlowProc)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
