@@ -9457,6 +9457,10 @@
                 {
                     "comment": "Design Planning Functions (ICADVM20.1 EXL Only)",
                     "include": "#layout_design_planning_function"
+                },
+                {
+                    "comment": "Virtuoso Concurrent Layout Functions (ICADVM20.1 EXL Only)",
+                    "include": "#layout_virtuoso_concurrent_layout_function"
                 }
             ]
         },
@@ -11962,6 +11966,94 @@
                 {
                     "comment": "Design Planning Functions (ICADVM20.1 EXL Only) (Prefix lxVirtual)",
                     "match": "\\b(lxVirtualHierarchyMakeCell)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_virtuoso_concurrent_layout_function": {
+            "patterns": [
+                {
+                    "comment": "Concurrent Layout Interface Functions (ICADVM20.1 Only)",
+                    "include": "#layout_concurrent_layout_interface_function"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only)",
+                    "include": "#layout_concurrent_layout_editing_function"
+                },
+                {
+                    "comment": "Concurrent Layout User Trigger Functions (ICADVM20.1 Only)",
+                    "include": "#layout_concurrent_layout_user_trigger_function"
+                }
+            ]
+        },
+        "layout_concurrent_layout_interface_function": {
+            "patterns": [
+                {
+                    "comment": "Concurrent Layout Interface Functions (ICADVM20.1 Only)",
+                    "match": "\\b(cli(?:GetCellViewOrig(?:Cell|Lib|View)Name|Is(?:CVType|(?:Designer|Manager)Mode)|Reopen|Save))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_concurrent_layout_editing_function": {
+            "patterns": [
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleClean)",
+                    "match": "\\b(cleCleanUpScratchCellViews)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleCreate)",
+                    "match": "\\b(cleCreatePartition(?:View)?)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleGet)",
+                    "match": "\\b(cleGet(?:CurrentPartition|Partitions))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleHas and cleRestore)",
+                    "match": "\\b(cle(?:Has|RestoreAndOpen)(?:AutoSaved|Panic)File)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleIs)",
+                    "match": "\\b(cleIs(?:Area|Layer)BasedPartition)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleOpen)",
+                    "match": "\\b(cleOpen(?:AutoSaved|Panic)CellView)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix clePartition)",
+                    "match": "\\b(clePartition(?:AttachAreaBoundary|Get(?:AreaBoundaries|Layers|Status)))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleRefresh)",
+                    "match": "\\b(cleRefreshAssistantByCellView)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleReinitialize)",
+                    "match": "\\b(cleReinitialize)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Concurrent Layout Editing Functions (ICADVM20.1 Only) (Prefix cleStretch)",
+                    "match": "\\b(cleStretchMalformedSpine)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_concurrent_layout_user_trigger_function": {
+            "patterns": [
+                {
+                    "comment": "Concurrent Layout User Trigger Functions (ICADVM20.1 Only)",
+                    "match": "\\b(cle(?:Get|(?:R|Unr)eg)UserTriggers)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
                 }
             ]
