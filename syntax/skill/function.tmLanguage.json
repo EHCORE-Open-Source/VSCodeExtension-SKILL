@@ -9437,6 +9437,10 @@
                 {
                     "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only)",
                     "include": "#layout_multipatterning_technology_function"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions",
+                    "include": "#layout_advanced_boolean_engine_function"
                 }
             ]
         },
@@ -11772,6 +11776,55 @@
                     "comment": "Multi-Patterning Technology Functions (ICADVM20.1 Only) (Prefix mptUpdate)",
                     "match": "\\b(mptUpdateColor)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_advanced_boolean_engine_function": {
+            "patterns": [
+                {
+                    "comment": "Advanced Boolean Engine Functions (Suffix FromCellView)",
+                    "match": "\\b(abe(?:Blockag|Boundari)esFromCellView)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions (Prefix abeClear, abeNew, and abeRemove)",
+                    "match": "\\b(abe(?:Clear|New|Remove)Layer)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions (Prefix abeDone and abeInit)",
+                    "match": "\\b(abe(?:Done|Init))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions (Prefix abeElapsed)",
+                    "match": "\\b(abeElapsedTime)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions (Prefix abeIsland and abeTile)",
+                    "match": "\\b(abe(?:Island|Tile)Iterator)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions (Prefix abeLayer)",
+                    "match": "\\b(abeLayer(?:Abut|And(?:Not)?|Avoid|From(?:CellView|FigSet|Net|Shapes)|Grow|Inside|MergeTiles|Or(?:PtArray)?|Outside|Shrink|Size|Straddle|To(?:Blockages|CellView|HilightSet)|Touch|Xor))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions (Prefix abeMT)",
+                    "match": "\\b(abeMTdebug)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions (Prefix abeRun)",
+                    "match": "\\b(abeRunQueue)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
+                },
+                {
+                    "comment": "Advanced Boolean Engine Functions (Prefix abeShapes)",
+                    "match": "\\b(abeShapes(?:In|Out)side)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout"
                 }
             ]
         }
