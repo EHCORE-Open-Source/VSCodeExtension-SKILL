@@ -9453,6 +9453,10 @@
                 {
                     "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only)",
                     "include": "#layout_automated_device_placement_routing_flow_function"
+                },
+                {
+                    "comment": "Design Planning Functions (ICADVM20.1 EXL Only)",
+                    "include": "#layout_design_planning_function"
                 }
             ]
         },
@@ -11929,6 +11933,35 @@
                 {
                     "comment": "Automated Device Placement and Routing Flow Functions (ICADVM20.1 EXL Only) (Prefix lob)",
                     "match": "\\b(lob(?:AddCopyFill|BaseLayerDummyFill(?:Wrapper)?CB|(?:Is|Remove)CopyFill))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "layout_design_planning_function": {
+            "patterns": [
+                {
+                    "comment": "Design Planning Functions (ICADVM20.1 EXL Only) (Prefix lxGet)",
+                    "match": "\\b(lxGetVirtualFigGroupMasterName)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Planning Functions (ICADVM20.1 EXL Only) (Prefix lxHi)",
+                    "match": "\\b(lxHi(?:Adjust(?:Area)?Boundary|CreateVirtGroup|DesignPlanningOptions|Generate(?:Selected)?VirtualHierarchy|Make(?:Cell|VirtualHierarchy)|Remaster|SnapPatternOptions|VirtHierOptions))\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Planning Functions (ICADVM20.1 EXL Only) (Prefix lxIs)",
+                    "match": "\\b(lxIsVirtualFigGroup)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Planning Functions (ICADVM20.1 EXL Only) (Prefix lxMake)",
+                    "match": "\\b(lxMakeVirtualHierarchy)\\b",
+                    "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                },
+                {
+                    "comment": "Design Planning Functions (ICADVM20.1 EXL Only) (Prefix lxVirtual)",
+                    "match": "\\b(lxVirtualHierarchyMakeCell)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
                 }
             ]
