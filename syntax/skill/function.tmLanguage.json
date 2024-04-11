@@ -2845,7 +2845,7 @@
                 },
                 {
                     "comment": "Cellview Input/Output Database Access Functions (Prefix dbOpen)",
-                    "match": "\\b(dbOpen(?:(?:AutoSaved|Panic|Param)CellView|CellViewByType|Hier|ScratchDesign))\\b",
+                    "match": "\\b(dbOpen(?:(?:AutoSaved|Panic|Param)CellView|CellView(?:ByType)?|Hier|ScratchDesign))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 },
                 {
