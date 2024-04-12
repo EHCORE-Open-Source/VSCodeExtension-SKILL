@@ -115,6 +115,10 @@
                     "include": "#builtin_virtuoso_ade"
                 },
                 {
+                    "comment": "Analog Expression Language Reference (aelref)",
+                    "include": "#builtin_analog_expression"
+                },
+                {
                     "comment": "Cadence User Interface SKILL Reference (skuiref)",
                     "include": "#builtin_virtuoso_user_interface"
                 },
@@ -7599,6 +7603,59 @@
                     "comment": "Invoking the Edit CDF Form",
                     "match": "\\b(aedEditCDF|cdfGetCustomViaCDF|cdfUpdateCustomViaParam)\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
+                }
+            ]
+        },
+        "builtin_analog_expression": {
+            "patterns": [
+                {
+                    "comment": "Analog Expression Language (AEL) Functions",
+                    "include": "#analog_expression_functions"
+                }
+            ]
+        },
+        "analog_expression_functions": {
+            "patterns": [
+                {
+                    "comment": "AEL Utility Functions",
+                    "include": "#analog_expression_utility_functions"
+                },
+                {
+                    "comment": "AEL Environment Functions",
+                    "include": "#analog_expression_environment_functions"
+                }
+            ]
+        },
+        "analog_expression_utility_functions": {
+            "patterns": [
+                {
+                    "comment": "AEL Utility Functions (Suffix SignifDigits)",
+                    "match": "\\b(ael(?:Get|Pop|Push)SignifDigits)\\b",
+                    "name": "keyword.control.cadence.skill.ael strong.cadence.skill.ael"
+                },
+                {
+                    "comment": "AEL Utility Functions (Suffix Notation)",
+                    "match": "\\b(ael(?:Eng|StrDbl|Suffix)Notation)\\b",
+                    "name": "keyword.control.cadence.skill.ael strong.cadence.skill.ael"
+                },
+                {
+                    "comment": "AEL Utility Functions (Others)",
+                    "match": "\\b(ael(?:CheckRange|Number|Signum|SuffixWithUnits))\\b",
+                    "name": "keyword.control.cadence.skill.ael strong.cadence.skill.ael"
+                }
+            ]
+        },
+        "analog_expression_environment_functions": {
+            "patterns": [
+                {
+                    "comment": "AEL Environment Functions (Prefix aelEnv)",
+                    "match": "\\b(aelEnv(?:Compile|Create|Execute|FreeCompExpr|Get(?:ErrStr|Global)|Interpret|List(?:(?:Deferred|Expr)?(?:Funcs|Globals)|GlobalsValues)|Name|SetGlobal(?:s|List)))\\b",
+                    "name": "keyword.control.cadence.skill.ael strong.cadence.skill.ael"
+                },
+                {
+                    "comment": "AEL Environment Functions (Prefix aelSet)",
+                    "match": "\\b(aelSetLineage)\\b",
+                    "name": "keyword.control.cadence.skill.ael strong.cadence.skill.ael"
                 }
             ]
         },
