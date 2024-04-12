@@ -135,6 +135,10 @@
                     "include": "#builtin_layout_suite"
                 },
                 {
+                    "comment": "Virtuoso Parasitic Aware Design SKILL Reference (parasimSKILL)",
+                    "include": "#builtin_parasim"
+                },
+                {
                     "comment": "Virtuoso Relative Object Design SKILL Reference (rodskillref)",
                     "include": "#builtin_relative_object_design"
                 }
@@ -12116,6 +12120,73 @@
                     "comment": "Concurrent Layout User Trigger Functions (ICADVM20.1 Only)",
                     "match": "\\b(cle(?:Get|(?:R|Unr)eg)UserTriggers)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "builtin_parasim": {
+            "patterns": [
+                {
+                    "comment": "Parasitic Aware Design Functions",
+                    "include": "#relative_parasitic_aware_design_function"
+                }
+            ]
+        },
+        "relative_parasitic_aware_design_function": {
+            "patterns": [
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix ael)",
+                    "match": "\\b(ael(?:Display|Sum)OPParam)\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix au)",
+                    "match": "\\b(auLvsGetLabelSuffix)\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix axl)",
+                    "match": "\\b(axl(?:[GS]etParasiticViewName|MapInstTermToNet))\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix msps)",
+                    "match": "\\b(mspsMapNetName)\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix parCache)",
+                    "match": "\\b(parCache(?:Find|Get|List(?:Filter|Model)s|Purge|Save))\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix parDelete, parFilter, parFind, parRemove, and parSet)",
+                    "match": "\\b(par(?:Delete|FilterCreate|Find|RemoveMembers|SetNote))\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix parModel)",
+                    "match": "\\b(parModel(?:Create(?:Custom|Net[CKLR])|(?:List|Update)Sim(?:Param|Sweep)s))\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix parObject)",
+                    "match": "\\b(parObjectList(?:Filter|Model)s)\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix parReset)",
+                    "match": "\\b(parReset(?:All)?Params)\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix parUpdate)",
+                    "match": "\\b(parUpdate(?:Member|Param)s)\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                },
+                {
+                    "comment": "Parasitic Aware Design Functions (Prefix sum)",
+                    "match": "\\b(sumOPParamV2)\\b",
+                    "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
                 }
             ]
         },
