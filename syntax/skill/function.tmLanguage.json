@@ -123,6 +123,10 @@
                     "include": "#builtin_virtuoso_user_interface"
                 },
                 {
+                    "comment": "Virtuoso Text Editor User Guide (text_editor)",
+                    "include": "#builtin_virtuoso_text_editor"
+                },
+                {
                     "comment": "Virtuoso Parameterized Cell SKILL Reference (skpcellref)",
                     "include": "#builtin_virtuoso_pcell"
                 },
@@ -8911,6 +8915,33 @@
                     "comment": "Stroke Functions",
                     "match": "\\b(hi(?:GetStroke(?:BBox|(?:First|Last)Pt)|Stroke))\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "builtin_virtuoso_text_editor": {
+            "patterns": [
+                {
+                    "comment": "Virtuoso Text Editor and HDL Package Setup Functions",
+                    "include": "#virtuoso_text_editor_hdl_package_setup_function"
+                }
+            ]
+        },
+        "virtuoso_text_editor_hdl_package_setup_function": {
+            "patterns": [
+                {
+                    "comment": "Virtuoso Text Editor and HDL Package Setup Functions (Prefix hdlGenerate)",
+                    "match": "\\b(hdlGenerateTextDatabase)\\b",
+                    "name": "keyword.control.cadence.skill.editor strong.cadence.skill.editor"
+                },
+                {
+                    "comment": "Virtuoso Text Editor and HDL Package Setup Functions (Prefix hdlPkg)",
+                    "match": "\\b(hdlPkg(?:CreateEnvSetupFile|ExportXrunArgs))\\b",
+                    "name": "keyword.control.cadence.skill.editor strong.cadence.skill.editor"
+                },
+                {
+                    "comment": "Virtuoso Text Editor and HDL Package Setup Functions (Prefix te)",
+                    "match": "\\b(te(?:DiscardEdits|GetCursorPosition|IsModified|Save(?:WithDerivedData)?|Set(?:Cursor|EditMode)|(?:Un)?Reg(?:Post|Pre)ExtractTrigger))\\b",
+                    "name": "keyword.control.cadence.skill.editor strong.cadence.skill.editor"
                 }
             ]
         },
