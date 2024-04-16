@@ -163,6 +163,10 @@
                     "include": "#builtin_virtuoso_hierarchy_editor"
                 },
                 {
+                    "comment": "Digital Design Netlisting and Simulation SKILL Reference (netlistsimulateref)",
+                    "include": "#builtin_degital_design_netlisting_simulation"
+                },
+                {
                     "comment": "Virtuoso Parasitic Aware Design SKILL Reference (parasimSKILL)",
                     "include": "#builtin_parasim"
                 },
@@ -13652,6 +13656,126 @@
                     "comment": "Accessing the Pin Checker Using SKILL",
                     "match": "\\b(hnlRunPinChecker)\\b",
                     "name": "keyword.control.cadence.skill.hierarchy.editor strong.cadence.skill.hierarchy.editor"
+                }
+            ]
+        },
+        "builtin_degital_design_netlisting_simulation": {
+            "patterns": [
+                {
+                    "comment": "Verilog Netlister Functions",
+                    "include": "#digital_verilog_netlister_function"
+                },
+                {
+                    "comment": "Open Simulation System (OSS) Functions",
+                    "include": "#digital_oss_function"
+                }
+            ]
+        },
+        "digital_verilog_netlister_function": {
+            "patterns": [
+                {
+                    "comment": "Verilog Netlister Functions",
+                    "match": "\\b(vicOpenVlogCallBack|vlVic(?:CrossSelection|PS)Form|vlogifCrossSelectionCB)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                }
+            ]
+        },
+        "digital_oss_function":{
+            "patterns": [
+                {
+                    "comment": "OSS Functions (Prefix cat)",
+                    "match": "\\b(cat)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix cds)",
+                    "match": "\\b(cds[GS]etNetlistMode)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix ERC)",
+                    "match": "\\b(ERC)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix fnl)",
+                    "match": "\\b(fnl(?:AbortNetlist|Current(?:(?:Cell|Inst)(?:CdsName)?|Iteration|ModelExtName|Sig(?:PathName)?)|GetGlobalSigNames|InstCdsNameExtName|PathList|Print|SearchPropString|(?:(?:Sig|Term)CdsName|Term)ExtName|TopCell))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlCat, hnlCell, hnlClose, and hnlComplete)",
+                    "match": "\\b(hnl(?:AbortNetlist|AddExtraParameters|CatIncrementalNetlistFiles|Cell(?:Extracted|InAllCells)|Close(?:CellFiles|MasterList)|CompletePrint))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlDe, hnlDo, hnlEMH, and hnlFind)",
+                    "match": "\\b(hnl(?:DeReg(?:Post|Pre)NetlistTrigger|Do(?:Inst|Net)Based|EMH(?:GetDigita(?:GlobalNets|lNetlistFileName)|SetVerbosityLevel)|FindAll(?:Cells|InstInCell)|Gen(?:IncludeFile|CellHdbProps|Global(?:Model|Net)MappedName|Mapped(?:Inst|Model|Net)?Names)))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlGet)",
+                    "match": "\\b(hnlGet(?:CellHdbProps|Global(?:Model|Net)MappedName|InstanceCount|Mapped(?:Inst|Model|Net)?Names|MasterCells|PrintLinePrefix|(?:Symbol)?PropVal|RoundProp|Scale(?:Capacitance|MarginalDelay|TimeUnit)|Simulator|SourceFile(?:Models)?|Term(?:ByName|NameOfSig)))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlIf, hnlIgnore, hnlInit, hnlIs, hnlMake, and hnlMultiple)",
+                    "match": "\\b(hnl(?:IfNoProcedure|IgnoreTerm|Init(?:Map|Print)|Is(?:APatchCord|AStoppingCell|CellNetlistable|CurrentInstStopping|CVInUserStopCVList)|MakeNetlistFileName|MultipleCells))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlMap)",
+                    "match": "\\b(hnlMap(?:(?:Cell(?:Module)?|Inst|Model|Net|Term)?Name))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlName, hnlNet, hnlNmp, and hnlOpen)",
+                    "match": "\\b(hnl(?:MultipleCells|NameOfSignal|NetNameOnTerm(?:Name)?|NmpSetNameSpaces|OpenTopCell))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlPcell, hnlPost, hnlPre, and hnlPrint)",
+                    "match": "\\b(hnl(?:PcellIsParamOverridden|(?:Post|Pre)NetlistTriggerList|Print(?:Devices|Message|Netlist|Signal|String)))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlReg and hnlRun)",
+                    "match": "\\b(hnl(?:Reg(?:Post|Pre)NetlistTrigger|RunNetlister))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlScale)",
+                    "match": "\\b(hnlScale(?:Capacitance|MarginalDelay|TimeUnit))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlSet)",
+                    "match": "\\b(hnlSet(?:CellFiles|Def|MappingType|PrintLinePrefix|PseudoTermDir|Vars))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix hnlSort, hnlStart, hnlStop, hnlString, and hnlWrite)",
+                    "match": "\\b(hnl(?:SortTerms(?:ToNets)?|St(?:art|op)Netlist|StringToList|Write(?:BlockControlFile|Map)))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix iseClose, iseComplete, and iseEnter)",
+                    "match": "\\b(ise(?:Close(?:Sch|Sim)Window|CompleteInteractive|EnterNodeNamesList))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix iseComm, iseExit, iseInterrupt, and iseStart)",
+                    "match": "\\b(ise(?:CommTo|Exit|Interrupt|Start)Simulator)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix iseGet)",
+                    "match": "\\b(iseGet(?:ExtName|InputFromEncapWindow|MappedProbeList|ProbeList))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix iseInit)",
+                    "match": "\\b(iseInit(?:Schematic|Sim)Window)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
                 }
             ]
         },
