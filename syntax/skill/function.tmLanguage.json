@@ -139,6 +139,10 @@
                     "include": "#builtin_layout_suite"
                 },
                 {
+                    "comment": "Virtuoso Unified Custom Constraints SKILL Reference (constraintsSKILL)",
+                    "include": "#builtin_virtuoso_constraint"
+                },
+                {
                     "comment": "Virtuoso Parasitic Aware Design SKILL Reference (parasimSKILL)",
                     "include": "#builtin_parasim"
                 },
@@ -12151,6 +12155,772 @@
                     "comment": "Concurrent Layout User Trigger Functions (ICADVM20.1 Only)",
                     "match": "\\b(cle(?:Get|(?:R|Unr)eg)UserTriggers)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "builtin_virtuoso_constraint": {
+            "patterns": [
+                {
+                    "comment": "Custom Constraints Functions",
+                    "include": "#custom_constraint_function"
+                },
+                {
+                    "comment": "CST Access SKILL Functions",
+                    "include": "#cst_access_function"
+                },
+                {
+                    "comment": "Design Intent Functions",
+                    "include": "#design_intent_function"
+                }
+            ]
+        },
+        "custom_constraint_function": {
+            "patterns": [
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands",
+                    "include": "#constraint_manager_assistant_customization_command"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands",
+                    "include": "#circuit_prospector_assistant_customization_command"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands",
+                    "include": "#constraint_generator_customization_command"
+                },
+                {
+                    "comment": "Table Editor SKILL Commands",
+                    "include": "#table_editor_command"
+                }
+            ]
+        },
+        "constraint_manager_assistant_customization_command": {
+            "patterns": [
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciAdd)",
+                    "match": "\\b(ciAdd(?:HierarchicalNotes|LeadingSlash|ProcessRules|RuleGroup|TrailingSlash))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciAll)",
+                    "match": "\\b(ciAllCellViewsInHierarchy)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciAxis)",
+                    "match": "\\b(ciAxis(?:Create|Delete|Exists|List(?:Con|Params)|ReplaceParams))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciCache)",
+                    "match": "\\b(ciCache(?:Callback(?:(?:R|Unr)egister|Update)|CellName|Constraint(?:Cell|Lib|View)Name|DiscardEdits|Find|Get(?:AllNetNames|CellView|EnabledNotifications)?|Is(?:Layout|Modified|Writable)|LCV|LibName|List(?:AxesNames|Con(?:strainedObject(?:Name)?s)?|Templates|Type(?:Name)?s)|Make(?:Editable|ReadOnly)|NeedRefresh|Notifications|p|Purge|Save|Top(?:Lib|View)Name|Transfer(?:Selection)?|ViewName))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciCheck)",
+                    "match": "\\b(ciCheckConstraints)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciCombine)",
+                    "match": "\\b(ciCombineInstNetsPins)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciCon)",
+                    "match": "\\b(ciCon(?:AppendOneMember|BaseName|CallbackIsRegistered|Create(?:Expanded)?|Delete(?:All)?|Find|Get(?:(?:Axis)?Name|Cache|Comment|CreatedTime|(?:MembersOf)?Type|Note|Owner|Priority|Status)|Is(?:(?:In|OutOf)Context|Overridden|Writable)|List(?:(?:Member|Param)(?:Name)?|Template)s|p|(?:(?:R|Unr)egister|Update)Callback|RemoveMembers|Reset(?:All)?Params|Set(?:Axis|Note|Priority|Status)|TypeHasNamedParameter|Update(?:(?:Member)?Param|Member)s|UprevCellBoundary|Verify))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciConstraint)",
+                    "match": "\\b(ciConstraint(?:sForType|LCV|ViewLessp))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciConvert)",
+                    "match": "\\b(ciConvertNestedNetClassToNetClassHierGroup)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciCreate)",
+                    "match": "\\b(ciCreateFilter)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciCurrent)",
+                    "match": "\\b(ciCurrentPathIterator)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciDefault)",
+                    "match": "\\b(ciDefaultParamToMatchFilter)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciDelete)",
+                    "match": "\\b(ciDelete(?:ModgenTopologies|RuleGroup|UnreferencedObjects))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciDesign)",
+                    "match": "\\b(ciDesignLCV)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciEnable)",
+                    "match": "\\b(ciEnableAutoConstraintNotes)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciExpand)",
+                    "match": "\\b(ciExpand(?:Members|Name))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciFind)",
+                    "match": "\\b(ciFind(?:OpenCellViews?|ConsWithDuplicateMembers))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciGet)",
+                    "match": "\\b(ciGet(?:Cell(?:TermDefaultNetName|View(?:ForObjectPath)?)|ConnectedInsts|CustomFilterNames|DefaultNetName|FoundryRules|MatchParam2DList|MembersOfType|ObjectCellView|OpenCellViews|RuleGroup(?:(?:By)?Name|s)|WidgetProperties))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciHas)",
+                    "match": "\\b(ciHasCellAnyRegTerm)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciHave)",
+                    "match": "\\b(ciHaveSameBulkNets)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciHier)",
+                    "match": "\\b(ciHier(?:CompareConstraints?|UpdateConstraints))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciIs)",
+                    "match": "\\b(ciIsNetSuperType)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciLoad)",
+                    "match": "\\b(ciLoad(?:ConfigXML(?:FromString)?|ConstrFrom|DotCadenceFiles|Icons?))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciList)",
+                    "match": "\\b(ciList(?:Editor|Type|ProcessRule)s)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciLx)",
+                    "match": "\\b(ciLxComparisonReport)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciModgen)",
+                    "match": "\\b(ciModgen(?:MergeLayersFromArgs|ListFingerSplitCons|RefreshStorage|SplitFingers|TemplateFingerSplitPreDestroy))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciObject)",
+                    "match": "\\b(ciObject(?:IsInContext|ListCon|PathAndName))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciOpen, ciRefresh, and ciReopen)",
+                    "match": "\\b(ci(?:Open(?:Panic)?|Refresh|Reopen)CellView)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciPrint)",
+                    "match": "\\b(ciPrintReport)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciPull and ciPush)",
+                    "match": "\\b(ci(?:Pull|Push)Constraints?)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciReg)",
+                    "match": "\\b(ciRegTypeBindingParameter)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciRegister)",
+                    "match": "\\b(ciRegister(?:ConstraintEditor|CustomDeviceFilter|NetSuperType))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciRemove)",
+                    "match": "\\b(ciRemove(?:ConstrainedPinNetsFromRails|HierarchicalNotes|LeadingSlash|ProcessRules|TrailingSlash))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciReorder)",
+                    "match": "\\b(ciReorderAssistants)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciResistor)",
+                    "match": "\\b(ciResistorArrayUpdateRowColVal)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciResolve)",
+                    "match": "\\b(ciResolveBulkNet)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciRun)",
+                    "match": "\\b(ciRunMatchingConstraintsGenerator)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciSelected)",
+                    "match": "\\b(ciSelected(?:Constraint|Template)s)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciSet)",
+                    "match": "\\b(ciSet(?:Halo(?:Options|Policy)|MaxHaloGroupSize|ModgenTopology|SymmetricAxes))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciSig)",
+                    "match": "\\b(ciSigTypeMatchesNetType)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciSimple)",
+                    "match": "\\b(ciSimpleName)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciSorted)",
+                    "match": "\\b(ciSortedOpenCellViews)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciTemplate)",
+                    "match": "\\b(ciTemplate(?:AddCons|Create(?:Definition|Expanded)?|DefinitionExists|Delete(?:Cons)?|Find|Get(?:Cache|Comment|CreatedTime|(?:Def)?Name|Note|Status|Type)|List(?:Con|Param(?:Name)?s)|p|Reset(?:All)?Params|Set(?:Note|Status)|SortParamDefs|UpdateParams))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciTo)",
+                    "match": "\\b(ciToFloat)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciTransfer)",
+                    "match": "\\b(ciTransferConstraintsInProgress)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciType)",
+                    "match": "\\b(ciType(?:(?:Has)?BindingParameter|Def(?:BaseType|Version)|Is(?:Type|UserDefined)|ListCon))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciUnique)",
+                    "match": "\\b(ciUniqueMembers)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciUnregister)",
+                    "match": "\\b(ciUnregister(?:Assistant|ConstraintEditor|NetSuperType|Term))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciUpdate)",
+                    "match": "\\b(ciUpdateHierarchicalNotes)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciUprev)",
+                    "match": "\\b(ciUprevEAConstrs)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciUtils)",
+                    "match": "\\b(ciUtils(?:Add(?:NTime|Quote)s|BuildString|MakeUnique|RemoveNils|RepeatNTimes|ReplaceNils))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Manager Assistant Customization SKILL Commands (Prefix ciWithin)",
+                    "match": "\\b(ciWithinConstraint)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                }
+            ]
+        },
+        "circuit_prospector_assistant_customization_command": {
+            "patterns": [
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Suffix Iterator)",
+                    "match": "\\b(ci(?:ActiveSameCellAndSize|APR(?:Cascode|XYInstSymmetric)|BlockResistorArray|BundleSignals|CascodeSeriesCurrentMirror|Common(?:Gate(?:AndSource)?|Source)|HierarchicalSeries|MOS(?:Cascode|(?:ActiveLoad|CommonGate|CrossCoupled(?:DifferentialPair|Quad)|CurrentMirror|DifferentialPair|Inverter|Parallel|TransmissionGate)Struct)|Net|(?:Parallel(?:Net)?|Series)ResistorArray|Pin|SameCell|Signal|XY(?:Inst|Net|Pin)?Symmetric)Iterator)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciAlign)",
+                    "match": "\\b(ciAlignPinsOnCellSide)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciBasic)",
+                    "match": "\\b(ciBasicGetParamValue)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciBuild)",
+                    "match": "\\b(ciBuildModgenParams)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciCan)",
+                    "match": "\\b(ciCanCGBeUsed)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciCategory)",
+                    "match": "\\b(ciCategoryListFinderNames)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciClear)",
+                    "match": "\\b(ciClearNetSuperTypes)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciCluster)",
+                    "match": "\\b(ciClusterBoundaryForCluster)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciCP)",
+                    "match": "\\b(ciCPRegistrationFromLAM)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciCreate)",
+                    "match": "\\b(ciCreateRoutePriorityCon)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciMOSCascoded)",
+                    "match": "\\b(ciMOSCascodedCurrentMirrorStructIterator2?)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciDevice)",
+                    "match": "\\b(ciDeviceInfo(?:(?:GetRegistered|Register)(?:Param|Terminal)s?|Registry|RestoreDefault(?:Param|Terminal)Names|TerminalsAreValid))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciEnable)",
+                    "match": "\\b(ciEnableAssistant)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciEvaluate)",
+                    "match": "\\b(ciEvaluateGeneratorArgs)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciExpand)",
+                    "match": "\\b(ciExpandIteratedDeviceInfo)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciFind)",
+                    "match": "\\b(ciFindObjectInHier)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciGenerate)",
+                    "match": "\\b(ciGenerateConstraintGroup)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciGenerator)",
+                    "match": "\\b(ciGenerator(?:CheckInstsNetsPinsInstTerms|For(?:Inst|Net)Symmetry))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciGet)",
+                    "match": "\\b(ciGet(?:Action|ConstraintGroupsEnum|CPSelectedResults|Device(?:BulkTermName|Info|Names|TermName)|Finder|FirstDeviceTermName|FluidGuardRingDeviceEnum|Generator|Iterator|LAMComponentTypes|MappedDeviceNames|Net(?:Name|(?:Sub|Super)Type)s|Param(?:Mapping|Name|Value(?:s|OrDefault)?)|Structure|Tech(?:File|MPPNames)|TermNames))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciGuard)",
+                    "match": "\\b(ciGuardRingFor(?:Cluster|Modgen))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciHave)",
+                    "match": "\\b(ciHaveSameParamValues)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciIgnore)",
+                    "match": "\\b(ciIgnoreDevice)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciInst)",
+                    "match": "\\b(ciInst(?:(?:[GS]et|List)SplitFingers|(?:Term)?Iterator))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciInsts)",
+                    "match": "\\b(ciInstsNetsPinsFromSelSet)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciIs)",
+                    "match": "\\b(ciIs(?:Device|Net))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciList)",
+                    "match": "\\b(ciList(?:All(?:Category|Finder|Generator|Iterator|Structure)Names|GeneratableConstraintGroups))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciMake)",
+                    "match": "\\b(ciMake(?:HierContext|ObjectInfo))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciMap)",
+                    "match": "\\b(ciMap(?:Param|Term))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciMatched)",
+                    "match": "\\b(ciMatched(?:FingerWidth|ParametersForCurrent_Mirror|ParamsFor(?:InstanceSymmetry|SameSizeInstances)))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciMerge)",
+                    "match": "\\b(ciMergeParams)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciModgen)",
+                    "match": "\\b(ciModgenForSameCellSizeAndBulk)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciNet)",
+                    "match": "\\b(ciNet(?:Names|OnTerm|Predicates|Regexs))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciNext)",
+                    "match": "\\b(ciNext(?:Con|Obj|Template)Name)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciNum)",
+                    "match": "\\b(ciNumTermsEQ2)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciOrientation)",
+                    "match": "\\b(ciOrientationForModgen)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciPlacer)",
+                    "match": "\\b(ciPlacerControlledWellGeneration)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciPrint)",
+                    "match": "\\b(ciPrintMapped(?:(?:DefaultNet|Device|Net)Name|Param|Terminal)s)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciRegister)",
+                    "match": "\\b(ciRegister(?:Action|Assistant|ConstraintGenerator|DefaultNetName|Device(?:sForPDKCategory)?|DynamicParamDef|Finder|Iterator|Net(?:Names|Predicate|Regexs)?|Structure))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciRemove)",
+                    "match": "\\b(ciRemoveDuplicateMembers)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciResolve)",
+                    "match": "\\b(ciResolveNet)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciRun)",
+                    "match": "\\b(ciRun(?:Finder(?:sAndGenerators)?|Generator|Precondition))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciSeparate)",
+                    "match": "\\b(ciSeparateInstsNetsPins)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciSet)",
+                    "match": "\\b(ciSet(?:CMCGSKILLCallbacks|DefaultConstraintEditor|StructArgVal))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciUnexpand)",
+                    "match": "\\b(ciUnexpand(?:Iterated)?DeviceInfo)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciUnregister)",
+                    "match": "\\b(ciUnregister(?:ConstraintGenerator|Iterator))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciVariant)",
+                    "match": "\\b(ciVariantInfoForFingersAndFingerWidth)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Circuit Prospector Assistant Customization SKILL Commands (Prefix ciXY)",
+                    "match": "\\b(ciXYSortInsts)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                }
+            ]
+        },
+        "constraint_generator_customization_command": {
+            "patterns": [
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Suffix StructArg)",
+                    "match": "\\b(ci(?:Add|Delete|Replace)StructArg)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciCollect and ciUnexpandPhysical)",
+                    "match": "\\b(ci(?:Collect|UnexpandPhysical)DeviceInfo)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciConvert)",
+                    "match": "\\b(ciConvert(?:Params(?:DPLToParams|ToDPL)|ToConArg))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciCreate)",
+                    "match": "\\b(ciCreate(?:GuardRing|Modgen(?:Dummy|ForStructure)?|RoutingLayerEnumString))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciDelete)",
+                    "match": "\\b(ciDelete(?:ClusterMembersWithinModgens|GuardRing|SymmetriesWithinModgens))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciExpand)",
+                    "match": "\\b(ciExpandAndRepeatName)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciExtract)",
+                    "match": "\\b(ciExtractRowNumber)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciFind)",
+                    "match": "\\b(ciFindDeviceArraysForDev)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciGenerate)",
+                    "match": "\\b(ciGenerate(?:ArrayChannelDesc|BestFitPattern|(?:(?:Cascoded)?CurrentMirror|DiffPair)(?:ChannelDesc|Pattern)|LargeMfactorPattern))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciGet)",
+                    "match": "\\b(ciGet(?:GuardRing(?:MPPName)?|ParamValFromParameters|RoutingLayers?|Rule|Struct(?:Args?|GeneratorExpressions|PDKMult)))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciGUI and ciRegex)",
+                    "match": "\\b(ci(?:GUIArgsToCon|RegexReplaceStruct)Args)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciHighest)",
+                    "match": "\\b(ciHighestLevelNet)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciList)",
+                    "match": "\\b(ciList(?:Struct(?:GeneratorExpression|PDKMult|Type)|TemplateType)s)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciMember)",
+                    "match": "\\b(ciMemberIndexToModgenPatternSymbol)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciModgen)",
+                    "match": "\\b(ciModgenDummyNetName)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciNum)",
+                    "match": "\\b(ciNumDevices)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciPad)",
+                    "match": "\\b(ciPadModgenPattern)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciReinit)",
+                    "match": "\\b(ciReinitStructTemplateDefs)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciRemove)",
+                    "match": "\\b(ciRemoveSymmetricPinAlignments)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciSave)",
+                    "match": "\\b(ciSaveConstraintGenerator)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciSet)",
+                    "match": "\\b(ciSetStruct(?:Args|GeneratorExpressions|PDKMult))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciSort)",
+                    "match": "\\b(ciSortDeviceInfoBy(?:FingerWidth|Mfactor|XY?|YX?))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciUpdate)",
+                    "match": "\\b(ciUpdateModgenParamsAndMembers)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Generator Customization SKILL Commands (Prefix ciUtils)",
+                    "match": "\\b(ciUtils(?:GetArgVal|MakeNumberRange))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                }
+            ]
+        },
+        "table_editor_command": {
+            "patterns": [
+                {
+                    "comment": "Table Editor SKILL Commands",
+                    "match": "\\b(tedSave(?:CSV|XML))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                }
+            ]
+        },
+        "cst_access_function": {
+            "patterns": [
+                {
+                    "comment": "Constraint Functions",
+                    "include": "#constraint_function"
+                },
+                {
+                    "comment": "Constraint Group Functions",
+                    "include": "#constraint_group_function"
+                }
+            ]
+        },
+        "constraint_function": {
+            "patterns": [
+                {
+                    "comment": "Constraint Functions",
+                    "match": "\\b(cst(?:(?:Create|Delete)Constraint|FindCutClassConstraintBy(?:Name|Size)|Get(?:UnreferencedConstraints|(?:[12]D|TwoWidth)TableValue)|IsId))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                }
+            ]
+        },
+        "constraint_group_function": {
+            "patterns": [
+                {
+                    "comment": "Constraint Group Functions (Suffix ConstraintGroup)",
+                    "match": "\\b(cst(?:AddTo|Delete)ConstraintGroup)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Group Functions (Suffix ConstraintGroupIn and ConstraintGroupOut)",
+                    "match": "\\b(cst(?:Create|Find)ConstraintGroup(?:In|On))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Group Functions (Suffix ConstraintGroupName)",
+                    "match": "\\b(cst[GS]etDefaultConstraintGroupName)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Group Functions (Prefix cstFind)",
+                    "match": "\\b(cstFindFirstConstraint)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Constraint Group Functions (Prefix cstGet)",
+                    "match": "\\b(cstGet(?:ConstraintGroups|Foundry(?:CGName|ConstraintGroup)))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                }
+            ]
+        },
+        "design_intent_function": {
+            "patterns": [
+                {
+                    "comment": "Design Intent Functions (Prefix ciAPR and ciDev)",
+                    "match": "\\b(ci(?:APRDI(?:DeviceGroup|Net)|DevGroupBox)Iterator)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Design Intent Functions (Prefix ciCheck)",
+                    "match": "\\b(ciCheckDINetHierConsistency)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Design Intent Functions (Prefix ciDi)",
+                    "match": "\\b(ciDi(?:MinMaxVPropertyCallback|PostTransfer(?:HighCurrent|MinMaxVoltage)|ReplaceOrAddPropertyGroupDef|ReportGenReport))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Design Intent Functions (Prefix ciDI)",
+                    "match": "\\b(ciDI(?:GetRegisteredIgnoredTerminals|Hier(?:ConsistencyCheck|Push(?:Down|Up)(?:DIWithPaths)?)|RegisterIgnoredTerminals))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Design Intent Functions (Prefix ciReset)",
+                    "match": "\\b(ciResetDIImplementation)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Design Intent Functions (Prefix ciSet)",
+                    "match": "\\b(ciSetDIPropertyGroupDefs)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Design Intent Functions (Prefix ciTemplate)",
+                    "match": "\\b(ciTemplate(?:ChangeDIProfile|CreateDI|DIPro(?:fileName|p(?:(?:Group)?Def|Value))|IsKindOfDI|(?:List|Update)DIProps))\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                },
+                {
+                    "comment": "Design Intent Functions (Prefix ciUpdate)",
+                    "match": "\\b(ciUpdateObjPropsFromDI)\\b",
+                    "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
                 }
             ]
         },
