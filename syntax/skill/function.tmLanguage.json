@@ -135,6 +135,10 @@
                     "include": "#builtin_schematic_editor"
                 },
                 {
+                    "comment": "HDL Import and Netlist-to-Schematic Conversion SKILL Reference (importconnref)",
+                    "include": "#builtin_import_text_file_conversion"
+                },
+                {
                     "comment": "Virtuoso Layout Suite SKILL Reference (sklayoutref)",
                     "include": "#builtin_layout_suite"
                 },
@@ -9469,6 +9473,41 @@
                     "comment": "VSDP SKILL Functions (IC6.1.8 Only) (Prefix vsdpi)",
                     "match": "\\b(vsdpi(?:WriteCDF|RunDieExport|[GS]etValueOfDieExportField|SaveXML))\\b",
                     "name": "keyword.control.cadence.skill.schematic strong.cadence.skill.schematic constant.character.set.regexp.cadence.skill.schematic"
+                }
+            ]
+        },
+        "builtin_import_text_file_conversion": {
+            "patterns": [
+                {
+                    "comment": "Verilog In and VHDL In Import Functions",
+                    "include": "#import_verilog_vhdl_function"
+                },
+                {
+                    "comment": "Connectivity-to-Schematic Functions",
+                    "include": "#import_connectivity_schematic_function"
+                }
+            ]
+        },
+        "import_verilog_vhdl_function": {
+            "patterns": [
+                {
+                    "comment": "Verilog In and VHDL In Import Functions (Prefix imp)",
+                    "match": "\\b(impHdlDisplay)\\b",
+                    "name": "keyword.control.cadence.skill.import.hdl strong.cadence.skill.import.hdl"
+                },
+                {
+                    "comment": "Verilog In and VHDL In Import Functions (Prefix vhdl)",
+                    "match": "\\b(vhdl(?:(?:Hi)?Import|PinListToVHDL|RegisterSimulator|ToPinList))\\b",
+                    "name": "keyword.control.cadence.skill.import.hdl strong.cadence.skill.import.hdl"
+                }
+            ]
+        },
+        "import_connectivity_schematic_function": {
+            "patterns": [
+                {
+                    "comment": "Connectivity-to-Schematic Functions",
+                    "match": "\\b(conn2Sch(?:ImpHdlDisplay|StartUp)?)\\b",
+                    "name": "keyword.control.cadence.skill.import.hdl strong.cadence.skill.import.hdl"
                 }
             ]
         },
