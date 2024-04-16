@@ -13668,6 +13668,10 @@
                 {
                     "comment": "Open Simulation System (OSS) Functions",
                     "include": "#digital_oss_function"
+                },
+                {
+                    "comment": "VHDL Toolbox Functions",
+                    "include": "#digital_vhdl_toolbox_function"
                 }
             ]
         },
@@ -13775,6 +13779,70 @@
                 {
                     "comment": "OSS Functions (Prefix iseInit)",
                     "match": "\\b(iseInit(?:Schematic|Sim)Window)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix iseNet, iseOpen, isePrint, and iseRelease)",
+                    "match": "\\b(ise(?:NetExtNameCdsName|OpenWindows|Print(?:Name(?:CB)?|SimulatorCommand)|ReleaseNodeFrom))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix iseSearch, iseSend, iseSet, iseSimulate, and iseStart)",
+                    "match": "\\b(ise(?:SearchForASchWindow|SendOutputToEncapHistory|SetEncapBindKeys|SetNodeTo|Simulate|Start(?:Interactive|Simulator)))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix iseUpdate)",
+                    "match": "\\b(iseUpdate(?:Netlist|Stimulus))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix netlist and runsim)",
+                    "match": "\\b(netlist|runsim)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix sim, simAdd, simCheck, simClean, simDate, simDelete, simDe, simDesign, simDrain, simEdit, simExecute, simFindFile, simFlatten, and simGet)",
+                    "match": "\\b(sim(?:AddProbeCap(?:ByName|ByScreen|ForBusBit)|Check(?:Exist|Header|Variables|ViewConfig)|CleanRun|DateStamp|DeleteRunDirFile|DeReg(?:Post|Pre)NetlistTrigger|DesignVar(?:CdsNameExt|ExtNameCds)Name|Drain|EditFileWithName|Execute|FindFile|FlattenWithArgs|Get(?:LoginName|TermList))?)\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix simIf, simIl, simin, simInit, simInst, simIn, simJob, simLoad, simNet, and simNetlist)",
+                    "match": "\\b(sim(?:IfNoProcedure|IlSleep|in|Init(?:Control|Env(?:WithArgs)?|Raw|RunDir|Simulator)|(?:Inst|Net)(?:CdsNameExt|ExtNameCds)Name|InWithArgs|JobMonitor|Load(?:Netlister|Simulator)Files|NetlistWithArgs))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix simNo, simout, simOut, simPost, simPre, simPrint, and simRead)",
+                    "match": "\\b(sim(?:NoNetlist|out|OutWithArgs|(?:Post|Pre)(?:NameConvert|NetlistTriggerList)|Print(?:Environment|Error(?:Line)?|Message|TermList)|ReadNetCapFile))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix simReg and simRun)",
+                    "match": "\\b(sim(?:Reg(?:Post|Pre)NetlistTrigger|Run(?:Dir(?:(?:In|Out)file|Load)|NetAndSim(?:With(?:Args|Cmd))?)))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "OSS Functions (Prefix simSet, simStrings, simSub, simVert, simView, and simWave)",
+                    "match": "\\b(sim(?:SetDef(?:WithNoWarn)?|StringsToList|SubProbeCapBy(?:Name|Screen)|VertToHoriz|ViewFileWithArgs|WaveOpen))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                }
+            ]
+        },
+        "digital_vhdl_toolbox_function": {
+            "patterns": [
+                {
+                    "comment": "VHDL Toolbox Functions (Prefix vhdl)",
+                    "match": "\\b(vhdl(?:Hi(?:Import|InvokeToolBox)|Import|PinListToVHDL|RegisterSimulator|ToPinList))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "VHDL Toolbox Functions (Prefix vhms)",
+                    "match": "\\b(vhms(?:CompilationFailure|DefaultEdit|GetCellParameters|PinListToVHDLAMS|SaveFile|SymbolToPinListGen|ToPinList|UpdateCellCDFParams))\\b",
+                    "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
+                },
+                {
+                    "comment": "VHDL Toolbox Functions (Prefix vos)",
+                    "match": "\\b(vos(?:HiDisplayNetlist|LaunchIrunSimulation))\\b",
                     "name": "keyword.control.cadence.skill.digital strong.cadence.skill.digital"
                 }
             ]
