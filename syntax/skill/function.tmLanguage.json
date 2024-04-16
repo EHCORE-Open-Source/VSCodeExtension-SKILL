@@ -139,6 +139,10 @@
                     "include": "#builtin_import_text_file_conversion"
                 },
                 {
+                    "comment": "Virtuoso EDIF 200 Reader and Writer SKILL Reference (edifinref)",
+                    "include": "#builtin_virtuoso_edif"
+                },
+                {
                     "comment": "Virtuoso Layout Suite SKILL Reference (sklayoutref)",
                     "include": "#builtin_layout_suite"
                 },
@@ -9507,6 +9511,36 @@
                 {
                     "comment": "Connectivity-to-Schematic Functions",
                     "match": "\\b(conn2Sch(?:ImpHdlDisplay|StartUp)?)\\b",
+                    "name": "keyword.control.cadence.skill.import.hdl strong.cadence.skill.import.hdl"
+                }
+            ]
+        },
+        "builtin_virtuoso_edif": {
+            "patterns": [
+                {
+                    "comment": "Customizing EDIF 200 In Functions",
+                    "include": "#edif_200_in_function"
+                },
+                {
+                    "comment": "Customizing EDIF 200 Out Functions",
+                    "include": "#edif_200_out_function"
+                }
+            ]
+        },
+        "edif_200_in_function": {
+            "patterns": [
+                {
+                    "comment": "Customizing EDIF 200 In Functions",
+                    "match": "\\b(edi(?:FinishStatus|f(?:LayerNumMap|in(?:Display|MakeRenameString))))\\b",
+                    "name": "keyword.control.cadence.skill.import.hdl strong.cadence.skill.import.hdl"
+                }
+            ]
+        },
+        "edif_200_out_function": {
+            "patterns": [
+                {
+                    "comment": "Customizing EDIF 200 Out Functions",
+                    "match": "\\b(edif(?:Display|out(?:Edit(?:Lib|Cell|View|Net|Inst|Port)?Property|Add(?:Net|Inst|Port|Interface|View|Cell|Library)Info|MakeRenameString)))\\b",
                     "name": "keyword.control.cadence.skill.import.hdl strong.cadence.skill.import.hdl"
                 }
             ]
