@@ -115,6 +115,10 @@
                     "include": "#builtin_virtuoso_analog_design_environment"
                 },
                 {
+                    "comment": "Open Command Environment for Analysis (OCEAN) Reference (oceanref)",
+                    "include": "#builtin_open_command_environment"
+                },
+                {
                     "comment": "Analog Expression Language Reference (aelref)",
                     "include": "#builtin_analog_expression"
                 },
@@ -149,6 +153,10 @@
                 {
                     "comment": "Virtuoso Unified Custom Constraints SKILL Reference (constraintsSKILL)",
                     "include": "#builtin_virtuoso_constraint"
+                },
+                {
+                    "comment": "Virtuoso Hierarchy Editor User Guide (cdshiereditor)",
+                    "include": "#builtin_virtuoso_hierarchy_editor"
                 },
                 {
                     "comment": "Virtuoso Parasitic Aware Design SKILL Reference (parasimSKILL)",
@@ -7626,6 +7634,429 @@
                 }
             ]
         },
+        "builtin_open_command_environment": {
+            "patterns": [
+                {
+                    "comment": "Open Command Environment for Analysis (OCEAN) Environment Commands",
+                    "include": "#ocean_environment_command"
+                },
+                {
+                    "comment": "Simulation Commands",
+                    "include": "#ocean_simulation_command"
+                },
+                {
+                    "comment": "Data Access Commands",
+                    "include": "#ocean_data_access_command"
+                },
+                {
+                    "comment": "Plotting and Printing Commands",
+                    "include": "#ocean_plotting_printing_command"
+                },
+                {
+                    "comment": "Open Command Environment for Analysis (OCEAN) Aliases",
+                    "include": "#ocean_alias"
+                },
+                {
+                    "comment": "Predefined and Waveform (Calculator) Functions",
+                    "include": "#ocean_predefined_waveform_function"
+                },
+                {
+                    "comment": "Parametric Analysis Commands",
+                    "include": "#ocean_parametric_analysis_command"
+                },
+                {
+                    "comment": "OCEAN Distributed Processing Commands",
+                    "include": "#ocean_distributed_processing_command"
+                },
+                {
+                    "comment": "File Commands and Functions",
+                    "include": "#ocean_file_command_function"
+                }
+            ]
+        },
+        "ocean_environment_command": {
+            "patterns": [
+                {
+                    "comment": "OCEAN Environment Commands",
+                    "match": "\\b((?:ap|pre)pendPath|path|setup|history|ocnSetSilentMode)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_simulation_command": {
+            "patterns": [
+                {
+                    "comment": "Simulation Commands (Suffix File)",
+                    "match": "\\b((?:definition|e?vcd(?:Info)?|include|model|ocn(?:Dspf|Spef|Pspice)|stimulus|vec)File)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Simulation Commands (Others)",
+                    "match": "\\b(ac|analysis|converge|connectRules|create(?:Final)?Netlist|dc|delete(?:OpPoint)?|design|desVar|discipline|displayNetlist|envOption|forcenode|globalSig(?:Alias|nal)|ic|nodeset|noise|ocn(?:CloseSession|Display|Get(?:AdjustedPath|InstancesModelName)|AmsSetUnlNetlister)|off|option|restore|resultsDir|run|save(?:OpPoint|Option)?|simulator|solver|store|temp|tran|hlcheck)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_data_access_command": {
+            "patterns": [
+                {
+                    "comment": "Data Access Commands",
+                    "match": "\\b(dataTypes|(?:delete|display|save)Subckt|get(?:Data|Result)|[iv]|ocn(?:Help|ResetResults)|openResults|output(?:Param)?s|phaseNoise|pv|result(?:Param|s)|selectResult|sp(?:robeData)?|sweep(?:Name|(?:Var)?Value)s|vswr|z(?:m|ref))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_plotting_printing_command": {
+            "patterns": [
+                {
+                    "comment": "Plotting and Printing Commands (Prefix add)",
+                    "match": "\\b(add(?:Subwindow(?:Title)?|Title|(?:Wave|Window)Label))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix clear)",
+                    "match": "\\b(clear(?:All|Subwindow))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix current)",
+                    "match": "\\b(current(?:Subw|W)indow)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix db)",
+                    "match": "\\b(dbCompressionPlot)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix dcmatch and noise)",
+                    "match": "\\b((?:dcmatch|noise)Summary)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix delete)",
+                    "match": "\\b(delete(?:Subwindow|Waveform))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix display)",
+                    "match": "\\b(displayMode)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix get)",
+                    "match": "\\b(getAsciiWave)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix graphics)",
+                    "match": "\\b(graphics(?:Off|On))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix hard)",
+                    "match": "\\b(hardCopy(?:Options)?)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix ip3)",
+                    "match": "\\b(ip3Plot)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix new)",
+                    "match": "\\b(newWindow)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix ocn)",
+                    "match": "\\b(ocn(?:GenNoiseSummary|Print(?:TMI(?:ReliabilityResults|ResultTypeList))?|SetAttrib|WriteLsspToFile|YvsYplot))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix plot)",
+                    "match": "\\b(plot(?:Style)?)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix print)",
+                    "match": "\\b(printGraph)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix pz)",
+                    "match": "\\b(pz(?:FrequencyAndRealFilter|Plot|Summary))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix remove)",
+                    "match": "\\b(removeLabel)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix report)",
+                    "match": "\\b(report)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix save)",
+                    "match": "\\b(saveGraphImage)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Plotting and Printing Commands (Prefix xLimit and yLimit)",
+                    "match": "\\b([xy]Limit)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_alias": {
+            "patterns": [
+                {
+                    "comment": "OCEAN Aliases",
+                    "match": "\\b([iv](?:[mpr]|im)|vdb)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_predefined_waveform_function": {
+            "patterns": [
+                {
+                    "comment": "Predefined Arithmetic Functions",
+                    "include": "#ocean_predefined_arithmetic_function"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions",
+                    "include": "#ocean_waveform_function"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions",
+                    "include": "#ocean_spectre_rf_calculator_function"
+                },
+                {
+                    "comment": "RF Functions",
+                    "include": "#ocean_rf_function"
+                }
+            ]
+        },
+        "ocean_predefined_arithmetic_function": {
+            "patterns": [
+                {
+                    "comment": "Predefined Arithmetic Functions",
+                    "match": "\\b((?:lin|log)Rg|xor)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_waveform_function": {
+            "patterns": [
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter a)",
+                    "match": "\\b(average|abs_jitter|analog2Digital|awv(?:CreateBus|Place[XY]Marker|RefreshOutputPlotWindows))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter b)",
+                    "match": "\\b(b1f|bandwidth)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter c)",
+                    "match": "\\b(clipX?|closeResults|compare|compression(?:VRI(?:Curves)?)?|complexp?|conjugate|convolve|c(?:Pwr|Refl)Contour|cross)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter d)",
+                    "match": "\\b(db(?:[12]0|m)|delay(?:Measure)?|deriv|dft(?:bb)?|dnl|dutyCycle)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter e)",
+                    "match": "\\b(evmQ(?:AM|psk)|eye(?:Diagram|(?:Height|Width)AtXY|Aperture|Measurement)|edgeTriggeredEyeDiagram)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter f)",
+                    "match": "\\b(flip|fourEval|fallTime|freq(?:_jitter|uency)?)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter g)",
+                    "match": "\\b(g[ap]c?|gain(?:BwProd|Margin)|gmax|gmin|gmsg|gmux|groupDelay|gt)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter h)",
+                    "match": "\\b(harmonic(?:(?:Freq)?List)?|histo(?:gram2D)?)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter i)",
+                    "match": "\\b(iinteg|imag|inl|integ|intersect|ipn(?:VRI(?:Curves)?)?)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter k)",
+                    "match": "\\b(kf)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter l)",
+                    "match": "\\b(ln|lsb|lshift)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter m)",
+                    "match": "\\b(mag)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter n)",
+                    "match": "\\b(nc|normalQQ)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter o)",
+                    "match": "\\b(overshoot)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter P)",
+                    "match": "\\b(PN)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter p)",
+                    "match": "\\b(pavg|peak(?:ToPeak)?|period_jitter|phase(?:Deg(?:Unwrapped(?:WithFreq)?)?|Margin|Rad(?:Unwrapped)?)?|pow|prms|psd(?:bb)?|pstddev|pz(?:bode|filter))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter r)",
+                    "match": "\\b(rapid(?:IPNCurves|IIPN)|real|riseTime|rms(?:Noise|(?:Terminal)?Voltage)?|root|rshift)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter s)",
+                    "match": "\\b(sample|settlingTime|slewRate|smithType|spectr(?:alPower|umMeasurement)|ssb|stddev)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter t)",
+                    "match": "\\b(tangent|thd(?:_fd)?)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter u)",
+                    "match": "\\b(unityGainFreq)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter v)",
+                    "match": "\\b(value)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Waveform (Calculator) Functions (Letter x and y)",
+                    "match": "\\b([xy](?:max|min)|xval)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_spectre_rf_calculator_function": {
+            "patterns": [
+                {
+                    "comment": "Spectre RF Calculator Functions (Suffix Noise)",
+                    "match": "\\b((?:pm|total)Noise)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter i)",
+                    "match": "\\b(ifreq|ih|itime)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter p)",
+                    "match": "\\b(pir|pn|pv[ir])\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter s, y, and z)",
+                    "match": "\\b([syz]pm)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter v)",
+                    "match": "\\b(v(?:freq|h|time)(?:term)?)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_rf_function": {
+            "patterns": [
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter B)",
+                    "match": "\\b(B1f)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter g and n)",
+                    "match": "\\b((?:g[ap]|n)c_(?:freq|gain))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter G)",
+                    "match": "\\b(G(?:max|min|msg|mux)|G[PT])\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter K)",
+                    "match": "\\b(Kf)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter l and s)",
+                    "match": "\\b((?:load|source)Stability|s[12]{2})\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter N)",
+                    "match": "\\b(NF(?:min)?)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                },
+                {
+                    "comment": "Spectre RF Calculator Functions (Letter r)",
+                    "match": "\\b(rn)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_parametric_analysis_command": {
+            "patterns": [
+                {
+                    "comment": "Parametric Analysis Commands",
+                    "match": "\\b(param(?:Analysis|Run))\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_distributed_processing_command": {
+            "patterns": [
+                {
+                    "comment": "OCEAN Distributed Processing Commands",
+                    "match": "\\b((?:delete|kill|resume|suspend)Job|(?:digitalH|h)ost(?:Mode|Name)|monitor|remoteDir|wait)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "ocean_file_command_function": {
+            "patterns": [
+                {
+                    "comment": "File Commands and Functions",
+                    "match": "\\b(pfile)\\b",
+                    "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
         "builtin_analog_expression": {
             "patterns": [
                 {
@@ -12994,6 +13425,36 @@
                     "comment": "Design Intent Functions (Prefix ciUpdate)",
                     "match": "\\b(ciUpdateObjPropsFromDI)\\b",
                     "name": "keyword.control.cadence.skill.constraint strong.cadence.skill.constraint"
+                }
+            ]
+        },
+        "builtin_virtuoso_hierarchy_editor": {
+            "patterns": [
+                {
+                    "comment": "Customizing Hierarchy Editor Menus",
+                    "include": "#customizing_hierarchy_editor"
+                },
+                {
+                    "comment": "Accessing the Pin Checker Using SKILL",
+                    "include": "#hierarchy_editor_assessing_pin_checker"
+                }
+            ]
+        },
+        "customizing_hierarchy_editor": {
+            "patterns": [
+                {
+                    "comment": "Customizing Hierarchy Editor Menus",
+                    "match": "\\b(hedRegUICustomFunc)\\b",
+                    "name": "keyword.control.cadence.skill.hierarchy.editor strong.cadence.skill.hierarchy.editor"
+                }
+            ]
+        },
+        "hierarchy_editor_assessing_pin_checker": {
+            "patterns": [
+                {
+                    "comment": "Accessing the Pin Checker Using SKILL",
+                    "match": "\\b(hnlRunPinChecker)\\b",
+                    "name": "keyword.control.cadence.skill.hierarchy.editor strong.cadence.skill.hierarchy.editor"
                 }
             ]
         },
