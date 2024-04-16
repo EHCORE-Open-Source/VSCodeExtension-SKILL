@@ -151,6 +151,10 @@
                     "include": "#builtin_layout_suite"
                 },
                 {
+                    "comment": "Design Data Translators SKILL Reference (sktransrefOA)",
+                    "include": "#builtin_design_data_translator"
+                },
+                {
                     "comment": "Virtuoso Unified Custom Constraints SKILL Reference (constraintsSKILL)",
                     "include": "#builtin_virtuoso_constraint"
                 },
@@ -12659,6 +12663,199 @@
                     "comment": "Concurrent Layout User Trigger Functions (ICADVM20.1 Only)",
                     "match": "\\b(cle(?:Get|(?:R|Unr)eg)UserTriggers)\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.layout constant.character.set.regexp.cadence.skill.layout"
+                }
+            ]
+        },
+        "builtin_design_data_translator": {
+            "patterns": [
+                {
+                    "comment": "XStream Functions",
+                    "include": "#translator_xstream_function"
+                },
+                {
+                    "comment": "XOasis Functions",
+                    "include": "#translator_xoasis_function"
+                },
+                {
+                    "comment": "SpiceIn Function",
+                    "include": "#translator_spicein_function"
+                },
+                {
+                    "comment": "CDL Out Functions",
+                    "include": "#translator_cdl_out_function"
+                },
+                {
+                    "comment": "LEF/DEF Functions",
+                    "include": "#translator_lef_def_function"
+                }
+            ]
+        },
+        "translator_xstream_function": {
+            "patterns": [
+                {
+                    "comment": "Command-Line SKILL Functions",
+                    "include": "#translator_xstream_command_line_function"
+                },
+                {
+                    "comment": "Graphics User Interface (GUI) SKILL Functions",
+                    "include": "#translator_xstream_gui_function"
+                },
+                {
+                    "comment": "Callback Functions",
+                    "include": "#translator_xstream_callback_function"
+                }
+            ]
+        },
+        "translator_xstream_command_line_function": {
+            "patterns": [
+                {
+                    "comment": "Command-Line SKILL Functions (Prefix pi)",
+                    "match": "\\b(pi(?:(?:CellName|Layer|Text)Map|(?:Post|Pre)Translate))\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                },
+                {
+                    "comment": "Command-Line SKILL Functions (Prefix po)",
+                    "match": "\\b(po(?:(?:(?:Param)?CellName|Layer|Text)Map|(?:Post|Pre)Translate))\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                },
+                {
+                    "comment": "Command-Line SKILL Functions (Prefix text)",
+                    "match": "\\b(textFontMap)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_xstream_gui_function": {
+            "patterns": [
+                {
+                    "comment": "GUI SKILL Functions (Prefix xstInOn and xstOutOn)",
+                    "match": "\\b(xst(?:In|Out)On(?:Cancel|Translate|Completion))\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                },
+                {
+                    "comment": "GUI SKILL Functions (Suffix GetField and SetField)",
+                    "match": "\\b(xst(?:In)?[GS]etField)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                },
+                {
+                    "comment": "GUI SKILL Functions (Suffix DoTranslate)",
+                    "match": "\\b(xst(?:In|Out)DoTranslate)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                },
+                {
+                    "comment": "GUI SKILL Functions (Prefix xstIn)",
+                    "match": "\\b(xstIn(?:GetVMLibs|SaveVMLib))\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_xstream_callback_function": {
+            "patterns": [
+                {
+                    "comment": "Callback Functions",
+                    "match": "\\b(xst(?:In|Out)On(?:Cancel|Completion|Translate)CB)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_xoasis_function": {
+            "patterns": [
+                {
+                    "comment": "User-Defined GUI SKILL Functions",
+                    "include": "#translator_xoasis_user_defined_gui_function"
+                },
+                {
+                    "comment": "GUI SKILL Functions",
+                    "include": "#translator_xoasis_gui_function"
+                },
+                {
+                    "comment": "Callback Functions",
+                    "include": "#translator_xoasis_callback_function"
+                }
+            ]
+        },
+        "translator_xoasis_user_defined_gui_function": {
+            "patterns": [
+                {
+                    "comment": "User-defined GUI SKILL Functions",
+                    "match": "\\b(xoas(?:In|Out)On(?:Cancel|Completion|Translate))\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_xoasis_gui_function": {
+            "patterns": [
+                {
+                    "comment": "GUI SKILL Functions",
+                    "match": "\\b(xoas(?:In|Out)(?:[GS]etField|DoTranslate))\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_xoasis_callback_function": {
+            "patterns": [
+                {
+                    "comment": "Callback Functions",
+                    "match": "\\b(xoas(?:In|Out)On(?:Cancel|Completion|Translate)CB)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_spicein_function": {
+            "patterns": [
+                {
+                    "comment": "SpiceIn Function",
+                    "match": "\\b(spcinGuiDisplay)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_cdl_out_function": {
+            "patterns": [
+                {
+                    "comment": "CDL Out Functions (Suffix Element)",
+                    "match": "\\b(hnlCDLPrint(?:BJT|BSIM3SOI|Cap(?:acitor)?|Diode|General|(?:[IV]C)?[IV]src|Inductor|(?:J|[PN]MOS)fet|(?:Multi[CE])?(?:PNP|NPN)|Res(?:istor)?|SchottkyTran|Tline)Element)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                },
+                {
+                    "comment": "CDL Out Functions (Prefix hnlCDLPrint)",
+                    "match": "\\b(hnlCDLPrint(?:Cds_Thru|InstPropVal))\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                },
+                {
+                    "comment": "CDL Out Functions (Prefix trans)",
+                    "match": "\\b(transCdlOutDisplay)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_lef_def_function": {
+            "patterns": [
+                {
+                    "comment": "LEF/DEF Functions",
+                    "include": "#translator_lef_def_read_write_function"
+                },
+                {
+                    "comment": "Command-Line SKILL Functions",
+                    "include": "#translator_lef_def_callback_function"
+                }
+            ]
+        },
+        "translator_lef_def_read_write_function": {
+            "patterns": [
+                {
+                    "comment": "LEF/DEF Functions",
+                    "match": "\\b(ldtr[DL]ef(?:Read|Write)OA)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
+                }
+            ]
+        },
+        "translator_lef_def_callback_function": {
+            "patterns": [
+                {
+                    "comment": "Command-Line SKILL Functions",
+                    "match": "\\b(def(?:in|out)(?:Pre|Post)Translate)\\b",
+                    "name": "keyword.control.cadence.skill.translator strong.cadence.skill.translator"
                 }
             ]
         },
