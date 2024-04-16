@@ -112,7 +112,7 @@
                 },
                 {
                     "comment": "Virtuoso Analog Design Environment (ADE) SKILL Reference (maeSKILLref)",
-                    "include": "#builtin_virtuoso_ade"
+                    "include": "#builtin_virtuoso_analog_design_environment"
                 },
                 {
                     "comment": "Analog Expression Language Reference (aelref)",
@@ -5305,7 +5305,7 @@
                 }
             ]
         },
-        "builtin_virtuoso_ade": {
+        "builtin_virtuoso_analog_design_environment": {
             "patterns": [
                 {
                     "include": "#virtuoso_ade_maestro_cellview_function"
