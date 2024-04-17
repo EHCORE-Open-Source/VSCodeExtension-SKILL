@@ -119,6 +119,10 @@
                     "include": "#builtin_open_command_environment"
                 },
                 {
+                    "comment": "Open Command Environment for Analysis (OCEAN) XL Reference (ocnxl)",
+                    "include": "#builtin_open_command_environment_xl"
+                },
+                {
                     "comment": "Virtuoso ADE Verifier SKILL Reference (verifierSkillRef)",
                     "include": "#builtin_virtuoso_ade_verifier"
                 },
@@ -8070,6 +8074,227 @@
                     "comment": "File Commands and Functions",
                     "match": "\\b(pfile)\\b",
                     "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "builtin_open_command_environment_xl": {
+            "patterns": [
+                {
+                    "comment": "OCEAN Commands in XL Mode",
+                    "include": "#ocean_xl_command"
+                }
+            ]
+        },
+        "ocean_xl_command": {
+            "patterns": [
+                {
+                    "comment": "Commands to Set Up OCEAN XL Mode",
+                    "include": "#ocean_xl_setup_command"
+                },
+                {
+                    "comment": "Commands for Tests",
+                    "include": "#ocean_xl_test_command"
+                },
+                {
+                    "comment": "Commands for Active Setup",
+                    "include": "#ocean_xl_active_setup_command"
+                },
+                {
+                    "comment": "Commands for Corners",
+                    "include": "#ocean_xl_corner_command"
+                },
+                {
+                    "comment": "Commands for Outputs",
+                    "include": "#ocean_xl_output_command"
+                },
+                {
+                    "comment": "Commands for Specifications",
+                    "include": "#ocean_xl_specification_command"
+                },
+                {
+                    "comment": "Commands for Set Up Run Options",
+                    "include": "#ocean_xl_setup_run_option_command"
+                },
+                {
+                    "comment": "Commands for OCEAN XL Runs",
+                    "include": "#ocean_xl_run_command"
+                },
+                {
+                    "comment": "Commands for History",
+                    "include": "#ocean_xl_history_command"
+                },
+                {
+                    "comment": "Commands for Parametric Sets",
+                    "include": "#ocean_xl_parametric_set_command"
+                },
+                {
+                    "comment": "Commands for Pre-run Scripts",
+                    "include": "#ocean_xl_pre_run_script_command"
+                },
+                {
+                    "comment": "Commands for Reliability Analysis",
+                    "include": "#ocean_xl_reliability_analysis_command"
+                },
+                {
+                    "comment": "Commands for Reliability EAD",
+                    "include": "#ocean_xl_ead_command"
+                }
+            ]
+        },
+        "ocean_xl_setup_command": {
+            "patterns": [
+                {
+                    "comment": "Commands to Set Up OCEAN XL Mode",
+                    "match": "\\b(ocn(?:xlEnd|Set)XLMode)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_test_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Tests",
+                    "match": "\\b(ocnxl(?:(?:Begin|Disable|End|Select)Test|GetTests|MTS(?:Block|Enable)|SetMTSMode))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_active_setup_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Active Setup (Suffix Note)",
+                    "match": "\\b(ocnxl(?:Delete|Put)Note)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                },
+                {
+                    "comment": "Commands for Active Setup (Suffix SweepParam and SweepVar)",
+                    "match": "\\b(ocnxl(?:(?:Dis|En)able)?Sweep(?:Param|Var))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                },
+                {
+                    "comment": "Commands for Active Setup (Suffix Location)",
+                    "match": "\\b(ocnxl(?:(?:Sim)?Results|Setup)Location)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                },
+                {
+                    "comment": "Commands for Active Setup (Suffix Test)",
+                    "match": "\\b(ocnxl(?:Enable|SetDesignVariablePer)Test)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                },
+                {
+                    "comment": "Commands for Active Setup (Suffix Session)",
+                    "match": "\\b(ocnxl(?:Get|MainSim)Session)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                },
+                {
+                    "comment": "Commands for Active Setup (Others)",
+                    "match": "\\b(ocnxl(?:GetJobId|JobSetup|LoadSetupState|MaxJobFail|ProjectDir|SaveSetupAs|SensitivityVars|SetAllVarsDisabled|StimuliData|TargetCellView))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_corner_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Corners",
+                    "match": "\\b(ocnxl(?:Corner|(?:Dis|En)ableCorner(?:ForTest)?|GetCorners|ModelGroup))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_output_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Outputs",
+                    "match": "\\b(ocnxl(?:AddOrUpdateOutput|ExportOutputView|Output(?:AreaGoal|(?:Mat)?Expr|(?:Matlab|Ocean|Spice)Script|OpRegion|Signal|Terminal|Violations)|Put(?:ChecksAsserts(?:Test)?|EnabledChecksAssertsCellViews)))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_specification_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Specifications",
+                    "match": "\\b(ocnxl(?:GetSpecs|(?:Put(?:Greaterthan|Info|Lessthan|Max|Min|Tolerance|Range)|Remove)Spec))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_setup_run_option_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Set Up Run Options",
+                    "match": "\\b(ocnxl(?:(?:ConjugateGradient|FeasibilityAnalysis|(?:Global|Local)Optimization|MonteCarlo|Sampling|Sensitivity|(?:SizeOver|SweepsAnd|WorstCase)Corners|Yield(?:Estimation|Improvement))Options|CornerVars|GetBestPointParams|StartingPoint))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_run_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for OCEAN XL Runs",
+                    "match": "\\b(ocnxl(?:[GS]etRunDistributeOptions|OpenResults|OutputSummary|Run(?:SetupSummary)?|WaitUntilDone))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_history_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for History (Suffix History)",
+                    "match": "\\b(ocnxl(?:(?:Get|Rename)Current|[GS]et(?:Overwrite|Reference)?)History)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                },
+                {
+                    "comment": "Commands for History (Suffix HistoryName)",
+                    "match": "\\b(ocnxl(?:GetOverwrite|SetOverwrite)HistoryName)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                },
+                {
+                    "comment": "Commands for History (Others)",
+                    "match": "\\b(ocnxl(?:GetCurrentHistoryId|HistoryPrefix|WriteDatasheet))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_parametric_set_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Parametric Sets (Suffix ParametricSet)",
+                    "match": "\\b(ocnxl(?:Local)?ParametricSet)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                },
+                {
+                    "comment": "Commands for Parametric Sets (Suffix Disabled)",
+                    "match": "\\b(ocnxlSetAll(?:Parameter(?:PSet)?s|VariablePSets)Disabled)\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_pre_run_script_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Pre-run Scripts",
+                    "match": "\\b(ocnxl(?:GetPointId|LoadCurrentEnvironment|MCIterNum|PreRunScript|(?:Run|Set)Calibration|Set(?:MC(?:dut|ignore)|PreRunScriptEnabled)|UpdatePointVariable))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_reliability_analysis_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for Reliability Analysis",
+                    "match": "\\b(ocnxl(?:(?:Add|Disable)Relx(?:Scenarios)?Setup|SetRelx(?:(?:Analysis|Scenarios)Enabled|EnabledForPreRun)))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
+                }
+            ]
+        },
+        "ocean_xl_ead_command": {
+            "patterns": [
+                {
+                    "comment": "Commands for EAD",
+                    "match": "\\b(ocnxlEAD(?:AddMeasurement|CreateDataSet|Enable(?:LiveProcessing|VoltageConstraints)|SelectAllSignals|Set(?:DutMaster|HierarchyLevel|WaveFormClipping)))\\b",
+                    "name": "keyword.control.cadence.skill.ocean.xl strong.cadence.skill.ocean.xl"
                 }
             ]
         },
