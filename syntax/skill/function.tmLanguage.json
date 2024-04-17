@@ -175,6 +175,10 @@
                     "include": "#builtin_parasim"
                 },
                 {
+                    "comment": "Virtuoso Visualization and Analysis XL SKILL Reference (vivaxlskill)",
+                    "include": "#builtin_visualization_analysis"
+                },
+                {
                     "comment": "Virtuoso Relative Object Design SKILL Reference (rodskillref)",
                     "include": "#builtin_relative_object_design"
                 }
@@ -14246,6 +14250,257 @@
                     "comment": "Parasitic Aware Design Functions (Prefix sum)",
                     "match": "\\b(sumOPParamV2)\\b",
                     "name": "keyword.control.cadence.skill.parasim strong.cadence.skill.parasim"
+                }
+            ]
+        },
+        "builtin_visualization_analysis": {
+            "patterns": [
+                {
+                    "comment": "Waveform Window Functions",
+                    "include": "#visualization_waveform_window_function"
+                },
+                {
+                    "comment": "Results Browser Functions",
+                    "include": "#visualization_result_browser_function"
+                },
+                {
+                    "comment": "Calculator Functions",
+                    "include": "#visualization_calculator_function"
+                },
+                {
+                    "comment": "RF Functions",
+                    "include": "#visualization_rf_function"
+                }
+            ]
+        },
+        "visualization_waveform_window_function": {
+            "patterns": [
+                {
+                    "comment": "Waveform Window Functions (Prefix awvAdd)",
+                    "match": "\\b(awvAddSubwindow)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvAnalog and awvDigital)",
+                    "match": "\\b(awv(?:Analog2Digital|Digital2Analog))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvAppend)",
+                    "match": "\\b(awvAppend(?:Expression|List|Waveform))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvClear)",
+                    "match": "\\b(awvClear(?:(?:Subw|W)indowHistory|PlotWindow))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvClose)",
+                    "match": "\\b(awvClose(?:Calculator|Window(?:MenuCB)?))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvCreate)",
+                    "match": "\\b(awvCreate(?:Bus(?:FromWaveList)?|PlotWindow))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvDelete)",
+                    "match": "\\b(awvDelete(?:AllWaveforms|Marker|Subwindow|Waveform))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvDisable)",
+                    "match": "\\b(awvDisableRedraw)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvDisplay)",
+                    "match": "\\b(awvDisplay(?:Date|Grid|(?:Subwindow)?Title))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvErase, awvRedraw, and awvSmith)",
+                    "match": "\\b(awv(?:(?:Erase|Redraw)Window|SmithAxis)MenuCB)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvEval and awvEye)",
+                    "match": "\\b(awv(?:Eval|EyeCross))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvExit and awvInit)",
+                    "match": "\\b(awv(?:Exit|Init)WindowFunction(?:Add|Del|Get))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvGet)",
+                    "match": "\\b(awvGet(?:AssertName|Current(?:Subw|W)indow|DisplayMode|DrawStatus|HiWindow|InitializationTimeout|LegendPos|(?:OnSubwindow|UnusedEntity|WaveName)List|PlotStyle|ScalarFromWave|SelectedTraceWaveforms|SmithModeType|StripNumber(?:OfSelectedTrace|sList)|Subwindow(?:List|StripCount|Title)|Window(?:List|Title)|[XY](?:Axis(?:Label|(?:Major|Minor)Divisions|(?:Use)?StepValue)|MarkerNames)))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvIs)",
+                    "match": "\\b(awvIsPlotWindow)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvLoad)",
+                    "match": "\\b(awvLoad(?:CustomCalcFunction|EyeMask|MenuCB|SharedCustomFunctionsFile|Window))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvLog)",
+                    "match": "\\b(awvLog[XY]Axis)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvPlace)",
+                    "match": "\\b(awvPlace(?:[ABXY]Marker|Bookmark|(?:Circle|Point)Marker|QContour|(?:Waveform|Window)Label))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvPlot)",
+                    "match": "\\b(awvPlot(?:(?:Simple)?Expression|List|Signals|Waveform(?:Option)?))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvPrint)",
+                    "match": "\\b(awvPrintWaveform)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvRedisplay)",
+                    "match": "\\b(awvRedisplay(?:Subw|W)indow)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvRemove)",
+                    "match": "\\b(awvRemove(?:Date|Label|(?:Subwindow)?Title))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvReset and awvUpdate)",
+                    "match": "\\b(awv(?:Reset|Update)(?:AllWindows|Window))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvResume)",
+                    "match": "\\b(awvResumeViVA)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvRf)",
+                    "match": "\\b(awvRfLoadPull)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvSave)",
+                    "match": "\\b(awvSave(?:MenuCB|ToCSV|Window(?:Image)?))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvSet)",
+                    "match": "\\b(awvSet(?:Current(?:Subw|W)indow|CursorPrompts|Display(?:Mode|Status)|InitializationTimeout|Legend(?:Pos|Width)|Option(?:Default|Value)|Origin|PlotStyle|Smith(?:ModeType|[XY]Limit)|(?:Update|WaveformDisplay)Status|[XY](?:Axis(?:Label|(?:Major|Minor)Divisions|(?:Use)?StepValue)|Limit)|XScale|YRange|WaveNameList))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvSimple)",
+                    "match": "\\b(awvSimplePlotExpression)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvTable)",
+                    "match": "\\b(awvTableSignals)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Waveform Window Functions (Prefix awvZoom)",
+                    "match": "\\b(awvZoom(?:Fit|Graph(?:[XY]|XY)))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                }
+            ]
+        },
+        "visualization_result_browser_function": {
+            "patterns": [
+                {
+                    "comment": "Results Browser Functions (Prefix rdb)",
+                    "match": "\\b(rdb(?:(?:L|Rel|Unl)oadResults|SetCurrentDirectory|ShowDialog|WriteToFormat))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Results Browser Functions (Prefix viva)",
+                    "match": "\\b(viva(?:InitBindkeys|IsVivaExecutable))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Results Browser Functions (Prefix vv)",
+                    "match": "\\b(vvDisplayBrowser)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                }
+            ]
+        },
+        "visualization_calculator_function": {
+            "patterns": [
+                {
+                    "comment": "Calculator Functions (Prefix aa, adt, append, arm, base, bus, expr, fam, first, kurtosis, last, leaf, normal, num, and top)",
+                    "match": "\\b(aaSP|adtI?FFT|appendWaves|armSetCalc|(?:base|top(?:Base)?)Line|busTransition|expr|famEval|(?:first|last)Val|kurtosis|(?:leaf|normalQQP)Value|numConv)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Calculator Functions (Prefix cal)",
+                    "match": "\\b(cal(?:Calc(?:Input|ulatorFormCB)|CreateSpecialFunction(?:sForm)?|[GS]etBuffer|RegisterSpecialFunction|SetCurrentTest|SpecialFunctionInput))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Calculator Functions (Prefix cali)",
+                    "match": "\\b(cali(?:ModeToggle|RestoreDefaultWindowSize))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Calculator Functions (Prefix dBm)",
+                    "match": "\\b(dBm50ohm(?:Any)?)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Calculator Functions (Prefix eye)",
+                    "match": "\\b(eye(?:BER(?:Left|Right)(?:Approx)?|HeightAtXY|Mask(?:ViolationPeriodCount)?|(?:Height|Width)AtXY))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Calculator Functions (Prefix mu and Mu)",
+                    "match": "\\b([mM]u(?:_prime)?)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Calculator Functions (Prefix OT and OS)",
+                    "match": "\\b(O[TS])\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Calculator Functions (Prefix pvifreq and pvrfreq)",
+                    "match": "\\b(pv[ir]freq)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "Calculator Functions (Prefix skewness, swap, triggered, value, vv, and wave)",
+                    "match": "\\b(skewness|swapSweep|triggeredDelay|valueAt|vvDisplayCalculator|waveVsWave)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                }
+            ]
+        },
+        "visualization_rf_function": {
+            "patterns": [
+                {
+                    "comment": "RF Functions (Prefix rapid)",
+                    "match": "\\b(rapidOIPN)\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
+                },
+                {
+                    "comment": "RF Functions (Prefix rf)",
+                    "match": "\\b(rf(?:CimMcpValue|(?:EdgePhase|(?:In|Out)put)Noise|Get(?:EventtimeIndex|MinDampFactor)|Jcc?|Jitter|ThresholdXing|TotalPower|TransferFunction|Wrls(?:CcdfValues|Cim[35]Value|MeasContour)))\\b",
+                    "name": "keyword.control.cadence.skill.visualization strong.cadence.skill.visualization"
                 }
             ]
         },
