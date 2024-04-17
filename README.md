@@ -10,9 +10,12 @@ No context.
 ## Known Issues
 No context.
 ## Release Notes
-First draft release for 0.0.1.
+The lastest release is 0.0.2.
 ### 0.0.1
-First draft version release
+First draft version release.
+### 0.0.2
+Expand Virtuoso built-in functional color marking.
+
 -----------------------------------------------------------------------------------------------------------
 ## Working with Markdown
 ### For more information
