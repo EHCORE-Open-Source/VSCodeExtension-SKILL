@@ -119,6 +119,10 @@
                     "include": "#builtin_open_command_environment"
                 },
                 {
+                    "comment": "Virtuoso ADE Verifier SKILL Reference (verifierSkillRef)",
+                    "include": "#builtin_virtuoso_ade_verifier"
+                },
+                {
                     "comment": "Analog Expression Language Reference (aelref)",
                     "include": "#builtin_analog_expression"
                 },
@@ -8062,6 +8066,337 @@
                     "comment": "File Commands and Functions",
                     "match": "\\b(pfile)\\b",
                     "name": "keyword.control.cadence.skill.ocean strong.cadence.skill.ocean"
+                }
+            ]
+        },
+        "builtin_virtuoso_ade_verifier": {
+            "patterns": [
+                {
+                    "comment": "Requirement Functions",
+                    "include": "#verifier_requirement_function"
+                },
+                {
+                    "comment": "Verifier Session and Setup Functions",
+                    "include": "#verifier_session_setup_function"
+                },
+                {
+                    "comment": "Implementation Functions",
+                    "include": "#verifier_implementation_function"
+                },
+                {
+                    "comment": "Requirement-to-Implementation Mapping Functions",
+                    "include": "#verifier_requirement_implementation_mapping_function"
+                },
+                {
+                    "comment": "Simulation and Results Extraction Functions",
+                    "include": "#verifier_simulation_result_extraction_function"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions",
+                    "include": "#verifier_setup_library_assistant_function"
+                },
+                {
+                    "comment": "Snapshot Functions",
+                    "include": "#verifier_snapshot_function"
+                },
+                {
+                    "comment": "Verifier-vManager Functions",
+                    "include": "#verifier_vmanager_function"
+                },
+                {
+                    "comment": "Debugging Functions",
+                    "include": "#verifier_debugging_function"
+                }
+            ]
+        },
+        "verifier_requirement_function": {
+            "patterns": [
+                {
+                    "comment": "Requirement Functions (Prefix verifAdd)",
+                    "match": "\\b(verifAdd(?:Document|Image|Req))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Requirement Functions (Prefix verifCompare, verifCreate, verifDelete, and verifMerge)",
+                    "match": "\\b(verif(?:(?:Compare|Merge)ImportedFiles|CreateRandomId|DeleteReqSignoff))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Requirement Functions (Prefix verifDocument and verifImage)",
+                    "match": "\\b(verif(?:Document|Image)Exists)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Requirement Functions (Prefix verifExport)",
+                    "match": "\\b(verifExport(?:Json|ReqsToFile))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Requirement Functions (Prefix verifGet)",
+                    "match": "\\b(verifGet(?:(?:Req)?(?:CustomField(?:Names|Value))|Documents|Images|ImportedFiles|ReferencedCellViews|Req(?:Parent|Props?|s|Signoff|Status)|SetupLibrary))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Requirement Functions (Prefix verifImport, verifMove, and verifSign)",
+                    "match": "\\b(verif(?:ImportFile|(?:Move|SignOff)Req))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Requirement Functions (Prefix verifRemove)",
+                    "match": "\\b(verifRemove(?:Document|Image|Req))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Requirement Functions (Prefix verifSet)",
+                    "match": "\\b(verifSet(?:CustomFieldValue|Req(?:CellviewHolder|CustomFieldValue|Id|Prop|Title|Type)|SetupLibrary))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                }
+            ]
+        },
+        "verifier_session_setup_function": {
+            "patterns": [
+                {
+                    "comment": "Verifier Session and Setup Functions (Prefix verifGet)",
+                    "match": "\\b(verifGet(?:AllSessions|Callbacks|CellViewSession|Option(?:s|Val)|SessionCellView|Window))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Verifier Session and Setup Functions (Prefix verifIs)",
+                    "match": "\\b(verifIs(?:BatchRunProcess|Session(?:Modified|ReadOnly)|ValidSession))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Verifier Session and Setup Functions (Suffix Session and SessionAs)",
+                    "match": "\\b(verif(?:CloseSession|SaveSession(?:As)?))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Verifier Session and Setup Functions (Suffix Callback)",
+                    "match": "\\b(verif(?:Register|Remove)Callback)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Verifier Session and Setup Functions (Prefix verifCreate, verifOpen, and verifSet)",
+                    "match": "\\b(verif(?:CreateBatchScript|OpenCellView|SetOptionVal))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                }
+            ]
+        },
+        "verifier_implementation_function": {
+            "patterns": [
+                {
+                    "comment": "Implementation Functions (Prefix verifAdd)",
+                    "match": "\\b(verifAdd(?:CustomOutput|Imp))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Implementation Functions (Prefix verifGet)",
+                    "match": "\\b(verifGet(?:Imp(?:Data|EstRunTime|Priority|s|SetPreRunScript|TestOutputs|Tests)|MappableType|TypicalSetup))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Implementation Functions (Prefix verifMove and verifRemove)",
+                    "match": "\\b(verif(?:M|Rem)oveImp)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Implementation Functions (Prefix verifOverwrite)",
+                    "match": "\\b(verifOverwriteSpec)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Implementation Functions (Prefix verifSet)",
+                    "match": "\\b(verifSetImp(?:Data|EstRunTime|Priority|SetPreRunScript))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Implementation Functions (Prefix verifUpdate)",
+                    "match": "\\b(verifUpdate(?:ImpEstRunTime)?)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                }
+            ]
+        },
+        "verifier_requirement_implementation_mapping_function": {
+            "patterns": [
+                {
+                    "comment": "Requirement-to-Implementation Mapping Functions",
+                    "match": "\\b(verif(?:(?:Ex|Im)port|Get(?:Imp|Req))?Mapping)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                }
+            ]
+        },
+        "verifier_simulation_result_extraction_function": {
+            "patterns": [
+                {
+                    "comment": "Simulation and Results Extraction Functions (Prefix verifAdd)",
+                    "match": "\\b(verifAdd(?:ImpTo)?ImpSet)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Simulation and Results Extraction Functions (Prefix verifCheck)",
+                    "match": "\\b(verifCheck(?:Imp)?)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Simulation and Results Extraction Functions (Prefix verifCopy)",
+                    "match": "\\b(verifCopyAndUpdateResultsFromUserDefinedDirectory)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Simulation and Results Extraction Functions (Prefix verifEvaluate)",
+                    "match": "\\b(verifEvaluateResults)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Simulation and Results Extraction Functions (Prefix verifGet)",
+                    "match": "\\b(verifGet(?:Imp(?:Sets|sInImpSet)|ResultDataFor(?:Imp|Req)))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Simulation and Results Extraction Functions (Prefix verifImp, verifPublish, verifReload, verifRun, and verifStop)",
+                    "match": "\\b(verif(?:ImpIsRun|PublishHTML|ReloadAllRes|Run|Stop))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Simulation and Results Extraction Functions (Prefix verifRemove)",
+                    "match": "\\b(verifRemove(?:(?:ImpFrom)?ImpSet))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Simulation and Results Extraction Functions (Prefix verifSet)",
+                    "match": "\\b(verifSet(?:Imp(?:Run|SetName)))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                }
+            ]
+        },
+        "verifier_setup_library_assistant_function": {
+            "patterns": [
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaAdd)",
+                    "match": "\\b(slaAdd(?:Corner(?:ModelFile|Variable)|Document|SweepVariable|ToParametricSet))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaAre)",
+                    "match": "\\b(slaAreParametricSetsEnabled)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaCreate)",
+                    "match": "\\b(slaCreate(?:(?:Corner|Simulation|Sweep)Setup|VerificationSpace))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaExport)",
+                    "match": "\\b(slaExportSetup)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaGet)",
+                    "match": "\\b(slaGet(?:AllDocuments|Corner(?:Model|Setup(?:Corner)?|Var)s|DocumentAbsolutePath|ParametricSets|SimulationSetup(?:RunOption(?:s|Value)|s)|SweepSetup(?:Var)?s|VerificationSpaces))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaGroup and slaUngroup)",
+                    "match": "\\b(sla(?:GroupAs|Ungroup)ParametricSet)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaImport)",
+                    "match": "\\b(slaImport(?:Corners|Setup|Sweeps))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaOpen and slaSave)",
+                    "match": "\\b(sla(?:OpenOrCreate|SaveAndClose)View)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaRemove)",
+                    "match": "\\b(slaRemove(?:Corner(?:Model|Setup|Variable)?|FromParametricSet|SimulationSetup|Sweep(?:Setup|Variable)|VerificationSpace))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Setup Library Assistant Functions (Prefix slaSet)",
+                    "match": "\\b(slaSet(?:ParametricSetsEnabled|SimulationSetupRunOptionValue))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                }
+            ]
+        },
+        "verifier_snapshot_function": {
+            "patterns": [
+                {
+                    "comment": "Snapshot Functions (Prefix verfiAre)",
+                    "match": "\\b(verifAreSnapshotsEnabled)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Snapshot Functions (Prefix verifCompare, verifRename, and verifRestore)",
+                    "match": "\\b(verif(?:(?:CompareImplementations|Restore)From|Rename)Snapshot)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Snapshot Functions (Prefix verifCreate and verifDelete)",
+                    "match": "\\b(verif(?:Create|Delete)Snapshot(?:Configuration)?)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Snapshot Functions (Prefix verifExport)",
+                    "match": "\\b(verifExportSnapshotsToExcel)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Snapshot Functions (Prefix verifGet)",
+                    "match": "\\b(verifGet(?:ReferenceSnapshot|Snapshot(?:(?:Absolute|Relative)Tolerance|Comment|s(?:Data)?)?))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Snapshot Functions (Prefix verifIs)",
+                    "match": "\\b(verifIsSnapshot(?:Locked|Visible))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Snapshot Functions (Prefix verifSet)",
+                    "match": "\\b(verifSet(?:ReferenceSnapshot|Snapshot(?:(?:Absolute|Relative)Tolerance|Comment|Configuration|Locked|Visible|sEnabled)))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                }
+            ]
+        },
+        "verifier_vmanager_function": {
+            "patterns": [
+                {
+                    "comment": "Verifier-vManager Functions (Prefix verifCreate)",
+                    "match": "\\b(verifCreateV(?:Plan|sifScript))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Verifier-vManager Functions (Suffix VManager)",
+                    "match": "\\b(verif(?:DownloadFrom|(?:PostResults|Upload)To|Remove|Set)VManager)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Verifier-vManager Functions (Suffix verifGet)",
+                    "match": "\\b(verifGetVManager(?:Projects)?)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Verifier-vManager Functions (Suffix verifIs)",
+                    "match": "\\b(verifIsVManager(?:Connected|Enabled))\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                },
+                {
+                    "comment": "Verifier-vManager Functions (Suffix verifV)",
+                    "match": "\\b(verifVPlanExists)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
+                }
+            ]
+        },
+        "verifier_debugging_function": {
+            "patterns": [
+                {
+                    "comment": "Debugging Functions",
+                    "match": "\\b(verif(?:(?:En|Dis)able|Get)Debug)\\b",
+                    "name": "keyword.control.cadence.skill.verifier strong.cadence.skill.verifier"
                 }
             ]
         },
