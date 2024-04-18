@@ -10,11 +10,13 @@ No context.
 ## Known Issues
 No context.
 ## Release Notes
-The lastest release is 0.0.2.
+The lastest release is 0.0.3.
 ### 0.0.1
 First draft version release.
 ### 0.0.2
 Expand Virtuoso built-in functional color marking.
+### 0.0.3
+Support Virtuoso OCEAN XL functional color marking.
 
 -----------------------------------------------------------------------------------------------------------
 ## Working with Markdown
