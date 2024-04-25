@@ -1,66 +1,72 @@
 {
-  "name": "cadence-skill-support-package",
-  "displayName": "Cadence SKILL Extension",
-  "description": "Cadence SKILL language support",
-  "version": "0.0.3",
-  "publisher": "ephoton0210-taiwan",
-  "private": false,
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL.git"
-  },
-  "engines": {
-    "vscode": "^1.85.0"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "activationEvents": [],
-  "main": "./out/extension.js",
-  "contributes": {
-    "languages": [
-      {
-        "id": "cadence-skill",
-        "aliases": [
-          "SKILL"
-        ],
-        "extensions": [
-          ".il",
-          ".cdsinit"
-        ],
-        "configuration": "./syntax/skill/language-configuration.json"
-      }
+    "name": "cadence-skill-support-package",
+    "displayName": "Cadence SKILL Extension",
+    "description": "Cadence SKILL language support",
+    "version": "0.0.4",
+    "publisher": "ephoton0210-taiwan",
+    "private": false,
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL.git"
+    },
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Programming Languages"
     ],
-    "grammars": [
-      {
-        "language": "cadence-skill",
-        "scopeName": "source.cadence.skill.basic",
-        "path": "./syntax/skill/basic.tmLanguage.json"
-      },
-      {
-        "scopeName": "source.cadence.skill.function",
-        "path": "./syntax/skill/function.tmLanguage.json"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@types/jest": "^29.5.12",
-    "@types/node": "^18.19.20",
-    "@types/vscode": "^1.85.0",
-    "@typescript-eslint/eslint-plugin": "^7.0.2",
-    "@typescript-eslint/parser": "^7.0.2",
-    "@vscode/test-cli": "^0.0.6",
-    "@vscode/test-electron": "^2.3.9",
-    "eslint": "^8.56.0",
-    "typescript": "^5.3.3"
-  }
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "languages": [
+        {
+            "id": "cadence-skill",
+            "aliases": [
+                "SKILL"
+            ],
+            "extensions": [
+                ".il",
+                ".cdsinit"
+            ],
+            "configuration": "./syntax/skill/language-configuration.json"
+        }
+        ],
+        "grammars": [
+        {
+            "language": "cadence-skill",
+            "scopeName": "source.cadence.skill.basic",
+            "path": "./syntax/skill/basic.tmLanguage.json"
+        },
+        {
+            "scopeName": "source.cadence.skill.function",
+            "path": "./syntax/skill/function.tmLanguage.json"
+        }
+        ],
+        "jsonValidation": [
+            {
+                "fileMatch": "*.cellview.json",
+                "url": "./schema/cellview.schema.json"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "vscode-test"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.12",
+        "@types/node": "^18.19.20",
+        "@types/vscode": "^1.85.0",
+        "@typescript-eslint/eslint-plugin": "^7.0.2",
+        "@typescript-eslint/parser": "^7.0.2",
+        "@vscode/test-cli": "^0.0.6",
+        "@vscode/test-electron": "^2.3.9",
+        "eslint": "^8.56.0",
+        "typescript": "^5.3.3"
+    }
 }
