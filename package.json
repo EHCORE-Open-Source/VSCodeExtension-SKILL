@@ -42,12 +42,6 @@
             "scopeName": "source.cadence.skill.function",
             "path": "./syntax/skill/function.tmLanguage.json"
         }
-        ],
-        "jsonValidation": [
-            {
-                "fileMatch": "*.cellview.json",
-                "url": "./schema/cellview.schema.json"
-            }
         ]
     },
     "scripts": {
