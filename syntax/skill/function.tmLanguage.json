@@ -185,6 +185,10 @@
                 {
                     "comment": "Virtuoso Relative Object Design SKILL Reference (rodskillref)",
                     "include": "#builtin_relative_object_design"
+                },
+                {
+                    "comment": "Unknown Virtuoso Function",
+                    "include": "#unknown_virtuoso_function"
                 }
             ]
         },
@@ -9376,6 +9380,42 @@
         "virtuoso_ui_window_function": {
             "patterns": [
                 {
+                    "comment": "Window Functions",
+                    "include": "#virtuoso_ui_window_window_function"
+                },
+                {
+                    "comment": "Viewing Functions",
+                    "include": "#virtuoso_ui_window_view_function"
+                },
+                {
+                    "comment": "World View Functions",
+                    "include": "#virtuoso_ui_window_world_view_function"
+                },
+                {
+                    "comment": "Thumbnail View Functions",
+                    "include": "#virtuoso_ui_window_thumbnail_view_function"
+                },
+                {
+                    "comment": "Workspace Functions",
+                    "include": "#virtuoso_ui_window_workspace_function"
+                },
+                {
+                    "comment": "Screen Capture Functions",
+                    "include": "#virtuoso_ui_screen_capture_function"
+                },
+                {
+                    "comment": "Splash Screen Functions",
+                    "include": "#virtuoso_ui_splash_screen_function"
+                },
+                {
+                    "comment": "Magnifier Functions",
+                    "include": "#virtuoso_ui_magnifier_function"
+                }
+            ]
+        },
+        "virtuoso_ui_window_window_function": {
+            "patterns": [
+                {
                     "comment": "Window Functions (Prefix dwindow, swindow, and window)",
                     "match": "\\b([ds]?windowp?)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
@@ -9443,6 +9483,144 @@
                 {
                     "comment": "Window Functions (Suffix FixedMenu)",
                     "match": "\\b(hi(?:Add|Move|Remove)FixedMenu)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_window_view_function": {
+            "patterns": [
+                {
+                    "comment": "Viewing Functions (Prefix hiDynamic)",
+                    "match": "\\b(hi(?:DynamicPan(?:Absolute|Relative|Interactive|Grabbing)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewing Functions (Prefix hiEnable, hiGet, hiIs, hiRedraw, hiRedo, and hiUndo)",
+                    "match": "\\b(hi(?:EnableBlink|Get|IsBlinkEnabled|Redraw|(?:Re|Un)do))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewing Functions (Prefix hiZoom)",
+                    "match": "\\b(hiZoom(?:(?:In|Out)(?:AtMouse)?|(?:Absolute|Relative)Scale|(?:Expand|Windows)At(?:Point|Mouse)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewing Functions (Suffix UndoLimit)",
+                    "match": "\\b(hi[GS]etUndoLimit)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewing Functions (Suffix Pan)",
+                    "match": "\\b(hi(?:Absolute|Delta|Vector)Pan)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewing Functions (Suffix View)",
+                    "match": "\\b(hi(?:List|(?:Next|Prev)Win|Restore|Save)View)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Viewing Functions (Suffix ZoomPanProc)",
+                    "match": "\\b(hi(?:Reg|Unreg)ZoomPanProc)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_window_world_view_function": {
+            "patterns": [
+                {
+                    "comment": "World View Functions (Prefix hiCreate)",
+                    "match": "\\b(hiCreateWorldView)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "World View Functions (Prefix hiWorldView)",
+                    "match": "\\b(hiWorldView(?:Fit|Redraw|Zoom(?:In|Out)))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Workspace Functions (Prefix hiGet and hiWin)",
+                    "match": "\\b(hi(?:GetWinConfigInfo|WinConfigModified))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_window_thumbnail_view_function": {
+            "patterns": [
+                {
+                    "comment": "Thumbnail View Functions (Prefix hiGenerate)",
+                    "match": "\\b(hiGenerateThumbnails)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Thumbnail View Functions (Prefix hiGet)",
+                    "match": "\\b(hiGet(?:Default(?:Thumbnail(?:Resolution)?|WidgetSpacing)|ThumbnailFilename))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_window_workspace_function": {
+            "patterns": [
+                {
+                    "comment": "Workspace Functions (Suffix WinConfig)",
+                    "match": "\\b(hi(?:Apply|Get|Read|Save)WinConfig)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Workspace Functions (Suffix WinObjName)",
+                    "match": "\\b(hi[GS]etWinObjName)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_screen_capture_function": {
+            "patterns": [
+                {
+                    "comment": "Workspace Functions (Prefix hiExport)",
+                    "match": "\\b(hiExportImage(?:Dialog)?)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Workspace Functions (Prefix hiWindow)",
+                    "match": "\\b(hiWindowSaveImage)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_splash_screen_function": {
+            "patterns": [
+                {
+                    "comment": "Splash Screen Functions (Prefix hiAbout)",
+                    "match": "\\b(hiAbout)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Splash Screen Functions (Prefix hiSet)",
+                    "match": "\\b(hiSetSplash(?:(?:Default)?Background|Icon|Family|Product|License))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                }
+            ]
+        },
+        "virtuoso_ui_magnifier_function": {
+            "patterns": [
+                {
+                    "comment": "Magnifier Functions (Prefix hiGet and hiUpdate)",
+                    "match": "\\b(hi(?:GetMagnifierSize|UpdateMagOptions))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Magnifier Functions (Prefix hiIs)",
+                    "match": "\\b(hiIsMagnifier(?:Anchored|Opened))\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Magnifier Functions (Suffer Magnifier)",
+                    "match": "\\b(hi(?:Resize|Scale|Toggle(?:Anchor)?|Zoom(?:In|Out))Magnifier)\\b",
+                    "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
+                },
+                {
+                    "comment": "Magnifier Functions (Suffer Resolution)",
+                    "match": "\\b(hi(?:(?:Toggle|Use|Using)Magnifier)Resolution)\\b",
                     "name": "keyword.control.cadence.skill.ui strong.cadence.skill.ui"
                 }
             ]
@@ -14826,6 +15004,30 @@
                     "comment": "Relative Object Design Coordinate Functions",
                     "match": "\\b(rodCoord(?:Bisect|Create|(?:Define|Get|IsOn)Grid|Fix|ParseString|Partition|Snap|To(?:Float|Int|String)))\\b",
                     "name": "keyword.control.cadence.skill.layout strong.cadence.skill.rod"
+                }
+            ]
+        },
+        "unknown_virtuoso_function": {
+            "patterns": [
+                {
+                    "comment": "Unknown Virtuoso Functions (Prefix apaStartCB)",
+                    "match": "\\b(apaStartCB)\\b",
+                    "name": "keyword.control.cadence.skill.unknown strong.cadence.skill.unknown"
+                },
+                {
+                    "comment": "Unknown Virtuoso Functions (Prefix select)",
+                    "match": "\\b(selectResults)\\b",
+                    "name": "keyword.control.cadence.skill.unknown strong.cadence.skill.unknown"
+                },
+                {
+                    "comment": "Unknown Virtuoso Functions (Prefix sevModel)",
+                    "match": "\\b(sevModelItemChanged)\\b",
+                    "name": "keyword.control.cadence.skill.unknown strong.cadence.skill.unknown"
+                },
+                {
+                    "comment": "Unknown Virtuoso Functions (Prefix sevSet)",
+                    "match": "\\b(sevSet(?:TableItem|(?:Outputs|Variables)FromForm))\\b",
+                    "name": "keyword.control.cadence.skill.unknown strong.cadence.skill.unknown"
                 }
             ]
         }
