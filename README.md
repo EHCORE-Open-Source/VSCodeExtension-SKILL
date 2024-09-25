@@ -17,7 +17,8 @@ First draft version release.
 Expand Virtuoso built-in functional color marking.
 ### 0.0.3
 Support Virtuoso OCEAN XL functional color marking.
-
+<!-- unsupport selectResults, sevModelItemChanged, sevSetTableItem, sevSetVariablesFromForm, apaStartCB -->
+<!-- unsupport SKILL UI - Window Function excludes base functions -->
 -----------------------------------------------------------------------------------------------------------
 ## Working with Markdown
 ### For more information
