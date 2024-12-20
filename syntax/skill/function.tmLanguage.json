@@ -6184,7 +6184,7 @@
                 },
                 {
                     "comment": "Job Policy Functions (Prefix axlGet)",
-                    "match": "\\b(axlGet(?:AttachedJobPolicy|Policy(?:Types)?))\\b",
+                    "match": "\\b(axlGet(?:AttachedJobPolicy|JobPolicy(?:Types)?))\\b",
                     "name": "keyword.control.cadence.skill.ade strong.cadence.skill.ade"
                 },
                 {
