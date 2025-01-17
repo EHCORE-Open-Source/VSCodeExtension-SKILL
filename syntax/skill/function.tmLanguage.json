@@ -4366,7 +4366,7 @@
                 },
                 {
                     "comment": "Design Management Functions (Prefix ddDelete)",
-                    "match": "\\b(ddCheck(?:Obj|Local))\\b",
+                    "match": "\\b(ddDelete(?:Obj|Local))\\b",
                     "name": "keyword.control.cadence.skill.virtuoso.database strong.cadence.skill.virtuoso.database"
                 },
                 {
