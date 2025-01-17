@@ -10,7 +10,9 @@ No context.
 ## Known Issues
 No context.
 ## Release Notes
-The lastest release is 0.0.4.
+The lastest release is 0.0.5.
+### 0.0.5
+Fix the axlGetJobPolicy and ddDelete syntax highlighting.
 ### 0.0.4
 Add missing window function syntax highlighting.
 Add unknown functions including selectResults, sevModelItemChanged, sevSetTableItem, sevSetVariablesFromForm, sevSetOutputsFromForm, and apaStartCB.
