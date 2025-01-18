@@ -10,7 +10,9 @@ No context.
 ## Known Issues
 No context.
 ## Release Notes
-The lastest release is 0.0.5.
+The lastest release is 0.0.6.
+### 0.0.6
+Supports simple procedure outline feature.
 ### 0.0.5
 Fix the axlGetJobPolicy and ddDelete syntax highlighting.
 ### 0.0.4
