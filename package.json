@@ -20,28 +20,28 @@
     "main": "./out/extension.js",
     "contributes": {
         "languages": [
-        {
-            "id": "cadence-skill",
-            "aliases": [
-                "SKILL"
-            ],
-            "extensions": [
-                ".il",
-                ".cdsinit"
-            ],
-            "configuration": "./syntax/skill/language-configuration.json"
-        }
+            {
+                "id": "cadence-skill",
+                "aliases": [
+                    "SKILL"
+                ],
+                "extensions": [
+                    ".il",
+                    ".cdsinit"
+                ],
+                "configuration": "./syntax/skill/language-configuration.json"
+            }
         ],
         "grammars": [
-        {
-            "language": "cadence-skill",
-            "scopeName": "source.cadence.skill.basic",
-            "path": "./syntax/skill/basic.tmLanguage.json"
-        },
-        {
-            "scopeName": "source.cadence.skill.function",
-            "path": "./syntax/skill/function.tmLanguage.json"
-        }
+            {
+                "language": "cadence-skill",
+                "scopeName": "source.cadence.skill.basic",
+                "path": "./syntax/skill/basic.tmLanguage.json"
+            },
+            {
+                "scopeName": "source.cadence.skill.function",
+                "path": "./syntax/skill/function.tmLanguage.json"
+            }
         ]
     },
     "scripts": {
@@ -54,7 +54,7 @@
     },
     "devDependencies": {
         "@types/jest": "^29.5.12",
-        "@types/node": "^18.19.20",
+        "@types/node": "^18.19.74",
         "@types/vscode": "^1.85.0",
         "@typescript-eslint/eslint-plugin": "^7.0.2",
         "@typescript-eslint/parser": "^7.0.2",
