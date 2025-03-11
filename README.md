@@ -10,7 +10,9 @@ No context.
 ## Known Issues
 No context.
 ## Release Notes
-The lastest release is 0.0.6.
+The lastest release is 0.0.7.
+### 0.0.7
+Update techfile variant keyword.
 ### 0.0.6
 Supports simple procedure outline feature.
 ### 0.0.5
