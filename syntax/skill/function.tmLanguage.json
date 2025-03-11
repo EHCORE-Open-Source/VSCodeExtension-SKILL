@@ -5051,7 +5051,7 @@
                 },
                 {
                     "comment": "Physical Constraints Functions (Prefix techGet)",
-                    "match": "\\b(techGet(?:OrderedSpacingRules|SpacingRule(?:s|Table(?:Entry|s)?)|ViaStackLimits?))\\b",
+                    "match": "\\b(techGet(?:(?:Ordered)?SpacingRules?|SpacingRulesTable(?:Entry|s)?|ViaStackLimits?))\\b",
                     "name": "keyword.control.cadence.skill.technology strong.cadence.skill.technology"
                 },
                 {
