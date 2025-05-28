@@ -122,8 +122,28 @@ export function activate(context: vscode.ExtensionContext) {
                 // Only show on invocation (must be followed by a left parenthesis)
                 const after = document.getText(new vscode.Range(wordRange.end, wordRange.end.translate(0, 1)));
                 if (after !== '(') { return; }
-                const args = proc.args.length > 0 ? proc.args.join(', ') : '(no arguments)';
-                return new vscode.Hover(`**procedure ${word}**\n\nArguments: \`${args}\``);
+                const { requiredArgs, optionalArgs, keyArgs, restArgs } = splitArgs(proc.args);
+
+                let hoverText = `**procedure \`${word}\`**\n\n`;
+                if (requiredArgs.length > 0) {
+                    hoverText += `+ Arguments: ${formatArgList(requiredArgs)}\n\n`;
+                }
+                if (optionalArgs.length > 0) {
+                    hoverText += `+ Optional Arguments: ${formatArgList(optionalArgs)}`;
+                    if( keyArgs.length > 0) {
+                        hoverText += '\n\n';
+                        hoverText += `> Key Arguments is ignored when optional arguments are provided.`;
+                    }
+                    if( restArgs.length > 0) {
+                        hoverText += '\n\n';
+                    }
+                } else if (keyArgs.length > 0) {
+                    hoverText += `+ Key Arguments: ${formatArgList(keyArgs)}`;
+                }
+                if (restArgs.length > 0) {
+                    hoverText += `+ Arbitrary Arguments: ${formatArgList(restArgs)}`;
+                }
+                return new vscode.Hover(hoverText);
             }
         }
     };
@@ -143,4 +163,56 @@ export function activate(context: vscode.ExtensionContext) {
             }
         })
     );
+}
+
+function splitArgs(args: string[]) {
+    const requiredArgs: string[] = [];
+    const optionalArgs: string[] = [];
+    const keyArgs: string[] = [];
+    const restArgs: string[] = [];
+    let optionalMode = false;
+    let keyMode = false;
+    let arbitraryMode = false;
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] === '@optional') {
+            optionalMode = true;
+            keyMode = false; // Optional arguments are not key arguments
+            continue;
+        } else if (args[i] === '@key') {
+            keyMode = true;
+            optionalMode = false; // Key arguments are not optional
+            continue;
+        } else if (args[i] === '@rest') {
+            arbitraryMode = true;
+            
+            // Arbitrary arguments are not optional or key arguments
+            optionalMode = false;
+            keyMode = false;
+            continue;
+        }
+        if (arbitraryMode) {
+            // If in arbitrary mode, treat everything as optional
+            restArgs.push(args[i]);
+            continue;
+        } else if (optionalMode) {
+            // Parse the syntax format: (word1 word2)
+            const match = args[i].match(/^\(\s*(\S+)\s+(.+)\s*\)$/);
+            if (match) {
+                optionalArgs.push(`${match[1]} = ${match[2]}`);
+            }
+        } else if (keyMode) {
+            // Parse the syntax format: (word1 word2)
+            const match = args[i].match(/^\(\s*(\S+)\s+(.+)\s*\)$/);
+            if (match) {
+                keyArgs.push(`${match[1]} = ${match[2]}`);
+            }
+        } else {
+            requiredArgs.push(args[i]);
+        }
+    }
+    return { requiredArgs, optionalArgs, keyArgs, restArgs };
+}
+
+function formatArgList(args: string[]): string {
+    return args.map(arg => `\`${arg.trim()}\``).join(', ');
 }
