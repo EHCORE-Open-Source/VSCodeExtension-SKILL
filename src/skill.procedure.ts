@@ -85,8 +85,25 @@ export function activate(context: vscode.ExtensionContext) {
         }
     };
 
+    const hoverProvider: vscode.HoverProvider = {
+        provideHover(document, position, token) {
+            const wordRange = document.getWordRangeAtPosition(position);
+            if (!wordRange) { return; }
+            const word = document.getText(wordRange);
+            const proc = procedureIndex[word];
+            if (proc) {
+                // Only show on invocation (must be followed by a left parenthesis)
+                const after = document.getText(new vscode.Range(wordRange.end, wordRange.end.translate(0, 1)));
+                if (after !== '(') { return; }
+                const args = proc.args.length > 0 ? proc.args.join(', ') : '(no arguments)';
+                return new vscode.Hover(`**procedure ${word}**\n\nArguments: \`${args}\``);
+            }
+        }
+    };
+
     context.subscriptions.push(
-        vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'cadence-skill' }, provider)
+        vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'cadence-skill' }, provider),
+        vscode.languages.registerHoverProvider({ scheme: 'file', language: 'cadence-skill' }, hoverProvider)
     );
 
     context.subscriptions.push(
