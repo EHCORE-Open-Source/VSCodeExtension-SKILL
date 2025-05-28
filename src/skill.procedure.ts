@@ -148,9 +148,54 @@ export function activate(context: vscode.ExtensionContext) {
         }
     };
 
+    const signatureHelpProvider: vscode.SignatureHelpProvider = {
+        provideSignatureHelp(document, position, token, context) {
+            const line = document.lineAt(position.line).text;
+            // Find the procedureName( before the current cursor position
+            const regex = /(\w+)\s*\(/g;
+            let match: RegExpExecArray | null;
+            let procName: string | undefined;
+            let lastParenIdx = -1;
+            while ((match = regex.exec(line)) !== null) {
+                if (position.character > match.index) {
+                    procName = match[1];
+                    lastParenIdx = match.index + match[0].length;
+                }
+            }
+            if (!procName || !procedureIndex[procName]) { return; }
+
+            // Calculate which argument index the cursor is currently at
+            const textBefore = line.slice(lastParenIdx, position.character).replace(/\s+/g, ' ').trimStart();
+            // Split by comma or whitespace (adjust according to actual syntax)
+            const commaCount = textBefore.split(' ').length - 1;
+            const argIndex = commaCount;
+
+            const { requiredArgs, optionalArgs } = splitArgs(procedureIndex[procName].args);
+            const allArgs = [...requiredArgs, ...optionalArgs];
+
+            const signature = new vscode.SignatureInformation(
+                `${procName}(${allArgs.join(' ')})`,
+                `Arguments for procedure \`${procName}\``
+            );
+            signature.parameters = allArgs.map(arg => new vscode.ParameterInformation(arg));
+
+            const sigHelp = new vscode.SignatureHelp();
+            sigHelp.signatures = [signature];
+            sigHelp.activeSignature = 0;
+            sigHelp.activeParameter = Math.min(argIndex, allArgs.length - 1);
+
+            return sigHelp;
+        }
+    };
+
     context.subscriptions.push(
         vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'cadence-skill' }, provider),
-        vscode.languages.registerHoverProvider({ scheme: 'file', language: 'cadence-skill' }, hoverProvider)
+        vscode.languages.registerHoverProvider({ scheme: 'file', language: 'cadence-skill' }, hoverProvider),
+        vscode.languages.registerSignatureHelpProvider(
+            { scheme: 'file', language: 'cadence-skill' },
+            signatureHelpProvider,
+            "(", " " // Trigger characters
+        )
     );
 
     context.subscriptions.push(
