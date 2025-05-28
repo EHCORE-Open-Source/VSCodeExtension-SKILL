@@ -164,11 +164,117 @@ export function activate(context: vscode.ExtensionContext) {
             }
             if (!procName || !procedureIndex[procName]) { return; }
 
-            // Calculate which argument index the cursor is currently at
-            const textBefore = line.slice(lastParenIdx, position.character).replace(/\s+/g, ' ').trimStart();
-            // Split by comma or whitespace (adjust according to actual syntax)
-            const commaCount = textBefore.split(' ').length - 1;
-            const argIndex = commaCount;
+            const textBefore = line.slice(lastParenIdx, position.character);
+
+            // Parse arguments, treating quoted strings as a single argument
+            function parseSkillArgs(argStr: string): string[] {
+                const args: string[] = [];
+                let i = 0;
+                const len = argStr.length;
+                while (i < len) {
+                    // Skip leading spaces
+                    while (i < len && argStr[i] === ' ') { i++; }
+                    if (i >= len) { break; }
+
+                    let c = argStr[i];
+                    let arg = '';
+
+                    // Handle quoted string: "..."
+                    if (c === '"') {
+                        arg += c;
+                        i++;
+                        while (i < len) {
+                            arg += argStr[i];
+                            if (argStr[i] === '"' && arg[arg.length - 2] !== '\\') {
+                                i++;
+                                break;
+                            }
+                            i++;
+                        }
+                        args.push(arg);
+                        continue;
+                    }
+
+                    // Handle single quote or backtick before parenthesis: '(...) or `(...) 
+                    if ((c === "'" || c === '`') && argStr[i + 1] === '(') {
+                        arg += c;
+                        i++;
+                        // Now handle the parenthesis group with nesting
+                        if (argStr[i] === '(') {
+                            let depth = 1;
+                            arg += argStr[i];
+                            i++;
+                            while (i < len && depth > 0) {
+                                if (argStr[i] === '(') { depth++; }
+                                else if (argStr[i] === ')') { depth--; }
+                                arg += argStr[i];
+                                i++;
+                            }
+                        }
+                        args.push(arg);
+                        continue;
+                    }
+
+                    // Handle parenthesis group: (...), including nested
+                    if (c === '(') {
+                        let depth = 1;
+                        arg += c;
+                        i++;
+                        while (i < len && depth > 0) {
+                            arg += argStr[i];
+                            if (argStr[i] === '(') { depth++; }
+                            else if (argStr[i] === ')') { depth--; }
+                            i++;
+                        }
+                        args.push(arg);
+                        continue;
+                    }
+
+                    // Handle normal word
+                    while (i < len && argStr[i] !== ' ') {
+                        arg += argStr[i];
+                        i++;
+                    }
+                    if (arg.length > 0) {
+                        args.push(arg);
+                    }
+                }
+                return args.filter(Boolean);
+            }
+
+            const argList = parseSkillArgs(textBefore.trim());
+
+            // Determine if the last character is a space outside of any structure
+            let argIndex = Math.max(0, argList.length - 1);
+
+            // Check if the cursor is after a complete argument and a space
+            let inQuote = false;
+            let inParen = 0;
+            let inSpecialParen = false;
+            for (let i = 0; i < textBefore.length; i++) {
+                const c = textBefore[i];
+                if (c === '"') {
+                    inQuote = !inQuote;
+                } else if (!inQuote && (c === "'" || c === '`') && textBefore[i + 1] === '(') {
+                    inSpecialParen = true;
+                    i++; // skip to '('
+                    inParen++;
+                } else if (!inQuote && c === '(') {
+                    inParen++;
+                } else if (!inQuote && c === ')') {
+                    if (inParen > 0) { inParen--; }
+                    if (inParen === 0) { inSpecialParen = false; }
+                }
+            }
+            // Only move to next argument if last char is space and not inside any structure
+            if (
+                textBefore.endsWith(' ') &&
+                !inQuote &&
+                inParen === 0 &&
+                !inSpecialParen
+            ) {
+                argIndex = argList.length;
+            }
 
             const { requiredArgs, optionalArgs } = splitArgs(procedureIndex[procName].args);
             const allArgs = [...requiredArgs, ...optionalArgs];
@@ -182,7 +288,13 @@ export function activate(context: vscode.ExtensionContext) {
             const sigHelp = new vscode.SignatureHelp();
             sigHelp.signatures = [signature];
             sigHelp.activeSignature = 0;
-            sigHelp.activeParameter = Math.min(argIndex, allArgs.length - 1);
+
+            // If the argument index is out of range, do not highlight any parameter
+            if (argIndex >= allArgs.length) {
+                sigHelp.activeParameter = -1;
+            } else {
+                sigHelp.activeParameter = argIndex;
+            }
 
             return sigHelp;
         }
