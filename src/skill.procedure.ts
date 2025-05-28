@@ -65,11 +65,13 @@ export function activate(context: vscode.ExtensionContext) {
             const links: vscode.DocumentLink[] = [];
             const text = document.getText();
             Object.keys(procedureIndex).forEach(proc => {
-                let regex = new RegExp(`\\b${proc}\\b`, 'g');
+                // Only match procedureName(, and underline only the name
+                // Ensure it is NOT preceded by 'procedure(' (with optional whitespace)
+                let regex = new RegExp(`\\b(${proc})\\(`, 'g');
                 let match: RegExpExecArray | null;
                 while ((match = regex.exec(text)) !== null) {
                     const start = document.positionAt(match.index);
-                    const end = document.positionAt(match.index + proc.length);
+                    const end = document.positionAt(match.index + match[1].length);
                     const targetUri = vscode.Uri.file(procedureIndex[proc].file).with({ fragment: String(procedureIndex[proc].line + 1) });
                     links.push(new vscode.DocumentLink(new vscode.Range(start, end), targetUri));
                 }
