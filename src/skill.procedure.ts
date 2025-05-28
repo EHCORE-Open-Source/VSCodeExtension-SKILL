@@ -163,6 +163,15 @@ export function activate(context: vscode.ExtensionContext) {
             }
         })
     );
+
+    vscode.workspace.onDidSaveTextDocument(doc => {
+        if (doc.fileName.endsWith('.il')) {
+            const skillFolder = loadSkillConfig();
+            if (skillFolder) {
+                indexProcedures(skillFolder);
+            }
+        }
+    });
 }
 
 function splitArgs(args: string[]) {
