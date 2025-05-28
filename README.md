@@ -14,6 +14,7 @@ The lastest release is 0.0.7.
 ### 0.0.7
 Update techfile variant keyword.
 Add automatic detection and linking of SKILL files.
+Add procedure navigation feature for quickly switching to corresponding procedure locations.
 ### 0.0.6
 Supports simple procedure outline feature.
 ### 0.0.5

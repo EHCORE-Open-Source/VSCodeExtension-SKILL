@@ -70,6 +70,11 @@ export function activate(context: vscode.ExtensionContext) {
                 let regex = new RegExp(`\\b(${proc})\\(`, 'g');
                 let match: RegExpExecArray | null;
                 while ((match = regex.exec(text)) !== null) {
+                    // Check if the match is preceded by 'procedure(', if so, skip
+                    const before = text.substring(Math.max(0, match.index - 24), match.index).toLowerCase();
+                    if (/\bprocedure\(/.test(before)) {
+                        continue;
+                    }
                     const start = document.positionAt(match.index);
                     const end = document.positionAt(match.index + match[1].length);
                     const targetUri = vscode.Uri.file(procedureIndex[proc].file).with({ fragment: String(procedureIndex[proc].line + 1) });
