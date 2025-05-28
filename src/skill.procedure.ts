@@ -40,14 +40,41 @@ function indexProcedures(skillFolder: string) {
         if (fs.statSync(filePath).isFile() && file.endsWith('.il')) {
             const lines = fs.readFileSync(filePath, 'utf8').split('\n');
             lines.forEach((line, idx) => {
-                const match = line.match(/^\s*procedure\(\s*(\w+)\s*\(([^\)]*)\)/i);
-                if (match) {
-                    console.debug(`Found procedure: ${match[1]} in ${filePath} at line ${idx + 1}`);
-                    procedureIndex[match[1]] = {
-                        file: filePath,
-                        line: idx,
-                        args: match[2].split(',').map(s => s.trim()).filter(Boolean)
-                    };
+                // First, extract the procedure name
+                const nameMatch = line.match(/^\s*procedure\(\s*(\w+)/i);
+                if (nameMatch) {
+                    // Start searching for parameters after the procedure name
+                    const paramsStart = line.indexOf(nameMatch[1]) + nameMatch[1].length;
+                    const paramsStr = line.slice(paramsStart);
+                    // Find the first left parenthesis
+                    const firstParen = paramsStr.indexOf('(');
+                    if (firstParen !== -1) {
+                        let depth = 0;
+                        let endIdx = -1;
+                        for (let i = firstParen; i < paramsStr.length; i++) {
+                            if (paramsStr[i] === '(') { depth++; }
+                            if (paramsStr[i] === ')') { depth--; }
+                            if (depth === 0) {
+                                endIdx = i;
+                                break;
+                            }
+                        }
+                        let argsRaw = paramsStr.slice(firstParen, endIdx + 1);
+                        // Remove the outermost parentheses
+                        if (argsRaw.startsWith('(') && argsRaw.endsWith(')')) {
+                            argsRaw = argsRaw.slice(1, -1).trim();
+                        }
+                        // Split arguments by whitespace (adjust as needed)
+                        const args = argsRaw
+                            .match(/\([^\(\)]*\)|[^\s]+/g)
+                            ?.map(s => s.trim())
+                            .filter(Boolean) || [];
+                        procedureIndex[nameMatch[1]] = {
+                            file: filePath,
+                            line: idx,
+                            args
+                        };
+                    }
                 }
             });
         }
