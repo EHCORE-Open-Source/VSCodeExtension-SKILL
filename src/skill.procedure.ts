@@ -230,6 +230,39 @@ export function activate(context: vscode.ExtensionContext) {
                         continue;
                     }
 
+                    // Handle table[...] with chained brackets and nested parentheses/brackets
+                    const tableMatch = argStr.slice(i).match(/^([a-zA-Z_]\w*)\[/);
+                    if (tableMatch) {
+                        arg += tableMatch[1];
+                        i += tableMatch[1].length;
+                        // Consume all chained brackets
+                        while (i < len && argStr[i] === '[') {
+                            let depth = 1;
+                            arg += argStr[i];
+                            i++;
+                            while (i < len && depth > 0) {
+                                if (argStr[i] === '[') { depth++; }
+                                else if (argStr[i] === ']') { depth--; }
+                                // Handle nested parentheses inside brackets
+                                if (argStr[i] === '(') {
+                                    let parenDepth = 1;
+                                    arg += argStr[i++];
+                                    while (i < len && parenDepth > 0) {
+                                        if (argStr[i] === '(') { parenDepth++; }
+                                        else if (argStr[i] === ')') { parenDepth--; }
+                                        arg += argStr[i];
+                                        i++;
+                                    }
+                                    continue;
+                                }
+                                arg += argStr[i];
+                                i++;
+                            }
+                        }
+                        args.push(arg);
+                        continue;
+                    }
+
                     // Handle normal word
                     while (i < len && argStr[i] !== ' ') {
                         arg += argStr[i];
