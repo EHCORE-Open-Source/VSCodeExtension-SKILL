@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import * as skillCompletion from './skill.completion';
 import * as skillOutline from './skill.outline';
 import * as skillLink from './skill.link';
+import * as skillProcedure from './skill.procedure';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -11,6 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
     skillCompletion.activate(context);
     skillOutline.activate(context);
     skillLink.activate(context);
+    skillProcedure.activate(context);
 }
 
 // This method is called when your extension is deactivated
