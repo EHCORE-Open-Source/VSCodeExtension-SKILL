@@ -186,6 +186,40 @@
                             "include": "#parameter"
                         }
                     ]
+                },
+                {
+                    "comment": "double quotes",
+                    "begin": "(?<=\\bpcre(Compile|MatchAssocList)\\()",
+                    "end": "(?=\\))",
+		            "patterns": [
+                        {
+                            "include": "#comment"
+                        },
+                        {
+                            "include": "#dictionary"
+                        },
+                        {
+                            "include": "#pcreSpecification"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#numeric"
+                        },
+                        {
+                            "include": "#flavor"
+                        },
+                        {
+                            "include": "source.cadence.skill.function"
+                        },
+                        {
+                            "include": "#keyword"
+                        },
+                        {
+                            "include": "#parameter"
+                        }
+                    ]
                 }
             ]
         },
@@ -246,6 +280,133 @@
                                     "name": "strong.cadence.skill.output.specification"
                                 }
                             }
+                        }
+                    ]
+                }
+            ]
+        },
+        "pcreSpecification": {
+            "patterns": [
+                {
+                    "comment": "PCRE double quoted string",
+                    "begin": "(\")(\\^)?",
+                    "end": "(\\$)?(\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.cadence.skill.pcre.begin"
+                        },
+                        "2": {
+                            "name": "comment.line.number-sign.cadence.skill.pcre.begin"
+                        }
+                    },
+                    "endCaptures": {
+                        "1": {
+                            "name": "comment.line.number-sign.cadence.skill.pcre.end"
+                        },
+                        "2": {
+                            "name": "string.quoted.double.cadence.skill.pcre.end"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#pcreCharset"
+                        },
+                        {
+                            "comment": "PCRE character set",
+                            "begin": "\\(",
+                            "end": "\\)",
+                            "patterns": [
+                                {
+                                    "include": "#pcreCharset"
+                                },
+                                {
+                                    "name": "keyword.control.cadence.skill.pcre.control",
+                                    "match": "(?<=\\()\\?([:=!]|<[=!]|-?[imsxU])"
+                                },
+                                {
+                                    "comment": "character set escape",
+                                    "name": "entity.name.tag strong.cadence.skill.pcre.escape",
+                                    "match": "[+*.?|]"
+                                },
+                                {
+                                    "include": "#pcreKeyword"
+                                },
+                                {
+                                    "include": "#pcreSpecification"
+                                }
+                            ]
+                        },
+                        {
+                            "comment": "character set escape",
+                            "name": "entity.name.tag strong.cadence.skill.pcre.escape",
+                            "match": "[+*.?]"
+                        },
+                        {
+                            "include": "#pcreKeyword"
+                        }
+                    ]
+                }
+            ]
+        },
+        "pcreCharset": {
+            "patterns": [
+                {
+                    "comment": "PCRE character set",
+                    "begin": "\\[",
+                    "end": "\\]",
+                    "patterns": [
+                        {
+                            "comment": "character set escape",
+                            "name": "entity.name.tag strong.cadence.skill.pcre.escape",
+                            "match": "(?<=\\[)\\^"
+                        },
+                        {
+                            "name": "constant.regexp.cadence.skill.pcre.charset strong.cadence.skill.pcre.charset",
+                            "match": "\\[:(?:alnum|alpha|ascii|blank|cntrl|x?digit|graph|lower|print|punct|space|upper|word):\\]"
+                        },
+                        {
+                            "include": "#pcreKeyword"
+                        },
+                        {
+                            "include": "#pcreSpecification"
+                        }
+                    ]
+                }
+            ]
+        },
+        "pcreKeyword": {
+            "patterns": [
+                {
+                    "comment": "special PCRE characters",
+                    "name": "support.variable.cadence.skill.pcre.specification",
+                    "match": "\\\\\\\\[bBdDfnrsStvwW]"
+                },
+                {
+                    "comment": "special characters with character",
+                    "name": "string.cadence.skill.pcre.specification support.variable.cadence.skill.pcre.specification strong.cadence.skill.pcre.specification",
+                    "match": "\\\\\\\\."
+                },
+                {
+                    "comment": "special characters with character",
+                    "name": "support.variable.cadence.skill.pcre.specification",
+                    "match": "\\\\[\".]"
+                },
+                {
+                    "comment": "special characters with octal notation",
+                    "name": "support.variable.cadence.skill.pcre.specification",
+                    "match": "\\\\[0-9]{3}"
+                },
+                {
+                    "comment": "PCRE character set",
+                    "begin": "{",
+                    "end": "}",
+                    "patterns": [
+                        {
+                            "match": ",",
+                            "name": "punctuation.definition.tag.skill.pcre.comma"
+                        },
+                        {
+                            "include": "#numeric"
                         }
                     ]
                 }

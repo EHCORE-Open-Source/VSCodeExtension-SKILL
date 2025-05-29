@@ -12,12 +12,14 @@ No context.
 ## Release Notes
 The lastest release is 0.0.8 pre-release.
 ### 0.0.8
-+ Update signature help for procedure to support block comments.
+1. Update signature help for procedure to support block comments.
+2. Update input and output specfication syntax highlight.
+3. Add the regulation expression syntax highlight.
 ### 0.0.7
 1. Update techfile variant keyword.
 2. Add automatic detection and linking of SKILL files.
 3. Add procedure navigation feature for 4. quickly switching to corresponding procedure locations.
-5. Add signature help for procedure, but cannot support the block comment
+4. Add signature help for procedure, but cannot support the block comment
 ### 0.0.6
 + Supports simple procedure outline feature.
 ### 0.0.5
