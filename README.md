@@ -10,25 +10,27 @@ No context.
 ## Known Issues
 No context.
 ## Release Notes
-The lastest release is 0.0.7.
+The lastest release is 0.0.8 pre-release.
+### 0.0.8
++ Update signature help for procedure to support block comments.
 ### 0.0.7
-Update techfile variant keyword.
-Add automatic detection and linking of SKILL files.
-Add procedure navigation feature for quickly switching to corresponding procedure locations.
-Add signature help for procedure, but cannot support the block comment
+1. Update techfile variant keyword.
+2. Add automatic detection and linking of SKILL files.
+3. Add procedure navigation feature for 4. quickly switching to corresponding procedure locations.
+5. Add signature help for procedure, but cannot support the block comment
 ### 0.0.6
-Supports simple procedure outline feature.
++ Supports simple procedure outline feature.
 ### 0.0.5
-Fix the axlGetJobPolicy and ddDelete syntax highlighting.
++ Fix the axlGetJobPolicy and ddDelete syntax highlighting.
 ### 0.0.4
-Add missing window function syntax highlighting.
-Add unknown functions including selectResults, sevModelItemChanged, sevSetTableItem, sevSetVariablesFromForm, sevSetOutputsFromForm, and apaStartCB.
+1. Add missing window function syntax highlighting.
+2. Add unknown functions including selectResults, sevModelItemChanged, sevSetTableItem, sevSetVariablesFromForm, sevSetOutputsFromForm, and apaStartCB.
 ### 0.0.3
-Support Virtuoso OCEAN XL functional color marking.
++ Support Virtuoso OCEAN XL functional color marking.
 ### 0.0.2
-Expand Virtuoso built-in functional color marking.
++ Expand Virtuoso built-in functional color marking.
 ### 0.0.1
-First draft version release.
++ First draft version release.
 <!-- unsupport selectResults, sevModelItemChanged, sevSetTableItem, sevSetVariablesFromForm, apaStartCB -->
 -----------------------------------------------------------------------------------------------------------
 ## Working with Markdown
