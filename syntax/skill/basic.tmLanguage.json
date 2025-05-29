@@ -10,6 +10,9 @@
             "include": "#dictionary"
         },
         {
+            "include": "#specialSpecification"
+        },
+        {
             "include": "#strings"
         },
         {
@@ -114,6 +117,140 @@
                 }
             ]
         },
+        "specialSpecification": {
+            "patterns": [
+                {
+                    "comment": "double quotes",
+                    "begin": "(?<=\\b[fs]?scanf\\()",
+                    "end": "(?=\\))",
+		            "patterns": [
+                        {
+                            "include": "#comment"
+                        },
+                        {
+                            "include": "#dictionary"
+                        },
+                        {
+                            "include": "#inputSpecification"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#numeric"
+                        },
+                        {
+                            "include": "#flavor"
+                        },
+                        {
+                            "include": "source.cadence.skill.function"
+                        },
+                        {
+                            "include": "#keyword"
+                        },
+                        {
+                            "include": "#parameter"
+                        }
+                    ]
+                },
+                {
+                    "comment": "double quotes",
+                    "begin": "(?<=\\b[fs]?printf\\()",
+                    "end": "(?=\\))",
+		            "patterns": [
+                        {
+                            "include": "#comment"
+                        },
+                        {
+                            "include": "#dictionary"
+                        },
+                        {
+                            "include": "#outputSpecification"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#numeric"
+                        },
+                        {
+                            "include": "#flavor"
+                        },
+                        {
+                            "include": "source.cadence.skill.function"
+                        },
+                        {
+                            "include": "#keyword"
+                        },
+                        {
+                            "include": "#parameter"
+                        }
+                    ]
+                }
+            ]
+        },
+        "inputSpecification": {
+            "patterns": [
+                {
+                    "begin": "\\\"",
+                    "end": "\\\"",
+                    "name": "string.quoted.double.cadence.skill.input.specification",
+                    "patterns": [
+                        {
+                            "comment": "white space characters",
+                            "name": "constant.character.escape.cadence.skill.basic strong.cadence.skill.escape",
+                            "match": "\\\\[tfrnv]"
+                        },
+                        {
+                            "comment": "special characters",
+                            "name": "constant.character.escape.cadence.skill.special",
+                            "match": "\\\\[\"\\\\]"
+                        },
+                        {
+                            "comment": "common input format specifications",
+                            "name": "support.variable.cadence.skill.input.specification",
+                            "match": "\\%(-?[[:digit:]]*(?:\\.[[:digit:]]+)?)[dfseg]",
+                            "captures": {
+                                "1": {
+                                    "name": "strong.cadence.skill.input.specification"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "outputSpecification": {
+            "patterns": [
+                {
+                    "begin": "\\\"",
+                    "end": "\\\"",
+                    "name": "string.quoted.double.cadence.skill.output.specification",
+                    "patterns": [
+                        {
+                            "comment": "white space characters",
+                            "name": "constant.character.escape.cadence.skill.basic strong.cadence.skill.escape",
+                            "match": "\\\\[tfrnv]"
+                        },
+                        {
+                            "comment": "special characters",
+                            "name": "constant.character.escape.cadence.skill.special",
+                            "match": "\\\\[\"\\\\]"
+                        },
+                        {
+                            "comment": "common output format specifications",
+                            "name": "support.variable.cadence.skill.output.specification",
+                            "match": "\\%(?:(-?[[:digit:]]*(?:\\.[[:digit:]]+)?)[doxfegsnNA]|[LPB])",
+                            "captures": {
+                                "1": {
+                                    "name": "strong.cadence.skill.output.specification"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
         "strings": {
             "patterns": [
                 {
@@ -136,18 +273,8 @@
                             "comment": "octal characters for ASCII",
                             "name": "constant.character.escape.cadence.skill.octal",
                             "match": "\\\\(?:[01][0-7]{2}|[0-7]{1,2}(?=[^0-7]))"
-                        },
-                        {
-                            "comment": "common input format specifications",
-                            "name": "support.variable.cadence.skill.input.specification",
-                            "match": "(?<=\\b[fs]?scanf\\([^)]*)\\%-?[[:digit:]]*(?:\\.[[:digit:]]+)?[dfseg]"
-                        },
-                        {
-                            "comment": "common output format specifications",
-                            "name": "support.variable.cadence.skill.output.specification",
-                            "match": "(?<=\\b[fs]?printf\\([^)]*)\\%(?:-?[[:digit:]]*(?:\\.[[:digit:]]+)?[doxfegsnNA]|[LPB])"
                         }
-                    ]	
+                    ]
                 }
             ]
         },
