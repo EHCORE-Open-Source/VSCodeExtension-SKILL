@@ -220,6 +220,40 @@
                             "include": "#parameter"
                         }
                     ]
+                },
+                {
+                    "comment": "double quotes",
+                    "begin": "(?<=\\brex(Compile|Matchp)\\()",
+                    "end": "(?=\\))",
+		            "patterns": [
+                        {
+                            "include": "#comment"
+                        },
+                        {
+                            "include": "#dictionary"
+                        },
+                        {
+                            "include": "#rexSpecification"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#numeric"
+                        },
+                        {
+                            "include": "#flavor"
+                        },
+                        {
+                            "include": "source.cadence.skill.function"
+                        },
+                        {
+                            "include": "#keyword"
+                        },
+                        {
+                            "include": "#parameter"
+                        }
+                    ]
                 }
             ]
         },
@@ -361,7 +395,7 @@
                             "match": "(?<=\\[)\\^"
                         },
                         {
-                            "name": "constant.regexp.cadence.skill.pcre.charset strong.cadence.skill.pcre.charset",
+                            "name": "string.cadence.skill.pcre.charset constant.regexp.cadence.skill.pcre.charset strong.cadence.skill.pcre.charset",
                             "match": "\\[:(?:alnum|alpha|ascii|blank|cntrl|x?digit|graph|lower|print|punct|space|upper|word):\\]"
                         },
                         {
@@ -409,6 +443,106 @@
                             "include": "#numeric"
                         }
                     ]
+                }
+            ]
+        },
+        "rexSpecification": {
+            "patterns": [
+                {
+                    "comment": "rex double quoted string",
+                    "begin": "(\")(\\^)?",
+                    "end": "(\\$)?(\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.double.cadence.skill.rex.begin"
+                        },
+                        "2": {
+                            "name": "comment.line.number-sign.cadence.skill.rex.begin"
+                        }
+                    },
+                    "endCaptures": {
+                        "1": {
+                            "name": "comment.line.number-sign.cadence.skill.rex.end"
+                        },
+                        "2": {
+                            "name": "string.quoted.double.cadence.skill.rex.end"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#rexCharset"
+                        },
+                        {
+                            "comment": "rex character set",
+                            "begin": "(\\\\\\()",
+                            "end": "(\\\\\\))",
+                            "beginCaptures": {
+                                "1": {
+                                    "name": "markup.underline.cadence.skill.rex.begin"
+                                }
+                            },
+                            "endCaptures": {
+                                "1": {
+                                    "name": "markup.underline.cadence.skill.rex.end"
+                                }
+                            },
+                            "patterns": [
+                                {
+                                    "include": "#rexCharset"
+                                },
+                                {
+                                    "comment": "character set escape",
+                                    "name": "entity.name.tag strong.cadence.skill.rex.escape",
+                                    "match": "[+*.]"
+                                },
+                                {
+                                    "include": "#rexKeyword"
+                                },
+                                {
+                                    "include": "#rexSpecification"
+                                }
+                            ]
+                        },
+                        {
+                            "comment": "character set escape",
+                            "name": "entity.name.tag strong.cadence.skill.rex.escape",
+                            "match": "[+*.]"
+                        },
+                        {
+                            "include": "#rexKeyword"
+                        }
+                    ]
+                }
+            ]
+        },
+        "rexCharset": {
+            "patterns": [
+                {
+                    "comment": "rex character set",
+                    "begin": "\\[",
+                    "end": "\\]",
+                    "patterns": [
+                        {
+                            "include": "#rexKeyword"
+                        },
+                        {
+                            "include": "#rexSpecification"
+                        }
+                    ]
+                }
+            ]
+        },
+        "rexKeyword": {
+            "patterns": [
+                {
+                    "comment": "special characters with octal notation",
+                    "name": "support.variable.cadence.skill.rex.specification",
+                    "match": "\\\\[0-9]+"
+                },
+                {
+                    "name": "string.cadence.skill.rex.keyword constant.regexp.cadence.skill.rex.keyword strong.cadence.skill.rex.keyword",
+                    "begin": "\\\\<",
+                    "end": "\\\\>"
                 }
             ]
         },
