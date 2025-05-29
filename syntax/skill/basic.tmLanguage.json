@@ -247,7 +247,7 @@
                         {
                             "comment": "special characters",
                             "name": "constant.character.escape.cadence.skill.special",
-                            "match": "\\\\[\"\\\\]"
+                            "match": "\\\\(\\\\|\")"
                         },
                         {
                             "comment": "common input format specifications",
@@ -278,7 +278,7 @@
                         {
                             "comment": "special characters",
                             "name": "constant.character.escape.cadence.skill.special",
-                            "match": "\\\\[\"\\\\]"
+                            "match": "\\\\(\\\\|\")"
                         },
                         {
                             "comment": "common output format specifications",
@@ -385,6 +385,11 @@
         },
         "pcreKeyword": {
             "patterns": [
+                {
+                    "comment": "special characters with character",
+                    "name": "constant.character.escape.cadence.skill.pcre.special",
+                    "match": "\\\\\\\\\\\\\\\\"
+                },
                 {
                     "comment": "special PCRE characters",
                     "name": "support.variable.cadence.skill.pcre.specification",
@@ -537,7 +542,7 @@
                         {
                             "comment": "special characters",
                             "name": "constant.character.escape.cadence.skill.special",
-                            "match": "\\\\[\"\\\\]"
+                            "match": "\\\\(\\\\|\")"
                         },
                         {
                             "comment": "octal characters for ASCII",
