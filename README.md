@@ -17,6 +17,7 @@ The lastest release is 0.0.8 pre-release.
 3. Add the regulation expression syntax highlight.
 4. Remove the table object key item syntax highlight.
 5. Support HEX color index highlight.
+6. Enhance object and variable readable highlight.
 ### 0.0.7
 1. Update techfile variant keyword.
 2. Add automatic detection and linking of SKILL files.

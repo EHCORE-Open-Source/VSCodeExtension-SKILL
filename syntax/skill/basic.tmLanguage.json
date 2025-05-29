@@ -10,9 +10,6 @@
             "include": "#specialSpecification"
         },
         {
-            "include": "#colorIndex"
-        },
-        {
             "include": "#strings"
         },
         {
@@ -121,9 +118,6 @@
                             "include": "#inputSpecification"
                         },
                         {
-                            "include": "#colorIndex"
-                        },
-                        {
                             "include": "#strings"
                         },
                         {
@@ -153,9 +147,6 @@
                         },
                         {
                             "include": "#outputSpecification"
-                        },
-                        {
-                            "include": "#colorIndex"
                         },
                         {
                             "include": "#strings"
@@ -189,9 +180,6 @@
                             "include": "#pcreSpecification"
                         },
                         {
-                            "include": "#colorIndex"
-                        },
-                        {
                             "include": "#strings"
                         },
                         {
@@ -221,9 +209,6 @@
                         },
                         {
                             "include": "#rexSpecification"
-                        },
-                        {
-                            "include": "#colorIndex"
                         },
                         {
                             "include": "#strings"
@@ -541,17 +526,38 @@
                 }
             ]
         },
-        "colorIndex": {
+        "strings": {
             "patterns": [
+                {
+                    "match": "\\b([[:word:]]+)\\s*(?==[^=])",
+                    "captures": {
+                        "1": {
+                            "name": "support.variable.cadence.skill.table.variable"
+                        }
+                    }
+                },
+                {
+                    "match": "\\b([[:word:]]+)(?=\\[)",
+                    "captures": {
+                        "1": {
+                            "name": "support.variable.cadence.skill.table.variable"
+                        }
+                    }
+                },
+                {
+                    "name": "punctuation.definition.tag.cadence.skill.object.operator",
+                    "match": "\\b([[:word:]]+)[~-]>(?=[[:word:]])",
+                    "captures": {
+                        "1": {
+                            "name": "support.variable.cadence.skill.object"
+                        }
+                    }
+                },
                 {
                     "comment": "color index",
                     "name": "constant.numeric.cadence.skill.color.index strong.cadence.skill.color.index",
                     "match": "#[0-9a-fA-F]{6}\\b"
-                }
-            ]
-        },
-        "strings": {
-            "patterns": [
+                },
                 {
                     "comment": "double quotes",
                     "name": "string.quoted.double.cadence.skill.basic",
