@@ -10,6 +10,9 @@
             "include": "#specialSpecification"
         },
         {
+            "include": "#colorIndex"
+        },
+        {
             "include": "#strings"
         },
         {
@@ -118,6 +121,9 @@
                             "include": "#inputSpecification"
                         },
                         {
+                            "include": "#colorIndex"
+                        },
+                        {
                             "include": "#strings"
                         },
                         {
@@ -147,6 +153,9 @@
                         },
                         {
                             "include": "#outputSpecification"
+                        },
+                        {
+                            "include": "#colorIndex"
                         },
                         {
                             "include": "#strings"
@@ -180,6 +189,9 @@
                             "include": "#pcreSpecification"
                         },
                         {
+                            "include": "#colorIndex"
+                        },
+                        {
                             "include": "#strings"
                         },
                         {
@@ -209,6 +221,9 @@
                         },
                         {
                             "include": "#rexSpecification"
+                        },
+                        {
+                            "include": "#colorIndex"
                         },
                         {
                             "include": "#strings"
@@ -523,6 +538,15 @@
                     "name": "string.cadence.skill.rex.keyword constant.regexp.cadence.skill.rex.keyword strong.cadence.skill.rex.keyword",
                     "begin": "\\\\<",
                     "end": "\\\\>"
+                }
+            ]
+        },
+        "colorIndex": {
+            "patterns": [
+                {
+                    "comment": "color index",
+                    "name": "constant.numeric.cadence.skill.color.index strong.cadence.skill.color.index",
+                    "match": "#[0-9a-fA-F]{6}\\b"
                 }
             ]
         },
