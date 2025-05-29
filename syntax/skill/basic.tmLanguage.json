@@ -7,9 +7,6 @@
             "include": "#comment"
         },
         {
-            "include": "#dictionary"
-        },
-        {
             "include": "#specialSpecification"
         },
         {
@@ -107,16 +104,6 @@
                 }
             ]
         },
-        "dictionary": {
-            "patterns": [
-                {
-                    "comment": "dictionary key string",
-                    "begin": "(?<=[[:word:]]+\\[\\s*)\\\"",
-                    "end": "\\\"(?=\\s*\\])",
-                    "name": "support.type.property-name.cadence.skill.basic"
-                }
-            ]
-        },
         "specialSpecification": {
             "patterns": [
                 {
@@ -126,9 +113,6 @@
 		            "patterns": [
                         {
                             "include": "#comment"
-                        },
-                        {
-                            "include": "#dictionary"
                         },
                         {
                             "include": "#inputSpecification"
@@ -162,9 +146,6 @@
                             "include": "#comment"
                         },
                         {
-                            "include": "#dictionary"
-                        },
-                        {
                             "include": "#outputSpecification"
                         },
                         {
@@ -196,9 +177,6 @@
                             "include": "#comment"
                         },
                         {
-                            "include": "#dictionary"
-                        },
-                        {
                             "include": "#pcreSpecification"
                         },
                         {
@@ -228,9 +206,6 @@
 		            "patterns": [
                         {
                             "include": "#comment"
-                        },
-                        {
-                            "include": "#dictionary"
                         },
                         {
                             "include": "#rexSpecification"
