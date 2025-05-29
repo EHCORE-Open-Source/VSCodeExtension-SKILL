@@ -150,31 +150,95 @@ export function activate(context: vscode.ExtensionContext) {
 
     const signatureHelpProvider: vscode.SignatureHelpProvider = {
         provideSignatureHelp(document, position, token, context) {
-            const line = document.lineAt(position.line).text;
-            // Find the procedureName( before the current cursor position
-            const regex = /(\w+)\s*\(/g;
-            let match: RegExpExecArray | null;
+            // Search upwards for the procedureName(
+            let startLine = position.line;
+            let startChar = -1;
             let procName: string | undefined;
-            let lastParenIdx = -1;
-            while ((match = regex.exec(line)) !== null) {
-                if (position.character > match.index) {
-                    procName = match[1];
-                    lastParenIdx = match.index + match[0].length;
+            let openParenPos: vscode.Position | undefined;
+
+            for (let lineNum = position.line; lineNum >= 0; lineNum--) {
+                const lineText = document.lineAt(lineNum).text;
+                const regex = /(\w+)\s*\(/g;
+                let match: RegExpExecArray | null;
+                while ((match = regex.exec(lineText)) !== null) {
+                    if (
+                        (lineNum < position.line) ||
+                        (lineNum === position.line && match.index < position.character)
+                    ) {
+                        procName = match[1];
+                        startLine = lineNum;
+                        startChar = match.index + match[1].length + (match[0].length - match[1].length) - 1;
+                        openParenPos = new vscode.Position(startLine, startChar);
+                    }
+                }
+                if (procName) break;
+            }
+            if (!procName || !procedureIndex[procName] || !openParenPos) { return; }
+
+            // Get the text from the opening parenthesis to the cursor position (may be multi-line)
+            const range = new vscode.Range(
+                openParenPos.translate(0, 1), // after '('
+                position
+            );
+            const textBefore = document.getText(range);
+
+            // Count parenthesis depth from the procedureName(
+            // Parentheses inside comments (;) and inside quoted strings (") are ignored for depth calculation.
+            let depth = 1;
+            let inString = false;
+            let inComment = false;
+            for (let i = 0; i < textBefore.length; i++) {
+                const c = textBefore[i];
+
+                // Toggle string mode
+                if (!inComment && c === '"') {
+                    inString = !inString;
+                    continue;
+                }
+
+                // Enter comment mode if not in string
+                if (!inString && c === ';') {
+                    inComment = true;
+                    continue;
+                }
+
+                // Exit comment mode at end of line
+                if (inComment && c === '\n') {
+                    inComment = false;
+                    continue;
+                }
+
+                // Only count parentheses if not in string or comment
+                if (!inString && !inComment) {
+                    if (c === '(') { depth++; }
+                    else if (c === ')') { depth--; }
+                    if (depth === 0) {
+                        // If depth is 0, the procedure call is complete, do not show signature help
+                        return;
+                    }
                 }
             }
-            if (!procName || !procedureIndex[procName]) { return; }
 
-            const textBefore = line.slice(lastParenIdx, position.character);
-
-            // Parse arguments, treating quoted strings as a single argument
+            // Parse arguments, treating quoted strings as a single argument and skipping content after ';' (comment)
             function parseSkillArgs(argStr: string): string[] {
                 const args: string[] = [];
                 let i = 0;
                 const len = argStr.length;
+                let inComment = false;
                 while (i < len) {
                     // Skip leading spaces
                     while (i < len && argStr[i] === ' ') { i++; }
                     if (i >= len) { break; }
+
+                    // If we hit a comment character, skip the rest of the line
+                    if (argStr[i] === ';') {
+                        // Skip until end of line or end of string
+                        while (i < len && argStr[i] !== '\n') { i++; }
+                        inComment = true;
+                        i++; // Skip the newline
+                        continue;
+                    }
+                    inComment = false;
 
                     let c = argStr[i];
                     let arg = '';
@@ -184,6 +248,8 @@ export function activate(context: vscode.ExtensionContext) {
                         arg += c;
                         i++;
                         while (i < len) {
+                            // Stop parsing if we hit a comment inside a string
+                            if (argStr[i] === ';') { break; }
                             arg += argStr[i];
                             if (argStr[i] === '"' && arg[arg.length - 2] !== '\\') {
                                 i++;
@@ -205,6 +271,8 @@ export function activate(context: vscode.ExtensionContext) {
                             arg += argStr[i];
                             i++;
                             while (i < len && depth > 0) {
+                                // Stop parsing if we hit a comment inside a group
+                                if (argStr[i] === ';') { break; }
                                 if (argStr[i] === '(') { depth++; }
                                 else if (argStr[i] === ')') { depth--; }
                                 arg += argStr[i];
@@ -221,6 +289,8 @@ export function activate(context: vscode.ExtensionContext) {
                         arg += c;
                         i++;
                         while (i < len && depth > 0) {
+                            // Stop parsing if we hit a comment inside a group
+                            if (argStr[i] === ';') { break; }
                             arg += argStr[i];
                             if (argStr[i] === '(') { depth++; }
                             else if (argStr[i] === ')') { depth--; }
@@ -241,6 +311,8 @@ export function activate(context: vscode.ExtensionContext) {
                             arg += argStr[i];
                             i++;
                             while (i < len && depth > 0) {
+                                // Stop parsing if we hit a comment inside a bracket
+                                if (argStr[i] === ';') { break; }
                                 if (argStr[i] === '[') { depth++; }
                                 else if (argStr[i] === ']') { depth--; }
                                 // Handle nested parentheses inside brackets
@@ -248,6 +320,7 @@ export function activate(context: vscode.ExtensionContext) {
                                     let parenDepth = 1;
                                     arg += argStr[i++];
                                     while (i < len && parenDepth > 0) {
+                                        if (argStr[i] === ';') { break; }
                                         if (argStr[i] === '(') { parenDepth++; }
                                         else if (argStr[i] === ')') { parenDepth--; }
                                         arg += argStr[i];
@@ -264,12 +337,18 @@ export function activate(context: vscode.ExtensionContext) {
                     }
 
                     // Handle normal word
-                    while (i < len && argStr[i] !== ' ') {
+                    while (i < len && argStr[i] !== ' ' && argStr[i] !== ';') {
                         arg += argStr[i];
                         i++;
                     }
                     if (arg.length > 0) {
                         args.push(arg);
+                    }
+
+                    // If we hit a comment after a word, skip the rest of the line
+                    if (i < len && argStr[i] === ';') {
+                        while (i < len && argStr[i] !== '\n') { i++; }
+                        i++; // Skip the newline
                     }
                 }
                 return args.filter(Boolean);
