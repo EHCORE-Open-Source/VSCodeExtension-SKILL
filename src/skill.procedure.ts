@@ -2,7 +2,62 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
-let procedureIndex: { [name: string]: { file: string, line: number, args: string[] } } = {};
+// Extend procedureIndex to include documentation
+let procedureIndex: {
+    [name: string]: {
+        file: string,
+        line: number,
+        args: string[],
+        doc: {
+            summary: string,
+            argDocs: { [arg: string]: string }
+        }
+    }
+} = {};
+
+// Parse documentation block for a procedure
+function parseProcedureDoc(lines: string[], procLine: number, args: string[]): { summary: string, argDocs: { [arg: string]: string } } {
+    // Default summary and argument docs
+    const defaultSummary = 'No documentation available.';
+    const defaultArgDoc = 'No documentation for this argument.';
+    let summary = defaultSummary;
+    const argDocs: { [arg: string]: string } = {};
+    // Check if previous line ends with */
+    if (procLine > 0 && lines[procLine - 1].trim().endsWith('*/')) {
+        // Find the start of the block comment
+        let startLine = procLine - 1;
+        while (startLine >= 0 && !lines[startLine].includes('/*')) {
+            startLine--;
+        }
+        if (startLine >= 0) {
+            // Extract block comment content
+            const docLines = lines.slice(startLine, procLine).join('\n');
+            // Extract <@summary>...</@summary>
+            const summaryMatch = docLines.match(/<@summary>([\s\S]*?)<\/@summary>/i);
+            if (summaryMatch) {
+                summary = summaryMatch[1].trim();
+            }
+            // Extract <argumentName>...</argumentName> for each argument
+            for (const arg of args) {
+                // Remove any default value or formatting in arg name
+                const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
+                const argMatch = docLines.match(new RegExp(`<${argName}>([\\s\\S]*?)<\\/${argName}>`, 'i'));
+                if (argMatch) {
+                    argDocs[argName] = argMatch[1].trim();
+                } else {
+                    argDocs[argName] = defaultArgDoc;
+                }
+            }
+        }
+    } else {
+        // No valid doc block, use defaults
+        for (const arg of args) {
+            const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
+            argDocs[argName] = defaultArgDoc;
+        }
+    }
+    return { summary, argDocs };
+}
 
 function loadSkillConfig(): string | undefined {
     const workspaceFolders = vscode.workspace.workspaceFolders;
@@ -69,10 +124,13 @@ function indexProcedures(skillFolder: string) {
                             .match(/\([^\(\)]*\)|[^\s]+/g)
                             ?.map(s => s.trim())
                             .filter(Boolean) || [];
+                        // Parse documentation for this procedure
+                        const doc = parseProcedureDoc(lines, idx, args);
                         procedureIndex[nameMatch[1]] = {
                             file: filePath,
                             line: idx,
-                            args
+                            args,
+                            doc
                         };
                     }
                 }
@@ -124,24 +182,47 @@ export function activate(context: vscode.ExtensionContext) {
                 if (after !== '(') { return; }
                 const { requiredArgs, optionalArgs, keyArgs, restArgs } = splitArgs(proc.args);
 
+                // Build hover text with documentation
                 let hoverText = `**procedure \`${word}\`**\n\n`;
+                hoverText += `${proc.doc.summary}\n\n`;
+                hoverText += `---\n`;
+
+                // Helper to get argument doc
+                const getArgDoc = (arg: string) => {
+                    const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
+                    return proc.doc.argDocs[argName] || 'No documentation for this argument.';
+                };
+
                 if (requiredArgs.length > 0) {
-                    hoverText += `+ Arguments: ${formatArgList(requiredArgs)}\n\n`;
+                    hoverText += `+ Arguments: ${formatArgList(requiredArgs)}\n`;
+                    for (const arg of requiredArgs) {
+                        hoverText += `  - \`${arg}\`: ${getArgDoc(arg)}\n`;
+                    }
+                    hoverText += `\n`;
                 }
                 if (optionalArgs.length > 0) {
-                    hoverText += `+ Optional Arguments: ${formatArgList(optionalArgs)}`;
-                    if( keyArgs.length > 0) {
-                        hoverText += '\n\n';
-                        hoverText += `> Key Arguments is ignored when optional arguments are provided.`;
+                    hoverText += `+ Optional Arguments: ${formatArgList(optionalArgs)}\n`;
+                    for (const arg of optionalArgs) {
+                        hoverText += `  - \`${arg}\`: ${getArgDoc(arg)}\n`;
                     }
-                    if( restArgs.length > 0) {
-                        hoverText += '\n\n';
+                    if (keyArgs.length > 0) {
+                        hoverText += '\n';
+                        hoverText += `> Key Arguments is ignored when optional arguments are provided.\n`;
+                    }
+                    if (restArgs.length > 0) {
+                        hoverText += '\n';
                     }
                 } else if (keyArgs.length > 0) {
-                    hoverText += `+ Key Arguments: ${formatArgList(keyArgs)}`;
+                    hoverText += `+ Key Arguments: ${formatArgList(keyArgs)}\n`;
+                    for (const arg of keyArgs) {
+                        hoverText += `  - \`${arg}\`: ${getArgDoc(arg)}\n`;
+                    }
                 }
                 if (restArgs.length > 0) {
-                    hoverText += `+ Arbitrary Arguments: ${formatArgList(restArgs)}`;
+                    hoverText += `+ Arbitrary Arguments: ${formatArgList(restArgs)}\n`;
+                    for (const arg of restArgs) {
+                        hoverText += `  - \`${arg}\`: ${getArgDoc(arg)}\n`;
+                    }
                 }
                 return new vscode.Hover(hoverText);
             }
@@ -499,7 +580,7 @@ export function activate(context: vscode.ExtensionContext) {
             // Use getArgIndex to get the correct argument index
             let argIndex = getArgIndex(textBefore, cursorOffset);
 
-            // Check if the cursor is after a complete argument and a space
+            // Only move to next argument if last char is space and not inside any structure
             let inQuote = false;
             let inParen = 0;
             let inSpecialParen = false;
@@ -531,11 +612,28 @@ export function activate(context: vscode.ExtensionContext) {
             const { requiredArgs, optionalArgs } = splitArgs(procedureIndex[procName].args);
             const allArgs = [...requiredArgs, ...optionalArgs];
 
+            // Helper to get argument doc
+            const getArgDoc = (arg: string) => {
+                const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
+                return procedureIndex[procName].doc.argDocs[argName] || 'No documentation for this argument.';
+            };
+
+            // Build signature help documentation
+            let sigDoc = '';
+            // Only show the argument doc for the current argument index (do not repeat)
+            if (argIndex >= 0 && argIndex < allArgs.length) {
+                sigDoc += getArgDoc(allArgs[argIndex]) + '\n';
+            } else {
+                sigDoc += 'No documentation for this argument.\n';
+            }
+            sigDoc += `---\n${procedureIndex[procName].doc.summary}`;
+
             const signature = new vscode.SignatureInformation(
                 `${procName}(${allArgs.join(' ')})`,
-                `Arguments for procedure \`${procName}\``
+                sigDoc
             );
-            signature.parameters = allArgs.map(arg => new vscode.ParameterInformation(arg));
+            // Only set parameter documentation, not the main doc
+            signature.parameters = allArgs.map(arg => new vscode.ParameterInformation(arg, getArgDoc(arg)));
 
             const sigHelp = new vscode.SignatureHelp();
             sigHelp.signatures = [signature];
