@@ -1,6 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
 import {default as skillCompletionConfig} from './config/completion.skill.json';
 
 var languageCompletionSet: Set<string> = new Set<string>();
@@ -29,6 +31,30 @@ function getFunctionDescription(description: string[][]) {
     return topicSet;
 }
 
+function loadSkillConfig(): boolean {
+    const defaultAutoComplete = false;
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+    if (!workspaceFolders) { return defaultAutoComplete; }
+    const configPath = path.join(workspaceFolders[0].uri.fsPath, '.vscode', 'skill.json');
+    console.debug(`Loaded skill configuration from ${configPath}`);
+
+    // Check if the configuration file exists
+    if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        let autoComplete = config.skill.autoComplete;
+        if( autoComplete === undefined || autoComplete === null) {
+            autoComplete = defaultAutoComplete; // Default to false if not specified
+        }
+
+        // Check if the auto-complete configuration is enabled
+        console.debug(`Auto-complete enabled: ${autoComplete}`);
+        return autoComplete;
+    }
+
+    // If the configuration file does not exist, return false
+    return defaultAutoComplete;
+}
+
 function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
     // If the auto-complete function has been added, it will not be repeated.
     if (!languageCompletionSet.has(document.languageId)) {
@@ -50,7 +76,12 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
         languageCompletionDatabase[document.languageId] = completionList;
     }
 
-    // return languageCompletionDatabase[document.languageId];
+    // Return the completion items for the current language
+    if( loadSkillConfig() ) {
+        return languageCompletionDatabase[document.languageId];
+    }
+
+    // If auto-complete is not enabled, return null
     return null;
 }
 
