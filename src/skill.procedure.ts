@@ -68,7 +68,7 @@ function loadSkillConfig(): string | undefined {
     // Check if the configuration file exists
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-        let folderPath = config.skillFolderPath;
+        let folderPath = config.skill.searchFolderPath;
 
         // If folderPath is a relative path, convert it to an absolute path.
         // Check if the absolute path starts with '/' or is a Windows absolute path. If not, assume it is relative to the workspace root directory.
