@@ -182,7 +182,7 @@ export function activate(context: vscode.ExtensionContext) {
                 if (after !== '(') { return; }
                 const { requiredArgs, optionalArgs, keyArgs, restArgs } = splitArgs(proc.args);
 
-                // Build hover text with documentation
+                // Build hover text with documentation (markdown supported)
                 let hoverText = `**procedure \`${word}\`**\n\n`;
                 hoverText += `${proc.doc.summary}\n\n`;
                 hoverText += `---\n`;
@@ -224,7 +224,8 @@ export function activate(context: vscode.ExtensionContext) {
                         hoverText += `  - \`${arg}\`: ${getArgDoc(arg)}\n`;
                     }
                 }
-                return new vscode.Hover(hoverText);
+                // Use MarkdownString to support markdown in hover
+                return new vscode.Hover(new vscode.MarkdownString(hoverText, true));
             }
         }
     };
@@ -615,22 +616,15 @@ export function activate(context: vscode.ExtensionContext) {
             // Helper to get argument doc
             const getArgDoc = (arg: string) => {
                 const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
-                return procedureIndex[procName].doc.argDocs[argName] || 'No documentation for this argument.';
+                return new vscode.MarkdownString(procedureIndex[procName].doc.argDocs[argName] || 'No documentation for this argument.');
             };
 
-            // Build signature help documentation
-            let sigDoc = '';
-            // Only show the argument doc for the current argument index (do not repeat)
-            if (argIndex >= 0 && argIndex < allArgs.length) {
-                sigDoc += getArgDoc(allArgs[argIndex]) + '\n';
-            } else {
-                sigDoc += 'No documentation for this argument.\n';
-            }
-            sigDoc += `---\n${procedureIndex[procName].doc.summary}`;
+            // Build signature help documentation (markdown supported)
+            let sigDoc = `---\n\n${procedureIndex[procName].doc.summary}`; // Only procedure summary
 
             const signature = new vscode.SignatureInformation(
                 `${procName}(${allArgs.join(' ')})`,
-                sigDoc
+                new vscode.MarkdownString(sigDoc, true) // Use MarkdownString for better formatting
             );
             // Only set parameter documentation, not the main doc
             signature.parameters = allArgs.map(arg => new vscode.ParameterInformation(arg, getArgDoc(arg)));
@@ -638,13 +632,7 @@ export function activate(context: vscode.ExtensionContext) {
             const sigHelp = new vscode.SignatureHelp();
             sigHelp.signatures = [signature];
             sigHelp.activeSignature = 0;
-
-            // If the argument index is out of range, do not highlight any parameter
-            if (argIndex >= allArgs.length) {
-                sigHelp.activeParameter = -1;
-            } else {
-                sigHelp.activeParameter = argIndex;
-            }
+            sigHelp.activeParameter = (argIndex >= allArgs.length) ? -1 : argIndex;
 
             return sigHelp;
         }
