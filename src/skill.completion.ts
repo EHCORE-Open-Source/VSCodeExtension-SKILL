@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import {default as skillCompletionConfig} from './config/completion.skill.json';
+import {default as skillCompletionConfig} from './config/skill.completion.json';
 
 var languageCompletionSet: Set<string> = new Set<string>();
 var languageCompletionDatabase: { [key: string]: vscode.CompletionItem[]; } = {};
