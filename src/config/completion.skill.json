@@ -1,4 +1,154 @@
 {
+    "$schema": "../schema/completion.schema.json",
+    "author": "Chao-Jen Huang (ephoton)",
+    "version": 1.0,
+    "release": "2025/06/01",
+    "datatype": {
+        "a": {
+            "internal": "array",
+            "type": "array"
+        },
+        "A": {
+            "internal": "amsobject",
+            "type": "AMS object"
+        },
+        "b": {
+            "internal": "ddUserType",
+            "type": "DDPI object"
+        },
+        "B": {
+            "internal": "ddCatUserType",
+            "type": "DDPI category object"
+        },
+        "C": {
+            "internal": "opfcontext",
+            "type": "OPF context"
+        },
+        "d": {
+            "internal": "dbobject",
+            "type": "Cadence database object (CDBA)"
+        },
+        "e": {
+            "internal": "envobj",
+            "type": "environment"
+        },
+        "f": {
+            "internal": "opffile",
+            "type": "fOPF file ID"
+        },
+        "g": {
+            "internal": "general",
+            "type": "any data type"
+        },
+        "G": {
+            "internal": "gdmSpecIlUserType",
+            "type": "generic design management (GDM) spec object"
+        },
+        "h": {
+            "internal": "hdbobject",
+            "type": "hierarchical database configuration object"
+        },
+        "I": {
+            "internal": "dbgenobject",
+            "type": "CDB generator object"
+        },
+        "K": {
+            "internal": "mapiobject",
+            "type": "MAPI object"
+        },
+        "l": {
+            "internal": "list",
+            "type": "linked list"
+        },
+        "L": {
+            "internal": "tc",
+            "type": "Technology file time stamp"
+        },
+        "m": {
+            "internal": "nmpIlUserType",
+            "type": "nmpIl user type"
+        },
+        "M": {
+            "internal": "cdsEvalObject",
+            "type": "cdsEvalObject"
+        },
+        "n": {
+            "internal": "number",
+            "type": "integer or floating-point number"
+        },
+        "o": {
+            "internal": "userType",
+            "type": "user-defined type (other)"
+        },
+        "p": {
+            "internal": "port",
+            "type": "I/O port"
+        },
+        "q": {
+            "internal": "gdmspecListIlUserType",
+            "type": "gdm spec list"
+        },
+        "r": {
+            "internal": "defstruct",
+            "type": "defstruct"
+        },
+        "R": {
+            "internal": "rodObj",
+            "type": "relative object design (ROD) object"
+        },
+        "s": {
+            "internal": "symbol",
+            "type": "symbol"
+        },
+        "S": {
+            "internal": "stringSymbol",
+            "type": "symbol or character string"
+        },
+        "t": {
+            "internal": "string",
+            "type": "character string (text)"
+        },
+        "T": {
+            "internal": "txobject",
+            "type": "transient object"
+        },
+        "u": {
+            "internal": "function",
+            "type": "function object, either the name of a function (symbol) or a lambda function body (list)"
+        },
+        "U": {
+            "internal": "funobj",
+            "type": "function object"
+        },
+        "v": {
+            "internal": "hdbpath",
+            "type": "hdbpath"
+        },
+        "w": {
+            "internal": "wtype",
+            "type": "window type"
+        },
+        "sw": {
+            "internal": "swtype",
+            "type": "subtype session window"
+        },
+        "dw": {
+            "internal": "dwtype",
+            "type": "subtype dockable window"
+        },
+        "x": {
+            "internal": "integer",
+            "type": "integer number"
+        },
+        "y": {
+            "internal": "binary",
+            "type": "binary function"
+        },
+        "&": {
+            "internal": "pointer",
+            "type": "pointer type"
+        }
+    },
     "functions": [
         {
             "comment": "Cadence SKILL Language Reference",
