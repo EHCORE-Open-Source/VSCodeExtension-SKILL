@@ -708,6 +708,749 @@
                 ]
               }
             ]
+          },
+          {
+            "name_collection": [
+              "nconc"
+            ],
+            "description": [
+              [
+                "Equivalent to a destructive `append` where the first argument is modified."
+              ],
+              [
+                "This results in `nconc` being much faster than `append` but not as fast as `tconc` and `lconc`.",
+                "Thus `nconc` returns a list consisting of the elements of `l_arg1`, followed by the elements of `l_arg2`, followed by the elements of `l_arg3`, and so on.",
+                "The `cdr` of the last list cell of `l_arg<sub>i</sub>` is modified to point to `l_arg<sub>i+1</sub>`.",
+                "Thus caution must be taken because if `nconc` is called with the same list (`l_arg<sub>i</sub>`) two consecutive times it can form an infinite structure where the `cdr` of the last list cell of `l_arg<sub>i</sub>` points to the `car` of `l_arg<sub>i</sub>`."
+              ],
+              [
+                "Use the `nconc` function principally to reduce the amount of memory consumed.",
+                "A call to `append` would normally duplicate the first argument whereas `nconc` does not duplicate any of its arguments, thereby reducing memory consumption."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_arg1",
+                    "description": "List of elements."
+                  },
+                  {
+                    "argument": "l_arg2",
+                    "description": "List elements concatenated to `l_arg1`."
+                  },
+                  {
+                    "argument": "[ l_arg3 ... ]",
+                    "description": "Additional lists."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "The modified value of `l_arg1`."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "ncons"
+            ],
+            "description": [
+              [
+                "Builds a list containing an element.",
+                "This function is equivalent to `cons(g_element nil)`."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "g_element",
+                    "description": "Element to be added to the beginning of an empty list."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "A list with `g_element` as its only element."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "nth"
+            ],
+            "description": [
+              [
+                "Returns an index-selected element of a list, assuming a zero-based index."
+              ],
+              [
+                "Thus, `nth(0 l_list)` is the same as `car(l_list)`.",
+                "The value `nil` is returned if `x_index0` is negative or is greater than or equal to the length of the list."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "x_index0",
+                    "description": "Index of the list element you want to be returned."
+                  },
+                  {
+                    "argument": "l_list",
+                    "description": "List of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "g_result",
+                    "description": "Indexed element of `l_list`, assuming a zero-based index."
+                  },
+                  {
+                    "result": "nil",
+                    "description": "If `x_index0` is negative or is greater than or equal to the length of the list."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "nthcdr"
+            ],
+            "description": [
+              [
+                "Applies `cdr` to a list a given number of times."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "x_count",
+                    "description": "Number of times to apply `cdr` to `l_list`."
+                  },
+                  {
+                    "argument": "l_list",
+                    "description": "List of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Result of applying `cdr` to `l_list`, `x_count` number of times."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "nthelem"
+            ],
+            "description": [
+              [
+                "Returns the indexed element of the list, assuming a one-based index."
+              ],
+              [
+                "Thus `nthelem(1 l_list)` is the same as `car(l_list)`."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "x_index1",
+                    "description": "Index of the element of `l_list` you want returned."
+                  },
+                  {
+                    "argument": "l_list",
+                    "description": "List of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "g_result",
+                    "description": "The `x_index1`-th element of `l_list`."
+                  },
+                  {
+                    "result": "nil",
+                    "description": "If `x_index1` is less than or equal to 0 or greater than the length of the list."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "pairp"
+            ],
+            "description": [
+              [
+                "Checks if an object is a `cons` object, that is, a non-empty list.",
+                "This function is equivalent to `dtpr`."
+              ],
+              [
+                "The suffix `p` is usually added to the name of a function to indicate that it is a predicate function."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "g_obj",
+                    "description": "Any SKILL object."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "t",
+                    "description": "`g_obj` is a `cons` object."
+                  },
+                  {
+                    "result": "nil",
+                    "description": "`g_obj` is not a `cons` object."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "range"
+            ],
+            "description": [
+              [
+                "Returns a list whose first element is `n_num1` and whose tail is `n_num2`.",
+                "This function is a prefix form of the `:` operator."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "n_num1",
+                    "description": "First element of the list."
+                  },
+                  {
+                    "argument": "n_num2",
+                    "description": "Tail of the list."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Result of the operation."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "remd"
+            ],
+            "description": [
+              [
+                "Removes all top-level elements equal to a SKILL object from a list.",
+                "This is a destructive removal, which means that the original list itself is modified.",
+                "Therefore, any other reference to that list will also see the changes."
+              ],
+              [
+                "`remd` uses `equal` for comparison."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "g_x",
+                    "description": "Any SKILL object to be removed from the list."
+                  },
+                  {
+                    "argument": "l_arg",
+                    "description": "List from which to remove `g_x`."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "`l_arg` modified so that all top-level elements equal to `g_x` are removed."
+                  }
+                ]
+              },
+              {
+                "name_collection": [
+                  "remdq"
+                ],
+                "description": [
+                  [
+                    "Removes all top-level elements that are identical to a SKILL object using `eq` from a list.",
+                    "This is a destructive removal, which means that the original list itself is modified.",
+                    "Therefore, any other reference to that list will also see the changes."
+                  ],
+                  [
+                    "`remdq` uses `eq` instead of `equal` for comparison."
+                  ]
+                ],
+                "argument_combination": [
+                  {
+                    "arguments": [
+                      {
+                        "argument": "g_x",
+                        "description": "Any SKILL object to be removed from the list."
+                      },
+                      {
+                        "argument": "l_arg",
+                        "description": "List from which to remove `g_x`."
+                      }
+                    ],
+                    "return": [
+                      {
+                        "result": "l_result",
+                        "description": "`l_arg` modified so that all top-level elements `eq` to `g_x` are removed."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name_collection": [
+                  "remove"
+                ],
+                "description": [
+                  [
+                    "Returns a copy of a list with all top-level elements `equal` to a SKILL object removed.",
+                    "Can also be used to remove an entry from an association table, in which case the removal is destructive, that is, any other reference to the table will also see the changes.",
+                    "`remove` uses `equal` for comparison.",
+                    "`remove` can also be used with an association table to identify and remove an entry corresponding to the key specified in the function."
+                  ]
+                ],
+                "argument_combination": [
+                  {
+                    "arguments": [
+                      {
+                        "argument": "g_x",
+                        "description": "Any SKILL object to be removed from the list."
+                      },
+                      {
+                        "argument": "l_arg",
+                        "description": "List from which to remove `g_x`."
+                      }
+                    ],
+                    "return": [
+                      {
+                        "result": "l_result",
+                        "description": "Copy of `l_arg` with all top-level elements equal to `g_x` removed."
+                      }
+                    ]
+                  },
+                  {
+                    "arguments": [
+                      {
+                        "argument": "g_key",
+                        "description": "Key or first element of the key/value pair."
+                      },
+                      {
+                        "argument": "o_table",
+                        "description": "Association table containing the key/value pairs to be processed."
+                      }
+                    ],
+                    "return": [
+                      {
+                        "result": "g_value",
+                        "description": "Value associated with the key that is removed."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name_collection": [
+                  "removeListDuplicates"
+                ],
+                "description": [
+                  [
+                    "Removes duplicate entries from a SKILL list and returns a new list with the duplicates removed."
+                  ]
+                ],
+                "argument_combination": [
+                  {
+                    "arguments": [
+                      {
+                        "argument": "l_list",
+                        "description": "A SKILL list."
+                      }
+                    ],
+                    "return": [
+                      {
+                        "result": "l_newList",
+                        "description": "Copy of `l_list` with all duplicates removed."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name_collection": [
+                  "remq"
+                ],
+                "description": [
+                  [
+                    "Returns a copy of a list with all top-level elements that are identical to a SKILL object removed.",
+                    "Uses `eq`."
+                  ]
+                ],
+                "argument_combination": [
+                  {
+                    "arguments": [
+                      {
+                        "argument": "g_x",
+                        "description": "Any SKILL object to be removed from the list."
+                      },
+                      {
+                        "argument": "l_arg",
+                        "description": "List from which to remove `g_x`."
+                      }
+                    ],
+                    "return": [
+                      {
+                        "result": "l_result",
+                        "description": "A copy of `l_arg` with all top-level elements `eq` to `g_x` removed."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name_collection": [
+                  "reverse"
+                ],
+                "description": [
+                  [
+                    "Returns a copy of the given list with the elements in reverse order."
+                  ],
+                  [
+                    "Because this function copies the list, it uses a lot of memory for large lists."
+                  ]
+                ],
+                "argument_combination": [
+                  {
+                    "arguments": [
+                      {
+                        "argument": "l_arg",
+                        "description": "List to reverse."
+                      }
+                    ],
+                    "return": [
+                      {
+                        "result": "l_result",
+                        "description": "A new list with the elements in reverse order."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "rplaca"
+            ],
+            "description": [
+              [
+                "Replaces the first element of a list with an object.",
+                "This function does not create a new list; it alters the input list, in the same way as `setcar`.",
+                "This is a destructive operation, meaning that any other reference to the list will also see the change."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_arg1",
+                    "description": "A list."
+                  },
+                  {
+                    "argument": "g_arg2",
+                    "description": "Any SKILL object."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Modified `l_arg1` with the `car` of `l_arg1` replaced by `g_arg2`."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "rplacd"
+            ],
+            "description": [
+              [
+                "Replaces the tail of a list with the elements of a second list.",
+                "This function does not create a new list; it alters the input list in the same way as `setcdr`.",
+                "This is a destructive operation, meaning that any other reference to the list will also see the changes."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_arg1",
+                    "description": "List that is modified."
+                  },
+                  {
+                    "argument": "l_arg2",
+                    "description": "List that replaces the `cdr` of `l_arg1`."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Modified `l_arg1` with the `cdr` of the list `l_arg1` replaced with `l_arg2`."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "setcar"
+            ],
+            "description": [
+              [
+                "Replaces the first element of a list with an object in the same way as `rplaca`.",
+                "This is a destructive operation, meaning that any other reference to the list will also see the change."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_arg1",
+                    "description": "This is a list."
+                  },
+                  {
+                    "argument": "g_arg2",
+                    "description": "This is a SKILL object."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Modified `l_arg1` with the `car` of `l_arg1` replaced by `g_arg2`."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "setcdr"
+            ],
+            "description": [
+              [
+                "Replaces the tail of a list with the elements of a second list in the same way as `rplacd`.",
+                "This is a destructive operation, meaning that any other reference to the list will also see the change."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_arg1",
+                    "description": "List that is modified."
+                  },
+                  {
+                    "argument": "l_arg2",
+                    "description": "List that replaces the `cdr` of `l_arg1`."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Modified `l_arg1` with the `cdr` of the list `l_arg1` replaced with `l_arg2`."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "tailp"
+            ],
+            "description": [
+              [
+                "Returns `arg1` if a list cell `eq` to `arg1` is found by `cdr` down `arg2` zero or more times.",
+                "It returns `nil` otherwise.",
+                "Because `eq` is being used for comparison `l_arg1` must point to a tail list in `l_arg2` for this predicate to return a non-`nil` value."
+              ],
+              [
+                "The suffix `p` is usually added to the name of a function to indicate that it is a predicate function."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_arg1",
+                    "description": "A list."
+                  },
+                  {
+                    "argument": "l_arg2",
+                    "description": "Another list, which can contain `l_arg1` as its tail."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_arg1",
+                    "description": "If a list cell `eq` to `l_arg1` is found by `cdr` down `l_arg2` zero or more times."
+                  },
+                  {
+                    "result": "nil",
+                    "description": "If a list cell `eq` to `l_arg1` is not found by `cdr` down `l_arg2`."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "tconc"
+            ],
+            "description": [
+              [
+                "Creates a list cell whose `car` points to a list of the elements being constructed and whose `cdr` points to the last list cell of the list being constructed."
+              ],
+              [
+                "A `tconc` structure is a special type of list that allows efficient addition of objects to the end of a list.",
+                "It consists of a list cell whose `car` points to a list of the elements being constructed with `tconc` and whose `cdr` points to the last list cell of the list being constructed.",
+                "If `l_ptr` is `nil`, a new `tconc` structure is automatically created.",
+                "To obtain the list under construction, take the `car` of the `tconc` structure."
+              ],
+              [
+                "`tconc` and `lconc` are much faster than `append` when adding new elements to the end of a list.",
+                "The `append` function is much slower, because it traverses and copies the list to reach the end, whereas `tconc` and `lconc` only manipulate pointers."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_ptr",
+                    "description": "A `tconc` structure. Must be initialized to `nil` to create a new `tconc` structure."
+                  },
+                  {
+                    "argument": "g_x",
+                    "description": "Element to add to the end of the list."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Returns `l_ptr`, which must be a `tconc` structure or `nil`, with `g_x` added to the end."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "xcons"
+            ],
+            "description": [
+              [
+                "Adds an element to the beginning of a list.",
+                "Equivalent to `cons` but the order of the arguments is reversed."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list",
+                    "description": "A list, which can be `nil`."
+                  },
+                  {
+                    "argument": "g_element",
+                    "description": "Element to be added to the beginning of `l_list`."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Returns a list."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "xCoord"
+            ],
+            "description": [
+              [
+                "Returns the first element of a list.",
+                "Does not modify the argument list."
+              ],
+              [
+                "The `xCoord` and `yCoord` functions are aliases for the `car` and `cadr` functions."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list",
+                    "description": "A list of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "g_result",
+                    "description": "The first element in a list."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name_collection": [
+              "yCoord"
+            ],
+            "description": [
+              [
+                "Returns the tail of the list, that is, the list without its first element."
+              ],
+              [
+                "The `xCoord` and `yCoord` functions are aliases for the `car` and `cadr` functions."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list",
+                    "description": "A list of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "g_result",
+                    "description": "Returns the end of a list, or the list minus the first element."
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
