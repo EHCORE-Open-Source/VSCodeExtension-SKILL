@@ -63,13 +63,15 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
         // Add the auto-completion keyword
         let completionList = new Array();
         skillCompletionConfig.functions.forEach(funcReference => {
-            funcReference.definitions.forEach(funcSet => {
-                funcSet.name_collection.forEach(funcName => {
-                    let completionItem = new vscode.CompletionItem(funcName);
-                    completionItem.kind = vscode.CompletionItemKind.Function;
-                    completionItem.detail = funcReference.comment;
-                    completionItem.documentation = getFunctionDescription(funcSet.description);
-                    completionList.push(completionItem);
+            Object.values(funcReference.definitions).forEach(funcArray => {
+                funcArray.forEach(funcSet => {
+                    funcSet.name_collection.forEach(funcName => {
+                        let completionItem = new vscode.CompletionItem(funcName);
+                        completionItem.kind = vscode.CompletionItemKind.Function;
+                        completionItem.detail = funcReference.comment;
+                        completionItem.documentation = getFunctionDescription(funcSet.description);
+                        completionList.push(completionItem);
+                    });
                 });
             });
         });

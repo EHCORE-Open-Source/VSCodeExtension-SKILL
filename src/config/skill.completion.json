@@ -152,226 +152,228 @@
     "functions": [
         {
             "comment": "Cadence SKILL Language Reference",
-            "definitions": [
-                {
-                    "name_collection": [
-                        "append"
-                    ],
-                    "argument_combination": [
-                        [
-                            {
-                                "argument": "l_list1",
-                                "description": "List of elements to be added to a list."
-                            },
-                            {
-                                "argument": "l_list2",
-                                "description": "List of elements to be added."
-                            },
-                            {
-                                "return": true,
-                                "argument": "l_result",
-                                "description": "A list containing elements of l_list1 followed by elements of l_list2."
-                            }
+            "definitions": {
+                "List Functions": [
+                    {
+                        "name_collection": [
+                            "append"
                         ],
-                        [
-                            {
-                                "argument": "o_table",
-                                "description": "Association table to be updated."
-                            },
-                            {
-                                "argument": "g_assoc",
-                                "description": "Key/value pairs to be added to the association table."
-                            },
-                            {
-                                "return": true,
-                                "argument": "o_table",
-                                "description": "The original association table including the new entries."
-                            }
+                        "argument_combination": [
+                            [
+                                {
+                                    "argument": "l_list1",
+                                    "description": "List of elements to be added to a list."
+                                },
+                                {
+                                    "argument": "l_list2",
+                                    "description": "List of elements to be added."
+                                },
+                                {
+                                    "return": true,
+                                    "argument": "l_result",
+                                    "description": "A list containing elements of `l_list1` followed by elements of `l_list2`."
+                                }
+                            ],
+                            [
+                                {
+                                    "argument": "o_table",
+                                    "description": "Association table to be updated."
+                                },
+                                {
+                                    "argument": "g_assoc",
+                                    "description": "Key/value pairs to be added to the association table."
+                                },
+                                {
+                                    "return": true,
+                                    "argument": "o_table",
+                                    "description": "The original association table including the new entries."
+                                }
+                            ],
+                            [
+                                {
+                                    "argument": "o_table1",
+                                    "description": "Association table to be updated."
+                                },
+                                {
+                                    "argument": "o_table2",
+                                    "description": "Association table to be updated."
+                                },
+                                {
+                                    "return": true,
+                                    "argument": "o_table",
+                                    "description": "The original association table including the new entries."
+                                }
+                            ]
                         ],
-                        [
-                            {
-                                "argument": "o_table1",
-                                "description": "Association table to be updated."
-                            },
-                            {
-                                "argument": "o_table2",
-                                "description": "Association table to be updated."
-                            },
-                            {
-                                "return": true,
-                                "argument": "o_table",
-                                "description": "The original association table including the new entries."
-                            }
+                        "description": [
+                            [
+                                "Creates a list containing the elements of *`l_list1`* followed by the elements of *`l_list2`* or returns the original association table including new entries."
+                            ],
+                            [
+                                "The top-level list cells of *`l_list1`* are duplicated and the cdr of the last duplicated list cell is set to point to *`l_list2`*;",
+                                "therefore, this is a time-consuming operation if *`l_list1`* is a long list."
+                            ],
+                            [
+                                "This is a slow operation and the functions `tconc`, `lconc`, and `nconc` can be used instead for adding an element or a list to the end of a list.",
+                                "The command cons is even better if the new list elements can be added to the beginning of the list."
+                            ],
+                            [
+                                "The append function can also be used with association tables as shown in the second syntax statement.",
+                                "Key/value pairs are added to the original association table (not to a copy of the table).",
+                                "This function should be used mainly in converting existing association lists or disembodied property lists to an association table."
+                            ]
                         ]
-                    ],
-                    "description": [
-                        [
-                            "Creates a list containing the elements of *`l_list1`* followed by the elements of *`l_list2`* or returns the original association table including new entries."
+                    },
+                    {
+                        "name_collection": [
+                            "append1"
                         ],
-                        [
-                            "The top-level list cells of *`l_list1`* are duplicated and the cdr of the last duplicated list cell is set to point to *`l_list2`*;",
-                            "therefore, this is a time-consuming operation if *`l_list1`* is a long list."
+                        "argument_combination": [
+                            [
+                                {
+                                    "argument": "l_list",
+                                    "description": "List to which g_arg is added."
+                                },
+                                {
+                                    "argument": "g_arg",
+                                    "description": "Argument to be added to the end of `l_list`."
+                                },
+                                {
+                                    "return": true,
+                                    "argument": "l_result",
+                                    "description": "A copy of `l_list` with `g_arg` attached to the end."
+                                }
+                            ]
                         ],
-                        [
-                            "This is a slow operation and the functions `tconc`, `lconc`, and `nconc` can be used instead for adding an element or a list to the end of a list.",
-                            "The command cons is even better if the new list elements can be added to the beginning of the list."
+                        "description": [
+                            [
+                                "Adds new arguments to the end of a list."
+                            ],
+                            [
+                                "Returns a list just like *`l_list`* with *`g_arg`* added as the last element of the list."
+                            ],
+                            [
+                                "This is a slow operation and the functions `tconc`, `lconc`, and `nconc` can be used instead for adding an element or a list to the end of a list.",
+                                "The command cons is even better if the new list elements can be added to the beginning of the list."                                
+                            ]
+                        ]
+                    },
+                    {
+                        "name_collection": [
+                            "car"
                         ],
-                        [
-                            "The append function can also be used with association tables as shown in the second syntax statement.",
-                            "Key/value pairs are added to the original association table (not to a copy of the table).",
-                            "This function should be used mainly in converting existing association lists or disembodied property lists to an association table."
-                        ]
-                    ]
-                },
-                {
-                    "name_collection": [
-                        "append1"
-                    ],
-                    "argument_combination": [
-                        [
-                            {
-                                "argument": "l_list",
-                                "description": "List to which g_arg is added."
-                            },
-                            {
-                                "argument": "g_arg",
-                                "description": "Argument to be added to the end of l_list."
-                            },
-                            {
-                                "return": true,
-                                "argument": "l_result",
-                                "description": "A copy of l_list with g_arg attached to the end."
-                            }
-                        ]
-                    ],
-                    "description": [
-                        [
-                            "Adds new arguments to the end of a list."
+                        "argument_combination": [
+                            [
+                                {
+                                    "argument": "l_list",
+                                    "description": "A list of elements."
+                                },
+                                {
+                                    "return": true,
+                                    "argument": "g_result",
+                                    "description": "The value of the specified operation."
+                                }
+                            ]
                         ],
-                        [
-                            "Returns a list just like *`l_list`* with *`g_arg`* added as the last element of the list."
+                        "description": [
+                            [
+                                "Returns the first element of a list.",
+                                "`car` is nondestructive, meaning that it returns the first element of a list but does not modify the list that was its argument."
+                            ],
+                            [
+                                "The functions `car` and cdr are typically used to take a list of objects apart, whereas the cons function is usually used to build up a list of objects.",
+                                "`car` was a machine language instruction on the first machine to run Lisp. `car` stands for contents of the address register."
+                            ]
+                        ]
+                    },
+                    {
+                        "name_collection": [
+                            "cdr"
                         ],
-                        [
-                            "This is a slow operation and the functions `tconc`, `lconc`, and `nconc` can be used instead for adding an element or a list to the end of a list.",
-                            "The command cons is even better if the new list elements can be added to the beginning of the list."                                
-                        ]
-                    ]
-                },
-                {
-                    "name_collection": [
-                        "car"
-                    ],
-                    "argument_combination": [
-                        [
-                            {
-                                "argument": "l_list",
-                                "description": "A list of elements."
-                            },
-                            {
-                                "return": true,
-                                "argument": "g_result",
-                                "description": "The value of the specified operation."
-                            }
-                        ]
-                    ],
-                    "description": [
-                        [
-                            "Returns the first element of a list.",
-                            "`car` is nondestructive, meaning that it returns the first element of a list but does not modify the list that was its argument."
+                        "argument_combination": [
+                            [
+                                {
+                                    "argument": "l_list",
+                                    "description": "A list of elements."
+                                },
+                                {
+                                    "return": true,
+                                    "argument": "l_result",
+                                    "description": "The end of a list, or the list minus the first element."
+                                }
+                            ]
                         ],
-                        [
-                            "The functions `car` and cdr are typically used to take a list of objects apart, whereas the cons function is usually used to build up a list of objects.",
-                            "`car` was a machine language instruction on the first machine to run Lisp. `car` stands for contents of the address register."
+                        "description": [
+                            [
+                                "Returns the tail of the list, that is, the list without its first element."
+                            ],
+                            [
+                                "The expression `cdr(nil)` returns `nil`.",
+                                "`cdr` was a machine language instruction on the first machine to run Lisp.",
+                                "`cdr` stands for contents of the decrement register."
+                            ]
                         ]
-                    ]
-                },
-                {
-                    "name_collection": [
-                        "cdr"
-                    ],
-                    "argument_combination": [
-                        [
-                            {
-                                "argument": "l_list",
-                                "description": "A list of elements."
-                            },
-                            {
-                                "return": true,
-                                "argument": "l_result",
-                                "description": "The end of a list, or the list minus the first element."
-                            }
-                        ]
-                    ],
-                    "description": [
-                        [
-                            "Returns the tail of the list, that is, the list without its first element."
+                    },
+                    {
+                        "name_collection": [
+                            "caar",
+                            "cadr",
+                            "cdar",
+                            "cddr",
+                            "caaar",
+                            "caadr",
+                            "cadar",
+                            "caddr",
+                            "cdaar",
+                            "cdadr",
+                            "cddar",
+                            "cdddr",
+                            "caaaar",
+                            "caaadr",
+                            "caadar",
+                            "caaddr",
+                            "cadaar",
+                            "cadadr",
+                            "caddar",
+                            "cadddr",
+                            "cdaaar",
+                            "cdaadr",
+                            "cdadar",
+                            "cdaddr",
+                            "cddaar",
+                            "cddadr",
+                            "cdddar",
+                            "cddddr"
                         ],
-                        [
-                            "The expression `cdr(nil)` returns `nil`.",
-                            "`cdr` was a machine language instruction on the first machine to run Lisp.",
-                            "`cdr` stands for contents of the decrement register."
-                        ]
-                    ]
-                },
-                {
-                    "name_collection": [
-                        "caar",
-                        "cadr",
-                        "cdar",
-                        "cddr",
-                        "caaar",
-                        "caadr",
-                        "cadar",
-                        "caddr",
-                        "cdaar",
-                        "cdadr",
-                        "cddar",
-                        "cdddr",
-                        "caaaar",
-                        "caaadr",
-                        "caadar",
-                        "caaddr",
-                        "cadaar",
-                        "cadadr",
-                        "caddar",
-                        "cadddr",
-                        "cdaaar",
-                        "cdaadr",
-                        "cdadar",
-                        "cdaddr",
-                        "cddaar",
-                        "cddadr",
-                        "cdddar",
-                        "cddddr"
-                    ],
-                    "argument_combination": [
-                        [
-                            {
-                                "argument": "l_list",
-                                "description": "List of elements."
-                            },
-                            {
-                                "return": true,
-                                "argument": "g_result",
-                                "description": "The value of the specified operation."
-                            }
-                        ]
-                    ],
-                    "description": [
-                        [
-                            "Performs operations on a list using repeated applications of `car` and `cdr`. For example, `caaar` is equivalent to `car( car( car( l_list )))`.",
-                            "The possible combinations are `caaaar`, `caaadr`, `caadar`, `caaddr`, `caar`, `caddar`, `cadddr`, `cadr`, `cdaaar`, `cdaadr`, `cdaar`, `cdadar`,",
-                            "`cdaddr`, `cdadr`, `cdar`, `cddaar`, `cddadr`, `cddar`, `cdddar`, `cddddr`, `cdddr`, `cddr`, `caaar`, `caadr`, `cadar`, `caddr`, `cdadr`, `cadaar`,",
-                            "`cadadr`, `caddar`, `cadddr`, `cdaaar`, `cdaadr`, `cdadar`, `cdaddr`, `cddaar`, `cddadr`, `cdddar`, and `cddddr`."
+                        "argument_combination": [
+                            [
+                                {
+                                    "argument": "l_list",
+                                    "description": "List of elements."
+                                },
+                                {
+                                    "return": true,
+                                    "argument": "g_result",
+                                    "description": "The value of the specified operation."
+                                }
+                            ]
                         ],
-                        [
-                            "The `cadr(l_list)` expression, for example, applies `cdr` to get the tail of the list and then applies `car` to get the first element of the tail,",
-                            "in effect extracting the second element from the list.",
-                            "SKILL implements all `c...r` functions with any combination of `a` and `d` up to four characters."
+                        "description": [
+                            [
+                                "Performs operations on a list using repeated applications of `car` and `cdr`. For example, `caaar` is equivalent to `car( car( car( l_list )))`.",
+                                "The possible combinations are `caaaar`, `caaadr`, `caadar`, `caaddr`, `caar`, `caddar`, `cadddr`, `cadr`, `cdaaar`, `cdaadr`, `cdaar`, `cdadar`,",
+                                "`cdaddr`, `cdadr`, `cdar`, `cddaar`, `cddadr`, `cddar`, `cdddar`, `cddddr`, `cdddr`, `cddr`, `caaar`, `caadr`, `cadar`, `caddr`, `cdadr`, `cadaar`,",
+                                "`cadadr`, `caddar`, `cadddr`, `cdaaar`, `cdaadr`, `cdadar`, `cdaddr`, `cddaar`, `cddadr`, `cdddar`, and `cddddr`."
+                            ],
+                            [
+                                "The `cadr(l_list)` expression, for example, applies `cdr` to get the tail of the list and then applies `car` to get the first element of the tail,",
+                                "in effect extracting the second element from the list.",
+                                "SKILL implements all `c...r` functions with any combination of `a` and `d` up to four characters."
+                            ]
                         ]
-                    ]
-                }
-            ]
+                    }
+                ]
+            }
         }
     ]
 }
