@@ -1,0 +1,137 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "$id": "https://example.com/completion.schema",
+    "version": 1.0,
+    "release": "2025/06/01",
+    "author": "Chao-Jen Huang (ephoton)",
+    "title": "Automatic Completion",
+    "description": "Schema for automatic completion of SKILL language extensions.",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "description": "The JSON schema version",
+            "type": "string"
+        },
+        "version": {
+            "description": "Define the library file format",
+            "type": "number",
+            "default": 1.0,
+            "const": 1.0
+        },
+        "release": {
+            "description": "The release date of the library",
+            "type": "string",
+            "pattern": "^(?:19|2[01])[0-9]{2}/(?:0[1-9]|1[0-2])/(?:0[1-9]|[12][0-9]|3[01])$"
+        },
+        "author": {
+            "description": "The author of the library",
+            "type": "string"
+        },
+        "datatype": {
+            "$ref": "#/definitions/datatype"
+        },
+        "functions": {
+            "$ref": "#/definitions/functions"
+        }
+    },
+    "definitions": {
+        "datatype": {
+            "type": "object",
+            "patternProperties": {
+                "^[a-zA-Z&]+$": {
+                    "type": "object",
+                    "properties": {
+                        "internal": {
+                            "description": "The internal name of the datatype",
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "The datatype",
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "internal",
+                        "type"
+                    ]
+                }
+            },
+            "additionalProperties": false
+        },
+        "functions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "comment": {
+                        "description": "The comment of the function",
+                        "type": "string"
+                    },
+                    "definitions": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name_collection": {
+                                    "description": "The name of the collection",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "argument_combination": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "argument": {
+                                                    "description": "The name of the argument",
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "description": "The description of the argument",
+                                                    "type": "string"
+                                                },
+                                                "return": {
+                                                    "description": "Indicates if this argument is a return value",
+                                                    "type": "boolean",
+                                                    "default": true
+                                                }
+                                            },
+                                            "required": [
+                                                "argument",
+                                                "description"
+                                            ],
+                                            "additionalProperties": false
+                                        }
+                                    }
+                                },
+                                "description": {
+                                    "description": "The description of the function",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "additionalProperties": false,
+                            "required": [
+                                "name_collection",
+                                "argument_combination",
+                                "description"
+                            ]
+                        }
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    },
+    "additionalProperties": false
+}
