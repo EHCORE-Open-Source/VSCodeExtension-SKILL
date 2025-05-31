@@ -80,10 +80,6 @@
       "internal": "userType",
       "type": "user-defined type (other)"
     },
-    "ob": {
-      "internal": "boolean",
-      "type": "boolean"
-    },
     "p": {
       "internal": "port",
       "type": "I/O port"
@@ -163,51 +159,60 @@
               "append"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "l_list1",
-                  "description": "List of elements to be added to a list."
-                },
-                {
-                  "argument": "l_list2",
-                  "description": "List of elements to be added."
-                },
-                {
-                  "return": true,
-                  "argument": "l_result",
-                  "description": "A list containing elements of `l_list1` followed by elements of `l_list2`."
-                }
-              ],
-              [
-                {
-                  "argument": "o_table",
-                  "description": "Association table to be updated."
-                },
-                {
-                  "argument": "g_assoc",
-                  "description": "Key/value pairs to be added to the association table."
-                },
-                {
-                  "return": true,
-                  "argument": "o_table",
-                  "description": "The original association table including the new entries."
-                }
-              ],
-              [
-                {
-                  "argument": "o_table1",
-                  "description": "Association table to be updated."
-                },
-                {
-                  "argument": "o_table2",
-                  "description": "Association table to be updated."
-                },
-                {
-                  "return": true,
-                  "argument": "o_table",
-                  "description": "The original association table including the new entries."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list1",
+                    "description": "List of elements to be added to a list."
+                  },
+                  {
+                    "argument": "l_list2",
+                    "description": "List of elements to be added."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "A list containing elements of `l_list1` followed by elements of `l_list2`."
+                  }
+                ]
+              },
+              {
+                "arguments": [
+                  {
+                    "argument": "o_table",
+                    "description": "Association table to be updated."
+                  },
+                  {
+                    "argument": "g_assoc",
+                    "description": "Key/value pairs to be added to the association table."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "o_table",
+                    "description": "The original association table including the new entries."
+                  }
+                ]
+              },
+              {
+                "arguments": [
+                  {
+                    "argument": "o_table1",
+                    "description": "Association table to be updated."
+                  },
+                  {
+                    "argument": "o_table2",
+                    "description": "Association table to be updated."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "o_table",
+                    "description": "The original association table including the new entries."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -233,21 +238,24 @@
               "append1"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "l_list",
-                  "description": "List to which g_arg is added."
-                },
-                {
-                  "argument": "g_arg",
-                  "description": "Argument to be added to the end of `l_list`."
-                },
-                {
-                  "return": true,
-                  "argument": "l_result",
-                  "description": "A copy of `l_list` with `g_arg` attached to the end."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list",
+                    "description": "List to which `g_arg` is added."
+                  },
+                  {
+                    "argument": "g_arg",
+                    "description": "Argument to be added to the end of `l_list`."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "A copy of `l_list` with `g_arg` attached to the end."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -267,17 +275,20 @@
               "car"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "l_list",
-                  "description": "A list of elements."
-                },
-                {
-                  "return": true,
-                  "argument": "g_result",
-                  "description": "The value of the specified operation."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list",
+                    "description": "A list of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "g_result",
+                    "description": "The value of the specified operation."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -295,17 +306,20 @@
               "cdr"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "l_list",
-                  "description": "A list of elements."
-                },
-                {
-                  "return": true,
-                  "argument": "l_result",
-                  "description": "The end of a list, or the list minus the first element."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list",
+                    "description": "A list of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "The end of a list, or the list minus the first element."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -350,17 +364,20 @@
               "cddddr"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "l_list",
-                  "description": "List of elements."
-                },
-                {
-                  "return": true,
-                  "argument": "g_result",
-                  "description": "The value of the specified operation."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list",
+                    "description": "List of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "g_result",
+                    "description": "The value of the specified operation."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -381,21 +398,24 @@
               "cons"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "g_element",
-                  "description": "Element to be added to the beginning of `l_list`."
-                },
-                {
-                  "argument": "l_list",
-                  "description": "List that can be nil."
-                },
-                {
-                  "return": true,
-                  "argument": "l_result",
-                  "description": "List whose first element is `g_element` and whose cdr is `l_list`."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "g_element",
+                    "description": "Element to be added to the beginning of `l_list`."
+                  },
+                  {
+                    "argument": "l_list",
+                    "description": "List that can be nil."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "List whose first element is `g_element` and whose cdr is `l_list`."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -409,21 +429,24 @@
               "constar"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "[ g_arg1 ... ]",
-                  "description": "Elements to be added to the beginning of `l_list`."
-                },
-                {
-                  "argument": "l_list",
-                  "description": "The last argument that must be a list (which can be `nil`)."
-                },
-                {
-                  "return": true,
-                  "argument": "l_result",
-                  "description": "List whose first element is the first argument and whose cdr is rest of the elements of the newly created list (including `l_list`)."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "[ g_arg1 ... ]",
+                    "description": "Elements to be added to the beginning of `l_list`."
+                  },
+                  {
+                    "argument": "l_list",
+                    "description": "The last argument that must be a list (which can be `nil`)."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "List whose first element is the first argument and whose cdr is rest of the elements of the newly created list (including `l_list`)."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -444,17 +467,20 @@
               "copy"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "l_arg",
-                  "description": "List of elements."
-                },
-                {
-                  "return": true,
-                  "argument": "l_result",
-                  "description": "A copy of `l_arg`."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "l_arg",
+                    "description": "List of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "A copy of `l_arg`."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -472,17 +498,24 @@
               "dtpr"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "g_value",
-                  "description": "An object."
-                },
-                {
-                  "return": true,
-                  "argument": "ob_result",
-                  "description": "`t`: Object is a non-empty list. `nil`: Object is a non-empty list."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "g_value",
+                    "description": "An object."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "t",
+                    "description": "Object is a non-empty list."
+                  },
+                  {
+                    "result": "nil",
+                    "description": "Object is not a non-empty list."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -498,17 +531,20 @@
               "last"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "l_arg",
-                  "description": "List of elements."
-                },
-                {
-                  "return": true,
-                  "argument": "l_result",
-                  "description": "Last list cell (not the last element) in `l_arg`."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "l_arg",
+                    "description": "List of elements."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Last list cell (not the last element) in `l_arg`."
+                  }
+                ]
+              }
             ],
             "description": [
               [
@@ -521,25 +557,88 @@
               "lconc"
             ],
             "argument_combination": [
-              [
-                {
-                  "argument": "l_tconc",
-                  "description": "A `tconc` structure that must initially be created using the `tconc` function."
-                },
-                {
-                  "argument": "l_list",
-                  "description": "List to be spliced onto the end of the `tconc` structure."
-                },
-                {
-                  "return": true,
-                  "argument": "l_result",
-                  "description": "Returns `l_tconc`, which must be a tconc structure, with the list `l_list` spliced in at the end."
-                }
-              ]
+              {
+                "arguments": [
+                  {
+                    "argument": "l_tconc",
+                    "description": "A `tconc` structure that must initially be created using the `tconc` function."
+                  },
+                  {
+                    "argument": "l_list",
+                    "description": "List to be concatenated onto the end of the `tconc` structure."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "Returns `l_tconc`, which must be a tconc structure, with the list `l_list` concatenated at the end."
+                  }
+                ]
+              }
             ],
             "description": [
               [
                 "Uses a `tconc` structure to efficiently splice a list to the end of another list."
+              ]
+            ]
+          },
+          {
+            "name_collection": [
+              "length"
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "laot_arg",
+                    "description": "SKILL list, array, association table, or string."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "x_result",
+                    "description": "Length of the `laot_arg` object. (The length is either the number of elements in the list, string, or array or the number of key/value pairs in the association table)."
+                  },
+                  {
+                    "result": "0",
+                    "description": "`laot_arg` is `nil` or an empty array or table."
+                  }
+                ]
+              }
+            ],
+            "description": [
+              [
+                "Returns the number of elements in a list."
+              ]
+            ]
+          },
+          {
+            "name_collection": [
+              "lindex"
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "l_list",
+                    "description": "List of elements."
+                  },
+                  {
+                    "argument": "n_index",
+                    "description": "Zero-based index of the element to retrieve."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "g_element",
+                    "description": "Element at the specified index."
+                  }
+                ]
+              }
+            ],
+            "description": [
+              [
+                "Returns the element at a specified index within a list."
               ]
             ]
           }
