@@ -219,7 +219,7 @@
                 "Creates a list containing the elements of *`l_list1`* followed by the elements of *`l_list2`* or returns the original association table including new entries."
               ],
               [
-                "The top-level list cells of *`l_list1`* are duplicated and the cdr of the last duplicated list cell is set to point to *`l_list2`*;",
+                "The top-level list cells of *`l_list1`* are duplicated and the `cdr` of the last duplicated list cell is set to point to *`l_list2`*;",
                 "therefore, this is a time-consuming operation if *`l_list1`* is a long list."
               ],
               [
@@ -639,6 +639,73 @@
             "description": [
               [
                 "Returns the element at a specified index within a list."
+              ]
+            ]
+          },
+          {
+            "name_collection": [
+              "list"
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "g_arg1",
+                    "description": "Element to be added to a list."
+                  },
+                  {
+                    "argument": "g_arg2",
+                    "description": "Additional elements to be added to a list"
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "l_result",
+                    "description": "List whose elements are `g_arg1`, `g_arg2`, and so on."
+                  },
+                  {
+                    "result": "nil",
+                    "description": "No arguments are given."
+                  }
+                ]
+              }
+            ],
+            "description": [
+              [
+                "Creates a list with the given elements."
+              ]
+            ]
+          },
+          {
+            "name_collection": [
+              "listp"
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "g_value",
+                    "description": "A data object."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "t",
+                    "description": "If `g_value` is a list, a data type whose internal name is also `list`. `listp(nil)` returns `t`."
+                  },
+                  {
+                    "result": "nil",
+                    "description": "The specified object is not a list."
+                  }
+                ]
+              }
+            ],
+            "description": [
+              [
+                "Checks whether thespecified object is a list."
+              ],
+              [
+                "The suffix `p` is usually added to the name of a function to indicate that it is a predicate function."
               ]
             ]
           }
