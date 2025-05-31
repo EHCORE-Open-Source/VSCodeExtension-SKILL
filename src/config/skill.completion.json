@@ -81,8 +81,8 @@
       "type": "user-defined type (other)"
     },
     "ob": {
-        "internal": "boolean",
-        "type": "boolean"
+      "internal": "boolean",
+      "type": "boolean"
     },
     "p": {
       "internal": "port",
@@ -513,6 +513,33 @@
             "description": [
               [
                 "Returns the last list cell in a list."
+              ]
+            ]
+          },
+          {
+            "name_collection": [
+              "lconc"
+            ],
+            "argument_combination": [
+              [
+                {
+                  "argument": "l_tconc",
+                  "description": "A `tconc` structure that must initially be created using the `tconc` function."
+                },
+                {
+                  "argument": "l_list",
+                  "description": "List to be spliced onto the end of the `tconc` structure."
+                },
+                {
+                  "return": true,
+                  "argument": "l_result",
+                  "description": "Returns `l_tconc`, which must be a tconc structure, with the list `l_list` spliced in at the end."
+                }
+              ]
+            ],
+            "description": [
+              [
+                "Uses a `tconc` structure to efficiently splice a list to the end of another list."
               ]
             ]
           }
