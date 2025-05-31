@@ -80,6 +80,10 @@
       "internal": "userType",
       "type": "user-defined type (other)"
     },
+    "ob": {
+        "internal": "boolean",
+        "type": "boolean"
+    },
     "p": {
       "internal": "port",
       "type": "I/O port"
@@ -379,30 +383,24 @@
             "argument_combination": [
               [
                 {
-                  "argument": "g_obj1",
-                  "description": "Any SKILL object."
+                  "argument": "g_element",
+                  "description": "Element to be added to the beginning of `l_list`."
                 },
                 {
-                  "argument": "g_obj2",
-                  "description": "Any SKILL object."
+                  "argument": "l_list",
+                  "description": "List that can be nil."
                 },
                 {
                   "return": true,
                   "argument": "l_result",
-                  "description": "A new list whose car is `g_obj1` and whose cdr is `g_obj2`."
+                  "description": "List whose first element is `g_element` and whose cdr is `l_list`."
                 }
               ]
             ],
             "description": [
               [
-                "Creates a new list by prepending an element to another list or element."
-              ],
-              [
-                "The `cons` function constructs a pair (cons cell) from its two arguments.",
-                "This is the primary way to construct lists in SKILL."
-              ],
-              [
-                "Use this to efficiently build lists by adding to the head of the list."
+                "Adds an element to the beginning of a list. Thus the car of `l_result` is `g_element` and the cdr of `l_result` is `l_list`.",
+                "`l_list` can be nil, in which case a new list containing the single element is created."
               ]
             ]
           },
@@ -413,26 +411,31 @@
             "argument_combination": [
               [
                 {
-                  "argument": "g_obj1",
-                  "description": "Any SKILL object."
+                  "argument": "[ g_arg1 ... ]",
+                  "description": "Elements to be added to the beginning of `l_list`."
                 },
                 {
-                  "argument": "g_obj2",
-                  "description": "Any SKILL object."
+                  "argument": "l_list",
+                  "description": "The last argument that must be a list (which can be `nil`)."
                 },
                 {
                   "return": true,
                   "argument": "l_result",
-                  "description": "A new cons cell with `g_obj1` and `g_obj2`, but not evaluated if quoted."
+                  "description": "List whose first element is the first argument and whose cdr is rest of the elements of the newly created list (including `l_list`)."
                 }
               ]
             ],
             "description": [
               [
-                "Like `cons`, but used in macro definitions where arguments are not evaluated immediately."
+                "Adds elements to the beginning of a list."
               ],
               [
-                "Useful for building code fragments in macros."
+                "This function is equivalent to `cons\\*()` and should be used instead."
+              ],
+              [
+                "The last argument, `l_list`, must be a list.",
+                "`l_list` can be nil, in which case a new list containing the elements is created.",
+                "The car of `l_result` is the first argument passed to `constar()` and the cdr of `l_result` is rest of the elements of the newly created list (including `l_list`)."
               ]
             ]
           },
@@ -444,24 +447,72 @@
               [
                 {
                   "argument": "l_arg",
-                  "description": "List to be copied."
+                  "description": "List of elements."
                 },
                 {
                   "return": true,
                   "argument": "l_result",
-                  "description": "A shallow copy of the list `l_arg`."
+                  "description": "A copy of `l_arg`."
                 }
               ]
             ],
             "description": [
               [
-                "Returns a shallow copy of a list. The top-level cells are duplicated."
+                "Returns a copy of a list, that is, a list with all the top-level cells duplicated."
               ],
               [
-                "Use `copy` when you want to modify a list without affecting the original structure."
+                "Because list structures in SKILL are typically shared, it is necessary to pass around pointers to lists.",
+                "If, however, any function that modifies a list destructively is used, `copy` is often used to create new copies of a list so that the original is not inadvertently modified by those functions.",
+                "This call is costly so its use should be limited. This function only duplicates the toplevel list cells, all lower level objects are still shared."
+              ]
+            ]
+          },
+          {
+            "name_collection": [
+              "dtpr"
+            ],
+            "argument_combination": [
+              [
+                {
+                  "argument": "g_value",
+                  "description": "An object."
+                },
+                {
+                  "return": true,
+                  "argument": "ob_result",
+                  "description": "`t`: Object is a non-empty list. `nil`: Object is a non-empty list."
+                }
+              ]
+            ],
+            "description": [
+              [
+                "Checks whether an object is a non-empty list."
               ],
               [
-                "This function only duplicates the top-level list cells; all nested elements are shared."
+                "`dtpr` is a predicate function that is equivalent to `pairp`."
+              ]
+            ]
+          },
+          {
+            "name_collection": [
+              "last"
+            ],
+            "argument_combination": [
+              [
+                {
+                  "argument": "l_arg",
+                  "description": "List of elements."
+                },
+                {
+                  "return": true,
+                  "argument": "l_result",
+                  "description": "Last list cell (not the last element) in `l_arg`."
+                }
+              ]
+            ],
+            "description": [
+              [
+                "Returns the last list cell in a list."
               ]
             ]
           }
