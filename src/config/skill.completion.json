@@ -1452,6 +1452,41 @@
               }
             ]
           }
+        ],
+        "Data Structures": [
+          {
+            "name_collection": [
+              "arrayp"
+            ],
+            "description": [
+              [
+                "Checks if an object is an array."
+              ],
+              [
+                "The suffix `p` is usually added to the name of a function to indicate that it is a predicate function."
+              ]
+            ],
+            "argument_combination": [
+              {
+                "arguments": [
+                  {
+                    "argument": "g_value",
+                    "description": "Any data object."
+                  }
+                ],
+                "return": [
+                  {
+                    "result": "t",
+                    "description": "If `g_value` is an array object."
+                  },
+                  {
+                    "result": "nil",
+                    "description": "When it is not an array object."
+                  }
+                ]
+              }
+            ]
+          }
         ]
       }
     }
