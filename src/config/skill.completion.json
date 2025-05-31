@@ -158,6 +158,24 @@
             "name_collection": [
               "append"
             ],
+            "description": [
+              [
+                "Creates a list containing the elements of *`l_list1`* followed by the elements of *`l_list2`* or returns the original association table including new entries."
+              ],
+              [
+                "The top-level list cells of *`l_list1`* are duplicated and the `cdr` of the last duplicated list cell is set to point to *`l_list2`*;",
+                "therefore, this is a time-consuming operation if *`l_list1`* is a long list."
+              ],
+              [
+                "This is a slow operation and the functions `tconc`, `lconc`, and `nconc` can be used instead for adding an element or a list to the end of a list.",
+                "The command cons is even better if the new list elements can be added to the beginning of the list."
+              ],
+              [
+                "The append function can also be used with association tables as shown in the second syntax statement.",
+                "Key/value pairs are added to the original association table (not to a copy of the table).",
+                "This function should be used mainly in converting existing association lists or disembodied property lists to an association table."
+              ]
+            ],
             "argument_combination": [
               {
                 "arguments": [
@@ -213,29 +231,23 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Creates a list containing the elements of *`l_list1`* followed by the elements of *`l_list2`* or returns the original association table including new entries."
-              ],
-              [
-                "The top-level list cells of *`l_list1`* are duplicated and the `cdr` of the last duplicated list cell is set to point to *`l_list2`*;",
-                "therefore, this is a time-consuming operation if *`l_list1`* is a long list."
-              ],
-              [
-                "This is a slow operation and the functions `tconc`, `lconc`, and `nconc` can be used instead for adding an element or a list to the end of a list.",
-                "The command cons is even better if the new list elements can be added to the beginning of the list."
-              ],
-              [
-                "The append function can also be used with association tables as shown in the second syntax statement.",
-                "Key/value pairs are added to the original association table (not to a copy of the table).",
-                "This function should be used mainly in converting existing association lists or disembodied property lists to an association table."
-              ]
             ]
           },
           {
             "name_collection": [
               "append1"
+            ],
+            "description": [
+              [
+                "Adds new arguments to the end of a list."
+              ],
+              [
+                "Returns a list just like *`l_list`* with *`g_arg`* added as the last element of the list."
+              ],
+              [
+                "This is a slow operation and the functions `tconc`, `lconc`, and `nconc` can be used instead for adding an element or a list to the end of a list.",
+                "The command cons is even better if the new list elements can be added to the beginning of the list."
+              ]
             ],
             "argument_combination": [
               {
@@ -256,23 +268,21 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Adds new arguments to the end of a list."
-              ],
-              [
-                "Returns a list just like *`l_list`* with *`g_arg`* added as the last element of the list."
-              ],
-              [
-                "This is a slow operation and the functions `tconc`, `lconc`, and `nconc` can be used instead for adding an element or a list to the end of a list.",
-                "The command cons is even better if the new list elements can be added to the beginning of the list."
-              ]
             ]
           },
           {
             "name_collection": [
               "car"
+            ],
+            "description": [
+              [
+                "Returns the first element of a list.",
+                "`car` is nondestructive, meaning that it returns the first element of a list but does not modify the list that was its argument."
+              ],
+              [
+                "The functions `car` and cdr are typically used to take a list of objects apart, whereas the cons function is usually used to build up a list of objects.",
+                "`car` was a machine language instruction on the first machine to run Lisp. `car` stands for contents of the address register."
+              ]
             ],
             "argument_combination": [
               {
@@ -289,21 +299,21 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Returns the first element of a list.",
-                "`car` is nondestructive, meaning that it returns the first element of a list but does not modify the list that was its argument."
-              ],
-              [
-                "The functions `car` and cdr are typically used to take a list of objects apart, whereas the cons function is usually used to build up a list of objects.",
-                "`car` was a machine language instruction on the first machine to run Lisp. `car` stands for contents of the address register."
-              ]
             ]
           },
           {
             "name_collection": [
               "cdr"
+            ],
+            "description": [
+              [
+                "Returns the tail of the list, that is, the list without its first element."
+              ],
+              [
+                "The expression `cdr(nil)` returns `nil`.",
+                "`cdr` was a machine language instruction on the first machine to run Lisp.",
+                "`cdr` stands for contents of the decrement register."
+              ]
             ],
             "argument_combination": [
               {
@@ -320,16 +330,6 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Returns the tail of the list, that is, the list without its first element."
-              ],
-              [
-                "The expression `cdr(nil)` returns `nil`.",
-                "`cdr` was a machine language instruction on the first machine to run Lisp.",
-                "`cdr` stands for contents of the decrement register."
-              ]
             ]
           },
           {
@@ -363,6 +363,19 @@
               "cdddar",
               "cddddr"
             ],
+            "description": [
+              [
+                "Performs operations on a list using repeated applications of `car` and `cdr`. For example, `caaar` is equivalent to `car( car( car( l_list )))`.",
+                "The possible combinations are `caaaar`, `caaadr`, `caadar`, `caaddr`, `caar`, `caddar`, `cadddr`, `cadr`, `cdaaar`, `cdaadr`, `cdaar`, `cdadar`,",
+                "`cdaddr`, `cdadr`, `cdar`, `cddaar`, `cddadr`, `cddar`, `cdddar`, `cddddr`, `cdddr`, `cddr`, `caaar`, `caadr`, `cadar`, `caddr`, `cdadr`, `cadaar`,",
+                "`cadadr`, `caddar`, `cadddr`, `cdaaar`, `cdaadr`, `cdadar`, `cdaddr`, `cddaar`, `cddadr`, `cdddar`, and `cddddr`."
+              ],
+              [
+                "The `cadr(l_list)` expression, for example, applies `cdr` to get the tail of the list and then applies `car` to get the first element of the tail,",
+                "in effect extracting the second element from the list.",
+                "SKILL implements all `c...r` functions with any combination of `a` and `d` up to four characters."
+              ]
+            ],
             "argument_combination": [
               {
                 "arguments": [
@@ -378,24 +391,17 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Performs operations on a list using repeated applications of `car` and `cdr`. For example, `caaar` is equivalent to `car( car( car( l_list )))`.",
-                "The possible combinations are `caaaar`, `caaadr`, `caadar`, `caaddr`, `caar`, `caddar`, `cadddr`, `cadr`, `cdaaar`, `cdaadr`, `cdaar`, `cdadar`,",
-                "`cdaddr`, `cdadr`, `cdar`, `cddaar`, `cddadr`, `cddar`, `cdddar`, `cddddr`, `cdddr`, `cddr`, `caaar`, `caadr`, `cadar`, `caddr`, `cdadr`, `cadaar`,",
-                "`cadadr`, `caddar`, `cadddr`, `cdaaar`, `cdaadr`, `cdadar`, `cdaddr`, `cddaar`, `cddadr`, `cdddar`, and `cddddr`."
-              ],
-              [
-                "The `cadr(l_list)` expression, for example, applies `cdr` to get the tail of the list and then applies `car` to get the first element of the tail,",
-                "in effect extracting the second element from the list.",
-                "SKILL implements all `c...r` functions with any combination of `a` and `d` up to four characters."
-              ]
             ]
           },
           {
             "name_collection": [
               "cons"
+            ],
+            "description": [
+              [
+                "Adds an element to the beginning of a list. Thus the car of `l_result` is `g_element` and the cdr of `l_result` is `l_list`.",
+                "`l_list` can be nil, in which case a new list containing the single element is created."
+              ]
             ],
             "argument_combination": [
               {
@@ -416,17 +422,24 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Adds an element to the beginning of a list. Thus the car of `l_result` is `g_element` and the cdr of `l_result` is `l_list`.",
-                "`l_list` can be nil, in which case a new list containing the single element is created."
-              ]
             ]
           },
           {
             "name_collection": [
               "constar"
+            ],
+            "description": [
+              [
+                "Adds elements to the beginning of a list."
+              ],
+              [
+                "This function is equivalent to `cons\\*()` and should be used instead."
+              ],
+              [
+                "The last argument, `l_list`, must be a list.",
+                "`l_list` can be nil, in which case a new list containing the elements is created.",
+                "The car of `l_result` is the first argument passed to `constar()` and the cdr of `l_result` is rest of the elements of the newly created list (including `l_list`)."
+              ]
             ],
             "argument_combination": [
               {
@@ -447,24 +460,21 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Adds elements to the beginning of a list."
-              ],
-              [
-                "This function is equivalent to `cons\\*()` and should be used instead."
-              ],
-              [
-                "The last argument, `l_list`, must be a list.",
-                "`l_list` can be nil, in which case a new list containing the elements is created.",
-                "The car of `l_result` is the first argument passed to `constar()` and the cdr of `l_result` is rest of the elements of the newly created list (including `l_list`)."
-              ]
             ]
           },
           {
             "name_collection": [
               "copy"
+            ],
+            "description": [
+              [
+                "Returns a copy of a list, that is, a list with all the top-level cells duplicated."
+              ],
+              [
+                "Because list structures in SKILL are typically shared, it is necessary to pass around pointers to lists.",
+                "If, however, any function that modifies a list destructively is used, `copy` is often used to create new copies of a list so that the original is not inadvertently modified by those functions.",
+                "This call is costly so its use should be limited. This function only duplicates the toplevel list cells, all lower level objects are still shared."
+              ]
             ],
             "argument_combination": [
               {
@@ -481,21 +491,19 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Returns a copy of a list, that is, a list with all the top-level cells duplicated."
-              ],
-              [
-                "Because list structures in SKILL are typically shared, it is necessary to pass around pointers to lists.",
-                "If, however, any function that modifies a list destructively is used, `copy` is often used to create new copies of a list so that the original is not inadvertently modified by those functions.",
-                "This call is costly so its use should be limited. This function only duplicates the toplevel list cells, all lower level objects are still shared."
-              ]
             ]
           },
           {
             "name_collection": [
               "dtpr"
+            ],
+            "description": [
+              [
+                "Checks whether an object is a non-empty list."
+              ],
+              [
+                "`dtpr` is a predicate function that is equivalent to `pairp`."
+              ]
             ],
             "argument_combination": [
               {
@@ -516,19 +524,16 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Checks whether an object is a non-empty list."
-              ],
-              [
-                "`dtpr` is a predicate function that is equivalent to `pairp`."
-              ]
             ]
           },
           {
             "name_collection": [
               "last"
+            ],
+            "description": [
+              [
+                "Returns the last list cell in a list."
+              ]
             ],
             "argument_combination": [
               {
@@ -545,16 +550,16 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Returns the last list cell in a list."
-              ]
             ]
           },
           {
             "name_collection": [
               "lconc"
+            ],
+            "description": [
+              [
+                "Uses a `tconc` structure to efficiently splice a list to the end of another list."
+              ]
             ],
             "argument_combination": [
               {
@@ -575,16 +580,16 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Uses a `tconc` structure to efficiently splice a list to the end of another list."
-              ]
             ]
           },
           {
             "name_collection": [
               "length"
+            ],
+            "description": [
+              [
+                "Returns the number of elements in a list."
+              ]
             ],
             "argument_combination": [
               {
@@ -605,16 +610,16 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Returns the number of elements in a list."
-              ]
             ]
           },
           {
             "name_collection": [
               "lindex"
+            ],
+            "description": [
+              [
+                "Returns the element at a specified index within a list."
+              ]
             ],
             "argument_combination": [
               {
@@ -635,16 +640,16 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Returns the element at a specified index within a list."
-              ]
             ]
           },
           {
             "name_collection": [
               "list"
+            ],
+            "description": [
+              [
+                "Creates a list with the given elements."
+              ]
             ],
             "argument_combination": [
               {
@@ -669,16 +674,19 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Creates a list with the given elements."
-              ]
             ]
           },
           {
             "name_collection": [
               "listp"
+            ],
+            "description": [
+              [
+                "Checks whether thespecified object is a list."
+              ],
+              [
+                "The suffix `p` is usually added to the name of a function to indicate that it is a predicate function."
+              ]
             ],
             "argument_combination": [
               {
@@ -699,14 +707,6 @@
                   }
                 ]
               }
-            ],
-            "description": [
-              [
-                "Checks whether thespecified object is a list."
-              ],
-              [
-                "The suffix `p` is usually added to the name of a function to indicate that it is a predicate function."
-              ]
             ]
           }
         ]
