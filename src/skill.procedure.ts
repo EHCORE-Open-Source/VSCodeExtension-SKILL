@@ -617,7 +617,11 @@ export function activate(context: vscode.ExtensionContext) {
             // Helper to get argument doc
             const getArgDoc = (arg: string) => {
                 const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
-                return new vscode.MarkdownString(`\`${argName}\`: ${procedureIndex[procName].doc.argDocs[argName] || 'No documentation for this argument.'}`);
+                const proc = procedureIndex[procName!];
+                const doc = proc?.doc?.argDocs?.[argName];
+                return new vscode.MarkdownString(
+                    `\`${argName}\`: ${doc ?? 'No documentation for this argument.'}`
+                );
             };
 
             // Build signature help documentation (markdown supported)
