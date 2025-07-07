@@ -5,6 +5,9 @@ import * as path from 'path';
 interface ProcedureDoc {
     summary: string;
     argDocs: { [arg: string]: string };
+    returnDoc?: string;        // 📤 Optional: Return value description
+    notes?: string;           // ⚠️ Optional: Important notes and warnings
+    examples?: string[];      // 💡 Optional: Usage examples
 }
 
 interface ProcedureInfo {
@@ -27,9 +30,13 @@ let cachedSkillFolder: string | undefined;
 
 // Parse documentation block for a procedure
 function parseProcedureDoc(lines: string[], procLine: number, args: string[]): ProcedureDoc {
-    // Default summary and argument docs
+    // Default values
     let summary = '';
+    let returnDoc: string | undefined;
+    let notes: string | undefined;
+    const examples: string[] = [];
     const argDocs: { [arg: string]: string } = {};
+    
     // Check if previous line ends with */
     if (procLine > 0 && lines[procLine - 1].trim().endsWith('*/')) {
         // Find the start of the block comment
@@ -40,11 +47,31 @@ function parseProcedureDoc(lines: string[], procLine: number, args: string[]): P
         if (startLine >= 0) {
             // Extract block comment content
             const docLines = lines.slice(startLine, procLine).join('\n');
+            
             // Extract <@summary>...</@summary>
             const summaryMatch = docLines.match(/<@summary>([\s\S]*?)<\/@summary>/i);
             if (summaryMatch) {
                 summary = summaryMatch[1].trim();
             }
+            
+            // Extract <@return>...</@return>
+            const returnMatch = docLines.match(/<@return>([\s\S]*?)<\/@return>/i);
+            if (returnMatch) {
+                returnDoc = returnMatch[1].trim();
+            }
+            
+            // Extract <@note>...</@note>
+            const noteMatch = docLines.match(/<@note>([\s\S]*?)<\/@note>/i);
+            if (noteMatch) {
+                notes = noteMatch[1].trim();
+            }
+            
+            // Extract <@example>...</@example> (can have multiple)
+            const exampleMatches = docLines.matchAll(/<@example>([\s\S]*?)<\/@example>/gi);
+            for (const match of exampleMatches) {
+                examples.push(match[1].trim());
+            }
+            
             // Extract <argumentName>...</argumentName> for each argument
             for (const arg of args) {
                 // Remove any default value or formatting in arg name
@@ -64,7 +91,14 @@ function parseProcedureDoc(lines: string[], procLine: number, args: string[]): P
             argDocs[argName] = '';
         }
     }
-    return { summary, argDocs };
+    
+    return { 
+        summary, 
+        argDocs, 
+        returnDoc: returnDoc || undefined,
+        notes: notes || undefined,
+        examples: examples.length > 0 ? examples : undefined
+    };
 }
 
 function loadSkillConfig(): string | undefined {
@@ -230,51 +264,104 @@ export function activate(context: vscode.ExtensionContext) {
                 if (after !== '(') { return; }
                 const { requiredArgs, optionalArgs, keyArgs, restArgs } = splitArgs(proc.args);
 
-                // Build hover text with documentation (markdown supported)
-                let hoverText = `**procedure \`${word}\`**\n\n`;
-                hoverText += `${proc.doc.summary}\n\n`;
-                hoverText += `---\n`;
+                // Build enhanced hover text with comfortable font sizes
+                let hoverText = `**🔧 procedure** \`${word}\`\n\n`;
+                
+                // Summary section
+                if (proc.doc.summary) {
+                    hoverText += `📋 ${proc.doc.summary}\n\n`;
+                } else {
+                    hoverText += `📋 *No documentation available for this procedure.*\n\n`;
+                }
+                
+                hoverText += `---\n\n`;
 
                 // Helper to get argument doc
                 const getArgDoc = (arg: string) => {
                     const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
-                    return proc.doc.argDocs[argName] || null;
+                    return proc.doc.argDocs[argName] || '';
                 };
 
+                // Arguments section
                 if (requiredArgs.length > 0) {
-                    hoverText += `+ Arguments: ${formatArgList(requiredArgs)}\n`;
+                    hoverText += `**📥 Arguments:**\n`;
                     for (const arg of requiredArgs) {
-                        let argDoc = getArgDoc(arg);
+                        const argDoc = getArgDoc(arg);
                         if (argDoc) {
-                            hoverText += `  - \`${arg}\`: ${argDoc}\n`;
+                            hoverText += `- \`${arg}\`: ${argDoc}\n`;
+                        } else {
+                            hoverText += `- \`${arg}\`: *No documentation*\n`;
                         }
                     }
                     hoverText += `\n`;
                 }
+                
+                // Optional arguments section
                 if (optionalArgs.length > 0) {
-                    hoverText += `+ Optional Arguments: ${formatArgList(optionalArgs)}\n`;
+                    hoverText += `**📥 Optional Arguments:**\n`;
                     for (const arg of optionalArgs) {
-                        hoverText += `  - \`${arg}\`: ${getArgDoc(arg)}\n`;
+                        const argDoc = getArgDoc(arg);
+                        if (argDoc) {
+                            hoverText += `- \`${arg}\`: ${argDoc}\n`;
+                        } else {
+                            hoverText += `- \`${arg}\`: *No documentation*\n`;
+                        }
                     }
                     if (keyArgs.length > 0) {
-                        hoverText += '\n';
-                        hoverText += `> Key Arguments is ignored when optional arguments are provided.\n`;
+                        hoverText += '\n> ℹ️ Key Arguments are ignored when optional arguments are provided.\n';
                     }
-                    if (restArgs.length > 0) {
-                        hoverText += '\n';
-                    }
+                    hoverText += `\n`;
                 } else if (keyArgs.length > 0) {
-                    hoverText += `+ Key Arguments: ${formatArgList(keyArgs)}\n`;
+                    hoverText += `**📥 Key Arguments:**\n`;
                     for (const arg of keyArgs) {
-                        hoverText += `  - \`${arg}\`: ${getArgDoc(arg)}\n`;
+                        const argDoc = getArgDoc(arg);
+                        if (argDoc) {
+                            hoverText += `- \`${arg}\`: ${argDoc}\n`;
+                        } else {
+                            hoverText += `- \`${arg}\`: *No documentation*\n`;
+                        }
                     }
+                    hoverText += `\n`;
                 }
+                
+                // Rest arguments section
                 if (restArgs.length > 0) {
-                    hoverText += `+ Arbitrary Arguments: ${formatArgList(restArgs)}\n`;
+                    hoverText += `**📥 Arbitrary Arguments:**\n`;
                     for (const arg of restArgs) {
-                        hoverText += `  - \`${arg}\`: ${getArgDoc(arg)}\n`;
+                        const argDoc = getArgDoc(arg);
+                        if (argDoc) {
+                            hoverText += `- \`${arg}\`: ${argDoc}\n`;
+                        } else {
+                            hoverText += `- \`${arg}\`: *No documentation*\n`;
+                        }
                     }
+                    hoverText += `\n`;
                 }
+                
+                // Return value section
+                if (proc.doc.returnDoc) {
+                    hoverText += `**📤 Returns:** ${proc.doc.returnDoc}\n\n`;
+                }
+                
+                // Important notes section
+                if (proc.doc.notes) {
+                    hoverText += `**⚠️ Important Notes:** ${proc.doc.notes}\n\n`;
+                }
+                
+                // Examples section
+                if (proc.doc.examples && proc.doc.examples.length > 0) {
+                    hoverText += `**💡 Example:**\n`;
+                    proc.doc.examples.forEach((example, index) => {
+                        if (proc.doc.examples!.length > 1) {
+                            hoverText += `Example ${index + 1}:\n`;
+                        }
+                        hoverText += `\`\`\`skill\n${example}\n\`\`\`\n\n`;
+                    });
+                }
+                
+                // File location
+                const fileName = path.basename(proc.file);
+                hoverText += `---\n*💾 File: ${fileName}:${proc.line + 1}*`;
                 // Use MarkdownString to support markdown in hover
                 return new vscode.Hover(new vscode.MarkdownString(hoverText, true));
             }
@@ -664,22 +751,45 @@ export function activate(context: vscode.ExtensionContext) {
             const { requiredArgs, optionalArgs } = splitArgs(procedureIndex[procName].args);
             const allArgs = [...requiredArgs, ...optionalArgs];
 
-            // Helper to get argument doc
+            // Helper to get argument doc with enhanced formatting
             const getArgDoc = (arg: string) => {
                 const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
                 const proc = procedureIndex[procName!];
                 const doc = proc?.doc?.argDocs?.[argName];
                 return new vscode.MarkdownString(
-                    `\`${argName}\`: ${doc ?? 'No documentation for this argument.'}`
+                    `📥 **\`${argName}\`**: ${doc || '*No documentation for this argument.*'}`
                 );
             };
 
-            // Build signature help documentation (markdown supported)
-            let sigDoc = procedureIndex[procName].doc.summary;
-            if(sigDoc !== '') {
-                if (argIndex < allArgs.length) {
-                    sigDoc = `---\n\n${sigDoc}`;
+            // Build comfortable signature help documentation
+            const proc = procedureIndex[procName];
+            let sigDoc = `**🔧 ${procName}**(${allArgs.join(', ')})\n\n`;
+            
+            if (proc.doc.summary) {
+                sigDoc += `📋 ${proc.doc.summary}\n\n`;
+            }
+            
+            // Add current parameter information
+            if (argIndex < allArgs.length && argIndex >= 0) {
+                const currentArg = allArgs[argIndex];
+                const argName = currentArg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
+                const currentArgDoc = proc.doc.argDocs[argName];
+                sigDoc += `---\n\n**📍 Current Parameter:** \`${currentArg}\`\n`;
+                if (currentArgDoc) {
+                    sigDoc += `${currentArgDoc}\n\n`;
+                } else {
+                    sigDoc += `*No documentation available for this parameter.*\n\n`;
                 }
+            }
+            
+            // Add parameter list
+            if (allArgs.length > 0) {
+                sigDoc += `**📋 Parameter List:**\n`;
+                allArgs.forEach((arg, index) => {
+                    const marker = index === argIndex ? '👉' : '-';
+                    const isOptional = arg.includes('=') ? ' *(optional)*' : '';
+                    sigDoc += `${marker} \`${arg}\`${isOptional}\n`;
+                });
             }
 
             const signature = new vscode.SignatureInformation(
@@ -784,9 +894,6 @@ function splitArgs(args: string[]) {
     return { requiredArgs, optionalArgs, keyArgs, restArgs };
 }
 
-function formatArgList(args: string[]): string {
-    return args.map(arg => `\`${arg.trim()}\``).join(', ');
-}
 
 // Remove all block comments from a string, preserving string length for cursor mapping
 function removeBlockComments(str: string): string {

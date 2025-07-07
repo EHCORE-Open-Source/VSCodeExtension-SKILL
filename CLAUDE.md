@@ -38,17 +38,108 @@ npm run vscode:prepublish  # Prepares for publishing
 1. **Language Support**: Recognizes `.il` and `.cdsinit` files as Cadence SKILL
 2. **Auto-completion**: Configurable via `.vscode/skill.json` in workspace
 3. **Procedure Navigation**: Jump to procedure definitions and get signature help
-4. **Syntax Highlighting**: Comprehensive highlighting including HEX colors and regex
-5. **Outline View**: Shows procedure structure in the outline panel
+4. **Rich Documentation**: Enhanced procedure documentation with visual hierarchy
+5. **Syntax Highlighting**: Comprehensive highlighting including HEX colors and regex
+6. **Outline View**: Shows procedure structure in the outline panel
 
 ## Configuration
 The extension can be configured via `.vscode/skill.json` in the workspace:
 ```json
 {
   "skill": {
-    "autoComplete": true/false
+    "autoComplete": true/false,
+    "searchFolderPath": "path/to/skill/files"
   }
 }
+```
+
+## 📖 Procedure Documentation System
+
+### Documentation Tags
+The extension supports rich documentation for SKILL procedures using special tags in block comments:
+
+```skill
+/*
+<@summary>
+🎯 Main function description
+Can be multi-line text explaining the procedure's purpose
+</@summary>
+
+<arg1>
+📥 Description of the first argument
+</arg1>
+
+<arg2>
+📥 Description of the second argument
+</arg2>
+
+<@return>
+📤 Description of the return value
+- Success case: what is returned
+- Failure case: what is returned
+- Special cases and their handling
+</@return>
+
+<@note>
+⚠️ Important warnings and usage notes
+- Usage limitations or conditions
+- Performance considerations
+- Safety warnings
+</@note>
+
+<@example>
+💡 Usage example
+result = myProcedure(value1 value2)
+if(result
+    println("Success")
+    println("Failed")
+)
+</@example>
+*/
+procedure(myProcedure(arg1 arg2 @optional (opt1 defaultValue))
+    ; procedure body
+)
+```
+
+### Tag Reference
+
+| Tag | Required | Purpose |
+|-----|----------|---------|
+| `<@summary>` | ✅ Required | Main function description |
+| `<argumentName>` | ✅ Required | Individual argument descriptions |
+| `<@return>` | 🔸 Optional | Return value documentation |
+| `<@note>` | 🔸 Optional | Important warnings and notes |
+| `<@example>` | 🔸 Optional | Usage examples |
+
+### Visual Features
+- **🎨 Rich Hover**: Enhanced tooltips with emoji icons and clear sections
+- **🎯 Smart Signature Help**: Context-aware parameter assistance
+- **📋 Hierarchical Display**: Well-organized information layout
+- **⚡ Performance Optimized**: Cached parsing for fast response
+
+### Hover Display Format
+```markdown
+**🔧 procedure** `functionName`
+
+📋 [Function summary]
+
+---
+
+**📥 Arguments:**
+- `arg1`: [Description]
+- `arg2`: [Description]
+
+**📤 Returns:** [Return value description]
+
+**⚠️ Important Notes:** [Warnings and notes]
+
+**💡 Example:**
+```skill
+[Usage example]
+```
+
+---
+*💾 File: filename.il:123*
 ```
 
 ## File Structure
