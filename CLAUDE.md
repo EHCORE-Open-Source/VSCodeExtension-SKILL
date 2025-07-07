@@ -70,8 +70,12 @@ Can be multi-line text explaining the procedure's purpose
 </arg1>
 
 <arg2>
-📥 Description of the second argument
+📥 Description of the second argument (required)
 </arg2>
+
+<optArg>
+📥 Description of the optional argument
+</optArg>
 
 <@return>
 📤 Description of the return value
@@ -89,15 +93,42 @@ Can be multi-line text explaining the procedure's purpose
 
 <@example>
 💡 Usage example
-result = myProcedure(value1 value2)
+result = myProcedure(value1 value2 optionalValue)
 if(result
     println("Success")
     println("Failed")
 )
 </@example>
 */
-procedure(myProcedure(arg1 arg2 @optional (opt1 defaultValue))
+procedure(myProcedure(arg1 arg2 @optional optArg)
     ; procedure body
+)
+```
+
+### Supported SKILL Syntax Formats
+The extension now properly handles various SKILL parameter syntax:
+
+```skill
+// 1. Simple optional parameters
+procedure(foo(arg1 @optional arg2)
+    ; arg2 is optional without default value
+)
+
+// 2. Optional parameters with default values
+procedure(bar(arg1 @optional (arg2 "default"))
+    ; arg2 is optional with default value "default"
+)
+
+// 3. Multiple optional parameters
+procedure(baz(arg1 @optional arg2 arg3)
+    ; Both arg2 and arg3 are optional
+)
+
+// 4. Mixed parameter types
+procedure(complex(required1 @optional opt1 opt2 @key (key1 keyDefault))
+    ; required1: required
+    ; opt1, opt2: optional
+    ; key1: key argument with default
 )
 ```
 

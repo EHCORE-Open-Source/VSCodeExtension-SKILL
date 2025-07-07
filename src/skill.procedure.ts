@@ -28,6 +28,40 @@ let procedureIndex: { [name: string]: ProcedureInfo } = {};
 let procedureIndexLastModified: number = 0;
 let cachedSkillFolder: string | undefined;
 
+// Enhanced parameter name extraction function
+function extractParameterName(arg: string): string {
+    // Handle various parameter formats:
+    // 1. "argument2" -> "argument2"
+    // 2. "(argument2 default)" -> "argument2"  
+    // 3. "argument2 = default" -> "argument2"
+    // 4. "@optional", "@key", "@rest" -> skip these keywords
+    
+    if (arg.startsWith('@')) {
+        return ''; // Skip SKILL keywords like @optional, @key, @rest
+    }
+    
+    // Handle parentheses format: (arg default)
+    const parenMatch = arg.match(/^\(\s*(\w+)/);
+    if (parenMatch) {
+        return parenMatch[1];
+    }
+    
+    // Handle assignment format: arg = default
+    const assignMatch = arg.match(/^(\w+)\s*=/);
+    if (assignMatch) {
+        return assignMatch[1];
+    }
+    
+    // Handle space-separated format: arg default
+    const spaceMatch = arg.match(/^(\w+)(?:\s|$)/);
+    if (spaceMatch) {
+        return spaceMatch[1];
+    }
+    
+    // Fallback: clean the argument string
+    return arg.replace(/[()]/g, '').split(/[\s=]/)[0].trim();
+}
+
 // Parse documentation block for a procedure
 function parseProcedureDoc(lines: string[], procLine: number, args: string[]): ProcedureDoc {
     // Default values
@@ -74,21 +108,29 @@ function parseProcedureDoc(lines: string[], procLine: number, args: string[]): P
             
             // Extract <argumentName>...</argumentName> for each argument
             for (const arg of args) {
-                // Remove any default value or formatting in arg name
-                const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
-                const argMatch = docLines.match(new RegExp(`<${argName}>([\\s\\S]*?)<\\/${argName}>`, 'i'));
-                if (argMatch) {
-                    argDocs[argName] = argMatch[1].trim();
-                } else {
-                    argDocs[argName] = '';
+                // Enhanced parameter name extraction to handle various formats
+                const argName = extractParameterName(arg);
+                console.debug(`[SKILL] Processing arg: "${arg}" -> extracted name: "${argName}"`);
+                
+                if (argName) {
+                    const argMatch = docLines.match(new RegExp(`<${argName}>([\\s\\S]*?)<\\/${argName}>`, 'i'));
+                    if (argMatch) {
+                        argDocs[argName] = argMatch[1].trim();
+                        console.debug(`[SKILL] Found documentation for "${argName}": "${argDocs[argName]}"`);
+                    } else {
+                        argDocs[argName] = '';
+                        console.debug(`[SKILL] No documentation found for "${argName}"`);
+                    }
                 }
             }
         }
     } else {
         // No valid doc block, use defaults
         for (const arg of args) {
-            const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
-            argDocs[argName] = '';
+            const argName = extractParameterName(arg);
+            if (argName) {
+                argDocs[argName] = '';
+            }
         }
     }
     
@@ -278,7 +320,7 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Helper to get argument doc
                 const getArgDoc = (arg: string) => {
-                    const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
+                    const argName = extractParameterName(arg);
                     return proc.doc.argDocs[argName] || '';
                 };
 
@@ -753,7 +795,7 @@ export function activate(context: vscode.ExtensionContext) {
 
             // Helper to get argument doc with enhanced formatting
             const getArgDoc = (arg: string) => {
-                const argName = arg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
+                const argName = extractParameterName(arg);
                 const proc = procedureIndex[procName!];
                 const doc = proc?.doc?.argDocs?.[argName];
                 return new vscode.MarkdownString(
@@ -772,7 +814,7 @@ export function activate(context: vscode.ExtensionContext) {
             // Add current parameter information
             if (argIndex < allArgs.length && argIndex >= 0) {
                 const currentArg = allArgs[argIndex];
-                const argName = currentArg.split(/[ =]/)[0].replace(/[()]/g, '').trim();
+                const argName = extractParameterName(currentArg);
                 const currentArgDoc = proc.doc.argDocs[argName];
                 sigDoc += `---\n\n**📍 Current Parameter:** \`${currentArg}\`\n`;
                 if (currentArgDoc) {
@@ -854,6 +896,9 @@ function splitArgs(args: string[]) {
     let optionalMode = false;
     let keyMode = false;
     let arbitraryMode = false;
+    
+    console.debug(`[SKILL] splitArgs input:`, args);
+    
     for (let i = 0; i < args.length; i++) {
         if (args[i] === '@optional') {
             optionalMode = true;
@@ -876,22 +921,37 @@ function splitArgs(args: string[]) {
             restArgs.push(args[i]);
             continue;
         } else if (optionalMode) {
-            // Parse the syntax format: (word1 word2)
-            const match = args[i].match(/^\(\s*(\S+)\s+(.+)\s*\)$/);
-            if (match) {
-                optionalArgs.push(`${match[1]} = ${match[2]}`);
+            // Handle different @optional syntax formats:
+            // 1. Simple optional: @optional arg2
+            // 2. With default: @optional (arg2 default)
+            const parenMatch = args[i].match(/^\(\s*(\S+)\s+(.+)\s*\)$/);
+            if (parenMatch) {
+                // Format: (arg2 default)
+                optionalArgs.push(`${parenMatch[1]} = ${parenMatch[2]}`);
+            } else {
+                // Format: arg2 (simple optional parameter)
+                optionalArgs.push(args[i]);
             }
         } else if (keyMode) {
-            // Parse the syntax format: (word1 word2)
-            const match = args[i].match(/^\(\s*(\S+)\s+(.+)\s*\)$/);
-            if (match) {
-                keyArgs.push(`${match[1]} = ${match[2]}`);
+            // Handle different @key syntax formats:
+            // 1. Simple key: @key arg2
+            // 2. With default: @key (arg2 default)
+            const parenMatch = args[i].match(/^\(\s*(\S+)\s+(.+)\s*\)$/);
+            if (parenMatch) {
+                // Format: (arg2 default)
+                keyArgs.push(`${parenMatch[1]} = ${parenMatch[2]}`);
+            } else {
+                // Format: arg2 (simple key parameter)
+                keyArgs.push(args[i]);
             }
         } else {
             requiredArgs.push(args[i]);
         }
     }
-    return { requiredArgs, optionalArgs, keyArgs, restArgs };
+    
+    const result = { requiredArgs, optionalArgs, keyArgs, restArgs };
+    console.debug(`[SKILL] splitArgs result:`, result);
+    return result;
 }
 
 
