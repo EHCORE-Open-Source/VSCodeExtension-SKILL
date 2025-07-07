@@ -295,7 +295,7 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     const hoverProvider: vscode.HoverProvider = {
-        provideHover(document, position, token) {
+        provideHover(document, position) {
             const wordRange = document.getWordRangeAtPosition(position);
             if (!wordRange) { return; }
             const word = document.getText(wordRange);
@@ -318,66 +318,53 @@ export function activate(context: vscode.ExtensionContext) {
                 
                 hoverText += `---\n\n`;
 
-                // Helper to get argument doc
-                const getArgDoc = (arg: string) => {
+                // Helper to get formatted argument documentation
+                const getFormattedArgDoc = (arg: string, isOptional: boolean = false) => {
                     const argName = extractParameterName(arg);
-                    return proc.doc.argDocs[argName] || '';
+                    const argDoc = proc.doc.argDocs[argName] || '*No documentation*';
+                    
+                    // Clean multi-line content and normalize to single line with proper spacing
+                    const cleanArgDoc = argDoc
+                        .replace(/\n/g, ' ')           // Replace newlines with spaces
+                        .replace(/\s+/g, ' ')          // Normalize multiple spaces to single space
+                        .trim();                       // Remove leading/trailing whitespace
+                    
+                    const optionalLabel = isOptional ? ' *(optional)*' : '';
+                    const defaultValue = arg.includes('=') ? ` = ${arg.split('=')[1].trim()}` : '';
+                    
+                    return `  **\`${argName}${defaultValue}\`**${optionalLabel}  \n    ${cleanArgDoc}`;
                 };
 
                 // Arguments section
                 if (requiredArgs.length > 0) {
                     hoverText += `**📥 Arguments:**\n`;
                     for (const arg of requiredArgs) {
-                        const argDoc = getArgDoc(arg);
-                        if (argDoc) {
-                            hoverText += `- \`${arg}\`: ${argDoc}\n`;
-                        } else {
-                            hoverText += `- \`${arg}\`: *No documentation*\n`;
-                        }
+                        hoverText += `${getFormattedArgDoc(arg)}\n\n`;
                     }
-                    hoverText += `\n`;
                 }
                 
                 // Optional arguments section
                 if (optionalArgs.length > 0) {
                     hoverText += `**📥 Optional Arguments:**\n`;
                     for (const arg of optionalArgs) {
-                        const argDoc = getArgDoc(arg);
-                        if (argDoc) {
-                            hoverText += `- \`${arg}\`: ${argDoc}\n`;
-                        } else {
-                            hoverText += `- \`${arg}\`: *No documentation*\n`;
-                        }
+                        hoverText += `${getFormattedArgDoc(arg, true)}\n\n`;
                     }
                     if (keyArgs.length > 0) {
-                        hoverText += '\n> ℹ️ Key Arguments are ignored when optional arguments are provided.\n';
+                        hoverText += '> ℹ️ Key Arguments are ignored when optional arguments are provided.\n\n';
                     }
-                    hoverText += `\n`;
                 } else if (keyArgs.length > 0) {
                     hoverText += `**📥 Key Arguments:**\n`;
                     for (const arg of keyArgs) {
-                        const argDoc = getArgDoc(arg);
-                        if (argDoc) {
-                            hoverText += `- \`${arg}\`: ${argDoc}\n`;
-                        } else {
-                            hoverText += `- \`${arg}\`: *No documentation*\n`;
-                        }
+                        hoverText += `${getFormattedArgDoc(arg, true)}\n\n`;
                     }
-                    hoverText += `\n`;
                 }
                 
                 // Rest arguments section
                 if (restArgs.length > 0) {
                     hoverText += `**📥 Arbitrary Arguments:**\n`;
                     for (const arg of restArgs) {
-                        const argDoc = getArgDoc(arg);
-                        if (argDoc) {
-                            hoverText += `- \`${arg}\`: ${argDoc}\n`;
-                        } else {
-                            hoverText += `- \`${arg}\`: *No documentation*\n`;
-                        }
+                        hoverText += `${getFormattedArgDoc(arg, true)}\n\n`;
                     }
-                    hoverText += `\n`;
                 }
                 
                 // Return value section
@@ -411,7 +398,7 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     const signatureHelpProvider: vscode.SignatureHelpProvider = {
-        provideSignatureHelp(document, position, token, context) {
+        provideSignatureHelp(document, position) {
             // Search upwards for the procedureName(
             let startLine = position.line;
             let startChar = -1;
@@ -803,35 +790,13 @@ export function activate(context: vscode.ExtensionContext) {
                 );
             };
 
-            // Build comfortable signature help documentation
+            // Build simplified signature help documentation
             const proc = procedureIndex[procName];
-            let sigDoc = `**🔧 ${procName}**(${allArgs.join(', ')})\n\n`;
+            let sigDoc = '';
             
+            // Add separator line above summary if summary exists
             if (proc.doc.summary) {
-                sigDoc += `📋 ${proc.doc.summary}\n\n`;
-            }
-            
-            // Add current parameter information
-            if (argIndex < allArgs.length && argIndex >= 0) {
-                const currentArg = allArgs[argIndex];
-                const argName = extractParameterName(currentArg);
-                const currentArgDoc = proc.doc.argDocs[argName];
-                sigDoc += `---\n\n**📍 Current Parameter:** \`${currentArg}\`\n`;
-                if (currentArgDoc) {
-                    sigDoc += `${currentArgDoc}\n\n`;
-                } else {
-                    sigDoc += `*No documentation available for this parameter.*\n\n`;
-                }
-            }
-            
-            // Add parameter list
-            if (allArgs.length > 0) {
-                sigDoc += `**📋 Parameter List:**\n`;
-                allArgs.forEach((arg, index) => {
-                    const marker = index === argIndex ? '👉' : '-';
-                    const isOptional = arg.includes('=') ? ' *(optional)*' : '';
-                    sigDoc += `${marker} \`${arg}\`${isOptional}\n`;
-                });
+                sigDoc += `---\n\n📋 ${proc.doc.summary}`;
             }
 
             const signature = new vscode.SignatureInformation(

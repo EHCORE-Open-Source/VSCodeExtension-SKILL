@@ -157,8 +157,12 @@ procedure(complex(required1 @optional opt1 opt2 @key (key1 keyDefault))
 ---
 
 **📥 Arguments:**
-- `arg1`: [Description]
-- `arg2`: [Description]
+  **`arg1`**  
+    [Single-line description with normalized whitespace]
+
+**📥 Optional Arguments:**
+  **`arg2 = defaultValue`** *(optional)*  
+    [Single-line description for optional parameter]
 
 **📤 Returns:** [Return value description]
 
@@ -171,6 +175,13 @@ procedure(complex(required1 @optional opt1 opt2 @key (key1 keyDefault))
 
 ---
 *💾 File: filename.il:123*
+```
+
+### Signature Help Format
+```markdown
+---
+
+📋 [Function summary]
 ```
 
 ## File Structure
