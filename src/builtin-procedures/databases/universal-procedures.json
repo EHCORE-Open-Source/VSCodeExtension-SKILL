@@ -1,0 +1,954 @@
+{
+  "metadata": {
+    "category": "Universal SKILL Functions",
+    "scope": "universal",
+    "description": "Core SKILL language functions (sklangref) available in all tools and versions",
+    "version": "2.0.0",
+    "total_functions": 25,
+    "categories": [
+      "Output Functions",
+      "List Functions",
+      "String Functions",
+      "Arithmetic Functions",
+      "Control Flow",
+      "Comparison Functions",
+      "File I/O Functions"
+    ],
+    "source_reference": "sklangref - SKILL Language Reference",
+    "last_updated": "2024-01-07"
+  },
+  "procedures": {
+    "printf": {
+      "name": "printf",
+      "scope": "universal",
+      "category": "Output Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "printf(format_string [arg1 arg2 ...])",
+        "summary": "Prints formatted output to the current output port",
+        "parameters": [
+          {
+            "name": "format_string",
+            "type": "string",
+            "required": true,
+            "description": "Format string with % placeholders (%s, %d, %f, %L, etc.)"
+          },
+          {
+            "name": "args",
+            "type": "any",
+            "required": false,
+            "description": "Arguments to substitute in format string"
+          }
+        ],
+        "return_value": "Returns the formatted string",
+        "examples": [
+          "printf(\"Hello %s!\\n\" \"World\")",
+          "printf(\"Value: %d\\n\" 42)",
+          "printf(\"Float: %.2f\\n\" 3.14159)"
+        ],
+        "notes": "Uses C-style format specifiers. %L prints SKILL objects in readable form."
+      }
+    },
+    "car": {
+      "name": "car",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "car(list)",
+        "summary": "Returns the first element of a list",
+        "parameters": [
+          {
+            "name": "list",
+            "type": "list",
+            "required": true,
+            "description": "The list to get the first element from"
+          }
+        ],
+        "return_value": "The first element of the list, or nil if list is empty",
+        "examples": [
+          "car('(1 2 3)) ; Returns 1",
+          "car('(a b c)) ; Returns a",
+          "car(nil) ; Returns nil"
+        ],
+        "notes": "Returns nil for empty lists. Part of fundamental list operations."
+      }
+    },
+    "cdr": {
+      "name": "cdr",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "cdr(list)",
+        "summary": "Returns all elements of a list except the first",
+        "parameters": [
+          {
+            "name": "list",
+            "type": "list",
+            "required": true,
+            "description": "The list to get the tail from"
+          }
+        ],
+        "return_value": "A list containing all elements except the first, or nil if input is empty",
+        "examples": [
+          "cdr('(1 2 3)) ; Returns (2 3)",
+          "cdr('(a)) ; Returns nil",
+          "cdr(nil) ; Returns nil"
+        ],
+        "notes": "Returns nil for single-element or empty lists."
+      }
+    },
+    "cons": {
+      "name": "cons",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "cons(element list)",
+        "summary": "Constructs a new list by adding element to the front of list",
+        "parameters": [
+          {
+            "name": "element",
+            "type": "any",
+            "required": true,
+            "description": "The element to add to the front of the list"
+          },
+          {
+            "name": "list",
+            "type": "list",
+            "required": true,
+            "description": "The list to add the element to"
+          }
+        ],
+        "return_value": "A new list with element as the first item",
+        "examples": [
+          "cons(1 '(2 3)) ; Returns (1 2 3)",
+          "cons('a nil) ; Returns (a)",
+          "cons('x '(y z)) ; Returns (x y z)"
+        ],
+        "notes": "Fundamental list construction function. Does not modify the original list."
+      }
+    },
+    "append": {
+      "name": "append",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "append(list1 list2 ...)",
+        "summary": "Concatenates multiple lists into a single list",
+        "parameters": [
+          {
+            "name": "list1",
+            "type": "list",
+            "required": true,
+            "description": "The first list to concatenate"
+          },
+          {
+            "name": "list2",
+            "type": "list",
+            "required": false,
+            "description": "Additional lists to concatenate"
+          }
+        ],
+        "return_value": "A new list containing all elements from the input lists",
+        "examples": [
+          "append('(1 2) '(3 4)) ; Returns (1 2 3 4)",
+          "append('(a) '(b) '(c)) ; Returns (a b c)",
+          "append(nil '(1 2)) ; Returns (1 2)"
+        ],
+        "notes": "Creates a new list without modifying the original lists."
+      }
+    },
+    "length": {
+      "name": "length",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "length(list)",
+        "summary": "Returns the number of elements in a list",
+        "parameters": [
+          {
+            "name": "list",
+            "type": "list",
+            "required": true,
+            "description": "The list to count elements in"
+          }
+        ],
+        "return_value": "An integer representing the number of elements",
+        "examples": [
+          "length('(1 2 3)) ; Returns 3",
+          "length(nil) ; Returns 0",
+          "length('(a)) ; Returns 1"
+        ],
+        "notes": "Returns 0 for nil (empty list)."
+      }
+    },
+    "reverse": {
+      "name": "reverse",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "reverse(list)",
+        "summary": "Returns a new list with elements in reverse order",
+        "parameters": [
+          {
+            "name": "list",
+            "type": "list",
+            "required": true,
+            "description": "The list to reverse"
+          }
+        ],
+        "return_value": "A new list with elements in reverse order",
+        "examples": [
+          "reverse('(1 2 3)) ; Returns (3 2 1)",
+          "reverse('(a)) ; Returns (a)",
+          "reverse(nil) ; Returns nil"
+        ],
+        "notes": "Creates a new list without modifying the original."
+      }
+    },
+    "strcat": {
+      "name": "strcat",
+      "scope": "universal",
+      "category": "String Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "strcat(string1 string2 ...)",
+        "summary": "Concatenates multiple strings into a single string",
+        "parameters": [
+          {
+            "name": "string1",
+            "type": "string",
+            "required": true,
+            "description": "The first string to concatenate"
+          },
+          {
+            "name": "string2",
+            "type": "string",
+            "required": false,
+            "description": "Additional strings to concatenate"
+          }
+        ],
+        "return_value": "A new string containing all input strings concatenated",
+        "examples": [
+          "strcat(\"Hello\" \" \" \"World\") ; Returns \"Hello World\"",
+          "strcat(\"Part\" \"1\") ; Returns \"Part1\"",
+          "strcat(\"A\") ; Returns \"A\""
+        ],
+        "notes": "Creates a new string without modifying the original strings."
+      }
+    },
+    "substring": {
+      "name": "substring",
+      "scope": "universal",
+      "category": "String Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "substring(string start [length])",
+        "summary": "Extracts a substring from a string",
+        "parameters": [
+          {
+            "name": "string",
+            "type": "string",
+            "required": true,
+            "description": "The source string"
+          },
+          {
+            "name": "start",
+            "type": "integer",
+            "required": true,
+            "description": "Starting position (1-based index)"
+          },
+          {
+            "name": "length",
+            "type": "integer",
+            "required": false,
+            "description": "Number of characters to extract (default: to end of string)"
+          }
+        ],
+        "return_value": "A substring of the original string",
+        "examples": [
+          "substring(\"Hello\" 2 3) ; Returns \"ell\"",
+          "substring(\"World\" 3) ; Returns \"rld\"",
+          "substring(\"Test\" 1 1) ; Returns \"T\""
+        ],
+        "notes": "Uses 1-based indexing. Returns empty string if start is beyond string length."
+      }
+    },
+    "sprintf": {
+      "name": "sprintf",
+      "scope": "universal",
+      "category": "String Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "sprintf(format_string [arg1 arg2 ...])",
+        "summary": "Returns a formatted string without printing it",
+        "parameters": [
+          {
+            "name": "format_string",
+            "type": "string",
+            "required": true,
+            "description": "Format string with % placeholders"
+          },
+          {
+            "name": "args",
+            "type": "any",
+            "required": false,
+            "description": "Arguments to substitute in format string"
+          }
+        ],
+        "return_value": "The formatted string",
+        "examples": [
+          "sprintf(\"Value: %d\" 42) ; Returns \"Value: 42\"",
+          "sprintf(\"Hello %s!\" \"World\") ; Returns \"Hello World!\"",
+          "sprintf(\"%.2f%%\" 98.765) ; Returns \"98.77%\""
+        ],
+        "notes": "Similar to printf but returns string instead of printing it."
+      }
+    },
+    "plus": {
+      "name": "plus",
+      "scope": "universal",
+      "category": "Arithmetic Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "plus([number1 number2 ...])",
+        "summary": "Adds all numeric arguments together",
+        "parameters": [
+          {
+            "name": "numbers",
+            "type": "number",
+            "required": false,
+            "description": "One or more numbers to add (returns 0 if no arguments)"
+          }
+        ],
+        "return_value": "The sum of all arguments, or 0 if no arguments",
+        "examples": [
+          "plus(1 2 3) ; Returns 6",
+          "plus(1.5 2.5) ; Returns 4.0",
+          "plus() ; Returns 0"
+        ],
+        "notes": "Can handle both integers and floating-point numbers."
+      }
+    },
+    "minus": {
+      "name": "minus",
+      "scope": "universal",
+      "category": "Arithmetic Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "minus(number1 [number2 ...])",
+        "summary": "Subtracts subsequent numbers from the first number",
+        "parameters": [
+          {
+            "name": "number1",
+            "type": "number",
+            "required": true,
+            "description": "The number to subtract from"
+          },
+          {
+            "name": "numbers",
+            "type": "number",
+            "required": false,
+            "description": "Numbers to subtract from the first number"
+          }
+        ],
+        "return_value": "The result of the subtraction",
+        "examples": [
+          "minus(10 3 2) ; Returns 5",
+          "minus(5.5 2.5) ; Returns 3.0",
+          "minus(10) ; Returns 10"
+        ],
+        "notes": "With one argument, returns the number unchanged."
+      }
+    },
+    "times": {
+      "name": "times",
+      "scope": "universal",
+      "category": "Arithmetic Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "times([number1 number2 ...])",
+        "summary": "Multiplies all numeric arguments together",
+        "parameters": [
+          {
+            "name": "numbers",
+            "type": "number",
+            "required": false,
+            "description": "One or more numbers to multiply (returns 1 if no arguments)"
+          }
+        ],
+        "return_value": "The product of all arguments, or 1 if no arguments",
+        "examples": [
+          "times(2 3 4) ; Returns 24",
+          "times(2.5 4) ; Returns 10.0",
+          "times() ; Returns 1"
+        ],
+        "notes": "Can handle both integers and floating-point numbers."
+      }
+    },
+    "quotient": {
+      "name": "quotient",
+      "scope": "universal",
+      "category": "Arithmetic Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "quotient(number1 number2 ...)",
+        "summary": "Divides the first number by subsequent numbers",
+        "parameters": [
+          {
+            "name": "number1",
+            "type": "number",
+            "required": true,
+            "description": "The dividend"
+          },
+          {
+            "name": "numbers",
+            "type": "number",
+            "required": true,
+            "description": "The divisors"
+          }
+        ],
+        "return_value": "The result of the division",
+        "examples": [
+          "quotient(12 3) ; Returns 4",
+          "quotient(10.0 2.5) ; Returns 4.0",
+          "quotient(20 2 2) ; Returns 5"
+        ],
+        "notes": "Division by zero causes an error."
+      }
+    },
+    "if": {
+      "name": "if",
+      "scope": "universal",
+      "category": "Control Flow",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "if(condition then_expr [else_expr])",
+        "summary": "Conditional evaluation - executes then_expr if condition is true",
+        "parameters": [
+          {
+            "name": "condition",
+            "type": "any",
+            "required": true,
+            "description": "Expression to evaluate for truth (nil is false, everything else is true)"
+          },
+          {
+            "name": "then_expr",
+            "type": "any",
+            "required": true,
+            "description": "Expression to evaluate if condition is true"
+          },
+          {
+            "name": "else_expr",
+            "type": "any",
+            "required": false,
+            "description": "Expression to evaluate if condition is false"
+          }
+        ],
+        "return_value": "Value of then_expr if condition is true, else_expr if false, nil if no else_expr",
+        "examples": [
+          "if(t \"true\" \"false\") ; Returns \"true\"",
+          "if(nil \"true\" \"false\") ; Returns \"false\"",
+          "if(x > 5 \"big\")"
+        ],
+        "notes": "Only nil is considered false; all other values are true."
+      }
+    },
+    "when": {
+      "name": "when",
+      "scope": "universal",
+      "category": "Control Flow",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "when(condition expr1 [expr2 ...])",
+        "summary": "Executes expressions sequentially if condition is true",
+        "parameters": [
+          {
+            "name": "condition",
+            "type": "any",
+            "required": true,
+            "description": "Expression to evaluate for truth"
+          },
+          {
+            "name": "expressions",
+            "type": "any",
+            "required": true,
+            "description": "One or more expressions to evaluate if condition is true"
+          }
+        ],
+        "return_value": "Value of the last expression if condition is true, nil otherwise",
+        "examples": [
+          "when(x > 0 (printf \"positive\") x)",
+          "when(list (setq list (append list '(item))))"
+        ],
+        "notes": "Useful for executing multiple statements conditionally."
+      }
+    },
+    "unless": {
+      "name": "unless",
+      "scope": "universal",
+      "category": "Control Flow",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "unless(condition expr1 [expr2 ...])",
+        "summary": "Executes expressions sequentially if condition is false",
+        "parameters": [
+          {
+            "name": "condition",
+            "type": "any",
+            "required": true,
+            "description": "Expression to evaluate for truth"
+          },
+          {
+            "name": "expressions",
+            "type": "any",
+            "required": true,
+            "description": "One or more expressions to evaluate if condition is false"
+          }
+        ],
+        "return_value": "Value of the last expression if condition is false, nil otherwise",
+        "examples": [
+          "unless(x < 0 (printf \"non-negative\") x)",
+          "unless(null(list) (setq list nil))"
+        ],
+        "notes": "Opposite of when - executes when condition is false."
+      }
+    },
+    "let": {
+      "name": "let",
+      "scope": "universal",
+      "category": "Control Flow",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "let(((var1 [value1]) (var2 [value2]) ...) expr1 [expr2 ...])",
+        "summary": "Creates local variable bindings and evaluates expressions in that context",
+        "parameters": [
+          {
+            "name": "bindings",
+            "type": "list",
+            "required": true,
+            "description": "List of variable binding pairs (var value)"
+          },
+          {
+            "name": "expressions",
+            "type": "any",
+            "required": true,
+            "description": "One or more expressions to evaluate with the bindings"
+          }
+        ],
+        "return_value": "Value of the last expression",
+        "examples": [
+          "let(((x 5) (y 10)) (plus x y)) ; Returns 15",
+          "let(((temp \"hello\")) (strcat temp \" world\"))"
+        ],
+        "notes": "Variables are bound simultaneously, cannot reference each other."
+      }
+    },
+    "foreach": {
+      "name": "foreach",
+      "scope": "universal",
+      "category": "Control Flow",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "foreach(var list expr1 [expr2 ...])",
+        "summary": "Iterates over a list, binding each element to var and evaluating expressions",
+        "parameters": [
+          {
+            "name": "var",
+            "type": "symbol",
+            "required": true,
+            "description": "Variable name to bind each list element to"
+          },
+          {
+            "name": "list",
+            "type": "list",
+            "required": true,
+            "description": "List to iterate over"
+          },
+          {
+            "name": "expressions",
+            "type": "any",
+            "required": true,
+            "description": "Expressions to evaluate for each element"
+          }
+        ],
+        "return_value": "Value of the last expression from the final iteration",
+        "examples": [
+          "foreach(x '(1 2 3) (printf \"%d\\n\" x))",
+          "foreach(item myList (when (> item 5) (printf \"Found: %d\\n\" item)))"
+        ],
+        "notes": "Variable binding is local to the foreach loop."
+      }
+    },
+    "mapcar": {
+      "name": "mapcar",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "mapcar(function list1 [list2 ...])",
+        "summary": "Applies function to corresponding elements of lists, returns list of results",
+        "parameters": [
+          {
+            "name": "function",
+            "type": "function",
+            "required": true,
+            "description": "Function to apply to each set of elements"
+          },
+          {
+            "name": "lists",
+            "type": "list",
+            "required": true,
+            "description": "One or more lists to process"
+          }
+        ],
+        "return_value": "List containing results of applying function to each element set",
+        "examples": [
+          "mapcar('plus '(1 2 3) '(4 5 6)) ; Returns (5 7 9)",
+          "mapcar('car '((a b) (c d) (e f))) ; Returns (a c e)",
+          "mapcar('length '((1 2) (3 4 5) (6))) ; Returns (2 3 1)"
+        ],
+        "notes": "Stops when the shortest list is exhausted."
+      }
+    },
+    "member": {
+      "name": "member",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "member(element list)",
+        "summary": "Tests if element is a member of list, returns tail starting with element or nil",
+        "parameters": [
+          {
+            "name": "element",
+            "type": "any",
+            "required": true,
+            "description": "Element to search for in the list"
+          },
+          {
+            "name": "list",
+            "type": "list",
+            "required": true,
+            "description": "List to search in"
+          }
+        ],
+        "return_value": "Tail of list starting with element if found, nil otherwise",
+        "examples": [
+          "member('b '(a b c d)) ; Returns (b c d)",
+          "member('x '(a b c)) ; Returns nil",
+          "member(2 '(1 2 3 2)) ; Returns (2 3 2)"
+        ],
+        "notes": "Uses equal for comparison, not eq."
+      }
+    },
+    "assoc": {
+      "name": "assoc",
+      "scope": "universal",
+      "category": "List Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "assoc(key alist)",
+        "summary": "Searches association list for key, returns the key-value pair or nil",
+        "parameters": [
+          {
+            "name": "key",
+            "type": "any",
+            "required": true,
+            "description": "Key to search for"
+          },
+          {
+            "name": "alist",
+            "type": "list",
+            "required": true,
+            "description": "Association list of (key value) pairs"
+          }
+        ],
+        "return_value": "The (key value) pair if found, nil otherwise",
+        "examples": [
+          "assoc('b '((a 1) (b 2) (c 3))) ; Returns (b 2)",
+          "assoc('x '((a 1) (b 2))) ; Returns nil",
+          "assoc(\"key\" '((\"key\" \"value\") (\"other\" \"data\"))) ; Returns (\"key\" \"value\")"
+        ],
+        "notes": "Uses equal for key comparison."
+      }
+    },
+    "equal": {
+      "name": "equal",
+      "scope": "universal",
+      "category": "Comparison Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "equal(obj1 obj2)",
+        "summary": "Tests if two objects are structurally equal",
+        "parameters": [
+          {
+            "name": "obj1",
+            "type": "any",
+            "required": true,
+            "description": "First object to compare"
+          },
+          {
+            "name": "obj2",
+            "type": "any",
+            "required": true,
+            "description": "Second object to compare"
+          }
+        ],
+        "return_value": "t if objects are equal, nil otherwise",
+        "examples": [
+          "equal('(a b) '(a b)) ; Returns t",
+          "equal(\"hello\" \"hello\") ; Returns t",
+          "equal(123 123) ; Returns t"
+        ],
+        "notes": "Compares structure and content, unlike eq which compares identity."
+      }
+    },
+    "load": {
+      "name": "load",
+      "scope": "universal",
+      "category": "File I/O Functions",
+      "source": "SKILL Core Language",
+      "availability": [
+        {
+          "scope": "universal",
+          "version_range": {
+            "pattern": "*",
+            "description": "Available in all SKILL implementations"
+          }
+        }
+      ],
+      "documentation": {
+        "syntax": "load(filename)",
+        "summary": "Loads and evaluates expressions from a SKILL file",
+        "parameters": [
+          {
+            "name": "filename",
+            "type": "string",
+            "required": true,
+            "description": "Path to the SKILL file to load"
+          }
+        ],
+        "return_value": "t if file loaded successfully, nil otherwise",
+        "examples": [
+          "load(\"myfile.il\")",
+          "load(\"/path/to/script.il\")",
+          "load(\"../utils/helpers.il\")"
+        ],
+        "notes": "File is evaluated in the current context. Use full paths for reliability."
+      }
+    }
+  }
+}

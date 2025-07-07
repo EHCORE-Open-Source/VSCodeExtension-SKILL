@@ -195,9 +195,28 @@ procedure(complex(required1 @optional opt1 opt2 @key (key1 keyDefault))
 📋 [Function summary]
 ```
 
+## Coding Standards
+
+### English-Only Requirement
+**STRICT REQUIREMENT**: All code content, comments, variable names, function names, documentation, and any text within the codebase MUST be written in English only. This is a mandatory standard for:
+
+- All TypeScript/JavaScript code
+- All comments and documentation
+- Variable and function naming
+- JSON configuration files
+- Error messages and user-facing text
+- Database content and schemas
+- API documentation
+
+**Rationale**: Ensures international collaboration, code maintainability, and professional standards.
+
+**Enforcement**: This standard applies to all new code and any modifications to existing code.
+
 ## File Structure
 - `src/` - TypeScript source files
 - `out/` - Compiled JavaScript output
 - `syntax/skill/` - Language grammar definitions
 - `src/schema/` - JSON schema for completion configuration
+- `src/builtin-procedures/` - Built-in SKILL procedures database
+- `docs/skill-procedures/` - Version-specific procedure databases
 - `vsix/` - Packaged extension files

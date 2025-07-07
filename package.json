@@ -46,7 +46,7 @@
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
+        "compile": "tsc -p ./ && mkdir -p out/builtin-procedures/databases && cp src/builtin-procedures/databases/*.json out/builtin-procedures/databases/",
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile && npm run lint",
         "lint": "eslint src --ext ts",

@@ -1,0 +1,27 @@
+{
+  "auto_complete": true,
+  "search_folder_path": "./skill",
+  "environment": {
+    "primary_tool": "virtuoso",
+    "tools": {
+      "virtuoso": {
+        "version": "6.1.8",
+        "version_range": "6.1.0~6.1.8",
+        "subtools": ["layout", "schematic", "analog", "digital"]
+      },
+      "allegro": {
+        "version": "22.1",
+        "version_range": ">=22.1",
+        "subtools": ["pcb", "package"]
+      }
+    }
+  },
+  "compatibility": {
+    "mode": "permissive",
+    "allow_universal": true,
+    "allow_cross_tool": true,
+    "show_version_warnings": true,
+    "show_scope_warnings": true,
+    "minimum_version": "6.0.0"
+  }
+}

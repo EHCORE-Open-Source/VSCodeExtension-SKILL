@@ -8,11 +8,13 @@ import * as skillProcedure from './skill.procedure';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
+    console.log('[SKILL] Main extension activating...');
     skillCompletion.activate(context);
     skillOutline.activate(context);
     skillLink.activate(context);
-    skillProcedure.activate(context);
+    await skillProcedure.activate(context);
+    console.log('[SKILL] Main extension activation complete');
 }
 
 // This method is called when your extension is deactivated

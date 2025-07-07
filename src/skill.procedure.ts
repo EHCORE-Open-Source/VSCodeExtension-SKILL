@@ -1,6 +1,10 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+import { SkillConfig } from './builtin-procedures/types';
+import { CompatibilityEngine } from './builtin-procedures/compatibility-engine';
+import { BuiltinProcedureDatabase } from './builtin-procedures/types';
+import { skillPromptGenerator } from './builtin-procedures/prompt-generator';
 
 interface ProcedureDoc {
     summary: string;
@@ -17,16 +21,21 @@ interface ProcedureInfo {
     doc: ProcedureDoc;
 }
 
-interface SkillProcedureConfig {
+interface LegacySkillProcedureConfig {
     skill: {
         searchFolderPath: string;
     };
 }
 
+type SkillProcedureConfig = LegacySkillProcedureConfig | SkillConfig;
+
 // Extend procedureIndex to include documentation
 let procedureIndex: { [name: string]: ProcedureInfo } = {};
 let procedureIndexLastModified: number = 0;
 let cachedSkillFolder: string | undefined;
+let compatibilityEngine: CompatibilityEngine | undefined;
+let currentSkillConfig: SkillConfig | undefined;
+let builtinDatabase: BuiltinProcedureDatabase | undefined;
 
 // Enhanced parameter name extraction function
 function extractParameterName(arg: string): string {
@@ -143,7 +152,7 @@ function parseProcedureDoc(lines: string[], procLine: number, args: string[]): P
     };
 }
 
-function loadSkillConfig(): string | undefined {
+async function loadSkillConfig(): Promise<string | undefined> {
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (!workspaceFolders) { return; }
     
@@ -163,7 +172,25 @@ function loadSkillConfig(): string | undefined {
             const stats = fs.statSync(configPath);
             const configContent = fs.readFileSync(configPath, 'utf8');
             const config: SkillProcedureConfig = JSON.parse(configContent);
-            let folderPath = config.skill?.searchFolderPath;
+            
+            // Determine if this is a legacy config or new config
+            let folderPath: string | undefined;
+            
+            console.log('[SKILL] Config loaded, checking format...');
+            if (isLegacyConfig(config)) {
+                console.log('[SKILL] Detected legacy configuration format');
+                // Legacy configuration format
+                folderPath = config.skill?.searchFolderPath;
+            } else {
+                console.log('[SKILL] Detected new configuration format');
+                // New configuration format
+                folderPath = config.search_folder_path;
+                currentSkillConfig = config;
+                
+                // Initialize compatibility engine with new config
+                console.log('[SKILL] Initializing compatibility engine...');
+                await initializeCompatibilityEngine(config);
+            }
 
             if (!folderPath) {
                 console.error('searchFolderPath not found in skill configuration');
@@ -189,6 +216,69 @@ function loadSkillConfig(): string | undefined {
         console.error(`Failed to load skill configuration: ${error instanceof Error ? error.message : 'Unknown error'}`);
         return;
     }
+}
+
+function isLegacyConfig(config: SkillProcedureConfig): config is LegacySkillProcedureConfig {
+    return 'skill' in config && 'searchFolderPath' in config.skill;
+}
+
+async function initializeCompatibilityEngine(config: SkillConfig): Promise<void> {
+    try {
+        console.log('[SKILL] Initializing compatibility engine...');
+        if (!compatibilityEngine) {
+            compatibilityEngine = new CompatibilityEngine();
+        }
+        
+        // Load universal procedures database
+        let universalDbPath = path.join(__dirname, 'builtin-procedures', 'databases', 'universal-procedures.json');
+        // Try alternative path if first doesn't exist (for development vs production)
+        if (!fs.existsSync(universalDbPath)) {
+            universalDbPath = path.join(__dirname, '..', 'src', 'builtin-procedures', 'databases', 'universal-procedures.json');
+        }
+        console.log('[SKILL] Looking for universal DB at:', universalDbPath);
+        if (fs.existsSync(universalDbPath)) {
+            console.log('[SKILL] Universal DB found, loading...');
+            const universalDbContent = fs.readFileSync(universalDbPath, 'utf8');
+            const universalDb = JSON.parse(universalDbContent);
+            console.log('[SKILL] Universal DB loaded with', Object.keys(universalDb.procedures).length, 'procedures');
+            
+            // Create a builtin database structure
+            builtinDatabase = {
+                metadata: {
+                    version: '1.0.0',
+                    total_procedures: Object.keys(universalDb.procedures).length,
+                    categories: ['Universal Functions'],
+                    supported_tools: {
+                        virtuoso: ['*'],
+                        allegro: ['*']
+                    },
+                    last_updated: new Date().toISOString()
+                },
+                procedures: universalDb.procedures
+            };
+            
+            await compatibilityEngine.loadBuiltinDatabase(builtinDatabase);
+            console.log('[SKILL] Successfully loaded universal procedures database');
+        } else {
+            console.log('[SKILL] Universal DB file not found at path:', universalDbPath);
+        }
+    } catch (error) {
+        console.error(`[SKILL] Failed to initialize compatibility engine: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+}
+
+function checkProcedureCompatibility(procedureName: string): string | undefined {
+    if (!compatibilityEngine || !currentSkillConfig) {
+        return undefined;
+    }
+    
+    const result = compatibilityEngine.checkProcedureCompatibility(procedureName, currentSkillConfig);
+    
+    if (result.status === 'warning' || result.status === 'error') {
+        return result.message;
+    }
+    
+    return undefined;
 }
 
 function indexProcedures(skillFolder: string): void {
@@ -263,10 +353,34 @@ function indexProcedures(skillFolder: string): void {
     }
 }
 
-export function activate(context: vscode.ExtensionContext) {
-    const skillFolder = loadSkillConfig();
+export async function activate(context: vscode.ExtensionContext) {
+    console.log('[SKILL] Extension activating...');
+    const skillFolder = await loadSkillConfig();
     if (skillFolder) {
         indexProcedures(skillFolder);
+    }
+    
+    // Initialize compatibility engine with default config if not already done
+    if (!compatibilityEngine) {
+        console.log('[SKILL] Initializing compatibility engine with default config...');
+        const defaultConfig: SkillConfig = {
+            auto_complete: true,
+            search_folder_path: skillFolder || './skill',
+            environment: {
+                primary_tool: 'virtuoso' as any,
+                tools: {
+                    virtuoso: { version: '6.1.8' }
+                }
+            },
+            compatibility: {
+                mode: 'permissive' as any,
+                allow_universal: true,
+                allow_cross_tool: true,
+                show_version_warnings: true,
+                show_scope_warnings: true
+            }
+        };
+        await initializeCompatibilityEngine(defaultConfig);
     }
 
     const provider: vscode.DocumentLinkProvider = {
@@ -296,18 +410,65 @@ export function activate(context: vscode.ExtensionContext) {
 
     const hoverProvider: vscode.HoverProvider = {
         provideHover(document, position) {
+            console.log('[SKILL] Hover provider called at position:', position.line, position.character);
             const wordRange = document.getWordRangeAtPosition(position);
-            if (!wordRange) { return; }
+            if (!wordRange) { 
+                console.log('[SKILL] No word range found at position');
+                return; 
+            }
             const word = document.getText(wordRange);
+            console.log('[SKILL] Hover request for word:', word);
+            
+            // Check if this is a universal procedure first
+            console.log('[SKILL] Compatibility engine available:', compatibilityEngine ? 'YES' : 'NO');
+            const universalProc = compatibilityEngine?.getProcedureInfo(word);
+            console.log('[SKILL] Universal procedure found for', word, ':', universalProc ? 'YES' : 'NO');
+            if (universalProc) {
+                console.log('[SKILL] Universal procedure details:', {
+                    name: universalProc.name,
+                    scope: universalProc.scope,
+                    category: universalProc.category
+                });
+            }
+            if (universalProc) {
+                // Only show on invocation (must be followed by a left parenthesis)
+                const after = document.getText(new vscode.Range(wordRange.end, wordRange.end.translate(0, 1)));
+                console.log('[SKILL] Character after word:', after);
+                if (after !== '(') { return; }
+                
+                console.log('[SKILL] Generating hover for universal procedure:', word);
+                // Generate enhanced prompt for universal procedure
+                let hoverText = skillPromptGenerator.generateHoverPrompt(universalProc);
+                
+                // Add compatibility warning if needed
+                const compatibilityMessage = checkProcedureCompatibility(word);
+                if (compatibilityMessage) {
+                    hoverText = `⚠️ **Compatibility Warning:** ${compatibilityMessage}\n\n${hoverText}`;
+                }
+                
+                console.log('[SKILL] Returning hover text for:', word);
+                return new vscode.Hover(new vscode.MarkdownString(hoverText, true));
+            }
+            
+            // Fall back to user-defined procedures
             const proc = procedureIndex[word];
             if (proc) {
                 // Only show on invocation (must be followed by a left parenthesis)
                 const after = document.getText(new vscode.Range(wordRange.end, wordRange.end.translate(0, 1)));
                 if (after !== '(') { return; }
+                
+                // Check compatibility for this procedure
+                const compatibilityMessage = checkProcedureCompatibility(word);
+                
                 const { requiredArgs, optionalArgs, keyArgs, restArgs } = splitArgs(proc.args);
 
                 // Build enhanced hover text with comfortable font sizes
                 let hoverText = `**🔧 procedure** \`${word}\`\n\n`;
+                
+                // Add compatibility warning if needed
+                if (compatibilityMessage) {
+                    hoverText += `⚠️ **Compatibility Warning:** ${compatibilityMessage}\n\n`;
+                }
                 
                 // Summary section
                 if (proc.doc.summary) {
@@ -422,14 +583,24 @@ export function activate(context: vscode.ExtensionContext) {
                 }
                 if (procName) { break; }
             }
-            if (!procName || !procedureIndex[procName] || !openParenPos) { return; }
-
+            if (!procName || !openParenPos) { return; }
+            
             // Get the text from the opening parenthesis to the cursor position (may be multi-line)
             const range = new vscode.Range(
                 openParenPos.translate(0, 1), // after '('
                 position
             );
             const textBefore = document.getText(range);
+            
+            // Check if this is a universal procedure first
+            const universalProc = compatibilityEngine?.getProcedureInfo(procName);
+            if (universalProc) {
+                // Handle universal procedure signature help
+                return createUniversalSignatureHelp(universalProc, procName, textBefore);
+            }
+            
+            // Fall back to user-defined procedures
+            if (!procedureIndex[procName]) { return; }
 
             // Count parenthesis depth from the procedureName(
             // Parentheses inside line comments (;) and quoted strings (") and block comments (/* ... */) are ignored for depth calculation.
@@ -794,6 +965,14 @@ export function activate(context: vscode.ExtensionContext) {
             const proc = procedureIndex[procName];
             let sigDoc = '';
             
+            // Check compatibility for this procedure
+            const compatibilityMessage = checkProcedureCompatibility(procName);
+            
+            // Add compatibility warning if needed
+            if (compatibilityMessage) {
+                sigDoc += `⚠️ **Compatibility:** ${compatibilityMessage}\n\n`;
+            }
+            
             // Add separator line above summary if summary exists
             if (proc.doc.summary) {
                 sigDoc += `---\n\n📋 ${proc.doc.summary}`;
@@ -814,6 +993,50 @@ export function activate(context: vscode.ExtensionContext) {
             return sigHelp;
         }
     };
+
+    // Helper function for universal procedure signature help
+    function createUniversalSignatureHelp(universalProc: any, procName: string, textBefore: string): vscode.SignatureHelp {
+        const doc = universalProc.documentation;
+        
+        // Generate signature help prompt
+        let sigDoc = skillPromptGenerator.generateSignaturePrompt(universalProc);
+        
+        // Add compatibility warning if needed
+        const compatibilityMessage = checkProcedureCompatibility(procName);
+        if (compatibilityMessage) {
+            sigDoc = `⚠️ **Compatibility:** ${compatibilityMessage}\n\n${sigDoc}`;
+        }
+        
+        // Create parameter information from universal procedure documentation
+        const parameters: vscode.ParameterInformation[] = [];
+        if (doc.parameters) {
+            doc.parameters.forEach((param: any, index: number) => {
+                const paramInfo = new vscode.ParameterInformation(
+                    param.name,
+                    new vscode.MarkdownString(skillPromptGenerator.generateParameterPrompt(universalProc, index))
+                );
+                parameters.push(paramInfo);
+            });
+        }
+        
+        // Create signature with universal procedure syntax
+        const signature = new vscode.SignatureInformation(
+            doc.syntax || `${procName}(...)`,
+            new vscode.MarkdownString(sigDoc, true)
+        );
+        signature.parameters = parameters;
+        
+        // Calculate active parameter (simplified - count arguments in textBefore)
+        const argCount = textBefore.split(/\s+/).filter(s => s.length > 0).length;
+        const activeParameter = Math.min(argCount, parameters.length - 1);
+        
+        const sigHelp = new vscode.SignatureHelp();
+        sigHelp.signatures = [signature];
+        sigHelp.activeSignature = 0;
+        sigHelp.activeParameter = activeParameter >= 0 ? activeParameter : -1;
+        
+        return sigHelp;
+    }
 
     context.subscriptions.push(
         vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'cadence-skill' }, provider),
@@ -836,9 +1059,9 @@ export function activate(context: vscode.ExtensionContext) {
         })
     );
 
-    vscode.workspace.onDidSaveTextDocument(doc => {
+    vscode.workspace.onDidSaveTextDocument(async doc => {
         if (doc.fileName.endsWith('.il')) {
-            const skillFolder = loadSkillConfig();
+            const skillFolder = await loadSkillConfig();
             if (skillFolder) {
                 indexProcedures(skillFolder);
             }
@@ -851,6 +1074,9 @@ export function deactivate() {
     procedureIndex = {};
     procedureIndexLastModified = 0;
     cachedSkillFolder = undefined;
+    compatibilityEngine = undefined;
+    currentSkillConfig = undefined;
+    builtinDatabase = undefined;
 }
 
 function splitArgs(args: string[]) {
