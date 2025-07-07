@@ -6,17 +6,17 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.languages.registerDocumentSymbolProvider({ scheme: "file", language: "cadence-skill" }, new DocumentSymbolProvider()));
 }
 
-interface element {
-    "Name": string,
-    "Symbol": vscode.SymbolKind,
-    "Description": string,
-    "Line": vscode.Range,
-    "Elements"?: element[]
-};
+interface Element {
+    Name: string;
+    Symbol: vscode.SymbolKind;
+    Description: string;
+    Line: vscode.Range;
+    Elements?: Element[];
+}
 
 class DocumentSymbolProvider implements vscode.DocumentSymbolProvider {
     public createSymbol(
-        symbol: element
+        symbol: Element
     ): vscode.DocumentSymbol {
         let result = new vscode.DocumentSymbol(
             symbol.Name,
@@ -31,9 +31,9 @@ class DocumentSymbolProvider implements vscode.DocumentSymbolProvider {
     public createElementSymbol(
         content: string,
         lineRange: vscode.Range
-    ): element {
+    ): Element {
         let symbol: vscode.SymbolKind;
-        let procedure: string = '';
+        let procedure = '';
         if (content.match(/^\s*procedure\(/i)) {
             symbol = vscode.SymbolKind.Function;
             let match = content.match(/^\s*procedure\(\s*(\w+)/i);
@@ -46,10 +46,10 @@ class DocumentSymbolProvider implements vscode.DocumentSymbolProvider {
         }
 
         return {
-            "Name": procedure, 
-            "Description": '',
-            "Symbol": symbol, 
-            "Line": lineRange
+            Name: procedure, 
+            Description: '',
+            Symbol: symbol, 
+            Line: lineRange
         };
     }
 
@@ -57,10 +57,10 @@ class DocumentSymbolProvider implements vscode.DocumentSymbolProvider {
         document: vscode.TextDocument,
         token: vscode.CancellationToken): Promise<vscode.DocumentSymbol[]> {
 
-            let netlist: element[] = new Array;
+            const netlist: Element[] = [];
             for (let i = 1; i < document.lineCount; i++) {
-                let line = document.lineAt(i);
-                let linePreprocessing = line.text.trim();
+                const line = document.lineAt(i);
+                const linePreprocessing = line.text.trim();
                 let matchObj: RegExpMatchArray | null;
                 
                 // Procedure processing
@@ -73,11 +73,11 @@ class DocumentSymbolProvider implements vscode.DocumentSymbolProvider {
             }
             
             return new Promise((resolve) => {
-                let symbols: vscode.DocumentSymbol[] = [];
-                let nodes = [symbols];
+                const symbols: vscode.DocumentSymbol[] = [];
+                const nodes = [symbols];
 
                 for (let i=0; i<netlist.length; i++) {
-                    let newNode = this.createSymbol(netlist[i]);
+                    const newNode = this.createSymbol(netlist[i]);
                     nodes[nodes.length - 1].push(newNode);
                 }
                 resolve(symbols);

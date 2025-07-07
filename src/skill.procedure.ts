@@ -2,21 +2,31 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
+interface ProcedureDoc {
+    summary: string;
+    argDocs: { [arg: string]: string };
+}
+
+interface ProcedureInfo {
+    file: string;
+    line: number;
+    args: string[];
+    doc: ProcedureDoc;
+}
+
+interface SkillProcedureConfig {
+    skill: {
+        searchFolderPath: string;
+    };
+}
+
 // Extend procedureIndex to include documentation
-let procedureIndex: {
-    [name: string]: {
-        file: string,
-        line: number,
-        args: string[],
-        doc: {
-            summary: string,
-            argDocs: { [arg: string]: string }
-        }
-    }
-} = {};
+let procedureIndex: { [name: string]: ProcedureInfo } = {};
+let procedureIndexLastModified: number = 0;
+let cachedSkillFolder: string | undefined;
 
 // Parse documentation block for a procedure
-function parseProcedureDoc(lines: string[], procLine: number, args: string[]): { summary: string, argDocs: { [arg: string]: string } } {
+function parseProcedureDoc(lines: string[], procLine: number, args: string[]): ProcedureDoc {
     // Default summary and argument docs
     let summary = '';
     const argDocs: { [arg: string]: string } = {};
@@ -60,81 +70,121 @@ function parseProcedureDoc(lines: string[], procLine: number, args: string[]): {
 function loadSkillConfig(): string | undefined {
     const workspaceFolders = vscode.workspace.workspaceFolders;
     if (!workspaceFolders) { return; }
+    
     const configPath = path.join(workspaceFolders[0].uri.fsPath, '.vscode', 'skill.json');
-    console.debug(`Loaded skill configuration from ${configPath}`);
-
-    // Check if the configuration file exists
-    if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-        let folderPath = config.skill.searchFolderPath;
-
-        // If folderPath is a relative path, convert it to an absolute path.
-        // Check if the absolute path starts with '/' or is a Windows absolute path. If not, assume it is relative to the workspace root directory.
-        if (!folderPath.startsWith('/') && !/^[A-Z]:\\/i.test(folderPath)) {
-            const workspaceFolders = vscode.workspace.workspaceFolders;
-            if (workspaceFolders && workspaceFolders.length > 0) {
-                const workspaceRoot = workspaceFolders[0].uri.fsPath;
-                folderPath = `${workspaceRoot}/${folderPath}`;
+    
+    try {
+        // Check if we have cached folder path and config file hasn't changed
+        if (cachedSkillFolder && fs.existsSync(configPath)) {
+            const stats = fs.statSync(configPath);
+            if (stats.mtime.getTime() === procedureIndexLastModified) {
+                return cachedSkillFolder;
             }
         }
 
-        // Return the absolute path to the skill folder
-        console.debug(`Skill folder path: ${folderPath}`);
-        return folderPath;
+        // Check if the configuration file exists
+        if (fs.existsSync(configPath)) {
+            const stats = fs.statSync(configPath);
+            const configContent = fs.readFileSync(configPath, 'utf8');
+            const config: SkillProcedureConfig = JSON.parse(configContent);
+            let folderPath = config.skill?.searchFolderPath;
+
+            if (!folderPath) {
+                console.error('searchFolderPath not found in skill configuration');
+                return;
+            }
+
+            // If folderPath is a relative path, convert it to an absolute path.
+            if (!folderPath.startsWith('/') && !/^[A-Z]:\\/i.test(folderPath)) {
+                if (workspaceFolders && workspaceFolders.length > 0) {
+                    const workspaceRoot = workspaceFolders[0].uri.fsPath;
+                    folderPath = path.join(workspaceRoot, folderPath);
+                }
+            }
+
+            // Cache the result
+            cachedSkillFolder = folderPath;
+            procedureIndexLastModified = stats.mtime.getTime();
+            
+            console.debug(`Skill folder path: ${folderPath}`);
+            return folderPath;
+        }
+    } catch (error) {
+        console.error(`Failed to load skill configuration: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        return;
     }
 }
 
-function indexProcedures(skillFolder: string) {
-    procedureIndex = {};
-    const files = fs.readdirSync(skillFolder);
-    files.forEach(file => {
-        const filePath = path.join(skillFolder, file);
-        console.debug(`Processing file: ${filePath}`);
-        if (fs.statSync(filePath).isFile() && file.endsWith('.il')) {
-            const lines = fs.readFileSync(filePath, 'utf8').split('\n');
-            lines.forEach((line, idx) => {
-                // First, extract the procedure name
-                const nameMatch = line.match(/^\s*procedure\(\s*(\w+)/i);
-                if (nameMatch) {
-                    // Start searching for parameters after the procedure name
-                    const paramsStart = line.indexOf(nameMatch[1]) + nameMatch[1].length;
-                    const paramsStr = line.slice(paramsStart);
-                    // Find the first left parenthesis
-                    const firstParen = paramsStr.indexOf('(');
-                    if (firstParen !== -1) {
-                        let depth = 0;
-                        let endIdx = -1;
-                        for (let i = firstParen; i < paramsStr.length; i++) {
-                            if (paramsStr[i] === '(') { depth++; }
-                            if (paramsStr[i] === ')') { depth--; }
-                            if (depth === 0) {
-                                endIdx = i;
-                                break;
-                            }
-                        }
-                        let argsRaw = paramsStr.slice(firstParen, endIdx + 1);
-                        // Remove the outermost parentheses
-                        if (argsRaw.startsWith('(') && argsRaw.endsWith(')')) {
-                            argsRaw = argsRaw.slice(1, -1).trim();
-                        }
-                        // Split arguments by whitespace (adjust as needed)
-                        const args = argsRaw
-                            .match(/\([^\(\)]*\)|[^\s]+/g)
-                            ?.map(s => s.trim())
-                            .filter(Boolean) || [];
-                        // Parse documentation for this procedure
-                        const doc = parseProcedureDoc(lines, idx, args);
-                        procedureIndex[nameMatch[1]] = {
-                            file: filePath,
-                            line: idx,
-                            args,
-                            doc
-                        };
-                    }
-                }
-            });
+function indexProcedures(skillFolder: string): void {
+    try {
+        if (!fs.existsSync(skillFolder)) {
+            console.error(`Skill folder does not exist: ${skillFolder}`);
+            return;
         }
-    });
+
+        procedureIndex = {};
+        const files = fs.readdirSync(skillFolder);
+        
+        files.forEach(file => {
+            const filePath = path.join(skillFolder, file);
+            console.debug(`Processing file: ${filePath}`);
+            
+            try {
+                if (fs.statSync(filePath).isFile() && file.endsWith('.il')) {
+                    const lines = fs.readFileSync(filePath, 'utf8').split('\n');
+                    lines.forEach((line, idx) => {
+                        try {
+                            // First, extract the procedure name
+                            const nameMatch = line.match(/^\s*procedure\(\s*(\w+)/i);
+                            if (nameMatch) {
+                                // Start searching for parameters after the procedure name
+                                const paramsStart = line.indexOf(nameMatch[1]) + nameMatch[1].length;
+                                const paramsStr = line.slice(paramsStart);
+                                // Find the first left parenthesis
+                                const firstParen = paramsStr.indexOf('(');
+                                if (firstParen !== -1) {
+                                    let depth = 0;
+                                    let endIdx = -1;
+                                    for (let i = firstParen; i < paramsStr.length; i++) {
+                                        if (paramsStr[i] === '(') { depth++; }
+                                        if (paramsStr[i] === ')') { depth--; }
+                                        if (depth === 0) {
+                                            endIdx = i;
+                                            break;
+                                        }
+                                    }
+                                    let argsRaw = paramsStr.slice(firstParen, endIdx + 1);
+                                    // Remove the outermost parentheses
+                                    if (argsRaw.startsWith('(') && argsRaw.endsWith(')')) {
+                                        argsRaw = argsRaw.slice(1, -1).trim();
+                                    }
+                                    // Split arguments by whitespace (adjust as needed)
+                                    const args = argsRaw
+                                        .match(/\([^\(\)]*\)|[^\s]+/g)
+                                        ?.map(s => s.trim())
+                                        .filter(Boolean) || [];
+                                    // Parse documentation for this procedure
+                                    const doc = parseProcedureDoc(lines, idx, args);
+                                    procedureIndex[nameMatch[1]] = {
+                                        file: filePath,
+                                        line: idx,
+                                        args,
+                                        doc
+                                    };
+                                }
+                            }
+                        } catch (lineError) {
+                            console.error(`Error processing line ${idx + 1} in ${filePath}: ${lineError instanceof Error ? lineError.message : 'Unknown error'}`);
+                        }
+                    });
+                }
+            } catch (fileError) {
+                console.error(`Error processing file ${filePath}: ${fileError instanceof Error ? fileError.message : 'Unknown error'}`);
+            }
+        });
+    } catch (error) {
+        console.error(`Error indexing procedures in ${skillFolder}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -677,6 +727,13 @@ export function activate(context: vscode.ExtensionContext) {
             }
         }
     });
+}
+
+export function deactivate() {
+    // Clear caches to prevent memory leaks
+    procedureIndex = {};
+    procedureIndexLastModified = 0;
+    cachedSkillFolder = undefined;
 }
 
 function splitArgs(args: string[]) {
