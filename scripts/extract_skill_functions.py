@@ -209,42 +209,112 @@ class SkillFunctionExtractor:
     
     def clean_pdf_artifacts(self, text: str) -> str:
         """Remove PDF headers, footers, and other artifacts from extracted text"""
-        # Remove copyright and legal information
-        patterns_to_remove = [
+        
+        # Split text into lines for easier processing
+        lines = text.split('\n')
+        cleaned_lines = []
+        
+        # Define patterns for lines to remove completely
+        line_removal_patterns = [
             # Document headers and titles
-            r'(?i)cadence\s+.*?\s+reference\s*\n',
-            r'(?i)product\s+version\s+ic\d+\.\d+\.\d+\s*\n',
-            r'(?i)(?:august|september|october|november|december|january|february|march|april|may|june|july)\s+\d{4}\s*\n',
+            r'(?i)cadence\s+.*?\s+reference\s*$',
+            r'(?i)product\s+version\s+ic\d+\.\d+\.\d+\s*$',
+            r'(?i)(?:august|september|october|november|december|january|february|march|april|may|june|july)\s+\d{4}\s*$',
             
             # Copyright and legal text
-            r'©\s*\d{4}\s+cadence\s+design\s+systems.*?\n',
-            r'all\s+rights\s+reserved\.?\s*\n',
-            r'printed\s+in\s+the\s+united\s+states.*?\n',
+            r'©\s*\d{4}\s+cadence\s+design\s+systems.*?$',
+            r'(?i)all\s+rights\s+reserved\.?\s*$',
+            r'(?i)printed\s+in\s+the\s+united\s+states.*?$',
             
-            # Legal boilerplate (multi-line)
-            r'(?i)restricted\s+permission:.*?successor\.?\s*\n',
-            r'(?i)trademarks:.*?holders\.?\s*\n',
-            r'(?i)disclaimer:.*?information\.?\s*\n',
-            r'(?i)restricted\s+rights:.*?successor\.?\s*\n',
+            # Legal boilerplate
+            r'(?i)restricted\s+permission:.*?$',
+            r'(?i)trademarks:.*?$', 
+            r'(?i)disclaimer:.*?$',
+            r'(?i)restricted\s+rights:.*?$',
             
-            # Page numbers and table of contents
+            # Page numbers and navigation
             r'^\s*\d+\s*$',  # Standalone page numbers
             r'^\s*\.\s*\..*?\d+\s*$',  # Table of contents with dots
-            r'^\s*chapter\s+\d+.*?\n',  # Chapter headers
-            r'^\s*appendix\s+[a-z].*?\n',  # Appendix headers
+            r'^\s*chapter\s+\d+.*?$',  # Chapter headers
+            r'^\s*appendix\s+[a-z].*?$',  # Appendix headers
             
             # Repeated document identifiers
-            r'(?i)cadence\s+skill\s+language\s+reference\s*\n',
-            r'(?i)cadence\s+user\s+interface\s+skill\s+reference\s*\n',
-            r'(?i)ocean\s+reference\s*\n',
+            r'(?i)cadence\s+skill\s+language\s+reference\s*$',
+            r'(?i)cadence\s+user\s+interface\s+skill\s+reference\s*$',
+            r'(?i)ocean\s+reference\s*$',
+            r'(?i)cadence\s+ipc\s+skill\s+reference\s*$',
             
-            # Empty lines and excessive whitespace
-            r'\n\s*\n\s*\n',  # Multiple consecutive empty lines
+            # Headers/footers that appear on every page
+            r'^\s*\d+\s*cadence\s+.*?reference\s*$',
+            r'^\s*cadence\s+.*?reference\s*\d+\s*$',
+            r'^\s*\d+\s*chapter\s+\d+.*?$',
+            r'^\s*chapter\s+\d+.*?\d+\s*$',
+            
+            # Common footer patterns
+            r'^\s*\d+\s*\|\s*.*?$',  # Page number with separator
+            r'^\s*.*?\s*\|\s*\d+\s*$',  # Content with page number
+            
+            # Empty or whitespace-only lines
+            r'^\s*$',
+            
+            # Lines with only punctuation or special characters
+            r'^[\s\-_=\*\+\.]+$',
+            
+            # Date patterns that appear as headers/footers
+            r'^\s*\d{1,2}\/\d{1,2}\/\d{2,4}\s*$',
+            r'^\s*\d{4}-\d{2}-\d{2}\s*$',
         ]
         
-        cleaned_text = text
-        for pattern in patterns_to_remove:
-            cleaned_text = re.sub(pattern, '\n', cleaned_text, flags=re.MULTILINE | re.IGNORECASE)
+        # Process each line
+        for line in lines:
+            # Check if line should be removed
+            should_remove = False
+            for pattern in line_removal_patterns:
+                if re.match(pattern, line.strip()):
+                    should_remove = True
+                    break
+            
+            if not should_remove:
+                # Clean the line but keep it
+                cleaned_line = line.strip()
+                
+                # Remove common artifacts within lines
+                text_cleaning_patterns = [
+                    # Remove page references like "page 123" at end of line
+                    r'\s+page\s+\d+\s*$',
+                    # Remove standalone numbers at end of lines
+                    r'\s+\d+\s*$',
+                    # Remove excessive dots used in table of contents
+                    r'\.{3,}',
+                ]
+                
+                for pattern in text_cleaning_patterns:
+                    cleaned_line = re.sub(pattern, '', cleaned_line, flags=re.IGNORECASE)
+                
+                cleaned_line = cleaned_line.strip()
+                
+                # Only add non-empty lines
+                if cleaned_line:
+                    cleaned_lines.append(cleaned_line)
+        
+        # Join lines and perform final cleanup
+        cleaned_text = '\n'.join(cleaned_lines)
+        
+        # Additional multi-line pattern removal
+        multiline_patterns = [
+            # Remove multi-line legal boilerplate
+            r'(?i)restricted\s+permission:.*?successor\.?\s*',
+            r'(?i)trademarks:.*?holders\.?\s*',
+            r'(?i)disclaimer:.*?information\.?\s*',
+            r'(?i)restricted\s+rights:.*?successor\.?\s*',
+            
+            # Remove document identification blocks
+            r'(?i)cadence\s+design\s+systems.*?reference\s*',
+            r'(?i)product\s+version.*?august\s+\d{4}\s*',
+        ]
+        
+        for pattern in multiline_patterns:
+            cleaned_text = re.sub(pattern, '\n', cleaned_text, flags=re.DOTALL)
         
         # Normalize whitespace
         cleaned_text = re.sub(r'\n\s*\n\s*\n+', '\n\n', cleaned_text)
@@ -489,7 +559,7 @@ Most commonly used SKILL functions with syntax and examples.
 
 def main():
     pdf_dir = "/mnt/d/git/skillRef"
-    output_dir = "/mnt/d/git/bvSkill/docs"
+    output_dir = "/mnt/d/git/VSCodeExtension-SKILL/docs"
     
     if not os.path.exists(pdf_dir):
         print(f"Error: PDF directory {pdf_dir} not found")
