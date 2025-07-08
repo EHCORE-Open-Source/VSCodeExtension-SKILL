@@ -29,7 +29,7 @@ class SkillFunction:
     category: str
     source_file: str
     description: str = ""
-    related_functions: List[str] = None
+    related_functions: Optional[List[str]] = None
     
     def __post_init__(self):
         if self.related_functions is None:
@@ -74,7 +74,7 @@ class SkillFunctionExtractor:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
     def convert_pdfs_to_text(self) -> List[str]:
-        """Convert all PDF files to text using pdftotext"""
+        """Convert all PDF files to text using pdftotext and clean artifacts"""
         print("Converting PDFs to text...")
         converted_files = []
         
@@ -84,6 +84,16 @@ class SkillFunctionExtractor:
                 result = subprocess.run([
                     "pdftotext", str(pdf_file), str(txt_file)
                 ], capture_output=True, text=True, check=True)
+                
+                # Clean PDF artifacts immediately after conversion
+                with open(txt_file, 'r', encoding='utf-8', errors='ignore') as f:
+                    raw_content = f.read()
+                
+                cleaned_content = self.clean_pdf_artifacts(raw_content)
+                
+                with open(txt_file, 'w', encoding='utf-8') as f:
+                    f.write(cleaned_content)
+                
                 converted_files.append(str(txt_file))
                 print(f"✓ Converted {pdf_file.name}")
             except subprocess.CalledProcessError as e:
@@ -250,8 +260,7 @@ class SkillFunctionExtractor:
         with open(txt_file, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
         
-        # Clean PDF artifacts before processing
-        content = self.clean_pdf_artifacts(content)
+        # Content is already cleaned during PDF conversion
         
         # Find all potential function definitions
         # Look for patterns like function names followed by parentheses
@@ -361,7 +370,7 @@ Auto-generated from all 20 Cadence SKILL PDF manuals.
                 
                 if func.returns:
                     md_content += "**Returns:**\n"
-                    for ret_key, ret_desc in func.returns.items():
+                    for ret_desc in func.returns.values():
                         md_content += f"- {ret_desc}\n"
                     md_content += "\n"
                 
