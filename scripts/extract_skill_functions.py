@@ -197,6 +197,51 @@ class SkillFunctionExtractor:
                 
         return examples[:3]  # Limit to 3 examples
     
+    def clean_pdf_artifacts(self, text: str) -> str:
+        """Remove PDF headers, footers, and other artifacts from extracted text"""
+        # Remove copyright and legal information
+        patterns_to_remove = [
+            # Document headers and titles
+            r'(?i)cadence\s+.*?\s+reference\s*\n',
+            r'(?i)product\s+version\s+ic\d+\.\d+\.\d+\s*\n',
+            r'(?i)(?:august|september|october|november|december|january|february|march|april|may|june|july)\s+\d{4}\s*\n',
+            
+            # Copyright and legal text
+            r'©\s*\d{4}\s+cadence\s+design\s+systems.*?\n',
+            r'all\s+rights\s+reserved\.?\s*\n',
+            r'printed\s+in\s+the\s+united\s+states.*?\n',
+            
+            # Legal boilerplate (multi-line)
+            r'(?i)restricted\s+permission:.*?successor\.?\s*\n',
+            r'(?i)trademarks:.*?holders\.?\s*\n',
+            r'(?i)disclaimer:.*?information\.?\s*\n',
+            r'(?i)restricted\s+rights:.*?successor\.?\s*\n',
+            
+            # Page numbers and table of contents
+            r'^\s*\d+\s*$',  # Standalone page numbers
+            r'^\s*\.\s*\..*?\d+\s*$',  # Table of contents with dots
+            r'^\s*chapter\s+\d+.*?\n',  # Chapter headers
+            r'^\s*appendix\s+[a-z].*?\n',  # Appendix headers
+            
+            # Repeated document identifiers
+            r'(?i)cadence\s+skill\s+language\s+reference\s*\n',
+            r'(?i)cadence\s+user\s+interface\s+skill\s+reference\s*\n',
+            r'(?i)ocean\s+reference\s*\n',
+            
+            # Empty lines and excessive whitespace
+            r'\n\s*\n\s*\n',  # Multiple consecutive empty lines
+        ]
+        
+        cleaned_text = text
+        for pattern in patterns_to_remove:
+            cleaned_text = re.sub(pattern, '\n', cleaned_text, flags=re.MULTILINE | re.IGNORECASE)
+        
+        # Normalize whitespace
+        cleaned_text = re.sub(r'\n\s*\n\s*\n+', '\n\n', cleaned_text)
+        cleaned_text = re.sub(r'[ \t]+', ' ', cleaned_text)
+        
+        return cleaned_text.strip()
+
     def extract_functions_from_text(self, txt_file: str) -> List[SkillFunction]:
         """Extract all functions from a text file"""
         functions = []
@@ -204,6 +249,9 @@ class SkillFunctionExtractor:
         
         with open(txt_file, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
+        
+        # Clean PDF artifacts before processing
+        content = self.clean_pdf_artifacts(content)
         
         # Find all potential function definitions
         # Look for patterns like function names followed by parentheses
@@ -272,7 +320,7 @@ class SkillFunctionExtractor:
         
         md_content = """# Complete SKILL Function Reference
 
-Auto-generated from all 22 Cadence SKILL PDF manuals.
+Auto-generated from all 20 Cadence SKILL PDF manuals.
 
 ## Quick Navigation
 
