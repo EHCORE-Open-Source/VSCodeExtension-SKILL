@@ -197,7 +197,12 @@ procedure(complex(required1 @optional opt1 opt2 @key (key1 keyDefault))
 
 ## Coding Standards
 
-### English-Only Requirement
+### Language Requirements
+
+#### Communication Language
+**COMMUNICATION REQUIREMENT**: When discussing with users via Claude Code, use Traditional Chinese (繁體中文) for all conversations, except for proper nouns and technical terms which should remain in their original language.
+
+#### Code Language Requirement  
 **STRICT REQUIREMENT**: All code content, comments, variable names, function names, documentation, and any text within the codebase MUST be written in English only. This is a mandatory standard for:
 
 - All TypeScript/JavaScript code
