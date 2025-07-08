@@ -16,6 +16,8 @@ from pathlib import Path
 from typing import Dict, List, Set, Optional, Tuple
 from dataclasses import dataclass, asdict
 from collections import defaultdict
+from bs4 import BeautifulSoup, Tag
+import statistics
 
 @dataclass
 class SkillFunction:
@@ -35,6 +37,207 @@ class SkillFunction:
         if self.related_functions is None:
             self.related_functions = []
 
+class HtmlProcessor:
+    """Processes HTML content extracted from PDF files"""
+    
+    def __init__(self):
+        self.page_height = 792.0  # Standard PDF page height
+        self.page_width = 612.0   # Standard PDF page width
+        self.header_threshold = 0.1  # Top 10% of page for headers
+        self.footer_threshold = 0.9  # Bottom 10% of page for footers
+        
+    def analyze_text_positioning(self, soup: BeautifulSoup) -> Dict[str, any]:
+        """Analyze text positioning to identify headers, footers, and content"""
+        words = soup.find_all('word')
+        if not words:
+            return {}
+            
+        # Collect positioning data
+        y_positions = []
+        font_sizes = []
+        text_content = []
+        
+        for word in words:
+            try:
+                y_min = float(word.get('ymin', 0))
+                y_max = float(word.get('ymax', 0))
+                y_center = (y_min + y_max) / 2
+                
+                # Estimate font size from bounding box height
+                font_size = y_max - y_min
+                
+                y_positions.append(y_center)
+                font_sizes.append(font_size)
+                text_content.append(word.get_text())
+            except (ValueError, TypeError):
+                continue
+                
+        if not y_positions:
+            return {}
+            
+        return {
+            'y_positions': y_positions,
+            'font_sizes': font_sizes,
+            'text_content': text_content,
+            'avg_font_size': statistics.mean(font_sizes) if font_sizes else 12,
+            'max_font_size': max(font_sizes) if font_sizes else 12
+        }
+        
+    def identify_headers_footers(self, soup: BeautifulSoup) -> Tuple[List[str], List[str]]:
+        """Identify header and footer content based on positioning"""
+        headers = []
+        footers = []
+        
+        pages = soup.find_all('page')
+        header_patterns = set()
+        footer_patterns = set()
+        
+        for page in pages:
+            words = page.find_all('word')
+            page_height = float(page.get('height', self.page_height))
+            
+            header_zone = page_height * self.header_threshold
+            footer_zone = page_height * self.footer_threshold
+            
+            # Collect text in header and footer zones
+            page_headers = []
+            page_footers = []
+            
+            for word in words:
+                try:
+                    y_min = float(word.get('ymin', 0))
+                    y_max = float(word.get('ymax', 0))
+                    y_center = (y_min + y_max) / 2
+                    
+                    # Convert PDF coordinates (origin at bottom-left) to top-down
+                    y_from_top = page_height - y_center
+                    
+                    text = word.get_text().strip()
+                    if not text:
+                        continue
+                        
+                    if y_from_top <= header_zone:
+                        page_headers.append(text)
+                    elif y_from_top >= footer_zone:
+                        page_footers.append(text)
+                        
+                except (ValueError, TypeError):
+                    continue
+                    
+            # Join words from same zones
+            if page_headers:
+                header_text = ' '.join(page_headers)
+                header_patterns.add(header_text)
+                
+            if page_footers:
+                footer_text = ' '.join(page_footers)
+                footer_patterns.add(footer_text)
+                
+        # Find patterns that appear on multiple pages (likely headers/footers)
+        return list(header_patterns), list(footer_patterns)
+        
+    def preserve_document_titles(self, soup: BeautifulSoup) -> List[str]:
+        """Identify and preserve document titles based on font size and position"""
+        titles = []
+        pages = soup.find_all('page')
+        
+        for page_idx, page in enumerate(pages[:3]):  # Check first 3 pages
+            words = page.find_all('word')
+            page_height = float(page.get('height', self.page_height))
+            page_width = float(page.get('width', self.page_width))
+            
+            # Analyze font sizes and positions
+            font_data = []
+            for word in words:
+                try:
+                    y_min = float(word.get('ymin', 0))
+                    y_max = float(word.get('ymax', 0))
+                    x_min = float(word.get('xmin', 0))
+                    x_max = float(word.get('xmax', 0))
+                    
+                    font_size = y_max - y_min
+                    x_center = (x_min + x_max) / 2
+                    y_center = (y_min + y_max) / 2
+                    
+                    # Convert to relative positions
+                    x_relative = x_center / page_width
+                    y_relative = (page_height - y_center) / page_height
+                    
+                    text = word.get_text().strip()
+                    
+                    font_data.append({
+                        'text': text,
+                        'font_size': font_size,
+                        'x_relative': x_relative,
+                        'y_relative': y_relative,
+                        'page': page_idx
+                    })
+                except (ValueError, TypeError):
+                    continue
+                    
+            if not font_data:
+                continue
+                
+            # Find large fonts that might be titles
+            avg_font_size = statistics.mean([d['font_size'] for d in font_data])
+            large_text = [d for d in font_data if d['font_size'] > avg_font_size * 1.5]
+            
+            # Group consecutive large text as potential titles
+            for item in large_text:
+                # Check if it's roughly centered and in upper portion of page
+                if (0.2 <= item['x_relative'] <= 0.8 and 
+                    0.1 <= item['y_relative'] <= 0.6):
+                    titles.append(item['text'])
+                    
+        return titles
+        
+    def clean_html_content(self, html_content: str) -> str:
+        """Clean HTML content by removing headers, footers, preserving titles"""
+        soup = BeautifulSoup(html_content, 'html.parser')
+        
+        # Identify headers and footers
+        headers, footers = self.identify_headers_footers(soup)
+        
+        # Preserve document titles
+        titles = self.preserve_document_titles(soup)
+        
+        # Remove identified headers and footers
+        pages = soup.find_all('page')
+        cleaned_pages = []
+        
+        for page in pages:
+            words = page.find_all('word')
+            page_height = float(page.get('height', self.page_height))
+            
+            cleaned_words = []
+            
+            for word in words:
+                text = word.get_text().strip()
+                if not text:
+                    continue
+                    
+                # Skip if text matches known headers/footers
+                is_header_footer = False
+                for header in headers:
+                    if text in header or header in text:
+                        is_header_footer = True
+                        break
+                        
+                if not is_header_footer:
+                    for footer in footers:
+                        if text in footer or footer in text:
+                            is_header_footer = True
+                            break
+                            
+                # Keep if it's a title or regular content
+                if not is_header_footer or text in titles:
+                    cleaned_words.append(text)
+                    
+            if cleaned_words:
+                cleaned_pages.append(' '.join(cleaned_words))
+                
+        return '\n\n'.join(cleaned_pages)
+
 class SkillFunctionExtractor:
     """Extracts SKILL functions from PDF manuals"""
     
@@ -43,6 +246,7 @@ class SkillFunctionExtractor:
         self.output_dir = Path(output_dir)
         self.temp_dir = self.output_dir / "skill_extraction"
         self.functions: Dict[str, SkillFunction] = {}
+        self.html_processor = HtmlProcessor()
         self.categories = {
             "sklangref": "Core Language Functions",
             "sklayoutref": "Layout Functions", 
@@ -73,29 +277,35 @@ class SkillFunctionExtractor:
         self.temp_dir.mkdir(parents=True, exist_ok=True)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
-    def convert_pdfs_to_text(self) -> List[str]:
-        """Convert all PDF files to text using pdftotext and clean artifacts"""
-        print("Converting PDFs to text...")
+    def convert_pdfs_to_html(self) -> List[str]:
+        """Convert all PDF files to HTML using pdftotext -bbox and clean artifacts"""
+        print("Converting PDFs to HTML with position data...")
         converted_files = []
         
         for pdf_file in self.pdf_dir.glob("*.pdf"):
+            html_file = self.temp_dir / f"{pdf_file.stem}.html"
             txt_file = self.temp_dir / f"{pdf_file.stem}.txt"
+            
             try:
+                # Convert to HTML with bounding box information
                 result = subprocess.run([
-                    "pdftotext", str(pdf_file), str(txt_file)
+                    "pdftotext", "-bbox", str(pdf_file), str(html_file)
                 ], capture_output=True, text=True, check=True)
                 
-                # Clean PDF artifacts immediately after conversion
-                with open(txt_file, 'r', encoding='utf-8', errors='ignore') as f:
-                    raw_content = f.read()
+                # Process HTML content
+                with open(html_file, 'r', encoding='utf-8', errors='ignore') as f:
+                    html_content = f.read()
                 
-                cleaned_content = self.clean_pdf_artifacts(raw_content)
+                # Clean HTML content using our HTML processor
+                cleaned_content = self.html_processor.clean_html_content(html_content)
                 
+                # Save cleaned text for function extraction
                 with open(txt_file, 'w', encoding='utf-8') as f:
                     f.write(cleaned_content)
                 
                 converted_files.append(str(txt_file))
-                print(f"✓ Converted {pdf_file.name}")
+                print(f"✓ Converted {pdf_file.name} to HTML and cleaned")
+                
             except subprocess.CalledProcessError as e:
                 print(f"✗ Failed to convert {pdf_file.name}: {e}")
                 continue
@@ -377,7 +587,7 @@ class SkillFunctionExtractor:
     def process_all_files(self):
         """Process all PDF files and extract functions"""
         print("Processing all PDF files...")
-        converted_files = self.convert_pdfs_to_text()
+        converted_files = self.convert_pdfs_to_html()
         
         all_functions = []
         for txt_file in converted_files:
