@@ -54,6 +54,7 @@ The extension can be configured via `.vscode/skill.json` in the workspace:
 ```
 
 ## SKILL Function Reference System (8,136+ Functions from 20 PDFs)
+- **Source PDFs**: `/mnt/d/git/skillRef/` - Original Cadence SKILL PDF manuals (20 documents)
 - **Complete database**: `docs/complete-skill-functions.json` - All 8,136+ functions from 20 manuals
 - **Complete reference**: `docs/complete-skill-reference.md` - Full documentation (20+ categories)
 - **Quick reference**: `docs/skill-quick-reference.md` - Common functions only
@@ -61,6 +62,32 @@ The extension can be configured via `.vscode/skill.json` in the workspace:
 - **Category search**: `python3 scripts/search_skill_advanced.py --category <category>` - Browse by category
 - **Auto-extraction**: `python3 scripts/extract_skill_functions.py` - Re-extract from all PDFs
 - **Statistics**: `python3 scripts/search_skill_advanced.py --stats` - Show database stats
+
+### PDF Source Directory Structure
+```
+/mnt/d/git/skillRef/
+├── sklangref.pdf      # Cadence SKILL Language Reference (Core)
+├── skuiref.pdf        # User Interface SKILL Reference  
+├── skdfref.pdf        # Database Functions Reference
+├── sklayoutref.pdf    # Layout Functions Reference
+├── oceanref.pdf       # OCEAN Script Functions
+├── maeSKILLref.pdf    # MAE Functions Reference
+├── caiskill.pdf       # CAI Functions
+├── skcompref.pdf      # Component Functions
+├── skdevref.pdf       # Device Functions
+├── skipcref.pdf       # IPC Functions
+├── skpcellref.pdf     # P-Cell Functions
+├── skoopref.pdf       # Object-Oriented Programming
+├── sktechfile.pdf     # Technology File Functions
+├── sktransrefOA.pdf   # Translation Functions
+├── verifierSkillRef.pdf # Verification Functions
+├── vivaxlskill.pdf    # Visualization Functions
+├── rodskillref.pdf    # ROD Functions
+├── voltusFIL.pdf      # Voltus FIL Functions
+├── voltusFIXL.pdf     # Voltus FIXL Functions
+├── ocnxl.pdf          # Ocean XL Functions
+└── skillide.pdf       # IDE Functions
+```
 
 **Categories Available**: CAI, MAE, OCEAN, Device, Database, Layout, Language, UI, Verification, and 13 more
 
