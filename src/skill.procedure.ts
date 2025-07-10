@@ -36,6 +36,7 @@ let cachedSkillFolder: string | undefined;
 let compatibilityEngine: CompatibilityEngine | undefined;
 let currentSkillConfig: SkillConfig | undefined;
 let builtinDatabase: BuiltinProcedureDatabase | undefined;
+let completeFunctionsDatabase: any = undefined;
 
 // Enhanced parameter name extraction function
 function extractParameterName(arg: string): string {
@@ -262,9 +263,94 @@ async function initializeCompatibilityEngine(config: SkillConfig): Promise<void>
         } else {
             console.log('[SKILL] Universal DB file not found at path:', universalDbPath);
         }
+        
+        // Load complete SKILL functions database
+        await loadCompleteFunctionsDatabase();
+        
     } catch (error) {
         console.error(`[SKILL] Failed to initialize compatibility engine: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
+}
+
+async function loadCompleteFunctionsDatabase(): Promise<void> {
+    try {
+        console.log('[SKILL] Loading complete functions database...');
+        
+        // Find complete-skill-functions.json
+        let completeFunctionsPath = path.join(__dirname, '..', 'docs', 'complete-skill-functions.json');
+        // Try alternative paths
+        if (!fs.existsSync(completeFunctionsPath)) {
+            completeFunctionsPath = path.join(__dirname, '..', '..', 'docs', 'complete-skill-functions.json');
+        }
+        
+        console.log('[SKILL] Looking for complete functions DB at:', completeFunctionsPath);
+        if (fs.existsSync(completeFunctionsPath)) {
+            console.log('[SKILL] Complete functions DB found, loading...');
+            const completeFunctionsContent = fs.readFileSync(completeFunctionsPath, 'utf8');
+            completeFunctionsDatabase = JSON.parse(completeFunctionsContent);
+            console.log('[SKILL] Complete functions DB loaded with', completeFunctionsDatabase.metadata.total_functions, 'functions');
+        } else {
+            console.log('[SKILL] Complete functions DB file not found at path:', completeFunctionsPath);
+        }
+    } catch (error) {
+        console.error(`[SKILL] Failed to load complete functions database: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+}
+
+function generateCompleteFunctionHover(func: any): string {
+    let hoverText = `**🔧 function** \`${func.name}\`\n\n`;
+    
+    // Summary section
+    if (func.purpose || func.description) {
+        const summary = func.purpose || func.description;
+        hoverText += `📋 ${summary}\n\n`;
+    } else {
+        hoverText += `📋 *No documentation available for this function.*\n\n`;
+    }
+    
+    hoverText += `---\n\n`;
+    
+    // Syntax section
+    if (func.syntax) {
+        hoverText += `**💻 Syntax:** \`${func.syntax}\`\n\n`;
+    }
+    
+    // Arguments section
+    if (func.arguments && Object.keys(func.arguments).length > 0) {
+        hoverText += `**📥 Arguments:**\n`;
+        Object.entries(func.arguments).forEach(([argName, argDesc]) => {
+            const description = (argDesc as string || '*No description*').trim();
+            hoverText += `  **\`${argName}\`**  \n    ${description}\n\n`;
+        });
+    }
+    
+    // Return value section
+    if (func.returns && typeof func.returns === 'object' && Object.keys(func.returns).length > 0) {
+        hoverText += `**📤 Returns:** ${Object.values(func.returns).join(', ')}\n\n`;
+    }
+    
+    // Examples section
+    if (func.examples && func.examples.length > 0) {
+        hoverText += `**💡 Examples:**\n`;
+        func.examples.forEach((example: string, index: number) => {
+            if (func.examples.length > 1) {
+                hoverText += `Example ${index + 1}:\n`;
+            }
+            hoverText += `\`\`\`skill\n${example}\n\`\`\`\n\n`;
+        });
+    }
+    
+    // Category section
+    if (func.category) {
+        hoverText += `**🏷️ Category:** ${func.category}\n\n`;
+    }
+    
+    // Source file section
+    if (func.source_file) {
+        hoverText += `---\n*📚 Source: ${func.source_file}*`;
+    }
+    
+    return hoverText;
 }
 
 function checkProcedureCompatibility(procedureName: string): string | undefined {
@@ -450,6 +536,30 @@ export async function activate(context: vscode.ExtensionContext) {
                 return new vscode.Hover(new vscode.MarkdownString(hoverText, true));
             }
             
+            // Check complete functions database
+            console.log('[SKILL] Complete functions database available:', completeFunctionsDatabase ? 'YES' : 'NO');
+            const completeFunc = completeFunctionsDatabase?.functions?.[word];
+            console.log('[SKILL] Complete function found for', word, ':', completeFunc ? 'YES' : 'NO');
+            if (completeFunc) {
+                // Only show on invocation (must be followed by a left parenthesis)
+                const after = document.getText(new vscode.Range(wordRange.end, wordRange.end.translate(0, 1)));
+                console.log('[SKILL] Character after word:', after);
+                if (after !== '(') { return; }
+                
+                console.log('[SKILL] Generating hover for complete function:', word);
+                // Generate hover text for complete function
+                let hoverText = generateCompleteFunctionHover(completeFunc);
+                
+                // Add compatibility warning if needed
+                const compatibilityMessage = checkProcedureCompatibility(word);
+                if (compatibilityMessage) {
+                    hoverText = `⚠️ **Compatibility Warning:** ${compatibilityMessage}\n\n${hoverText}`;
+                }
+                
+                console.log('[SKILL] Returning hover text for complete function:', word);
+                return new vscode.Hover(new vscode.MarkdownString(hoverText, true));
+            }
+            
             // Fall back to user-defined procedures
             const proc = procedureIndex[word];
             if (proc) {
@@ -597,6 +707,13 @@ export async function activate(context: vscode.ExtensionContext) {
             if (universalProc) {
                 // Handle universal procedure signature help
                 return createUniversalSignatureHelp(universalProc, procName, textBefore);
+            }
+            
+            // Check complete functions database
+            const completeFunc = completeFunctionsDatabase?.functions?.[procName];
+            if (completeFunc) {
+                // Handle complete function signature help
+                return createCompleteFunctionSignatureHelp(completeFunc, procName, textBefore);
             }
             
             // Fall back to user-defined procedures
@@ -994,6 +1111,55 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     };
 
+    // Helper function for complete function signature help
+    function createCompleteFunctionSignatureHelp(completeFunc: any, procName: string, textBefore: string): vscode.SignatureHelp {
+        // Generate signature help prompt
+        let sigDoc = '';
+        
+        // Add compatibility warning if needed
+        const compatibilityMessage = checkProcedureCompatibility(procName);
+        if (compatibilityMessage) {
+            sigDoc += `⚠️ **Compatibility:** ${compatibilityMessage}\n\n`;
+        }
+        
+        // Add separator line above summary if summary exists
+        if (completeFunc.purpose || completeFunc.description) {
+            const summary = completeFunc.purpose || completeFunc.description;
+            sigDoc += `---\n\n📋 ${summary}`;
+        }
+        
+        // Create parameter information from complete function documentation
+        const parameters: vscode.ParameterInformation[] = [];
+        if (completeFunc.arguments && Object.keys(completeFunc.arguments).length > 0) {
+            Object.entries(completeFunc.arguments).forEach(([argName, argDesc]) => {
+                const description = (argDesc as string || '*No description*').trim();
+                const paramInfo = new vscode.ParameterInformation(
+                    argName,
+                    new vscode.MarkdownString(`📥 **\`${argName}\`**: ${description}`)
+                );
+                parameters.push(paramInfo);
+            });
+        }
+        
+        // Create signature with complete function syntax
+        const signature = new vscode.SignatureInformation(
+            completeFunc.syntax || `${procName}(...)`,
+            new vscode.MarkdownString(sigDoc, true)
+        );
+        signature.parameters = parameters;
+        
+        // Calculate active parameter (simplified - count arguments in textBefore)
+        const argCount = textBefore.split(/\s+/).filter(s => s.length > 0).length;
+        const activeParameter = Math.min(argCount, parameters.length - 1);
+        
+        const sigHelp = new vscode.SignatureHelp();
+        sigHelp.signatures = [signature];
+        sigHelp.activeSignature = 0;
+        sigHelp.activeParameter = activeParameter >= 0 ? activeParameter : -1;
+        
+        return sigHelp;
+    }
+
     // Helper function for universal procedure signature help
     function createUniversalSignatureHelp(universalProc: any, procName: string, textBefore: string): vscode.SignatureHelp {
         const doc = universalProc.documentation;
@@ -1077,6 +1243,7 @@ export function deactivate() {
     compatibilityEngine = undefined;
     currentSkillConfig = undefined;
     builtinDatabase = undefined;
+    completeFunctionsDatabase = undefined;
 }
 
 function splitArgs(args: string[]) {
