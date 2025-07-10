@@ -38,6 +38,330 @@ let currentSkillConfig: SkillConfig | undefined;
 let builtinDatabase: BuiltinProcedureDatabase | undefined;
 let completeFunctionsDatabase: any = undefined;
 
+// Remove all block comments from a string, preserving string length for cursor mapping
+function removeBlockComments(str: string): string {
+    let result = '';
+    let i = 0;
+    let inBlockComment = false;
+    while (i < str.length) {
+        if (!inBlockComment && str.slice(i, i + 2) === '/*') {
+            inBlockComment = true;
+            i += 2;
+            continue;
+        }
+        if (inBlockComment && str.slice(i, i + 2) === '*/') {
+            inBlockComment = false;
+            i += 2;
+            continue;
+        }
+        if (!inBlockComment) {
+            result += str[i];
+        }
+        i++;
+    }
+    return result;
+}
+
+// Parse arguments, treating quoted strings as a single argument and skipping content in comments (line and block)
+function parseSkillArgs(argStr: string): string[] {
+    const args: string[] = [];
+    let i = 0;
+    const len = argStr.length;
+    let inLineComment = false;
+    let inBlockComment = false;
+    let inString = false;
+    while (i < len) {
+        // Skip leading spaces
+        while (i < len && argStr[i] === ' ') { i++; }
+        if (i >= len) { break; }
+
+        const c = argStr[i];
+        const next2 = argStr.slice(i, i + 2);
+
+        // Enter/exit string mode
+        if (!inLineComment && !inBlockComment && c === '"') {
+            inString = !inString;
+            i++;
+            continue;
+        }
+        // Enter block comment mode
+        if (!inString && !inLineComment && next2 === '/*') {
+            inBlockComment = true;
+            i += 2;
+            continue;
+        }
+        // Exit block comment mode
+        if (inBlockComment && next2 === '*/') {
+            inBlockComment = false;
+            i += 2;
+            continue;
+        }
+        // Enter line comment mode
+        if (!inString && !inBlockComment && c === ';') {
+            inLineComment = true;
+            i++;
+            continue;
+        }
+        // Exit line comment mode at end of line
+        if (inLineComment && c === '\n') {
+            inLineComment = false;
+            i++;
+            continue;
+        }
+        // Skip all characters inside string, line comment, or block comment
+        if (inString || inLineComment || inBlockComment) {
+            i++;
+            continue;
+        }
+
+        // Handle quoted string: "..."
+        if (c === '"') {
+            let arg = '"';
+            i++;
+            while (i < len) {
+                arg += argStr[i];
+                if (argStr[i] === '"' && arg[arg.length - 2] !== '\\') {
+                    i++;
+                    break;
+                }
+                i++;
+            }
+            args.push(arg);
+            continue;
+        }
+
+        // Handle single quote or backtick before parenthesis: '(...) or `(...) 
+        if ((c === "'" || c === '`') && argStr[i + 1] === '(') {
+            let arg = c;
+            i++;
+            if (argStr[i] === '(') {
+                let depth = 1;
+                arg += argStr[i];
+                i++;
+                while (i < len && depth > 0) {
+                    const groupNext2 = argStr.slice(i, i + 2);
+                    if (!inString && groupNext2 === '/*') {
+                        while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
+                        i += 2;
+                        continue;
+                    }
+                    if (!inString && argStr[i] === ';') {
+                        while (i < len && argStr[i] !== '\n') { i++; }
+                        i++;
+                        continue;
+                    }
+                    arg += argStr[i];
+                    if (argStr[i] === '(') { depth++; }
+                    else if (argStr[i] === ')') { depth--; }
+                    i++;
+                }
+            }
+            args.push(arg);
+            continue;
+        }
+
+        // Handle parenthesis group: (...), including nested
+        if (c === '(') {
+            let arg = '(';
+            i++;
+            let depth = 1;
+            while (i < len && depth > 0) {
+                const groupNext2 = argStr.slice(i, i + 2);
+                if (!inString && groupNext2 === '/*') {
+                    while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
+                    i += 2;
+                    continue;
+                }
+                if (!inString && argStr[i] === ';') {
+                    while (i < len && argStr[i] !== '\n') { i++; }
+                    i++;
+                    continue;
+                }
+                arg += argStr[i];
+                if (argStr[i] === '(') { depth++; }
+                else if (argStr[i] === ')') { depth--; }
+                i++;
+            }
+            args.push(arg);
+            continue;
+        }
+
+        // Handle table[...] with chained brackets and nested parentheses/brackets
+        const tableMatch = argStr.slice(i).match(/^([a-zA-Z_]\w*)\[/);
+        if (tableMatch) {
+            let arg = tableMatch[1];
+            i += tableMatch[1].length;
+            // Consume all chained brackets
+            while (i < len && argStr[i] === '[') {
+                let depth = 1;
+                arg += argStr[i];
+                i++;
+                while (i < len && depth > 0) {
+                    const groupNext2 = argStr.slice(i, i + 2);
+                    if (!inString && groupNext2 === '/*') {
+                        while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
+                        i += 2;
+                        continue;
+                    }
+                    if (!inString && argStr[i] === ';') {
+                        while (i < len && argStr[i] !== '\n') { i++; }
+                        i++;
+                        continue;
+                    }
+                    arg += argStr[i];
+                    if (argStr[i] === '[') { depth++; }
+                    else if (argStr[i] === ']') { depth--; }
+                    // Handle nested parentheses inside brackets
+                    if (argStr[i] === '(') {
+                        let parenDepth = 1;
+                        arg += argStr[i++];
+                        while (i < len && parenDepth > 0) {
+                            const parenNext2 = argStr.slice(i, i + 2);
+                            if (!inString && parenNext2 === '/*') {
+                                while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
+                                i += 2;
+                                continue;
+                            }
+                            if (!inString && argStr[i] === ';') {
+                                while (i < len && argStr[i] !== '\n') { i++; }
+                                i++;
+                                continue;
+                            }
+                            arg += argStr[i];
+                            if (argStr[i] === '(') { parenDepth++; }
+                            else if (argStr[i] === ')') { parenDepth--; }
+                            i++;
+                        }
+                        continue;
+                    }
+                    i++;
+                }
+            }
+            args.push(arg);
+            continue;
+        }
+
+        // Handle normal word
+        let arg = '';
+        while (
+            i < len &&
+            argStr[i] !== ' ' &&
+            argStr[i] !== ';' &&
+            argStr.slice(i, i + 2) !== '/*'
+        ) {
+            arg += argStr[i];
+            i++;
+        }
+        if (arg.length > 0) {
+            args.push(arg);
+        }
+
+        // If we hit a comment after a word, skip the rest of the line or block
+        if (i < len && argStr[i] === ';') {
+            while (i < len && argStr[i] !== '\n') { i++; }
+            i++; // Skip the newline
+        }
+        if (i < len && argStr.slice(i, i + 2) === '/*') {
+            while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
+            i += 2;
+        }
+    }
+    return args.filter(Boolean);
+}
+
+// Calculate argument index by skipping block and line comments and ignoring spaces in block comments
+function getArgIndex(argStr: string, cursorOffset: number): number {
+    // Remove all block comments for argument index calculation
+    let cleanStr = removeBlockComments(argStr.slice(0, cursorOffset));
+    let inLineComment = false;
+    let inString = false;
+    let argCount = 0;
+    let i = 0;
+    let lastWasSpace = true;
+    while (i < cleanStr.length) {
+        const c = cleanStr[i];
+
+        // Enter/exit string mode
+        if (!inLineComment && c === '"') {
+            inString = !inString;
+            i++;
+            lastWasSpace = false;
+            continue;
+        }
+        // Enter line comment mode
+        if (!inString && c === ';') {
+            inLineComment = true;
+            i++;
+            lastWasSpace = false;
+            continue;
+        }
+        // Exit line comment mode at end of line
+        if (inLineComment && c === '\n') {
+            inLineComment = false;
+            i++;
+            lastWasSpace = false;
+            continue;
+        }
+        // Skip all characters inside string or line comment
+        if (inString || inLineComment) {
+            i++;
+            continue;
+        }
+        // Count argument when hitting a space (not consecutive)
+        if (c === ' ') {
+            if (!lastWasSpace) {
+                argCount++;
+                lastWasSpace = true;
+            }
+            i++;
+            continue;
+        }
+        lastWasSpace = false;
+        i++;
+    }
+    // If cursor is not at a space, count the last argument
+    if (!lastWasSpace) { argCount++; }
+    return Math.max(0, argCount - 1);
+}
+
+// Calculate active parameter index with proper SKILL syntax awareness
+function calculateActiveParameter(textBefore: string): number {
+    const argList = parseSkillArgs(textBefore.trim());
+    const cursorOffset = textBefore.length;
+    let argIndex = getArgIndex(textBefore, cursorOffset);
+
+    // Only move to next argument if last char is space and not inside any structure
+    let inQuote = false;
+    let inParen = 0;
+    let inSpecialParen = false;
+    for (let i = 0; i < textBefore.length; i++) {
+        const c = textBefore[i];
+        if (c === '"') {
+            inQuote = !inQuote;
+        } else if (!inQuote && (c === "'" || c === '`') && textBefore[i + 1] === '(') {
+            inSpecialParen = true;
+            i++; // skip to '('
+            inParen++;
+        } else if (!inQuote && c === '(') {
+            inParen++;
+        } else if (!inQuote && c === ')') {
+            if (inParen > 0) { inParen--; }
+            if (inParen === 0) { inSpecialParen = false; }
+        }
+    }
+    // Only move to next argument if last char is space and not inside any structure
+    if (
+        textBefore.endsWith(' ') &&
+        !inQuote &&
+        inParen === 0 &&
+        !inSpecialParen
+    ) {
+        argIndex = argList.length;
+    }
+
+    return argIndex;
+}
+
 // Enhanced parameter name extraction function
 function extractParameterName(arg: string): string {
     // Handle various parameter formats:
@@ -767,303 +1091,8 @@ export async function activate(context: vscode.ExtensionContext) {
                 }
             }
 
-            // Parse arguments, treating quoted strings as a single argument and skipping content in comments (line and block)
-            function parseSkillArgs(argStr: string): string[] {
-                const args: string[] = [];
-                let i = 0;
-                const len = argStr.length;
-                let inLineComment = false;
-                let inBlockComment = false;
-                let inString = false;
-                while (i < len) {
-                    // Skip leading spaces
-                    while (i < len && argStr[i] === ' ') { i++; }
-                    if (i >= len) { break; }
-
-                    const c = argStr[i];
-                    const next2 = argStr.slice(i, i + 2);
-
-                    // Enter/exit string mode
-                    if (!inLineComment && !inBlockComment && c === '"') {
-                        inString = !inString;
-                        i++;
-                        continue;
-                    }
-                    // Enter block comment mode
-                    if (!inString && !inLineComment && next2 === '/*') {
-                        inBlockComment = true;
-                        i += 2;
-                        continue;
-                    }
-                    // Exit block comment mode
-                    if (inBlockComment && next2 === '*/') {
-                        inBlockComment = false;
-                        i += 2;
-                        continue;
-                    }
-                    // Enter line comment mode
-                    if (!inString && !inBlockComment && c === ';') {
-                        inLineComment = true;
-                        i++;
-                        continue;
-                    }
-                    // Exit line comment mode at end of line
-                    if (inLineComment && c === '\n') {
-                        inLineComment = false;
-                        i++;
-                        continue;
-                    }
-                    // Skip all characters inside string, line comment, or block comment
-                    if (inString || inLineComment || inBlockComment) {
-                        i++;
-                        continue;
-                    }
-
-                    // Handle quoted string: "..."
-                    if (c === '"') {
-                        let arg = '"';
-                        i++;
-                        while (i < len) {
-                            arg += argStr[i];
-                            if (argStr[i] === '"' && arg[arg.length - 2] !== '\\') {
-                                i++;
-                                break;
-                            }
-                            i++;
-                        }
-                        args.push(arg);
-                        continue;
-                    }
-
-                    // Handle single quote or backtick before parenthesis: '(...) or `(...) 
-                    if ((c === "'" || c === '`') && argStr[i + 1] === '(') {
-                        let arg = c;
-                        i++;
-                        if (argStr[i] === '(') {
-                            let depth = 1;
-                            arg += argStr[i];
-                            i++;
-                            while (i < len && depth > 0) {
-                                const groupNext2 = argStr.slice(i, i + 2);
-                                if (!inString && groupNext2 === '/*') {
-                                    while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
-                                    i += 2;
-                                    continue;
-                                }
-                                if (!inString && argStr[i] === ';') {
-                                    while (i < len && argStr[i] !== '\n') { i++; }
-                                    i++;
-                                    continue;
-                                }
-                                arg += argStr[i];
-                                if (argStr[i] === '(') { depth++; }
-                                else if (argStr[i] === ')') { depth--; }
-                                i++;
-                            }
-                        }
-                        args.push(arg);
-                        continue;
-                    }
-
-                    // Handle parenthesis group: (...), including nested
-                    if (c === '(') {
-                        let arg = '(';
-                        i++;
-                        let depth = 1;
-                        while (i < len && depth > 0) {
-                            const groupNext2 = argStr.slice(i, i + 2);
-                            if (!inString && groupNext2 === '/*') {
-                                while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
-                                i += 2;
-                                continue;
-                            }
-                            if (!inString && argStr[i] === ';') {
-                                while (i < len && argStr[i] !== '\n') { i++; }
-                                i++;
-                                continue;
-                            }
-                            arg += argStr[i];
-                            if (argStr[i] === '(') { depth++; }
-                            else if (argStr[i] === ')') { depth--; }
-                            i++;
-                        }
-                        args.push(arg);
-                        continue;
-                    }
-
-                    // Handle table[...] with chained brackets and nested parentheses/brackets
-                    const tableMatch = argStr.slice(i).match(/^([a-zA-Z_]\w*)\[/);
-                    if (tableMatch) {
-                        let arg = tableMatch[1];
-                        i += tableMatch[1].length;
-                        // Consume all chained brackets
-                        while (i < len && argStr[i] === '[') {
-                            let depth = 1;
-                            arg += argStr[i];
-                            i++;
-                            while (i < len && depth > 0) {
-                                const groupNext2 = argStr.slice(i, i + 2);
-                                if (!inString && groupNext2 === '/*') {
-                                    while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
-                                    i += 2;
-                                    continue;
-                                }
-                                if (!inString && argStr[i] === ';') {
-                                    while (i < len && argStr[i] !== '\n') { i++; }
-                                    i++;
-                                    continue;
-                                }
-                                arg += argStr[i];
-                                if (argStr[i] === '[') { depth++; }
-                                else if (argStr[i] === ']') { depth--; }
-                                // Handle nested parentheses inside brackets
-                                if (argStr[i] === '(') {
-                                    let parenDepth = 1;
-                                    arg += argStr[i++];
-                                    while (i < len && parenDepth > 0) {
-                                        const parenNext2 = argStr.slice(i, i + 2);
-                                        if (!inString && parenNext2 === '/*') {
-                                            while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
-                                            i += 2;
-                                            continue;
-                                        }
-                                        if (!inString && argStr[i] === ';') {
-                                            while (i < len && argStr[i] !== '\n') { i++; }
-                                            i++;
-                                            continue;
-                                        }
-                                        arg += argStr[i];
-                                        if (argStr[i] === '(') { parenDepth++; }
-                                        else if (argStr[i] === ')') { parenDepth--; }
-                                        i++;
-                                    }
-                                    continue;
-                                }
-                                i++;
-                            }
-                        }
-                        args.push(arg);
-                        continue;
-                    }
-
-                    // Handle normal word
-                    let arg = '';
-                    while (
-                        i < len &&
-                        argStr[i] !== ' ' &&
-                        argStr[i] !== ';' &&
-                        argStr.slice(i, i + 2) !== '/*'
-                    ) {
-                        arg += argStr[i];
-                        i++;
-                    }
-                    if (arg.length > 0) {
-                        args.push(arg);
-                    }
-
-                    // If we hit a comment after a word, skip the rest of the line or block
-                    if (i < len && argStr[i] === ';') {
-                        while (i < len && argStr[i] !== '\n') { i++; }
-                        i++; // Skip the newline
-                    }
-                    if (i < len && argStr.slice(i, i + 2) === '/*') {
-                        while (i < len && argStr.slice(i, i + 2) !== '*/') { i++; }
-                        i += 2;
-                    }
-                }
-                return args.filter(Boolean);
-            }
-
-            // Calculate argument index by skipping block and line comments and ignoring spaces in block comments
-            function getArgIndex(argStr: string, cursorOffset: number): number {
-                // Remove all block comments for argument index calculation
-                let cleanStr = removeBlockComments(argStr.slice(0, cursorOffset));
-                let inLineComment = false;
-                let inString = false;
-                let argCount = 0;
-                let i = 0;
-                let lastWasSpace = true;
-                while (i < cleanStr.length) {
-                    const c = cleanStr[i];
-
-                    // Enter/exit string mode
-                    if (!inLineComment && c === '"') {
-                        inString = !inString;
-                        i++;
-                        lastWasSpace = false;
-                        continue;
-                    }
-                    // Enter line comment mode
-                    if (!inString && c === ';') {
-                        inLineComment = true;
-                        i++;
-                        lastWasSpace = false;
-                        continue;
-                    }
-                    // Exit line comment mode at end of line
-                    if (inLineComment && c === '\n') {
-                        inLineComment = false;
-                        i++;
-                        lastWasSpace = false;
-                        continue;
-                    }
-                    // Skip all characters inside string or line comment
-                    if (inString || inLineComment) {
-                        i++;
-                        continue;
-                    }
-                    // Count argument when hitting a space (not consecutive)
-                    if (c === ' ') {
-                        if (!lastWasSpace) {
-                            argCount++;
-                            lastWasSpace = true;
-                        }
-                        i++;
-                        continue;
-                    }
-                    lastWasSpace = false;
-                    i++;
-                }
-                // If cursor is not at a space, count the last argument
-                if (!lastWasSpace) { argCount++; }
-                return Math.max(0, argCount - 1);
-            }
-
-            const argList = parseSkillArgs(textBefore.trim());
-
-            // Calculate cursor offset relative to textBefore
-            const cursorOffset = textBefore.length;
-            // Use getArgIndex to get the correct argument index
-            let argIndex = getArgIndex(textBefore, cursorOffset);
-
-            // Only move to next argument if last char is space and not inside any structure
-            let inQuote = false;
-            let inParen = 0;
-            let inSpecialParen = false;
-            for (let i = 0; i < textBefore.length; i++) {
-                const c = textBefore[i];
-                if (c === '"') {
-                    inQuote = !inQuote;
-                } else if (!inQuote && (c === "'" || c === '`') && textBefore[i + 1] === '(') {
-                    inSpecialParen = true;
-                    i++; // skip to '('
-                    inParen++;
-                } else if (!inQuote && c === '(') {
-                    inParen++;
-                } else if (!inQuote && c === ')') {
-                    if (inParen > 0) { inParen--; }
-                    if (inParen === 0) { inSpecialParen = false; }
-                }
-            }
-            // Only move to next argument if last char is space and not inside any structure
-            if (
-                textBefore.endsWith(' ') &&
-                !inQuote &&
-                inParen === 0 &&
-                !inSpecialParen
-            ) {
-                argIndex = argList.length;
-            }
+            // Use shared parameter calculation logic
+            const argIndex = calculateActiveParameter(textBefore);
 
             const { requiredArgs, optionalArgs } = splitArgs(procedureIndex[procName].args);
             const allArgs = [...requiredArgs, ...optionalArgs];
@@ -1148,9 +1177,8 @@ export async function activate(context: vscode.ExtensionContext) {
         );
         signature.parameters = parameters;
         
-        // Calculate active parameter (simplified - count arguments in textBefore)
-        const argCount = textBefore.split(/\s+/).filter(s => s.length > 0).length;
-        const activeParameter = Math.min(argCount, parameters.length - 1);
+        // Use shared parameter calculation logic for accurate parameter position
+        const activeParameter = Math.min(calculateActiveParameter(textBefore), parameters.length - 1);
         
         const sigHelp = new vscode.SignatureHelp();
         sigHelp.signatures = [signature];
@@ -1192,9 +1220,8 @@ export async function activate(context: vscode.ExtensionContext) {
         );
         signature.parameters = parameters;
         
-        // Calculate active parameter (simplified - count arguments in textBefore)
-        const argCount = textBefore.split(/\s+/).filter(s => s.length > 0).length;
-        const activeParameter = Math.min(argCount, parameters.length - 1);
+        // Use shared parameter calculation logic for accurate parameter position
+        const activeParameter = Math.min(calculateActiveParameter(textBefore), parameters.length - 1);
         
         const sigHelp = new vscode.SignatureHelp();
         sigHelp.signatures = [signature];
@@ -1309,30 +1336,5 @@ function splitArgs(args: string[]) {
     
     const result = { requiredArgs, optionalArgs, keyArgs, restArgs };
     console.debug(`[SKILL] splitArgs result:`, result);
-    return result;
-}
-
-
-// Remove all block comments from a string, preserving string length for cursor mapping
-function removeBlockComments(str: string): string {
-    let result = '';
-    let i = 0;
-    let inBlockComment = false;
-    while (i < str.length) {
-        if (!inBlockComment && str.slice(i, i + 2) === '/*') {
-            inBlockComment = true;
-            i += 2;
-            continue;
-        }
-        if (inBlockComment && str.slice(i, i + 2) === '*/') {
-            inBlockComment = false;
-            i += 2;
-            continue;
-        }
-        if (!inBlockComment) {
-            result += str[i];
-        }
-        i++;
-    }
     return result;
 }
