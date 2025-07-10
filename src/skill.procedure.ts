@@ -324,42 +324,199 @@ function getArgIndex(argStr: string, cursorOffset: number): number {
     return Math.max(0, argCount - 1);
 }
 
-// Calculate active parameter index with proper SKILL syntax awareness
-function calculateActiveParameter(textBefore: string): number {
-    const argList = parseSkillArgs(textBefore.trim());
-    const cursorOffset = textBefore.length;
-    let argIndex = getArgIndex(textBefore, cursorOffset);
+// Interface for argument boundaries
+interface ArgumentBoundary {
+    start: number;
+    end: number;
+    content: string;
+}
 
-    // Only move to next argument if last char is space and not inside any structure
-    let inQuote = false;
-    let inParen = 0;
-    let inSpecialParen = false;
-    for (let i = 0; i < textBefore.length; i++) {
-        const c = textBefore[i];
-        if (c === '"') {
-            inQuote = !inQuote;
-        } else if (!inQuote && (c === "'" || c === '`') && textBefore[i + 1] === '(') {
-            inSpecialParen = true;
-            i++; // skip to '('
-            inParen++;
-        } else if (!inQuote && c === '(') {
-            inParen++;
-        } else if (!inQuote && c === ')') {
-            if (inParen > 0) { inParen--; }
-            if (inParen === 0) { inSpecialParen = false; }
+// Parse argument boundaries with precise position tracking
+function parseArgumentBoundaries(text: string): ArgumentBoundary[] {
+    const boundaries: ArgumentBoundary[] = [];
+    let i = 0;
+    let inString = false;
+    let inLineComment = false;
+    let inBlockComment = false;
+    let parenDepth = 0;
+    let bracketDepth = 0;
+    let argStart = -1;
+    
+    // Skip leading spaces to find first argument
+    while (i < text.length && text[i] === ' ') { i++; }
+    
+    while (i < text.length) {
+        const c = text[i];
+        const next2 = text.slice(i, i + 2);
+        
+        // Handle string mode
+        if (!inLineComment && !inBlockComment && c === '"') {
+            if (argStart === -1 && !inString) {
+                argStart = i;
+            }
+            inString = !inString;
+            i++;
+            continue;
+        }
+        
+        // Handle block comments
+        if (!inString && !inLineComment && next2 === '/*') {
+            inBlockComment = true;
+            i += 2;
+            continue;
+        }
+        if (inBlockComment && next2 === '*/') {
+            inBlockComment = false;
+            i += 2;
+            continue;
+        }
+        
+        // Handle line comments
+        if (!inString && !inBlockComment && c === ';') {
+            inLineComment = true;
+            i++;
+            continue;
+        }
+        if (inLineComment && c === '\n') {
+            inLineComment = false;
+            i++;
+            continue;
+        }
+        
+        // Skip content inside comments
+        if (inLineComment || inBlockComment) {
+            i++;
+            continue;
+        }
+        
+        // Handle quoted lists: '(...)
+        if (!inString && (c === "'" || c === '`') && i + 1 < text.length && text[i + 1] === '(') {
+            if (argStart === -1) {
+                argStart = i;
+            }
+            i++; // skip quote
+            parenDepth++;
+            i++;
+            continue;
+        }
+        
+        // Handle parentheses
+        if (!inString && c === '(') {
+            if (argStart === -1) {
+                argStart = i;
+            }
+            parenDepth++;
+            i++;
+            continue;
+        }
+        if (!inString && c === ')') {
+            parenDepth--;
+            if (parenDepth === 0 && argStart !== -1) {
+                // End of parenthesized argument
+                boundaries.push({
+                    start: argStart,
+                    end: i,
+                    content: text.slice(argStart, i + 1)
+                });
+                argStart = -1;
+                // Skip to next non-space character
+                i++;
+                while (i < text.length && text[i] === ' ') { i++; }
+                continue;
+            }
+            i++;
+            continue;
+        }
+        
+        // Handle brackets
+        if (!inString && c === '[') {
+            if (argStart === -1) {
+                argStart = i;
+            }
+            bracketDepth++;
+            i++;
+            continue;
+        }
+        if (!inString && c === ']') {
+            bracketDepth--;
+            i++;
+            continue;
+        }
+        
+        // Handle spaces (argument separators)
+        if (!inString && c === ' ' && parenDepth === 0 && bracketDepth === 0) {
+            if (argStart !== -1) {
+                // End of current argument
+                boundaries.push({
+                    start: argStart,
+                    end: i - 1,
+                    content: text.slice(argStart, i)
+                });
+                argStart = -1;
+            }
+            // Skip consecutive spaces
+            while (i < text.length && text[i] === ' ') { i++; }
+            continue;
+        }
+        
+        // Start new argument if not already started
+        if (argStart === -1 && c !== ' ') {
+            argStart = i;
+        }
+        
+        i++;
+    }
+    
+    // Handle last argument
+    if (argStart !== -1) {
+        boundaries.push({
+            start: argStart,
+            end: text.length - 1,
+            content: text.slice(argStart)
+        });
+    }
+    
+    return boundaries;
+}
+
+// Calculate active parameter index with enhanced boundary detection
+function calculateActiveParameter(textBefore: string): number {
+    const cursorOffset = textBefore.length;
+    
+    // Parse argument boundaries to get precise positions
+    const boundaries = parseArgumentBoundaries(textBefore);
+    
+    console.debug('[SKILL] calculateActiveParameter:', {
+        textBefore: textBefore,
+        cursorOffset: cursorOffset,
+        boundaries: boundaries
+    });
+    
+    // Check if cursor is within any argument boundary
+    for (let i = 0; i < boundaries.length; i++) {
+        const boundary = boundaries[i];
+        if (cursorOffset >= boundary.start && cursorOffset <= boundary.end + 1) {
+            console.debug('[SKILL] Cursor within boundary', i, ':', boundary);
+            return i;
         }
     }
-    // Only move to next argument if last char is space and not inside any structure
-    if (
-        textBefore.endsWith(' ') &&
-        !inQuote &&
-        inParen === 0 &&
-        !inSpecialParen
-    ) {
-        argIndex = argList.length;
+    
+    // Check if cursor is after the last argument (preparing for new argument)
+    if (boundaries.length > 0) {
+        const lastBoundary = boundaries[boundaries.length - 1];
+        if (cursorOffset > lastBoundary.end + 1) {
+            // Check if there's trailing space suggesting a new argument
+            const afterLast = textBefore.slice(lastBoundary.end + 1);
+            if (afterLast.trim().length === 0 && afterLast.includes(' ')) {
+                console.debug('[SKILL] Cursor after last argument, expecting new argument');
+                return boundaries.length;
+            }
+        }
     }
-
-    return argIndex;
+    
+    // Fallback: cursor is at the position for the next argument
+    console.debug('[SKILL] Cursor at position for argument', boundaries.length);
+    return boundaries.length;
 }
 
 // Enhanced parameter name extraction function
