@@ -10,7 +10,9 @@ No context.
 ## Known Issues
 No context.
 ## Release Notes
-The lastest release is 0.0.8 pre-release.
+The lastest release is 0.0.9 pre-release.
+### 0.0.9
+1. Fix the signature help function for embedded procedure.
 ### 0.0.8
 1. Update signature help for procedure to support block comments.
 2. Update input and output specfication syntax highlight.
