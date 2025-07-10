@@ -22,6 +22,17 @@ npm run test     # Runs vscode-test
 
 # Package for distribution
 npm run vscode:prepublish  # Prepares for publishing
+
+# Create VSIX package
+# Windows:
+makeVSIX.bat  # Creates extension package in vsix/ folder
+
+# Linux/macOS:
+./makeVSIX.sh  # Creates extension package in vsix/ folder
+chmod +x makeVSIX.sh  # Make script executable (if needed)
+
+# Manual command (cross-platform):
+vsce package --out vsix  # Direct command alternative
 ```
 
 ## Architecture
