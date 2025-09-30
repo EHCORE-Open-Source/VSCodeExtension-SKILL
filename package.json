@@ -2,7 +2,7 @@
     "name": "cadence-skill-support-package",
     "displayName": "Cadence SKILL Extension",
     "description": "Cadence SKILL language support",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "publisher": "ephoton0210-taiwan",
     "private": false,
     "license": "MIT",
@@ -41,12 +41,22 @@
             {
                 "scopeName": "source.cadence.skill.function",
                 "path": "./syntax/skill/function.tmLanguage.json"
+            },
+            {
+                "scopeName": "markdown.cadence.skill.codeblock",
+                "path": "./syntax/skill/markdown-injection.tmLanguage.json",
+                "injectTo": [
+                    "text.html.markdown"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.block.skill": "cadence-skill"
+                }
             }
         ]
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./ && mkdir -p out/builtin-procedures/databases && cp src/builtin-procedures/databases/*.json out/builtin-procedures/databases/ && mkdir -p out/docs && cp docs/complete-skill-functions.json out/docs/",
+        "compile": "tsc -p ./ && copyfiles -u 2 src/builtin-procedures/databases/*.json out/builtin-procedures/databases && copyfiles docs/complete-skill-functions.json out/docs",
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile && npm run lint",
         "lint": "eslint src --ext ts",
@@ -60,6 +70,7 @@
         "@typescript-eslint/parser": "^7.0.2",
         "@vscode/test-cli": "^0.0.6",
         "@vscode/test-electron": "^2.3.9",
+        "copyfiles": "^2.4.1",
         "eslint": "^8.56.0",
         "typescript": "^5.3.3",
         "vscode": "^1.1.34"

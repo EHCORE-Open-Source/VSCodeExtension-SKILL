@@ -10,9 +10,11 @@ No context.
 ## Known Issues
 No context.
 ## Release Notes
-The lastest release is 0.0.9 pre-release.
+The lastest release is 0.0.9 release.
 ### 0.0.9
 1. Fix the signature help function for embedded procedure.
+2. Add the markdown SKILL code block syntax highlighting feature.
+3. Change to support Node.js tools for compiling and testing.
 ### 0.0.8
 1. Update signature help for procedure to support block comments.
 2. Update input and output specfication syntax highlight.

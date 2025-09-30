@@ -2,3 +2,7 @@
 node_modules
 out
 vsix
+
+# Ignore Claude Code setting files
+.claude/settings.json
+.claude/settings.local.json
