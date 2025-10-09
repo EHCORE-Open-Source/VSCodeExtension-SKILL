@@ -355,18 +355,112 @@ def main():
         help='Gemini API key (or set GEMINI_API_KEY environment variable)'
     )
 
+    parser.add_argument(
+        '--config',
+        help='JSON configuration file specifying multiple functions and their images'
+    )
+
     args = parser.parse_args()
 
     # Validate arguments
-    if not any([args.image, args.images, args.image_pattern, args.batch]):
-        parser.error("Must specify --image, --images, --image-pattern, or --batch")
+    if not any([args.image, args.images, args.image_pattern, args.batch, args.config]):
+        parser.error("Must specify --image, --images, --image-pattern, --batch, or --config")
 
     try:
         # Initialize parser
         image_parser = SkillImageParser(api_key=args.api_key)
 
+        # Process from JSON configuration file
+        if args.config:
+            if not os.path.exists(args.config):
+                print(f"Error: Configuration file not found: {args.config}", file=sys.stderr)
+                sys.exit(1)
+
+            with open(args.config, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+
+            print(f"Loading configuration from: {args.config}")
+
+            # Support two formats:
+            # Format 1: {"function_name": ["img1.png", "img2.png"], ...}
+            # Format 2: {"functions": [{"name": "func", "images": [...], "output": "out.json"}, ...]}
+
+            if "functions" in config:
+                # Format 2: Detailed configuration
+                functions_config = config["functions"]
+                print(f"Found {len(functions_config)} functions to process\n")
+
+                results = []
+                for idx, func_config in enumerate(functions_config, 1):
+                    func_name = func_config.get("name", f"function_{idx}")
+                    images = func_config.get("images", [])
+                    output_file = func_config.get("output")
+
+                    if not images:
+                        print(f"[{idx}/{len(functions_config)}] Skipping {func_name}: No images specified")
+                        continue
+
+                    print(f"[{idx}/{len(functions_config)}] Processing {func_name} ({len(images)} images)")
+
+                    try:
+                        result = image_parser.parse_multiple_images(images)
+                        results.append(result)
+
+                        if output_file:
+                            with open(output_file, 'w', encoding='utf-8') as f:
+                                json.dump(result, f, indent=2, ensure_ascii=False)
+                            print(f"  ✓ Saved to: {output_file}")
+                        else:
+                            print(f"  ✓ Parsed: {result.get('function_name', 'unknown')}")
+                    except Exception as e:
+                        print(f"  ✗ Error: {e}")
+                        results.append({"error": str(e), "function": func_name})
+
+                    print()
+
+                print(f"{'='*80}")
+                print(f"Completed: {len(results)} functions processed")
+                print(f"{'='*80}")
+
+                # Save combined results if --output specified
+                if args.output:
+                    with open(args.output, 'w', encoding='utf-8') as f:
+                        json.dump(results, f, indent=2, ensure_ascii=False)
+                    print(f"Combined results saved to: {args.output}")
+
+            else:
+                # Format 1: Simple {"function_name": ["images"]} format
+                print(f"Found {len(config)} functions to process\n")
+
+                results = []
+                for idx, (func_name, images) in enumerate(config.items(), 1):
+                    if not isinstance(images, list):
+                        print(f"[{idx}/{len(config)}] Skipping {func_name}: Invalid images format")
+                        continue
+
+                    print(f"[{idx}/{len(config)}] Processing {func_name} ({len(images)} images)")
+
+                    try:
+                        result = image_parser.parse_multiple_images(images)
+                        results.append(result)
+
+                        # Auto-generate output filename
+                        output_file = f"{func_name}.json"
+                        with open(output_file, 'w', encoding='utf-8') as f:
+                            json.dump(result, f, indent=2, ensure_ascii=False)
+                        print(f"  ✓ Saved to: {output_file}")
+                    except Exception as e:
+                        print(f"  ✗ Error: {e}")
+                        results.append({"error": str(e), "function": func_name})
+
+                    print()
+
+                print(f"{'='*80}")
+                print(f"Completed: {len(results)} functions processed")
+                print(f"{'='*80}")
+
         # Process multiple images as one function
-        if args.images:
+        elif args.images:
             print(f"Parsing {len(args.images)} images as one function: {', '.join(args.images)}")
 
             result = image_parser.parse_multiple_images(args.images)
