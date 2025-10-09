@@ -6,3 +6,21 @@ vsix
 # Ignore Claude Code setting files
 .claude/settings.json
 .claude/settings.local.json
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Ignore compressed files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.gz
+*.bz2
+*.xz
