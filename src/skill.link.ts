@@ -6,6 +6,9 @@ import * as path from 'path';
 let cachedSearchFolder: string | undefined;
 let searchFolderLastModified: number = 0;
 
+// Diagnostic collection for file path warnings
+let diagnosticCollection: vscode.DiagnosticCollection;
+
 interface LegacySkillConfig {
     skill: {
         searchFolderPath?: string;
@@ -115,7 +118,75 @@ function findFileInDirectory(dir: string, fileName: string): string | undefined 
     return undefined;
 }
 
+// Function to update diagnostics for file paths
+async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
+    if (document.languageId !== 'cadence-skill') {
+        return;
+    }
+
+    const diagnostics: vscode.Diagnostic[] = [];
+    const text = document.getText();
+    const regex = /([:\w\-\\\/\.]+\.il)/g;
+    let match: RegExpExecArray | null;
+
+    // Load search folder path from configuration
+    const searchFolderPath = await loadSearchFolderPath();
+
+    while ((match = regex.exec(text)) !== null) {
+        const start = document.positionAt(match.index);
+        const end = document.positionAt(match.index + match[0].length);
+        const range = new vscode.Range(start, end);
+        let fileName = match[1];
+        let resolvedPath: string | undefined;
+        let fileExists = false;
+
+        // If fileName is already an absolute path, use it directly
+        if (fileName.startsWith('/') || /^[A-Z]:\\/i.test(fileName)) {
+            resolvedPath = fileName;
+            fileExists = fs.existsSync(resolvedPath);
+        } else {
+            // Extract just the filename (without any path components)
+            const baseFileName = path.basename(fileName);
+
+            // Try to find file in searchFolderPath first (if configured)
+            if (searchFolderPath) {
+                resolvedPath = findFileInDirectory(searchFolderPath, baseFileName);
+                if (resolvedPath) {
+                    fileExists = true;
+                }
+            }
+
+            // If not found in searchFolderPath, fall back to workspace root
+            if (!resolvedPath) {
+                const workspaceFolders = vscode.workspace.workspaceFolders;
+                if (workspaceFolders && workspaceFolders.length > 0) {
+                    const workspaceRoot = workspaceFolders[0].uri.fsPath;
+                    resolvedPath = path.join(workspaceRoot, fileName);
+                    fileExists = fs.existsSync(resolvedPath);
+                }
+            }
+        }
+
+        // If file doesn't exist, add a warning diagnostic
+        if (resolvedPath && !fileExists) {
+            const diagnostic = new vscode.Diagnostic(
+                range,
+                `File not found: ${resolvedPath}`,
+                vscode.DiagnosticSeverity.Warning
+            );
+            diagnostic.source = 'SKILL';
+            diagnostics.push(diagnostic);
+        }
+    }
+
+    diagnosticCollection.set(document.uri, diagnostics);
+}
+
 export function activate(context: vscode.ExtensionContext) {
+    // Initialize diagnostic collection
+    diagnosticCollection = vscode.languages.createDiagnosticCollection('skill-file-paths');
+    context.subscriptions.push(diagnosticCollection);
+
     const fileLinkProvider: vscode.DocumentLinkProvider = {
         async provideDocumentLinks(document, token) {
             try {
@@ -261,10 +332,26 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'cadence-skill' }, fileLinkProvider),
         vscode.languages.registerHoverProvider({ scheme: 'file', language: 'cadence-skill' }, filePathHoverProvider)
     );
+
+    // Update diagnostics on document open, change, and save
+    context.subscriptions.push(
+        vscode.workspace.onDidOpenTextDocument(updateDiagnostics),
+        vscode.workspace.onDidChangeTextDocument(e => updateDiagnostics(e.document)),
+        vscode.workspace.onDidSaveTextDocument(updateDiagnostics)
+    );
+
+    // Update diagnostics for all currently open documents
+    vscode.workspace.textDocuments.forEach(updateDiagnostics);
 }
 
 export function deactivate() {
     // Clear caches to prevent memory leaks
     cachedSearchFolder = undefined;
     searchFolderLastModified = 0;
+
+    // Clear diagnostics
+    if (diagnosticCollection) {
+        diagnosticCollection.clear();
+        diagnosticCollection.dispose();
+    }
 }

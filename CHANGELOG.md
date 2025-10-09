@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Recursive subdirectory scanning support in `searchFolderPath` for procedure indexing
 - File path hover information displaying full resolved path, file size, and last modified time
 - Recursive file search functionality for both procedure navigation and file link features
+- File path diagnostic warnings with yellow squiggly underlines for non-existent files
 
 ### Changed
 - Improved file path navigation to prioritize searching in configured `searchFolderPath` from `.vscode/skill.json`

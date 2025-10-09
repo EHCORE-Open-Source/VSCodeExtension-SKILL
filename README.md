@@ -37,6 +37,7 @@ A comprehensive Visual Studio Code extension that provides rich language support
   - Full resolved file path
   - File size
   - Last modified timestamp
+- **Missing File Warnings**: Yellow squiggly underlines for non-existent file paths
 
 ### 📖 Rich Documentation
 - **Enhanced Hover Tooltips**:
@@ -266,6 +267,7 @@ python3 scripts/extract_skill_functions.py
 - 📂 Recursive file search for procedure navigation and file links
 - 🐛 Fixed breadcrumb navigation to display procedure name throughout entire block
 - 📋 Added hover support for file paths with metadata (size, modified time)
+- ⚠️ Added diagnostic warnings for non-existent file paths with yellow squiggly underlines
 
 ### Version 0.0.9
 - 🐛 Fixed signature help for embedded procedures
