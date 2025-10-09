@@ -9,11 +9,17 @@ Usage:
     # Parse a single image
     python3 parse_skill_image.py --image vivaxlskill-034.png
 
-    # Parse multiple images
+    # Parse multiple images as one function (for functions spanning multiple pages)
+    python3 parse_skill_image.py --images vivaxlskill-046.png vivaxlskill-047.png vivaxlskill-048.png
+
+    # Parse multiple images with pattern
     python3 parse_skill_image.py --image-pattern "vivaxlskill-*.png"
 
     # Parse and save to JSON
     python3 parse_skill_image.py --image vivaxlskill-034.png --output functions.json
+
+    # Parse multi-page function and save
+    python3 parse_skill_image.py --images vivaxlskill-046.png vivaxlskill-047.png --output awvAppendList.json
 
     # Batch process all images
     python3 parse_skill_image.py --batch --output-dir extracted/
@@ -133,6 +139,97 @@ Return ONLY the JSON object, no additional text.
                 "source_image": os.path.basename(image_path)
             }
 
+    def parse_multiple_images(self, image_paths: List[str]) -> Dict:
+        """
+        Parse multiple images of the same function (for functions spanning multiple pages)
+
+        Args:
+            image_paths: List of image file paths in order
+
+        Returns:
+            Dictionary containing structured function information from all pages
+        """
+        if not image_paths:
+            raise ValueError("No image paths provided")
+
+        # Validate all images exist
+        for image_path in image_paths:
+            if not os.path.exists(image_path):
+                raise FileNotFoundError(f"Image file not found: {image_path}")
+
+        # Load all images
+        images = [Image.open(path) for path in image_paths]
+
+        # Construct prompt for multi-page extraction
+        prompt = f"""
+Analyze these {len(images)} consecutive pages of SKILL function documentation and extract the complete information in JSON format:
+
+{{
+  "function_name": "function name",
+  "category": "category or section name if visible",
+  "syntax": "complete function signature/syntax",
+  "description": "complete description of what the function does",
+  "arguments": [
+    {{
+      "name": "argument name",
+      "type": "data type if specified",
+      "description": "complete argument description"
+    }}
+  ],
+  "return_value": [
+    {{
+      "type": "return type",
+      "description": "complete description of return value"
+    }}
+  ],
+  "examples": [
+    {{
+      "code": "example code",
+      "description": "example description if any"
+    }}
+  ],
+  "notes": "any additional notes or warnings",
+  "page_numbers": "page numbers if visible (e.g., '46-51')",
+  "document_title": "document title if visible"
+}}
+
+Important: Combine information from ALL pages. If a section continues across pages, merge the content seamlessly.
+Return ONLY the JSON object, no additional text.
+"""
+
+        # Build contents array with prompt and all images
+        contents = [prompt] + images
+
+        # Call Gemini API with all images
+        response = self.client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=contents
+        )
+
+        # Parse JSON response
+        try:
+            # Extract JSON from response (may be wrapped in markdown code blocks)
+            response_text = response.text.strip()
+            if response_text.startswith('```json'):
+                response_text = response_text[7:]
+            if response_text.startswith('```'):
+                response_text = response_text[3:]
+            if response_text.endswith('```'):
+                response_text = response_text[:-3]
+
+            function_data = json.loads(response_text.strip())
+            function_data['source_images'] = [os.path.basename(p) for p in image_paths]
+
+            return function_data
+        except json.JSONDecodeError as e:
+            print(f"Warning: Failed to parse JSON response for multiple images")
+            print(f"Response: {response.text}")
+            return {
+                "error": "JSON parsing failed",
+                "raw_response": response.text,
+                "source_images": [os.path.basename(p) for p in image_paths]
+            }
+
     def parse_image_simple(self, image_path: str) -> str:
         """
         Simple text extraction from image
@@ -221,6 +318,12 @@ def main():
     )
 
     parser.add_argument(
+        '--images',
+        nargs='+',
+        help='Multiple image files for a function spanning multiple pages (e.g., --images img1.png img2.png img3.png)'
+    )
+
+    parser.add_argument(
         '--image-pattern',
         help='Glob pattern for multiple images (e.g., "vivaxlskill-*.png")'
     )
@@ -255,15 +358,29 @@ def main():
     args = parser.parse_args()
 
     # Validate arguments
-    if not any([args.image, args.image_pattern, args.batch]):
-        parser.error("Must specify --image, --image-pattern, or --batch")
+    if not any([args.image, args.images, args.image_pattern, args.batch]):
+        parser.error("Must specify --image, --images, --image-pattern, or --batch")
 
     try:
         # Initialize parser
         image_parser = SkillImageParser(api_key=args.api_key)
 
+        # Process multiple images as one function
+        if args.images:
+            print(f"Parsing {len(args.images)} images as one function: {', '.join(args.images)}")
+
+            result = image_parser.parse_multiple_images(args.images)
+            print("\n" + "="*80)
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+            print("="*80)
+
+            if args.output:
+                with open(args.output, 'w', encoding='utf-8') as f:
+                    json.dump(result, f, indent=2, ensure_ascii=False)
+                print(f"\nSaved to: {args.output}")
+
         # Process single image
-        if args.image:
+        elif args.image:
             print(f"Parsing image: {args.image}")
 
             if args.simple:
