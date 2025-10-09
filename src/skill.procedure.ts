@@ -848,6 +848,33 @@ function checkProcedureCompatibility(procedureName: string): string | undefined 
     return undefined;
 }
 
+// Helper function to recursively scan directories for .il files
+function scanSkillFiles(dir: string, fileList: string[] = []): string[] {
+    try {
+        const files = fs.readdirSync(dir);
+
+        files.forEach(file => {
+            const filePath = path.join(dir, file);
+            try {
+                const stat = fs.statSync(filePath);
+                if (stat.isDirectory()) {
+                    // Recursively scan subdirectories
+                    scanSkillFiles(filePath, fileList);
+                } else if (stat.isFile() && file.endsWith('.il')) {
+                    // Add .il file to the list
+                    fileList.push(filePath);
+                }
+            } catch (statError) {
+                console.error(`Error accessing ${filePath}: ${statError instanceof Error ? statError.message : 'Unknown error'}`);
+            }
+        });
+    } catch (readdirError) {
+        console.error(`Error reading directory ${dir}: ${readdirError instanceof Error ? readdirError.message : 'Unknown error'}`);
+    }
+
+    return fileList;
+}
+
 function indexProcedures(skillFolder: string): void {
     try {
         if (!fs.existsSync(skillFolder)) {
@@ -856,65 +883,67 @@ function indexProcedures(skillFolder: string): void {
         }
 
         procedureIndex = {};
-        const files = fs.readdirSync(skillFolder);
-        
-        files.forEach(file => {
-            const filePath = path.join(skillFolder, file);
+
+        // Recursively scan for all .il files in skillFolder and its subdirectories
+        const skillFiles = scanSkillFiles(skillFolder);
+        console.debug(`Found ${skillFiles.length} SKILL files in ${skillFolder}`);
+
+        skillFiles.forEach(filePath => {
             console.debug(`Processing file: ${filePath}`);
-            
+
             try {
-                if (fs.statSync(filePath).isFile() && file.endsWith('.il')) {
-                    const lines = fs.readFileSync(filePath, 'utf8').split('\n');
-                    lines.forEach((line, idx) => {
-                        try {
-                            // First, extract the procedure name
-                            const nameMatch = line.match(/^\s*procedure\(\s*(\w+)/i);
-                            if (nameMatch) {
-                                // Start searching for parameters after the procedure name
-                                const paramsStart = line.indexOf(nameMatch[1]) + nameMatch[1].length;
-                                const paramsStr = line.slice(paramsStart);
-                                // Find the first left parenthesis
-                                const firstParen = paramsStr.indexOf('(');
-                                if (firstParen !== -1) {
-                                    let depth = 0;
-                                    let endIdx = -1;
-                                    for (let i = firstParen; i < paramsStr.length; i++) {
-                                        if (paramsStr[i] === '(') { depth++; }
-                                        if (paramsStr[i] === ')') { depth--; }
-                                        if (depth === 0) {
-                                            endIdx = i;
-                                            break;
-                                        }
+                const lines = fs.readFileSync(filePath, 'utf8').split('\n');
+                lines.forEach((line, idx) => {
+                    try {
+                        // First, extract the procedure name
+                        const nameMatch = line.match(/^\s*procedure\(\s*(\w+)/i);
+                        if (nameMatch) {
+                            // Start searching for parameters after the procedure name
+                            const paramsStart = line.indexOf(nameMatch[1]) + nameMatch[1].length;
+                            const paramsStr = line.slice(paramsStart);
+                            // Find the first left parenthesis
+                            const firstParen = paramsStr.indexOf('(');
+                            if (firstParen !== -1) {
+                                let depth = 0;
+                                let endIdx = -1;
+                                for (let i = firstParen; i < paramsStr.length; i++) {
+                                    if (paramsStr[i] === '(') { depth++; }
+                                    if (paramsStr[i] === ')') { depth--; }
+                                    if (depth === 0) {
+                                        endIdx = i;
+                                        break;
                                     }
-                                    let argsRaw = paramsStr.slice(firstParen, endIdx + 1);
-                                    // Remove the outermost parentheses
-                                    if (argsRaw.startsWith('(') && argsRaw.endsWith(')')) {
-                                        argsRaw = argsRaw.slice(1, -1).trim();
-                                    }
-                                    // Split arguments by whitespace (adjust as needed)
-                                    const args = argsRaw
-                                        .match(/\([^\(\)]*\)|[^\s]+/g)
-                                        ?.map(s => s.trim())
-                                        .filter(Boolean) || [];
-                                    // Parse documentation for this procedure
-                                    const doc = parseProcedureDoc(lines, idx, args);
-                                    procedureIndex[nameMatch[1]] = {
-                                        file: filePath,
-                                        line: idx,
-                                        args,
-                                        doc
-                                    };
                                 }
+                                let argsRaw = paramsStr.slice(firstParen, endIdx + 1);
+                                // Remove the outermost parentheses
+                                if (argsRaw.startsWith('(') && argsRaw.endsWith(')')) {
+                                    argsRaw = argsRaw.slice(1, -1).trim();
+                                }
+                                // Split arguments by whitespace (adjust as needed)
+                                const args = argsRaw
+                                    .match(/\([^\(\)]*\)|[^\s]+/g)
+                                    ?.map(s => s.trim())
+                                    .filter(Boolean) || [];
+                                // Parse documentation for this procedure
+                                const doc = parseProcedureDoc(lines, idx, args);
+                                procedureIndex[nameMatch[1]] = {
+                                    file: filePath,
+                                    line: idx,
+                                    args,
+                                    doc
+                                };
                             }
-                        } catch (lineError) {
-                            console.error(`Error processing line ${idx + 1} in ${filePath}: ${lineError instanceof Error ? lineError.message : 'Unknown error'}`);
                         }
-                    });
-                }
+                    } catch (lineError) {
+                        console.error(`Error processing line ${idx + 1} in ${filePath}: ${lineError instanceof Error ? lineError.message : 'Unknown error'}`);
+                    }
+                });
             } catch (fileError) {
                 console.error(`Error processing file ${filePath}: ${fileError instanceof Error ? fileError.message : 'Unknown error'}`);
             }
         });
+
+        console.debug(`Indexed ${Object.keys(procedureIndex).length} procedures from ${skillFiles.length} files`);
     } catch (error) {
         console.error(`Error indexing procedures in ${skillFolder}: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
