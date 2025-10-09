@@ -175,8 +175,91 @@ export function activate(context: vscode.ExtensionContext) {
         }
     };
 
+    const filePathHoverProvider: vscode.HoverProvider = {
+        async provideHover(document, position, token) {
+            try {
+                const text = document.getText();
+                const regex = /([:\w\-\\\/\.]+\.il)/g;
+                let match: RegExpExecArray | null;
+
+                // Load search folder path from configuration
+                const searchFolderPath = await loadSearchFolderPath();
+
+                while ((match = regex.exec(text)) !== null) {
+                    const start = document.positionAt(match.index);
+                    const end = document.positionAt(match.index + match[0].length);
+                    const range = new vscode.Range(start, end);
+
+                    // Check if cursor is within this file path
+                    if (!range.contains(position)) {
+                        continue;
+                    }
+
+                    let fileName = match[1];
+                    let resolvedPath: string | undefined;
+                    let fileExists = false;
+
+                    // If fileName is already an absolute path, use it directly
+                    if (fileName.startsWith('/') || /^[A-Z]:\\/i.test(fileName)) {
+                        resolvedPath = fileName;
+                        fileExists = fs.existsSync(resolvedPath);
+                    } else {
+                        // Extract just the filename (without any path components)
+                        const baseFileName = path.basename(fileName);
+
+                        // Try to find file in searchFolderPath first (if configured)
+                        if (searchFolderPath) {
+                            resolvedPath = findFileInDirectory(searchFolderPath, baseFileName);
+                            if (resolvedPath) {
+                                fileExists = true;
+                            }
+                        }
+
+                        // If not found in searchFolderPath, fall back to workspace root
+                        if (!resolvedPath) {
+                            const workspaceFolders = vscode.workspace.workspaceFolders;
+                            if (workspaceFolders && workspaceFolders.length > 0) {
+                                const workspaceRoot = workspaceFolders[0].uri.fsPath;
+                                resolvedPath = path.join(workspaceRoot, fileName);
+                                fileExists = fs.existsSync(resolvedPath);
+                            }
+                        }
+                    }
+
+                    if (resolvedPath) {
+                        let hoverText = `**📄 SKILL File**\n\n`;
+
+                        if (fileExists) {
+                            hoverText += `✅ **File found:**\n\`\`\`\n${resolvedPath}\n\`\`\`\n\n`;
+
+                            // Add file stats if available
+                            try {
+                                const stats = fs.statSync(resolvedPath);
+                                const fileSizeKB = (stats.size / 1024).toFixed(2);
+                                const lastModified = stats.mtime.toLocaleString();
+                                hoverText += `**Size:** ${fileSizeKB} KB\n\n`;
+                                hoverText += `**Last Modified:** ${lastModified}`;
+                            } catch (error) {
+                                // Ignore stat errors
+                            }
+                        } else {
+                            hoverText += `⚠️ **File not found:**\n\`\`\`\n${resolvedPath}\n\`\`\`\n\n`;
+                            hoverText += `*This file may not exist or is inaccessible.*`;
+                        }
+
+                        return new vscode.Hover(new vscode.MarkdownString(hoverText, true), range);
+                    }
+                }
+            } catch (error) {
+                console.error(`[SKILL Link] Error providing hover: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            }
+            return undefined;
+        }
+    };
+
     context.subscriptions.push(
-        vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'cadence-skill' }, fileLinkProvider)
+        vscode.languages.registerDocumentLinkProvider({ scheme: 'file', language: 'cadence-skill' }, fileLinkProvider),
+        vscode.languages.registerHoverProvider({ scheme: 'file', language: 'cadence-skill' }, filePathHoverProvider)
     );
 }
 

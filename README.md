@@ -22,6 +22,7 @@ The lastest release is 0.0.10 pre-release.
 2. Improve file path navigation to prioritize searching in configured searchFolderPath from `.vscode/skill.json`.
 3. Add recursive file search functionality for both procedure navigation and file link features.
 4. Fix breadcrumb navigation to display procedure name throughout entire procedure block instead of only on definition line.
+5. Add hover support for file paths to display full resolved path, file size, and last modified time.
 
 ### 0.0.9
 1. Fix the signature help function for embedded procedure.
