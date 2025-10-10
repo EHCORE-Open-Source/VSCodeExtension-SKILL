@@ -36,7 +36,7 @@ import json
 import argparse
 import subprocess
 import glob
-import fnmatch
+import threading
 from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional, Tuple
@@ -45,6 +45,10 @@ try:
     from tqdm import tqdm
 except ImportError:  # pragma: no cover - optional dependency
     tqdm = None
+
+
+class ConversionAborted(Exception):
+    """Raised when the user requests to stop the conversion."""
 
 
 class PDFToPNGConverter:
@@ -68,6 +72,21 @@ class PDFToPNGConverter:
         self.metadata_file = self.output_dir / "conversion_metadata.json"
         self.metadata = self._load_metadata()
 
+        # Interactive abort handling
+        self._stop_event = threading.Event()
+        self._abort_message_shown = False
+        self._abort_hint_shown = False
+        self._interactive_input = sys.stdin.isatty()
+        self._input_thread: Optional[threading.Thread] = None
+
+        if self._interactive_input:
+            self._input_thread = threading.Thread(
+                target=self._monitor_user_input,
+                name="pdf-to-png-input-monitor",
+                daemon=True
+            )
+            self._input_thread.start()
+
     def _load_metadata(self) -> Dict:
         """Load existing conversion metadata"""
         if self.metadata_file.exists():
@@ -86,6 +105,43 @@ class PDFToPNGConverter:
                 json.dump(self.metadata, f, indent=2, ensure_ascii=False)
         except IOError as e:
             print(f"Warning: Could not save metadata file: {e}")
+
+    def _monitor_user_input(self):
+        """Listen for user input to allow graceful aborts."""
+        while not self._stop_event.is_set():
+            try:
+                user_input = sys.stdin.readline()
+            except Exception:
+                break
+
+            if not user_input:
+                break
+
+            if user_input.strip().lower() == 'q':
+                self._stop_event.set()
+                break
+
+    def _announce_abort(self, log):
+        """Announce the abort event once."""
+        if not self._abort_message_shown:
+            log("🛑 Aborting conversion (q pressed). Finishing current task before exiting...")
+            self._abort_message_shown = True
+
+    def _check_for_abort(self, log):
+        """Raise if an abort has been requested."""
+        if self._stop_event.is_set():
+            self._announce_abort(log)
+            raise ConversionAborted()
+
+    def _show_abort_hint(self, log):
+        """Display a hint for how to abort the process once."""
+        if self._interactive_input and not self._abort_hint_shown:
+            log("➡️  Press 'q' then Enter to abort conversion.")
+            self._abort_hint_shown = True
+
+    def has_announced_abort(self) -> bool:
+        """Return whether the abort announcement has been shown."""
+        return self._abort_message_shown
 
     def get_pdf_info(self, pdf_path: Path) -> Dict:
         """Get PDF information using pdfinfo"""
@@ -130,6 +186,9 @@ class PDFToPNGConverter:
         use_tqdm_logging = tqdm is not None and progress_position is not None
         log = tqdm.write if use_tqdm_logging else print
 
+        self._show_abort_hint(log)
+        self._check_for_abort(log)
+
         # Check if already converted and not forcing
         if not force and pdf_name in self.metadata:
             existing_images = self.metadata[pdf_name].get('images', [])
@@ -170,6 +229,7 @@ class PDFToPNGConverter:
                 print(f"   Pages: 0/{page_count}", end="\r", flush=True)
 
             for page_number in range(1, page_count + 1):
+                self._check_for_abort(log)
                 cmd = [
                     'pdftoppm',
                     '-png',
@@ -192,6 +252,8 @@ class PDFToPNGConverter:
                 page_bar.close()
             elif manual_page_progress:
                 print()  # Move to next line after carriage return
+
+            self._check_for_abort(log)
 
             # Find generated images
             generated_images = list(pdf_output_dir.glob(f"{pdf_name}-*.png"))
@@ -218,6 +280,13 @@ class PDFToPNGConverter:
             log(f"✅ {pdf_name}: Converted {len(generated_images)} pages")
             return True, image_paths
 
+        except ConversionAborted:
+            if page_bar is not None:
+                page_bar.close()
+            elif manual_page_progress:
+                print()
+            raise
+
         except subprocess.CalledProcessError as e:
             if page_bar is not None:
                 page_bar.close()
@@ -243,6 +312,7 @@ class PDFToPNGConverter:
         total_images = 0
         use_progress = tqdm is not None and len(pdf_files) > 1
 
+        progress_bar = None
         if use_progress:
             progress_bar = tqdm(
                 total=len(pdf_files),
@@ -256,27 +326,38 @@ class PDFToPNGConverter:
         else:
             iterator = enumerate(pdf_files, 1)
 
-        for i, pdf_path in iterator:
-            if use_progress:
-                progress_bar.set_postfix_str(pdf_path.name)
-            else:
-                print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
+        progress_log = tqdm.write if use_progress else print
 
-            success, images = self.convert_pdf_to_png(
-                pdf_path,
-                force=force,
-                progress_position=1 if use_progress else None
-            )
-            results[pdf_path.name] = success
+        try:
+            for i, pdf_path in iterator:
+                self._check_for_abort(progress_log)
 
-            if success:
-                total_images += len(images)
+                if use_progress:
+                    progress_bar.set_postfix_str(pdf_path.name)
+                else:
+                    print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
 
-            if use_progress:
-                progress_bar.update(1)
+                success, images = self.convert_pdf_to_png(
+                    pdf_path,
+                    force=force,
+                    progress_position=1 if use_progress else None
+                )
+                results[pdf_path.name] = success
 
-        if use_progress:
+                if success:
+                    total_images += len(images)
+
+                if use_progress:
+                    progress_bar.update(1)
+        except ConversionAborted:
+            if progress_bar is not None:
+                progress_bar.close()
+            raise
+
+        if progress_bar is not None:
             progress_bar.close()
+
+        self._check_for_abort(progress_log)
 
         print("=" * 60)
         print(f"📊 Conversion Summary:")
@@ -417,6 +498,7 @@ class PDFToPNGConverter:
         total_images = 0
         use_progress = tqdm is not None and len(pdf_files) > 1
 
+        progress_bar = None
         if use_progress:
             progress_bar = tqdm(
                 total=len(pdf_files),
@@ -430,27 +512,38 @@ class PDFToPNGConverter:
         else:
             iterator = enumerate(pdf_files, 1)
 
-        for i, pdf_path in iterator:
-            if use_progress:
-                progress_bar.set_postfix_str(pdf_path.name)
-            else:
-                print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
+        progress_log = tqdm.write if use_progress else print
 
-            success, images = self.convert_pdf_to_png(
-                pdf_path,
-                force=force,
-                progress_position=1 if use_progress else None
-            )
-            results[pdf_path.name] = success
+        try:
+            for i, pdf_path in iterator:
+                self._check_for_abort(progress_log)
 
-            if success:
-                total_images += len(images)
+                if use_progress:
+                    progress_bar.set_postfix_str(pdf_path.name)
+                else:
+                    print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
 
-            if use_progress:
-                progress_bar.update(1)
+                success, images = self.convert_pdf_to_png(
+                    pdf_path,
+                    force=force,
+                    progress_position=1 if use_progress else None
+                )
+                results[pdf_path.name] = success
 
-        if use_progress:
+                if success:
+                    total_images += len(images)
+
+                if use_progress:
+                    progress_bar.update(1)
+        except ConversionAborted:
+            if progress_bar is not None:
+                progress_bar.close()
+            raise
+
+        if progress_bar is not None:
             progress_bar.close()
+
+        self._check_for_abort(progress_log)
 
         print("=" * 60)
         print(f"📊 Conversion Summary:")
@@ -551,80 +644,85 @@ def main():
             dpi=args.dpi
         )
 
-    # Handle different modes
-    if args.list_pdfs:
-        input_dir = Path(args.list_pdfs)
-        if not input_dir.exists():
-            print(f"Error: Directory {input_dir} does not exist")
-            sys.exit(1)
-        converter.list_pdfs(input_dir)
-
-    elif args.stats:
-        stats = converter.get_conversion_stats()
-        print("📊 Conversion Statistics:")
-        print(f"   Total PDFs converted: {stats['total_pdfs']}")
-        print(f"   Total images generated: {stats['total_images']}")
-        print(f"   Total PDF pages: {stats['total_pages']}")
-
-    elif args.file:
-        # Handle file patterns (including wildcards)
-        file_pattern = args.file
-
-        # Check if it's a simple single file (no wildcards)
-        if not any(char in file_pattern for char in ['*', '?', '[', '{']):
-            # Simple single file case
-            pdf_path = Path(file_pattern)
-            if not pdf_path.exists():
-                print(f"Error: File {pdf_path} does not exist")
+    try:
+        # Handle different modes
+        if args.list_pdfs:
+            input_dir = Path(args.list_pdfs)
+            if not input_dir.exists():
+                print(f"Error: Directory {input_dir} does not exist")
                 sys.exit(1)
-            if not pdf_path.suffix.lower() == '.pdf':
-                print(f"Error: File {pdf_path} is not a PDF")
-                sys.exit(1)
+            converter.list_pdfs(input_dir)
 
-            success, images = converter.convert_pdf_to_png(pdf_path, force=args.force)
-            if success:
-                print(f"✅ Successfully converted {pdf_path.name} to {len(images)} images")
+        elif args.stats:
+            stats = converter.get_conversion_stats()
+            print("📊 Conversion Statistics:")
+            print(f"   Total PDFs converted: {stats['total_pdfs']}")
+            print(f"   Total images generated: {stats['total_images']}")
+            print(f"   Total PDF pages: {stats['total_pages']}")
+
+        elif args.file:
+            # Handle file patterns (including wildcards)
+            file_pattern = args.file
+
+            # Check if it's a simple single file (no wildcards)
+            if not any(char in file_pattern for char in ['*', '?', '[', '{']):
+                # Simple single file case
+                pdf_path = Path(file_pattern)
+                if not pdf_path.exists():
+                    print(f"Error: File {pdf_path} does not exist")
+                    sys.exit(1)
+                if not pdf_path.suffix.lower() == '.pdf':
+                    print(f"Error: File {pdf_path} is not a PDF")
+                    sys.exit(1)
+
+                success, images = converter.convert_pdf_to_png(pdf_path, force=args.force)
+                if success:
+                    print(f"✅ Successfully converted {pdf_path.name} to {len(images)} images")
+                else:
+                    print(f"❌ Failed to convert {pdf_path.name}")
+                    sys.exit(1)
             else:
-                print(f"❌ Failed to convert {pdf_path.name}")
+                # Pattern matching case (wildcards)
+                results = converter.convert_files_by_pattern(file_pattern, force=args.force)
+                if not results:
+                    print(f"❌ No files found matching pattern: {file_pattern}")
+                    sys.exit(1)
+
+                failed_pdfs = [name for name, success in results.items() if not success]
+                if failed_pdfs:
+                    print(f"\n❌ Failed conversions: {', '.join(failed_pdfs)}")
+                    sys.exit(1)
+                else:
+                    print(f"\n✅ All PDFs converted successfully!")
+
+        elif args.dir or args.input:
+            # Use --dir if provided, otherwise fall back to --input (legacy)
+            input_dir_str = args.dir or args.input
+            input_dir = Path(input_dir_str)
+
+            if not input_dir.exists():
+                print(f"Error: Directory {input_dir} does not exist")
                 sys.exit(1)
-        else:
-            # Pattern matching case (wildcards)
-            results = converter.convert_files_by_pattern(file_pattern, force=args.force)
-            if not results:
-                print(f"❌ No files found matching pattern: {file_pattern}")
+            if not input_dir.is_dir():
+                print(f"Error: {input_dir} is not a directory")
                 sys.exit(1)
 
+            results = converter.convert_directory(input_dir, force=args.force)
             failed_pdfs = [name for name, success in results.items() if not success]
+
             if failed_pdfs:
                 print(f"\n❌ Failed conversions: {', '.join(failed_pdfs)}")
                 sys.exit(1)
             else:
                 print(f"\n✅ All PDFs converted successfully!")
 
-    elif args.dir or args.input:
-        # Use --dir if provided, otherwise fall back to --input (legacy)
-        input_dir_str = args.dir or args.input
-        input_dir = Path(input_dir_str)
-
-        if not input_dir.exists():
-            print(f"Error: Directory {input_dir} does not exist")
-            sys.exit(1)
-        if not input_dir.is_dir():
-            print(f"Error: {input_dir} is not a directory")
-            sys.exit(1)
-
-        results = converter.convert_directory(input_dir, force=args.force)
-        failed_pdfs = [name for name, success in results.items() if not success]
-
-        if failed_pdfs:
-            print(f"\n❌ Failed conversions: {', '.join(failed_pdfs)}")
-            sys.exit(1)
         else:
-            print(f"\n✅ All PDFs converted successfully!")
-
-    else:
-        parser.print_help()
-        sys.exit(1)
+            parser.print_help()
+            sys.exit(1)
+    except ConversionAborted:
+        if not converter.has_announced_abort():
+            print("\n🛑 Conversion aborted by user (q).")
+        sys.exit(0)
 
 
 if __name__ == "__main__":
