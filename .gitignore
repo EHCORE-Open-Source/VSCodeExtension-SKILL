@@ -24,3 +24,6 @@ __pycache__/
 *.gz
 *.bz2
 *.xz
+
+# Ignore Cadence manual files
+cadence_manual/
