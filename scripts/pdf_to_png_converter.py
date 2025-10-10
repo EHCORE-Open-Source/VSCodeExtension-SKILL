@@ -38,9 +38,10 @@ import subprocess
 import glob
 import threading
 import atexit
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Callable
 
 try:
     from tqdm import tqdm
@@ -79,6 +80,7 @@ class PDFToPNGConverter:
         # Metadata file for tracking conversions
         self.metadata_file = self.output_dir / "conversion_metadata.json"
         self.metadata = self._load_metadata()
+        self.metadata_lock = threading.Lock()
 
         # Interactive abort handling
         self._stop_event = threading.Event()
@@ -213,14 +215,25 @@ class PDFToPNGConverter:
             print(f"Warning: Could not get PDF info for {pdf_path}: {e}")
             return {}
 
-    def convert_pdf_to_png(self, pdf_path: Path, force: bool = False,
-                           progress_position: Optional[int] = None) -> Tuple[bool, List[str]]:
+    def convert_pdf_to_png(
+        self,
+        pdf_path: Path,
+        force: bool = False,
+        progress_position: Optional[int] = None,
+        pdf_info: Optional[Dict] = None,
+        page_count_override: Optional[int] = None,
+        progress_callback: Optional[Callable[[int], None]] = None
+    ) -> Tuple[bool, List[str]]:
         """
         Convert PDF to PNG images
 
         Args:
             pdf_path: Path to PDF file
             force: Force reconversion even if images exist
+            progress_position: tqdm position for per-file progress bars
+            pdf_info: Optional precomputed pdfinfo dictionary
+            page_count_override: Optional explicit page count
+            progress_callback: Callback invoked after each converted page
 
         Returns:
             Tuple of (success, list_of_generated_image_paths)
@@ -231,7 +244,7 @@ class PDFToPNGConverter:
         pdf_output_dir = self.output_dir / pdf_name
         pdf_output_dir.mkdir(parents=True, exist_ok=True)
 
-        use_tqdm_logging = tqdm is not None and progress_position is not None
+        use_tqdm_logging = tqdm is not None and (progress_position is not None or progress_callback is not None)
         log = tqdm.write if use_tqdm_logging else print
 
         self._show_abort_hint(log)
@@ -247,15 +260,23 @@ class PDFToPNGConverter:
         log(f"🔄 Converting {pdf_name}...")
 
         # Get PDF info
-        pdf_info = self.get_pdf_info(pdf_path)
-        page_count = int(pdf_info.get('pages', 0))
+        if pdf_info is None:
+            pdf_info = self.get_pdf_info(pdf_path)
+
+        try:
+            page_count = int(pdf_info.get('pages', 0))
+        except (TypeError, ValueError):
+            page_count = 0
+
+        if page_count_override is not None:
+            page_count = page_count_override
 
         if page_count == 0:
             log(f"❌ {pdf_name}: Could not determine page count")
             return False, []
 
         output_prefix = pdf_output_dir / pdf_name
-        use_page_progress = tqdm is not None and page_count > 0
+        use_page_progress = tqdm is not None and page_count > 0 and progress_callback is None
         manual_page_progress = not use_page_progress and page_count > 1
         page_bar = None
 
@@ -293,6 +314,8 @@ class PDFToPNGConverter:
 
                 if page_bar is not None:
                     page_bar.update(1)
+                if progress_callback is not None:
+                    progress_callback(1)
                 elif manual_page_progress:
                     print(f"   Pages: {page_number}/{page_count}", end="\r", flush=True)
 
@@ -313,17 +336,17 @@ class PDFToPNGConverter:
 
             # Update metadata
             image_paths = [str(img) for img in generated_images]
-            self.metadata[pdf_name] = {
-                'pdf_path': str(pdf_path),
-                'images': image_paths,
-                'page_count': len(generated_images),
-                'pdf_pages': page_count,
-                'conversion_date': datetime.now().isoformat(),
-                'dpi': self.dpi,
-                'pdf_info': pdf_info
-            }
-
-            self._save_metadata()
+            with self.metadata_lock:
+                self.metadata[pdf_name] = {
+                    'pdf_path': str(pdf_path),
+                    'images': image_paths,
+                    'page_count': len(generated_images),
+                    'pdf_pages': page_count,
+                    'conversion_date': datetime.now().isoformat(),
+                    'dpi': self.dpi,
+                    'pdf_info': pdf_info
+                }
+                self._save_metadata()
 
             log(f"✅ {pdf_name}: Converted {len(generated_images)} pages")
             return True, image_paths
@@ -345,7 +368,7 @@ class PDFToPNGConverter:
                 log(f"   Error: {e.stderr}")
             return False, []
 
-    def convert_directory(self, input_dir: Path, force: bool = False) -> Dict[str, bool]:
+    def convert_directory(self, input_dir: Path, force: bool = False, threads: int = 1) -> Dict[str, bool]:
         """Convert all PDF files in a directory"""
 
         pdf_files = list(input_dir.glob("*.pdf"))
@@ -353,65 +376,172 @@ class PDFToPNGConverter:
             print(f"No PDF files found in {input_dir}")
             return {}
 
-        print(f"Found {len(pdf_files)} PDF files in {input_dir}")
+        total_requested_pdfs = len(pdf_files)
+
+        print(f"Found {total_requested_pdfs} PDF files in {input_dir}")
         print("=" * 60)
 
         results = {}
         total_images = 0
-        use_progress = tqdm is not None and len(pdf_files) > 1
+        threads = max(1, threads)
 
-        progress_bar = None
-        if use_progress:
-            progress_bar = tqdm(
-                total=len(pdf_files),
-                desc="Converting PDFs",
-                unit="file",
-                position=0,
-                leave=True,
-                dynamic_ncols=True
-            )
-            iterator = enumerate(pdf_files, 1)
-        else:
-            iterator = enumerate(pdf_files, 1)
+        if threads == 1:
+            use_progress = tqdm is not None and len(pdf_files) > 1
 
-        progress_log = tqdm.write if use_progress else print
-
-        try:
-            for i, pdf_path in iterator:
-                self._check_for_abort(progress_log)
-
-                if use_progress:
-                    progress_bar.set_postfix_str(pdf_path.name)
-                else:
-                    print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
-
-                success, images = self.convert_pdf_to_png(
-                    pdf_path,
-                    force=force,
-                    progress_position=1 if use_progress else None
+            progress_bar = None
+            if use_progress:
+                progress_bar = tqdm(
+                    total=len(pdf_files),
+                    desc="Converting PDFs",
+                    unit="file",
+                    position=0,
+                    leave=True,
+                    dynamic_ncols=True
                 )
-                results[pdf_path.name] = success
+                iterator = enumerate(pdf_files, 1)
+            else:
+                iterator = enumerate(pdf_files, 1)
 
-                if success:
-                    total_images += len(images)
+            progress_log = tqdm.write if use_progress else print
 
-                if use_progress:
-                    progress_bar.update(1)
-        except ConversionAborted:
+            try:
+                for i, pdf_path in iterator:
+                    self._check_for_abort(progress_log)
+
+                    if use_progress:
+                        progress_bar.set_postfix_str(pdf_path.name)
+                    else:
+                        print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
+
+                    success, images = self.convert_pdf_to_png(
+                        pdf_path,
+                        force=force,
+                        progress_position=1 if use_progress else None
+                    )
+                    results[pdf_path.name] = success
+
+                    if success:
+                        total_images += len(images)
+
+                    if use_progress:
+                        progress_bar.update(1)
+            except ConversionAborted:
+                if progress_bar is not None:
+                    progress_bar.close()
+                raise
+
             if progress_bar is not None:
                 progress_bar.close()
-            raise
 
-        if progress_bar is not None:
-            progress_bar.close()
+            self._check_for_abort(progress_log)
 
-        self._check_for_abort(progress_log)
+        else:
+            page_infos: Dict[Path, Tuple[Dict, int]] = {}
+            total_pages = 0
+            fallback_pdfs: List[Path] = []
+
+            print(f"🔍 Pre-scanning {len(pdf_files)} PDFs for page counts...")
+            pre_scan_log = tqdm.write if tqdm is not None else print
+            for pdf_path in pdf_files:
+                self._check_for_abort(pre_scan_log)
+                info = self.get_pdf_info(pdf_path)
+                try:
+                    page_count = int(info.get('pages', 0))
+                except (TypeError, ValueError):
+                    page_count = 0
+                if page_count <= 0:
+                    print(f"⚠️  {pdf_path.name}: 無法取得頁數資訊，改用單緒轉換。")
+                    fallback_pdfs.append(pdf_path)
+                    continue
+
+                page_infos[pdf_path] = (info, page_count)
+                total_pages += page_count
+
+            pdfs_with_counts = [pdf for pdf in pdf_files if pdf in page_infos]
+
+            if pdfs_with_counts:
+                print(f"📄 Total pages to convert: {total_pages}")
+
+                page_progress = tqdm(
+                    total=total_pages,
+                    desc="Converting pages",
+                    unit="page",
+                    position=0,
+                    dynamic_ncols=True,
+                    leave=True
+                ) if tqdm is not None else None
+
+                progress_log = tqdm.write if page_progress is not None else print
+
+                callback = page_progress.update if page_progress is not None else None
+
+                with ThreadPoolExecutor(max_workers=threads) as executor:
+                    future_map = {}
+
+                    try:
+                        for pdf_path in pdfs_with_counts:
+                            self._check_for_abort(progress_log)
+                            info, page_count = page_infos[pdf_path]
+                            future = executor.submit(
+                                self.convert_pdf_to_png,
+                                pdf_path,
+                                force,
+                                None,
+                                info,
+                                page_count,
+                                callback
+                            )
+                            future_map[future] = pdf_path
+
+                        for future in as_completed(future_map):
+                            pdf_path = future_map[future]
+                            try:
+                                success, images = future.result()
+                            except ConversionAborted:
+                                executor.shutdown(wait=False, cancel_futures=True)
+                                if page_progress is not None:
+                                    page_progress.close()
+                                raise
+                            except Exception as exc:
+                                progress_log(f"❌ {pdf_path.stem}: Conversion failed with unexpected error - {exc}")
+                                results[pdf_path.name] = False
+                                continue
+
+                            results[pdf_path.name] = success
+                            if success:
+                                total_images += len(images)
+                                if page_progress is not None:
+                                    page_progress.set_postfix_str(pdf_path.name)
+                            else:
+                                if page_progress is not None:
+                                    page_progress.set_postfix_str(f"{pdf_path.name} failed")
+                    finally:
+                        if page_progress is not None:
+                            page_progress.close()
+
+                self._check_for_abort(progress_log)
+            else:
+                print("⚠️  無可計算頁數的 PDF，跳過多緒轉換。")
+
+            if fallback_pdfs:
+                print("➡️  以單緒模式處理剩餘檔案...")
+                for pdf_path in fallback_pdfs:
+                    self._check_for_abort(print)
+                    success, images = self.convert_pdf_to_png(
+                        pdf_path,
+                        force=force
+                    )
+                    results[pdf_path.name] = success
+                    if success:
+                        total_images += len(images)
+                    else:
+                        print(f"❌ {pdf_path.stem}: 單緒轉換失敗。")
 
         print("=" * 60)
         print(f"📊 Conversion Summary:")
-        print(f"   Total PDFs: {len(pdf_files)}")
+        print(f"   Total PDFs: {total_requested_pdfs}")
         print(f"   Successful: {sum(results.values())}")
-        print(f"   Failed: {len(pdf_files) - sum(results.values())}")
+        print(f"   Failed: {total_requested_pdfs - sum(results.values())}")
         print(f"   Total images: {total_images}")
 
         return results
@@ -520,13 +650,14 @@ class PDFToPNGConverter:
 
         return pdf_files
 
-    def convert_files_by_pattern(self, file_pattern: str, force: bool = False) -> Dict[str, bool]:
+    def convert_files_by_pattern(self, file_pattern: str, force: bool = False, threads: int = 1) -> Dict[str, bool]:
         """
         Convert PDF files matching a pattern
 
         Args:
             file_pattern: File pattern (can include wildcards)
             force: Force reconversion even if images exist
+            threads: Number of worker threads to use (1 = sequential)
 
         Returns:
             Dict mapping filename to success status
@@ -537,68 +668,174 @@ class PDFToPNGConverter:
             print(f"No PDF files found matching pattern: {file_pattern}")
             return {}
 
-        print(f"Found {len(pdf_files)} PDF files matching pattern: {file_pattern}")
+        total_requested_pdfs = len(pdf_files)
+
+        print(f"Found {total_requested_pdfs} PDF files matching pattern: {file_pattern}")
         for pdf_file in pdf_files:
             print(f"  • {pdf_file.name}")
         print("=" * 60)
 
         results = {}
         total_images = 0
-        use_progress = tqdm is not None and len(pdf_files) > 1
+        threads = max(1, threads)
 
-        progress_bar = None
-        if use_progress:
-            progress_bar = tqdm(
-                total=len(pdf_files),
-                desc="Converting PDFs",
-                unit="file",
-                position=0,
-                leave=True,
-                dynamic_ncols=True
-            )
-            iterator = enumerate(pdf_files, 1)
-        else:
-            iterator = enumerate(pdf_files, 1)
+        if threads == 1:
+            use_progress = tqdm is not None and len(pdf_files) > 1
 
-        progress_log = tqdm.write if use_progress else print
-
-        try:
-            for i, pdf_path in iterator:
-                self._check_for_abort(progress_log)
-
-                if use_progress:
-                    progress_bar.set_postfix_str(pdf_path.name)
-                else:
-                    print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
-
-                success, images = self.convert_pdf_to_png(
-                    pdf_path,
-                    force=force,
-                    progress_position=1 if use_progress else None
+            progress_bar = None
+            if use_progress:
+                progress_bar = tqdm(
+                    total=len(pdf_files),
+                    desc="Converting PDFs",
+                    unit="file",
+                    position=0,
+                    leave=True,
+                    dynamic_ncols=True
                 )
-                results[pdf_path.name] = success
+                iterator = enumerate(pdf_files, 1)
+            else:
+                iterator = enumerate(pdf_files, 1)
 
-                if success:
-                    total_images += len(images)
+            progress_log = tqdm.write if use_progress else print
 
-                if use_progress:
-                    progress_bar.update(1)
-        except ConversionAborted:
+            try:
+                for i, pdf_path in iterator:
+                    self._check_for_abort(progress_log)
+
+                    if use_progress:
+                        progress_bar.set_postfix_str(pdf_path.name)
+                    else:
+                        print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
+
+                    success, images = self.convert_pdf_to_png(
+                        pdf_path,
+                        force=force,
+                        progress_position=1 if use_progress else None
+                    )
+                    results[pdf_path.name] = success
+
+                    if success:
+                        total_images += len(images)
+
+                    if use_progress:
+                        progress_bar.update(1)
+            except ConversionAborted:
+                if progress_bar is not None:
+                    progress_bar.close()
+                raise
+
             if progress_bar is not None:
                 progress_bar.close()
-            raise
 
-        if progress_bar is not None:
-            progress_bar.close()
+            self._check_for_abort(progress_log)
 
-        self._check_for_abort(progress_log)
+        else:
+            page_infos: Dict[Path, Tuple[Dict, int]] = {}
+            total_pages = 0
+            fallback_pdfs: List[Path] = []
+
+            print(f"🔍 Pre-scanning {len(pdf_files)} PDFs for page counts...")
+            pre_scan_log = tqdm.write if tqdm is not None else print
+            for pdf_path in pdf_files:
+                self._check_for_abort(pre_scan_log)
+                info = self.get_pdf_info(pdf_path)
+                try:
+                    page_count = int(info.get('pages', 0))
+                except (TypeError, ValueError):
+                    page_count = 0
+                if page_count <= 0:
+                    print(f"⚠️  {pdf_path.name}: 無法取得頁數資訊，改用單緒轉換。")
+                    fallback_pdfs.append(pdf_path)
+                    continue
+
+                page_infos[pdf_path] = (info, page_count)
+                total_pages += page_count
+
+            pdfs_with_counts = [pdf for pdf in pdf_files if pdf in page_infos]
+
+            if pdfs_with_counts:
+                print(f"📄 Total pages to convert: {total_pages}")
+
+                page_progress = tqdm(
+                    total=total_pages,
+                    desc="Converting pages",
+                    unit="page",
+                    position=0,
+                    dynamic_ncols=True,
+                    leave=True
+                ) if tqdm is not None else None
+
+                progress_log = tqdm.write if page_progress is not None else print
+                callback = page_progress.update if page_progress is not None else None
+
+                with ThreadPoolExecutor(max_workers=threads) as executor:
+                    future_map = {}
+
+                    try:
+                        for pdf_path in pdfs_with_counts:
+                            self._check_for_abort(progress_log)
+                            info, page_count = page_infos[pdf_path]
+                            future = executor.submit(
+                                self.convert_pdf_to_png,
+                                pdf_path,
+                                force,
+                                None,
+                                info,
+                                page_count,
+                                callback
+                            )
+                            future_map[future] = pdf_path
+
+                        for future in as_completed(future_map):
+                            pdf_path = future_map[future]
+                            try:
+                                success, images = future.result()
+                            except ConversionAborted:
+                                executor.shutdown(wait=False, cancel_futures=True)
+                                if page_progress is not None:
+                                    page_progress.close()
+                                raise
+                            except Exception as exc:
+                                progress_log(f"❌ {pdf_path.stem}: Conversion failed with unexpected error - {exc}")
+                                results[pdf_path.name] = False
+                                continue
+
+                            results[pdf_path.name] = success
+                            if success:
+                                total_images += len(images)
+                                if page_progress is not None:
+                                    page_progress.set_postfix_str(pdf_path.name)
+                            else:
+                                if page_progress is not None:
+                                    page_progress.set_postfix_str(f"{pdf_path.name} failed")
+                    finally:
+                        if page_progress is not None:
+                            page_progress.close()
+
+                self._check_for_abort(progress_log)
+            else:
+                print("⚠️  無可計算頁數的 PDF，跳過多緒轉換。")
+
+            if fallback_pdfs:
+                print("➡️  以單緒模式處理剩餘檔案...")
+                for pdf_path in fallback_pdfs:
+                    self._check_for_abort(print)
+                    success, images = self.convert_pdf_to_png(
+                        pdf_path,
+                        force=force
+                    )
+                    results[pdf_path.name] = success
+                    if success:
+                        total_images += len(images)
+                    else:
+                        print(f"❌ {pdf_path.stem}: 單緒轉換失敗。")
 
         print("=" * 60)
         print(f"📊 Conversion Summary:")
         print(f"   Pattern: {file_pattern}")
-        print(f"   Total PDFs: {len(pdf_files)}")
+        print(f"   Total PDFs: {total_requested_pdfs}")
         print(f"   Successful: {sum(results.values())}")
-        print(f"   Failed: {len(pdf_files) - sum(results.values())}")
+        print(f"   Failed: {total_requested_pdfs - sum(results.values())}")
         print(f"   Total images: {total_images}")
 
         return results
@@ -644,6 +881,9 @@ def main():
 📊 7. 查看轉換統計
    python3 %(prog)s --stats --output images/skill_manuals
 
+🧵 8. 多緒加速轉換
+   python3 %(prog)s --dir docs/cadence_manual --output images/skill_manuals --threads 4
+
 💡 提示：
 ========
 • 預設 DPI 為 300，適合一般用途
@@ -668,6 +908,8 @@ def main():
                        help='🎨 圖像轉換的 DPI 設定（預設: 300, 建議: 300-600）')
     parser.add_argument('--force', action='store_true',
                        help='🔄 強制重新轉換（覆蓋現有的 PNG 檔案）')
+    parser.add_argument('--threads', '--mt', type=int, default=1, dest='threads',
+                       help='🧵 多緒轉換：指定同時執行的轉換數量（預設：1）')
     parser.add_argument('--stats', action='store_true',
                        help='📊 顯示轉換統計資訊')
     parser.add_argument('--version', action='version', version='%(prog)s 1.0.0',
@@ -731,7 +973,11 @@ def main():
                     sys.exit(1)
             else:
                 # Pattern matching case (wildcards)
-                results = converter.convert_files_by_pattern(file_pattern, force=args.force)
+                results = converter.convert_files_by_pattern(
+                    file_pattern,
+                    force=args.force,
+                    threads=args.threads
+                )
                 if not results:
                     print(f"❌ No files found matching pattern: {file_pattern}")
                     sys.exit(1)
@@ -755,7 +1001,11 @@ def main():
                 print(f"Error: {input_dir} is not a directory")
                 sys.exit(1)
 
-            results = converter.convert_directory(input_dir, force=args.force)
+            results = converter.convert_directory(
+                input_dir,
+                force=args.force,
+                threads=args.threads
+            )
             failed_pdfs = [name for name, success in results.items() if not success]
 
             if failed_pdfs:
