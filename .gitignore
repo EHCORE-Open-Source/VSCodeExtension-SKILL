@@ -27,3 +27,8 @@ __pycache__/
 
 # Ignore Cadence manual files
 cadence_manual/
+
+# Ignore test databases and temporary files
+*.db-journal
+tmp/
+test_*
