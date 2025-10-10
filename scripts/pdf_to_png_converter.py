@@ -127,21 +127,24 @@ class PDFToPNGConverter:
         pdf_output_dir = self.output_dir / pdf_name
         pdf_output_dir.mkdir(parents=True, exist_ok=True)
 
+        use_tqdm_logging = tqdm is not None and progress_position is not None
+        log = tqdm.write if use_tqdm_logging else print
+
         # Check if already converted and not forcing
         if not force and pdf_name in self.metadata:
             existing_images = self.metadata[pdf_name].get('images', [])
             if existing_images and all(Path(img).exists() for img in existing_images):
-                print(f"✅ {pdf_name}: Already converted ({len(existing_images)} images)")
+                log(f"✅ {pdf_name}: Already converted ({len(existing_images)} images)")
                 return True, existing_images
 
-        print(f"🔄 Converting {pdf_name}...")
+        log(f"🔄 Converting {pdf_name}...")
 
         # Get PDF info
         pdf_info = self.get_pdf_info(pdf_path)
         page_count = int(pdf_info.get('pages', 0))
 
         if page_count == 0:
-            print(f"❌ {pdf_name}: Could not determine page count")
+            log(f"❌ {pdf_name}: Could not determine page count")
             return False, []
 
         output_prefix = pdf_output_dir / pdf_name
@@ -195,7 +198,7 @@ class PDFToPNGConverter:
             generated_images.sort()  # Sort by filename
 
             if not generated_images:
-                print(f"❌ {pdf_name}: No images generated")
+                log(f"❌ {pdf_name}: No images generated")
                 return False, []
 
             # Update metadata
@@ -212,7 +215,7 @@ class PDFToPNGConverter:
 
             self._save_metadata()
 
-            print(f"✅ {pdf_name}: Converted {len(generated_images)} pages")
+            log(f"✅ {pdf_name}: Converted {len(generated_images)} pages")
             return True, image_paths
 
         except subprocess.CalledProcessError as e:
@@ -220,9 +223,9 @@ class PDFToPNGConverter:
                 page_bar.close()
             elif manual_page_progress:
                 print()
-            print(f"❌ {pdf_name}: Conversion failed - {e}")
+            log(f"❌ {pdf_name}: Conversion failed - {e}")
             if e.stderr:
-                print(f"   Error: {e.stderr}")
+                log(f"   Error: {e.stderr}")
             return False, []
 
     def convert_directory(self, input_dir: Path, force: bool = False) -> Dict[str, bool]:
