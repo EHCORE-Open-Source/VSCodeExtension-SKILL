@@ -41,6 +41,11 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional, Tuple
 
+try:
+    from tqdm import tqdm
+except ImportError:  # pragma: no cover - optional dependency
+    tqdm = None
+
 
 class PDFToPNGConverter:
     """Converts PDF files to PNG images with metadata tracking"""
@@ -104,7 +109,8 @@ class PDFToPNGConverter:
             print(f"Warning: Could not get PDF info for {pdf_path}: {e}")
             return {}
 
-    def convert_pdf_to_png(self, pdf_path: Path, force: bool = False) -> Tuple[bool, List[str]]:
+    def convert_pdf_to_png(self, pdf_path: Path, force: bool = False,
+                           progress_position: Optional[int] = None) -> Tuple[bool, List[str]]:
         """
         Convert PDF to PNG images
 
@@ -138,25 +144,51 @@ class PDFToPNGConverter:
             print(f"❌ {pdf_name}: Could not determine page count")
             return False, []
 
+        output_prefix = pdf_output_dir / pdf_name
+        use_page_progress = tqdm is not None and page_count > 0
+        manual_page_progress = not use_page_progress and page_count > 1
+        page_bar = None
+
         try:
-            # Use pdftoppm to convert PDF to PNG
-            # -png: PNG format
-            # -r {dpi}: Resolution
-            # -cropbox: Use crop box instead of media box
-            # -singlefile: For single page (we'll do page by page)
+            if use_page_progress:
+                bar_kwargs = {
+                    'total': page_count,
+                    'desc': pdf_name,
+                    'unit': 'page',
+                    'dynamic_ncols': True
+                }
+                if progress_position is not None:
+                    bar_kwargs['position'] = progress_position
+                    bar_kwargs['leave'] = False
+                else:
+                    bar_kwargs['leave'] = True
+                page_bar = tqdm(**bar_kwargs)
+            elif manual_page_progress:
+                print(f"   Pages: 0/{page_count}", end="\r", flush=True)
 
-            output_prefix = pdf_output_dir / pdf_name
+            for page_number in range(1, page_count + 1):
+                cmd = [
+                    'pdftoppm',
+                    '-png',
+                    '-r', str(self.dpi),
+                    '-cropbox',
+                    '-f', str(page_number),
+                    '-l', str(page_number),
+                    str(pdf_path),
+                    str(output_prefix)
+                ]
 
-            cmd = [
-                'pdftoppm',
-                '-png',
-                '-r', str(self.dpi),
-                '-cropbox',
-                str(pdf_path),
-                str(output_prefix)
-            ]
+                subprocess.run(cmd, capture_output=True, text=True, check=True)
 
-            result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+                if page_bar is not None:
+                    page_bar.update(1)
+                elif manual_page_progress:
+                    print(f"   Pages: {page_number}/{page_count}", end="\r", flush=True)
+
+            if page_bar is not None:
+                page_bar.close()
+            elif manual_page_progress:
+                print()  # Move to next line after carriage return
 
             # Find generated images
             generated_images = list(pdf_output_dir.glob(f"{pdf_name}-*.png"))
@@ -184,6 +216,10 @@ class PDFToPNGConverter:
             return True, image_paths
 
         except subprocess.CalledProcessError as e:
+            if page_bar is not None:
+                page_bar.close()
+            elif manual_page_progress:
+                print()
             print(f"❌ {pdf_name}: Conversion failed - {e}")
             if e.stderr:
                 print(f"   Error: {e.stderr}")
@@ -202,15 +238,42 @@ class PDFToPNGConverter:
 
         results = {}
         total_images = 0
+        use_progress = tqdm is not None and len(pdf_files) > 1
 
-        for i, pdf_path in enumerate(pdf_files, 1):
-            print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
+        if use_progress:
+            progress_bar = tqdm(
+                total=len(pdf_files),
+                desc="Converting PDFs",
+                unit="file",
+                position=0,
+                leave=True,
+                dynamic_ncols=True
+            )
+            iterator = enumerate(pdf_files, 1)
+        else:
+            iterator = enumerate(pdf_files, 1)
 
-            success, images = self.convert_pdf_to_png(pdf_path, force=force)
+        for i, pdf_path in iterator:
+            if use_progress:
+                progress_bar.set_postfix_str(pdf_path.name)
+            else:
+                print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
+
+            success, images = self.convert_pdf_to_png(
+                pdf_path,
+                force=force,
+                progress_position=1 if use_progress else None
+            )
             results[pdf_path.name] = success
 
             if success:
                 total_images += len(images)
+
+            if use_progress:
+                progress_bar.update(1)
+
+        if use_progress:
+            progress_bar.close()
 
         print("=" * 60)
         print(f"📊 Conversion Summary:")
@@ -349,15 +412,42 @@ class PDFToPNGConverter:
 
         results = {}
         total_images = 0
+        use_progress = tqdm is not None and len(pdf_files) > 1
 
-        for i, pdf_path in enumerate(pdf_files, 1):
-            print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
+        if use_progress:
+            progress_bar = tqdm(
+                total=len(pdf_files),
+                desc="Converting PDFs",
+                unit="file",
+                position=0,
+                leave=True,
+                dynamic_ncols=True
+            )
+            iterator = enumerate(pdf_files, 1)
+        else:
+            iterator = enumerate(pdf_files, 1)
 
-            success, images = self.convert_pdf_to_png(pdf_path, force=force)
+        for i, pdf_path in iterator:
+            if use_progress:
+                progress_bar.set_postfix_str(pdf_path.name)
+            else:
+                print(f"[{i}/{len(pdf_files)}] Processing {pdf_path.name}...")
+
+            success, images = self.convert_pdf_to_png(
+                pdf_path,
+                force=force,
+                progress_position=1 if use_progress else None
+            )
             results[pdf_path.name] = success
 
             if success:
                 total_images += len(images)
+
+            if use_progress:
+                progress_bar.update(1)
+
+        if use_progress:
+            progress_bar.close()
 
         print("=" * 60)
         print(f"📊 Conversion Summary:")
