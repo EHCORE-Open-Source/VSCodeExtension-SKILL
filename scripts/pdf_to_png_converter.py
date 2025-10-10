@@ -222,7 +222,9 @@ class PDFToPNGConverter:
         progress_position: Optional[int] = None,
         pdf_info: Optional[Dict] = None,
         page_count_override: Optional[int] = None,
-        progress_callback: Optional[Callable[[int], None]] = None
+        progress_callback: Optional[Callable[[int], None]] = None,
+        log_function: Optional[Callable[[str], None]] = None,
+        show_abort_hint: bool = True
     ) -> Tuple[bool, List[str]]:
         """
         Convert PDF to PNG images
@@ -244,10 +246,14 @@ class PDFToPNGConverter:
         pdf_output_dir = self.output_dir / pdf_name
         pdf_output_dir.mkdir(parents=True, exist_ok=True)
 
-        use_tqdm_logging = tqdm is not None and (progress_position is not None or progress_callback is not None)
-        log = tqdm.write if use_tqdm_logging else print
+        if log_function is not None:
+            log = log_function
+        else:
+            use_tqdm_logging = tqdm is not None and progress_position is not None
+            log = tqdm.write if use_tqdm_logging else print
 
-        self._show_abort_hint(log)
+        if show_abort_hint:
+            self._show_abort_hint(log)
         self._check_for_abort(log)
 
         # Check if already converted and not forcing
@@ -257,7 +263,8 @@ class PDFToPNGConverter:
                 log(f"✅ {pdf_name}: Already converted ({len(existing_images)} images)")
                 return True, existing_images
 
-        log(f"🔄 Converting {pdf_name}...")
+        if progress_callback is None:
+            log(f"🔄 Converting {pdf_name}...")
 
         # Get PDF info
         if pdf_info is None:
@@ -459,6 +466,10 @@ class PDFToPNGConverter:
 
             pdfs_with_counts = [pdf for pdf in pdf_files if pdf in page_infos]
 
+            progress_log: Callable[[str], None] = print
+
+            self._show_abort_hint(progress_log)
+
             if pdfs_with_counts:
                 print(f"📄 Total pages to convert: {total_pages}")
 
@@ -472,7 +483,6 @@ class PDFToPNGConverter:
                 ) if tqdm is not None else None
 
                 progress_log = tqdm.write if page_progress is not None else print
-
                 callback = page_progress.update if page_progress is not None else None
 
                 with ThreadPoolExecutor(max_workers=threads) as executor:
@@ -489,7 +499,9 @@ class PDFToPNGConverter:
                                 None,
                                 info,
                                 page_count,
-                                callback
+                                callback,
+                                log_function=progress_log,
+                                show_abort_hint=False
                             )
                             future_map[future] = pdf_path
 
@@ -526,10 +538,12 @@ class PDFToPNGConverter:
             if fallback_pdfs:
                 print("➡️  以單緒模式處理剩餘檔案...")
                 for pdf_path in fallback_pdfs:
-                    self._check_for_abort(print)
+                    self._check_for_abort(progress_log)
                     success, images = self.convert_pdf_to_png(
                         pdf_path,
-                        force=force
+                        force=force,
+                        log_function=progress_log,
+                        show_abort_hint=False
                     )
                     results[pdf_path.name] = success
                     if success:
@@ -753,6 +767,9 @@ class PDFToPNGConverter:
 
             pdfs_with_counts = [pdf for pdf in pdf_files if pdf in page_infos]
 
+            progress_log: Callable[[str], None] = print
+            self._show_abort_hint(progress_log)
+
             if pdfs_with_counts:
                 print(f"📄 Total pages to convert: {total_pages}")
 
@@ -782,7 +799,9 @@ class PDFToPNGConverter:
                                 None,
                                 info,
                                 page_count,
-                                callback
+                                callback,
+                                log_function=progress_log,
+                                show_abort_hint=False
                             )
                             future_map[future] = pdf_path
 
@@ -819,10 +838,12 @@ class PDFToPNGConverter:
             if fallback_pdfs:
                 print("➡️  以單緒模式處理剩餘檔案...")
                 for pdf_path in fallback_pdfs:
-                    self._check_for_abort(print)
+                    self._check_for_abort(progress_log)
                     success, images = self.convert_pdf_to_png(
                         pdf_path,
-                        force=force
+                        force=force,
+                        log_function=progress_log,
+                        show_abort_hint=False
                     )
                     results[pdf_path.name] = success
                     if success:
