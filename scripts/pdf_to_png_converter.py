@@ -37,6 +37,7 @@ import argparse
 import subprocess
 import glob
 import threading
+import atexit
 from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional, Tuple
@@ -45,6 +46,13 @@ try:
     from tqdm import tqdm
 except ImportError:  # pragma: no cover - optional dependency
     tqdm = None
+
+try:
+    import termios  # type: ignore
+    import tty  # type: ignore
+except ImportError:  # pragma: no cover - platform without termios
+    termios = None  # type: ignore
+    tty = None  # type: ignore
 
 
 class ConversionAborted(Exception):
@@ -78,14 +86,12 @@ class PDFToPNGConverter:
         self._abort_hint_shown = False
         self._interactive_input = sys.stdin.isatty()
         self._input_thread: Optional[threading.Thread] = None
+        self._stdin_fd: Optional[int] = None
+        self._terminal_settings = None
+        self._raw_input_mode = False
 
         if self._interactive_input:
-            self._input_thread = threading.Thread(
-                target=self._monitor_user_input,
-                name="pdf-to-png-input-monitor",
-                daemon=True
-            )
-            self._input_thread.start()
+            self._start_input_monitor()
 
     def _load_metadata(self) -> Dict:
         """Load existing conversion metadata"""
@@ -105,19 +111,57 @@ class PDFToPNGConverter:
                 json.dump(self.metadata, f, indent=2, ensure_ascii=False)
         except IOError as e:
             print(f"Warning: Could not save metadata file: {e}")
+ 
+    def _start_input_monitor(self):
+        """Configure terminal input and start monitoring for abort requests."""
+        try:
+            self._stdin_fd = sys.stdin.fileno()
+        except (ValueError, OSError):
+            self._stdin_fd = None
+
+        if self._stdin_fd is not None and termios is not None and tty is not None:
+            try:
+                if os.isatty(self._stdin_fd):
+                    self._terminal_settings = termios.tcgetattr(self._stdin_fd)
+                    tty.setcbreak(self._stdin_fd)
+                    self._raw_input_mode = True
+                    atexit.register(self._restore_terminal_settings)
+            except Exception:
+                self._terminal_settings = None
+                self._raw_input_mode = False
+
+        self._input_thread = threading.Thread(
+            target=self._monitor_user_input,
+            name="pdf-to-png-input-monitor",
+            daemon=True
+        )
+        self._input_thread.start()
+
+    def _restore_terminal_settings(self):
+        """Restore terminal settings if raw mode was enabled."""
+        if self._raw_input_mode and self._stdin_fd is not None and termios is not None:
+            try:
+                termios.tcsetattr(self._stdin_fd, termios.TCSADRAIN, self._terminal_settings)
+            except Exception:
+                pass
+        self._raw_input_mode = False
+        self._terminal_settings = None
 
     def _monitor_user_input(self):
         """Listen for user input to allow graceful aborts."""
         while not self._stop_event.is_set():
             try:
-                user_input = sys.stdin.readline()
+                if self._raw_input_mode:
+                    user_input = sys.stdin.read(1)
+                else:
+                    user_input = sys.stdin.readline()
             except Exception:
                 break
 
             if not user_input:
                 break
 
-            if user_input.strip().lower() == 'q':
+            if user_input.strip().lower().startswith('q'):
                 self._stop_event.set()
                 break
 
@@ -126,6 +170,7 @@ class PDFToPNGConverter:
         if not self._abort_message_shown:
             log("🛑 Aborting conversion (q pressed). Finishing current task before exiting...")
             self._abort_message_shown = True
+            self._restore_terminal_settings()
 
     def _check_for_abort(self, log):
         """Raise if an abort has been requested."""
@@ -136,7 +181,10 @@ class PDFToPNGConverter:
     def _show_abort_hint(self, log):
         """Display a hint for how to abort the process once."""
         if self._interactive_input and not self._abort_hint_shown:
-            log("➡️  Press 'q' then Enter to abort conversion.")
+            if self._raw_input_mode:
+                log("➡️  Press 'q' to abort conversion.")
+            else:
+                log("➡️  Press 'q' then Enter to abort conversion.")
             self._abort_hint_shown = True
 
     def has_announced_abort(self) -> bool:
