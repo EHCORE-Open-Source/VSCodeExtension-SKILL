@@ -39,6 +39,7 @@ import glob
 import threading
 import atexit
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from queue import SimpleQueue
 from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional, Tuple, Callable
@@ -223,6 +224,7 @@ class PDFToPNGConverter:
         pdf_info: Optional[Dict] = None,
         page_count_override: Optional[int] = None,
         progress_callback: Optional[Callable[[int], None]] = None,
+        progress_leave: Optional[bool] = None,
         log_function: Optional[Callable[[str], None]] = None,
         show_abort_hint: bool = True
     ) -> Tuple[bool, List[str]]:
@@ -236,6 +238,7 @@ class PDFToPNGConverter:
             pdf_info: Optional precomputed pdfinfo dictionary
             page_count_override: Optional explicit page count
             progress_callback: Callback invoked after each converted page
+            progress_leave: Override tqdm leave behaviour when using per-file bars
 
         Returns:
             Tuple of (success, list_of_generated_image_paths)
@@ -297,6 +300,9 @@ class PDFToPNGConverter:
                 }
                 if progress_position is not None:
                     bar_kwargs['position'] = progress_position
+                if progress_leave is not None:
+                    bar_kwargs['leave'] = progress_leave
+                elif progress_position is not None:
                     bar_kwargs['leave'] = False
                 else:
                     bar_kwargs['leave'] = True
@@ -402,7 +408,7 @@ class PDFToPNGConverter:
                     desc="Converting PDFs",
                     unit="file",
                     position=0,
-                    leave=True,
+                    leave=False,
                     dynamic_ncols=True
                 )
                 iterator = enumerate(pdf_files, 1)
@@ -443,113 +449,87 @@ class PDFToPNGConverter:
             self._check_for_abort(progress_log)
 
         else:
-            page_infos: Dict[Path, Tuple[Dict, int]] = {}
-            total_pages = 0
-            fallback_pdfs: List[Path] = []
-
-            print(f"🔍 Pre-scanning {len(pdf_files)} PDFs for page counts...")
-            pre_scan_log = tqdm.write if tqdm is not None else print
-            for pdf_path in pdf_files:
-                self._check_for_abort(pre_scan_log)
-                info = self.get_pdf_info(pdf_path)
-                try:
-                    page_count = int(info.get('pages', 0))
-                except (TypeError, ValueError):
-                    page_count = 0
-                if page_count <= 0:
-                    print(f"⚠️  {pdf_path.name}: 無法取得頁數資訊，改用單緒轉換。")
-                    fallback_pdfs.append(pdf_path)
-                    continue
-
-                page_infos[pdf_path] = (info, page_count)
-                total_pages += page_count
-
-            pdfs_with_counts = [pdf for pdf in pdf_files if pdf in page_infos]
-
-            progress_log: Callable[[str], None] = print
-
+            progress_log = tqdm.write if tqdm is not None else print
             self._show_abort_hint(progress_log)
 
-            if pdfs_with_counts:
-                print(f"📄 Total pages to convert: {total_pages}")
+            master_bar = tqdm(
+                total=len(pdf_files),
+                desc="Converting PDFs",
+                unit="file",
+                position=0,
+                leave=True,
+                dynamic_ncols=True
+            ) if tqdm is not None else None
 
-                page_progress = tqdm(
-                    total=total_pages,
-                    desc="Converting pages",
-                    unit="page",
-                    position=0,
-                    dynamic_ncols=True,
-                    leave=True
-                ) if tqdm is not None else None
+            slot_pool: Optional[SimpleQueue] = None
+            if tqdm is not None:
+                slot_pool = SimpleQueue()
+                for slot in range(1, threads + 1):
+                    slot_pool.put(slot)
 
-                progress_log = tqdm.write if page_progress is not None else print
-                callback = page_progress.update if page_progress is not None else None
-
-                with ThreadPoolExecutor(max_workers=threads) as executor:
-                    future_map = {}
-
-                    try:
-                        for pdf_path in pdfs_with_counts:
-                            self._check_for_abort(progress_log)
-                            info, page_count = page_infos[pdf_path]
-                            future = executor.submit(
-                                self.convert_pdf_to_png,
-                                pdf_path,
-                                force,
-                                None,
-                                info,
-                                page_count,
-                                callback,
-                                log_function=progress_log,
-                                show_abort_hint=False
-                            )
-                            future_map[future] = pdf_path
-
-                        for future in as_completed(future_map):
-                            pdf_path = future_map[future]
-                            try:
-                                success, images = future.result()
-                            except ConversionAborted:
-                                executor.shutdown(wait=False, cancel_futures=True)
-                                if page_progress is not None:
-                                    page_progress.close()
-                                raise
-                            except Exception as exc:
-                                progress_log(f"❌ {pdf_path.stem}: Conversion failed with unexpected error - {exc}")
-                                results[pdf_path.name] = False
-                                continue
-
-                            results[pdf_path.name] = success
-                            if success:
-                                total_images += len(images)
-                                if page_progress is not None:
-                                    page_progress.set_postfix_str(pdf_path.name)
-                            else:
-                                if page_progress is not None:
-                                    page_progress.set_postfix_str(f"{pdf_path.name} failed")
-                    finally:
-                        if page_progress is not None:
-                            page_progress.close()
-
+            def worker(pdf_path: Path) -> Tuple[str, Tuple[bool, List[str]], Optional[Exception]]:
                 self._check_for_abort(progress_log)
-            else:
-                print("⚠️  無可計算頁數的 PDF，跳過多緒轉換。")
+                slot = None
+                if slot_pool is not None:
+                    slot = slot_pool.get()
 
-            if fallback_pdfs:
-                print("➡️  以單緒模式處理剩餘檔案...")
-                for pdf_path in fallback_pdfs:
-                    self._check_for_abort(progress_log)
-                    success, images = self.convert_pdf_to_png(
+                try:
+                    result = self.convert_pdf_to_png(
                         pdf_path,
                         force=force,
+                        progress_position=slot if slot is not None else None,
+                        progress_leave=False if slot is not None else None,
                         log_function=progress_log,
                         show_abort_hint=False
                     )
-                    results[pdf_path.name] = success
-                    if success:
-                        total_images += len(images)
-                    else:
-                        print(f"❌ {pdf_path.stem}: 單緒轉換失敗。")
+                    return pdf_path.name, result, None
+                except ConversionAborted:
+                    raise
+                except Exception as exc:
+                    return pdf_path.name, (False, []), exc
+                finally:
+                    if slot is not None:
+                        slot_pool.put(slot)
+
+            with ThreadPoolExecutor(max_workers=threads) as executor:
+                futures = [executor.submit(worker, pdf_path) for pdf_path in pdf_files]
+
+                try:
+                    for future in as_completed(futures):
+                        try:
+                            pdf_name, (success, images), error = future.result()
+                        except ConversionAborted:
+                            executor.shutdown(wait=False, cancel_futures=True)
+                            if master_bar is not None:
+                                master_bar.clear()
+                                master_bar.close()
+                            raise
+                        except Exception as exc:
+                            progress_log(f"❌ Unexpected error during conversion: {exc}")
+                            continue
+
+                        if error is not None:
+                            progress_log(f"❌ {pdf_name}: Conversion failed - {error}")
+                            success = False
+                            images = []
+
+                        results[pdf_name] = success
+                        if success:
+                            total_images += len(images)
+                            if master_bar is not None:
+                                master_bar.set_postfix_str(pdf_name)
+                        else:
+                            progress_log(f"❌ {pdf_name}: Conversion failed")
+
+                        if master_bar is not None:
+                            master_bar.update(1)
+                            master_bar.refresh()
+                finally:
+                    if master_bar is not None:
+                        master_bar.clear()
+                        master_bar.close()
+
+            self._check_for_abort(progress_log)
 
         print("=" * 60)
         print(f"📊 Conversion Summary:")
@@ -703,7 +683,7 @@ class PDFToPNGConverter:
                     desc="Converting PDFs",
                     unit="file",
                     position=0,
-                    leave=True,
+                    leave=False,
                     dynamic_ncols=True
                 )
                 iterator = enumerate(pdf_files, 1)
@@ -744,112 +724,87 @@ class PDFToPNGConverter:
             self._check_for_abort(progress_log)
 
         else:
-            page_infos: Dict[Path, Tuple[Dict, int]] = {}
-            total_pages = 0
-            fallback_pdfs: List[Path] = []
-
-            print(f"🔍 Pre-scanning {len(pdf_files)} PDFs for page counts...")
-            pre_scan_log = tqdm.write if tqdm is not None else print
-            for pdf_path in pdf_files:
-                self._check_for_abort(pre_scan_log)
-                info = self.get_pdf_info(pdf_path)
-                try:
-                    page_count = int(info.get('pages', 0))
-                except (TypeError, ValueError):
-                    page_count = 0
-                if page_count <= 0:
-                    print(f"⚠️  {pdf_path.name}: 無法取得頁數資訊，改用單緒轉換。")
-                    fallback_pdfs.append(pdf_path)
-                    continue
-
-                page_infos[pdf_path] = (info, page_count)
-                total_pages += page_count
-
-            pdfs_with_counts = [pdf for pdf in pdf_files if pdf in page_infos]
-
-            progress_log: Callable[[str], None] = print
+            progress_log = tqdm.write if tqdm is not None else print
             self._show_abort_hint(progress_log)
 
-            if pdfs_with_counts:
-                print(f"📄 Total pages to convert: {total_pages}")
+            master_bar = tqdm(
+                total=len(pdf_files),
+                desc="Converting PDFs",
+                unit="file",
+                position=0,
+                leave=True,
+                dynamic_ncols=True
+            ) if tqdm is not None else None
 
-                page_progress = tqdm(
-                    total=total_pages,
-                    desc="Converting pages",
-                    unit="page",
-                    position=0,
-                    dynamic_ncols=True,
-                    leave=True
-                ) if tqdm is not None else None
+            slot_pool: Optional[SimpleQueue] = None
+            if tqdm is not None:
+                slot_pool = SimpleQueue()
+                for slot in range(1, threads + 1):
+                    slot_pool.put(slot)
 
-                progress_log = tqdm.write if page_progress is not None else print
-                callback = page_progress.update if page_progress is not None else None
-
-                with ThreadPoolExecutor(max_workers=threads) as executor:
-                    future_map = {}
-
-                    try:
-                        for pdf_path in pdfs_with_counts:
-                            self._check_for_abort(progress_log)
-                            info, page_count = page_infos[pdf_path]
-                            future = executor.submit(
-                                self.convert_pdf_to_png,
-                                pdf_path,
-                                force,
-                                None,
-                                info,
-                                page_count,
-                                callback,
-                                log_function=progress_log,
-                                show_abort_hint=False
-                            )
-                            future_map[future] = pdf_path
-
-                        for future in as_completed(future_map):
-                            pdf_path = future_map[future]
-                            try:
-                                success, images = future.result()
-                            except ConversionAborted:
-                                executor.shutdown(wait=False, cancel_futures=True)
-                                if page_progress is not None:
-                                    page_progress.close()
-                                raise
-                            except Exception as exc:
-                                progress_log(f"❌ {pdf_path.stem}: Conversion failed with unexpected error - {exc}")
-                                results[pdf_path.name] = False
-                                continue
-
-                            results[pdf_path.name] = success
-                            if success:
-                                total_images += len(images)
-                                if page_progress is not None:
-                                    page_progress.set_postfix_str(pdf_path.name)
-                            else:
-                                if page_progress is not None:
-                                    page_progress.set_postfix_str(f"{pdf_path.name} failed")
-                    finally:
-                        if page_progress is not None:
-                            page_progress.close()
-
+            def worker(pdf_path: Path) -> Tuple[str, Tuple[bool, List[str]], Optional[Exception]]:
                 self._check_for_abort(progress_log)
-            else:
-                print("⚠️  無可計算頁數的 PDF，跳過多緒轉換。")
+                slot = None
+                if slot_pool is not None:
+                    slot = slot_pool.get()
 
-            if fallback_pdfs:
-                print("➡️  以單緒模式處理剩餘檔案...")
-                for pdf_path in fallback_pdfs:
-                    self._check_for_abort(progress_log)
-                    success, images = self.convert_pdf_to_png(
+                try:
+                    result = self.convert_pdf_to_png(
                         pdf_path,
                         force=force,
+                        progress_position=slot if slot is not None else None,
+                        progress_leave=False if slot is not None else None,
                         log_function=progress_log,
                         show_abort_hint=False
                     )
-                    results[pdf_path.name] = success
-                    if success:
-                        total_images += len(images)
-                    else:
-                        print(f"❌ {pdf_path.stem}: 單緒轉換失敗。")
+                    return pdf_path.name, result, None
+                except ConversionAborted:
+                    raise
+                except Exception as exc:
+                    return pdf_path.name, (False, []), exc
+                finally:
+                    if slot is not None:
+                        slot_pool.put(slot)
+
+            with ThreadPoolExecutor(max_workers=threads) as executor:
+                futures = [executor.submit(worker, pdf_path) for pdf_path in pdf_files]
+
+                try:
+                    for future in as_completed(futures):
+                        try:
+                            pdf_name, (success, images), error = future.result()
+                        except ConversionAborted:
+                            executor.shutdown(wait=False, cancel_futures=True)
+                            if master_bar is not None:
+                                master_bar.clear()
+                                master_bar.close()
+                            raise
+                        except Exception as exc:
+                            progress_log(f"❌ Unexpected error during conversion: {exc}")
+                            continue
+
+                        if error is not None:
+                            progress_log(f"❌ {pdf_name}: Conversion failed - {error}")
+                            success = False
+                            images = []
+
+                        results[pdf_name] = success
+                        if success:
+                            total_images += len(images)
+                            if master_bar is not None:
+                                master_bar.set_postfix_str(pdf_name)
+                        else:
+                            progress_log(f"❌ {pdf_name}: Conversion failed")
+
+                        if master_bar is not None:
+                            master_bar.update(1)
+                            master_bar.refresh()
+                finally:
+                    if master_bar is not None:
+                        master_bar.clear()
+                        master_bar.close()
+
+            self._check_for_abort(progress_log)
 
         print("=" * 60)
         print(f"📊 Conversion Summary:")
