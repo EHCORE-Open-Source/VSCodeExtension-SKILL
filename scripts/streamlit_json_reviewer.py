@@ -47,6 +47,45 @@ PARAMETER_TYPES = {
     2: "Optional",
     3: "Rest"
 }
+CONFIG_FILENAME = "streamlit_json_reviewer.config.json"
+
+
+def load_app_config() -> Dict:
+    """Load optional application configuration from known locations."""
+    config: Dict = {}
+    env_path = os.environ.get("STREAMLIT_JSON_REVIEWER_CONFIG", "").strip()
+    candidate_paths = []
+
+    if env_path:
+        candidate_paths.append(Path(env_path).expanduser())
+
+    candidate_paths.append(Path.cwd() / CONFIG_FILENAME)
+    candidate_paths.append(Path(__file__).resolve().with_name(CONFIG_FILENAME))
+
+    for path in candidate_paths:
+        if not path:
+            continue
+        try:
+            if path.exists():
+                with open(path, 'r', encoding='utf-8') as f:
+                    raw_config = json.load(f)
+                if isinstance(raw_config, dict):
+                    config = raw_config
+                    config['_config_source'] = str(path)
+                    default_file = config.get('default_json_file')
+                    if isinstance(default_file, str):
+                        config['default_json_file'] = Path(default_file).name
+                break
+        except Exception as exc:
+            print(f"[streamlit_json_reviewer] Failed to load config from {path}: {exc}")
+
+    return config
+
+
+APP_CONFIG = load_app_config()
+DEFAULT_JSON_DIR = APP_CONFIG.get('json_directory', "test_output/")
+DEFAULT_IMAGE_DIR = APP_CONFIG.get('image_directory', "docs/cadence_manual/images/")
+DEFAULT_JSON_FILE = APP_CONFIG.get('default_json_file')
 
 # Initialize session state
 if 'current_file' not in st.session_state:
@@ -60,13 +99,19 @@ if 'original_json_data' not in st.session_state:
 if 'modified' not in st.session_state:
     st.session_state.modified = False
 if 'json_dir' not in st.session_state:
-    st.session_state.json_dir = "test_output/"
+    st.session_state.json_dir = DEFAULT_JSON_DIR
 if 'image_dir' not in st.session_state:
-    st.session_state.image_dir = "docs/cadence_manual/images/"
+    st.session_state.image_dir = DEFAULT_IMAGE_DIR
 if 'json_format' not in st.session_state:
     st.session_state.json_format = 'batch'  # 'batch' or 'single'
 if 'edit_mode' not in st.session_state:
     st.session_state.edit_mode = False  # Toggle editing on/off
+if 'default_json_file' not in st.session_state:
+    st.session_state.default_json_file = DEFAULT_JSON_FILE
+if 'selected_json_file' not in st.session_state:
+    st.session_state.selected_json_file = None
+if '_config_source' not in st.session_state and APP_CONFIG.get('_config_source'):
+    st.session_state._config_source = APP_CONFIG['_config_source']
 
 
 def load_json_file(json_path: str):
@@ -250,6 +295,10 @@ def render_sidebar():
     """Render sidebar with navigation and statistics"""
     st.sidebar.title("📚 JSON Review System")
 
+    config_source = st.session_state.get('_config_source')
+    if config_source:
+        st.sidebar.caption(f"Config: {config_source}")
+
     # Directory settings
     st.session_state.json_dir = st.sidebar.text_input(
         "JSON Directory",
@@ -268,10 +317,25 @@ def render_sidebar():
         json_files = sorted([f for f in os.listdir(st.session_state.json_dir) if f.endswith('.json')])
 
         if json_files:
+            # Determine default selection based on config or previous user choice
+            current_selection = st.session_state.get('selected_json_file')
+            default_pref = st.session_state.get('default_json_file')
+
+            if current_selection not in json_files:
+                if default_pref and default_pref in json_files:
+                    current_selection = default_pref
+                else:
+                    current_selection = json_files[0]
+                st.session_state.selected_json_file = current_selection
+
+            default_index = json_files.index(st.session_state.selected_json_file) if st.session_state.selected_json_file in json_files else 0
+
             selected_file = st.sidebar.selectbox(
                 "Select JSON File",
                 json_files,
-                help="Choose a JSON file to review"
+                index=default_index,
+                help="Choose a JSON file to review",
+                key="selected_json_file"
             )
 
             json_path = os.path.join(st.session_state.json_dir, selected_file)

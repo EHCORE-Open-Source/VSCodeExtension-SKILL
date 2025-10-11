@@ -1,0 +1,5 @@
+{
+  "json_directory": "test_output/",
+  "image_directory": "docs/cadence_manual/images/",
+  "default_json_file": ""
+}
