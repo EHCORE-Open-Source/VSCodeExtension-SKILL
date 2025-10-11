@@ -312,33 +312,51 @@ def render_sidebar():
         st.markdown("""
         <style>
         /* Blue Save button - ensure primary button is blue */
-        div[data-testid="stSidebar"] button[kind="primary"] {
-            background-color: #0068c9 !important;
-            color: white !important;
-            border: 1px solid #0068c9 !important;
+        [data-testid="stSidebar"] button[kind="primary"]:not(:disabled),
+        [data-testid="stSidebar"] button[data-testid="baseButton-primary"]:not(:disabled) {
+            background-color: #003f8c !important;
+            background: #003f8c !important;
+            color: #ffffff !important;
+            border: 1px solid #003575 !important;
         }
-        div[data-testid="stSidebar"] button[kind="primary"]:hover {
-            background-color: #0054a3 !important;
-            border-color: #0054a3 !important;
+        [data-testid="stSidebar"] button[kind="primary"]:hover:not(:disabled),
+        [data-testid="stSidebar"] button[data-testid="baseButton-primary"]:hover:not(:disabled) {
+            background-color: #002e66 !important;
+            background: #002e66 !important;
+            border-color: #002856 !important;
         }
-        div[data-testid="stSidebar"] button[kind="primary"]:disabled {
-            background-color: rgba(0, 104, 201, 0.5) !important;
-            color: rgba(255, 255, 255, 0.5) !important;
+        [data-testid="stSidebar"] button[kind="primary"]:disabled,
+        [data-testid="stSidebar"] button[data-testid="baseButton-primary"]:disabled,
+        [data-testid="stSidebar"] button[data-testid="baseButton-primary"][disabled] {
+            background-color: #ffffff !important;
+            background: #ffffff !important;
+            color: #6c757d !important;
+            border: 1px solid #d1d5db !important;
+            opacity: 1 !important;
         }
 
         /* Red Discard button - secondary button should be red */
-        div[data-testid="stSidebar"] button[kind="secondary"] {
-            background-color: #dc3545 !important;
-            color: white !important;
-            border: 1px solid #dc3545 !important;
+        [data-testid="stSidebar"] button[kind="secondary"]:not(:disabled),
+        [data-testid="stSidebar"] button[data-testid="baseButton-secondary"]:not(:disabled) {
+            background-color: #a11222 !important;
+            background: #a11222 !important;
+            color: #ffffff !important;
+            border: 1px solid #8c101d !important;
         }
-        div[data-testid="stSidebar"] button[kind="secondary"]:hover {
-            background-color: #c82333 !important;
-            border-color: #bd2130 !important;
+        [data-testid="stSidebar"] button[kind="secondary"]:hover:not(:disabled),
+        [data-testid="stSidebar"] button[data-testid="baseButton-secondary"]:hover:not(:disabled) {
+            background-color: #7d0c18 !important;
+            background: #7d0c18 !important;
+            border-color: #720a15 !important;
         }
-        div[data-testid="stSidebar"] button[kind="secondary"]:disabled {
-            background-color: rgba(220, 53, 69, 0.5) !important;
-            color: rgba(255, 255, 255, 0.5) !important;
+        [data-testid="stSidebar"] button[kind="secondary"]:disabled,
+        [data-testid="stSidebar"] button[data-testid="baseButton-secondary"]:disabled,
+        [data-testid="stSidebar"] button[data-testid="baseButton-secondary"][disabled] {
+            background-color: #ffffff !important;
+            background: #ffffff !important;
+            color: #6c757d !important;
+            border: 1px solid #d1d5db !important;
+            opacity: 1 !important;
         }
         </style>
         """, unsafe_allow_html=True)
