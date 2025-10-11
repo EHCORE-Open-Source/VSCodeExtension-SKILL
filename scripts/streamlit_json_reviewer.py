@@ -24,6 +24,7 @@ Date: 2025-10-11
 import streamlit as st
 import json
 import os
+import copy
 from pathlib import Path
 import pandas as pd
 from PIL import Image
@@ -54,6 +55,8 @@ if 'current_function_idx' not in st.session_state:
     st.session_state.current_function_idx = 0
 if 'json_data' not in st.session_state:
     st.session_state.json_data = None
+if 'original_json_data' not in st.session_state:
+    st.session_state.original_json_data = None  # Store original data for discard changes
 if 'modified' not in st.session_state:
     st.session_state.modified = False
 if 'json_dir' not in st.session_state:
@@ -98,6 +101,9 @@ def load_json_file(json_path: str):
         else:
             st.error("❌ Unknown JSON format. Expected either batch format (with manual_metadata) or single function format (with function_name)")
             return False
+
+        # Store a deep copy of original data for discard changes functionality
+        st.session_state.original_json_data = copy.deepcopy(st.session_state.json_data)
 
         st.session_state.current_file = json_path
         st.session_state.current_function_idx = 0
@@ -302,11 +308,54 @@ def render_sidebar():
         if st.session_state.modified:
             st.sidebar.warning("⚠️ Unsaved changes")
 
-        # Save button
-        if st.sidebar.button("💾 Save Changes", type="primary", disabled=not st.session_state.modified):
+        # Custom CSS for button colors - must be before buttons
+        st.markdown("""
+        <style>
+        /* Blue Save button - ensure primary button is blue */
+        div[data-testid="stSidebar"] button[kind="primary"] {
+            background-color: #0068c9 !important;
+            color: white !important;
+            border: 1px solid #0068c9 !important;
+        }
+        div[data-testid="stSidebar"] button[kind="primary"]:hover {
+            background-color: #0054a3 !important;
+            border-color: #0054a3 !important;
+        }
+        div[data-testid="stSidebar"] button[kind="primary"]:disabled {
+            background-color: rgba(0, 104, 201, 0.5) !important;
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        /* Red Discard button - secondary button should be red */
+        div[data-testid="stSidebar"] button[kind="secondary"] {
+            background-color: #dc3545 !important;
+            color: white !important;
+            border: 1px solid #dc3545 !important;
+        }
+        div[data-testid="stSidebar"] button[kind="secondary"]:hover {
+            background-color: #c82333 !important;
+            border-color: #bd2130 !important;
+        }
+        div[data-testid="stSidebar"] button[kind="secondary"]:disabled {
+            background-color: rgba(220, 53, 69, 0.5) !important;
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        # Save and Discard buttons (vertical layout)
+        if st.sidebar.button("💾 Save Changes", type="primary", disabled=not st.session_state.modified, use_container_width=True, key="save_btn"):
             if save_json_file(st.session_state.json_data, st.session_state.current_file):
-                st.sidebar.success("✅ Saved successfully!")
+                st.sidebar.success("✅ Saved!")
                 st.rerun()
+
+        if st.sidebar.button("❌ Discard Changes", type="secondary", disabled=not st.session_state.modified, use_container_width=True, key="discard_btn"):
+            # Restore original data from deep copy
+            st.session_state.json_data = copy.deepcopy(st.session_state.original_json_data)
+            st.session_state.modified = False
+            st.session_state.edit_mode = False  # Exit edit mode when discarding
+            st.sidebar.info("✅ Changes discarded!")
+            st.rerun()
 
 
 def render_overview_tab(json_data: dict):
@@ -390,16 +439,16 @@ def render_overview_tab(json_data: dict):
 
 def render_function_details_tab(json_data: dict, image_dir: str):
     """Render function details tab with FULL editing capabilities"""
-    st.title("🔍 Function Details & Editing")
-
     functions = json_data.get('functions', [])
 
     if not functions:
         st.warning("No functions found in JSON file")
         return
 
-    # Function navigation with edit mode toggle
-    col_nav1, col_nav2, col_nav3, col_nav4 = st.columns([1, 2, 1, 1])
+    # Title and function navigation
+    col_title, col_nav1, col_nav2, col_nav3 = st.columns([2, 1, 2, 1])
+    with col_title:
+        st.title("🔍 Function Details & Editing")
     with col_nav1:
         if st.button("⬅️ Previous", disabled=st.session_state.current_function_idx == 0):
             st.session_state.current_function_idx = max(0, st.session_state.current_function_idx - 1)
@@ -410,11 +459,6 @@ def render_function_details_tab(json_data: dict, image_dir: str):
         if st.button("Next ➡️", disabled=st.session_state.current_function_idx >= len(functions) - 1):
             st.session_state.current_function_idx = min(len(functions) - 1, st.session_state.current_function_idx + 1)
             st.rerun()
-    with col_nav4:
-        # Edit mode toggle
-        if st.button("✏️ Edit Mode" if not st.session_state.edit_mode else "👁️ View Mode"):
-            st.session_state.edit_mode = not st.session_state.edit_mode
-            st.rerun()
 
     func = functions[st.session_state.current_function_idx]
     edit_mode = st.session_state.edit_mode
@@ -423,7 +467,15 @@ def render_function_details_tab(json_data: dict, image_dir: str):
     col1, col2 = st.columns([1.2, 1])
 
     with col1:
-        st.subheader("📝 Function Data")
+        # Function Data header with Edit Mode toggle
+        col_data_title, col_edit_toggle = st.columns([3, 1])
+        with col_data_title:
+            st.subheader("📝 Function Data")
+        with col_edit_toggle:
+            # Edit mode toggle
+            if st.button("✏️ Edit Mode" if not st.session_state.edit_mode else "👁️ View Mode"):
+                st.session_state.edit_mode = not st.session_state.edit_mode
+                st.rerun()
 
         # Basic info (editable)
         st.markdown("### Basic Information")
