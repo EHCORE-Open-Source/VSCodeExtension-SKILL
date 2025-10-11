@@ -113,6 +113,8 @@ if 'selected_json_file' not in st.session_state:
     st.session_state.selected_json_file = None
 if '_config_source' not in st.session_state and APP_CONFIG.get('_config_source'):
     st.session_state._config_source = APP_CONFIG['_config_source']
+if 'source_image_indices' not in st.session_state:
+    st.session_state.source_image_indices = {}
 
 
 def load_json_file(json_path: str):
@@ -775,22 +777,59 @@ def render_function_details_tab(json_data: dict, image_dir: str):
     with col2:
         st.subheader("🖼️ Source Images")
 
-        # Get manual code for image path
+        # Configure image list and selection controls
         manual_code = json_data.get('manual_metadata', {}).get('manual_code', '')
         full_image_dir = os.path.join(image_dir, manual_code)
+        sources = func.get('sources', {})
+        image_entries = sources.get('source_images', [])
 
-        # Show source images
-        for img_name in func.get('sources', {}).get('source_images', []):
-            img_path = os.path.join(full_image_dir, img_name)
+        if isinstance(image_entries, str):
+            image_names = [image_entries]
+        elif isinstance(image_entries, list):
+            image_names = image_entries
+        else:
+            image_names = []
+
+        if image_names:
+            index_key = st.session_state.current_function_idx
+            current_idx = st.session_state.source_image_indices.get(index_key, 0)
+            current_idx = max(0, min(current_idx, len(image_names) - 1))
+
+            buttons_per_row = 6
+            for row_start in range(0, len(image_names), buttons_per_row):
+                row_indices = list(range(row_start, min(row_start + buttons_per_row, len(image_names))))
+                nav_cols = st.columns(len(row_indices))
+                for idx, col in zip(row_indices, nav_cols):
+                    is_selected = idx == current_idx
+                    button_label = f"{idx + 1}"
+                    button_type = "primary" if is_selected else "secondary"
+                    with col:
+                        if st.button(
+                            button_label,
+                            key=f"source_image_nav_{index_key}_{idx}",
+                            type=button_type,
+                            use_container_width=True
+                        ):
+                            current_idx = idx
+
+            st.session_state.source_image_indices[index_key] = current_idx
+
+            selected_image = image_names[current_idx]
+            img_path = os.path.join(full_image_dir, selected_image)
+
+            st.caption(f"Viewing image {current_idx + 1} of {len(image_names)} — {selected_image}")
+
             if os.path.exists(img_path):
                 try:
                     img = Image.open(img_path)
-                    st.image(img, caption=img_name, use_column_width=True)
+                    st.image(img, caption=selected_image, use_column_width=True)
                 except Exception as e:
                     st.error(f"❌ Failed to load image: {e}")
             else:
-                st.warning(f"⚠️ Image not found: {img_name}")
+                st.warning(f"⚠️ Image not found: {selected_image}")
                 st.text(f"Expected path: {img_path}")
+        else:
+            st.info("No source images attached")
 
         st.divider()
 
