@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
 """
-Streamlit JSON Review & Validation UI
+Streamlit JSON Review & Validation UI with Full Editing Support
 
-Purpose: Review and validate JSON files extracted by Gemini before database import
+Purpose: Review, edit, and validate JSON files extracted by Gemini before database import
 Input: JSON files from gemini_manual_image_converter.py
 Output: Validated JSON files ready for database import
+
+Features:
+- Full inline editing of all fields
+- Markdown preview for description
+- Argument and return value editing
+- Example editing and addition
+- Real-time validation
 
 Usage:
     streamlit run scripts/streamlit_json_reviewer.py
 
 Author: Claude Code
-Version: 1.0
+Version: 1.2 (with editing support)
 Date: 2025-10-11
 """
 
@@ -53,13 +60,45 @@ if 'json_dir' not in st.session_state:
     st.session_state.json_dir = "test_output/"
 if 'image_dir' not in st.session_state:
     st.session_state.image_dir = "docs/cadence_manual/images/"
+if 'json_format' not in st.session_state:
+    st.session_state.json_format = 'batch'  # 'batch' or 'single'
+if 'edit_mode' not in st.session_state:
+    st.session_state.edit_mode = False  # Toggle editing on/off
 
 
 def load_json_file(json_path: str):
-    """Load JSON file and store in session state"""
+    """Load JSON file and store in session state (supports both batch and single function formats)"""
     try:
         with open(json_path, 'r', encoding='utf-8') as f:
-            st.session_state.json_data = json.load(f)
+            raw_data = json.load(f)
+
+        # Detect format: single function or batch format
+        if 'manual_metadata' in raw_data and 'functions' in raw_data:
+            # Batch format (e.g., sklangref_sklangref-031_to_sklangref-038.json)
+            st.session_state.json_data = raw_data
+            st.session_state.json_format = 'batch'
+        elif 'function_name' in raw_data:
+            # Single function format (e.g., append.json)
+            # Convert to batch format for consistent processing
+            st.session_state.json_data = {
+                'manual_metadata': {
+                    'manual_code': 'unknown',
+                    'product_code': raw_data.get('availability', {}).get('product_code', 'SKILL'),
+                    'product_hierarchy_level': 0,
+                    'version': 'unknown',
+                    'document_title': f"Single Function: {raw_data.get('function_name', 'unknown')}",
+                    'source_type': 'manual',
+                    'total_functions': 1,
+                    'processing_timestamp': datetime.now().isoformat() + 'Z'
+                },
+                'functions': [raw_data]
+            }
+            st.session_state.json_format = 'single'
+            st.session_state.single_function_data = raw_data  # Store original for saving
+        else:
+            st.error("❌ Unknown JSON format. Expected either batch format (with manual_metadata) or single function format (with function_name)")
+            return False
+
         st.session_state.current_file = json_path
         st.session_state.current_function_idx = 0
         st.session_state.modified = False
@@ -70,7 +109,7 @@ def load_json_file(json_path: str):
 
 
 def save_json_file(json_data: dict, json_path: str):
-    """Save modified JSON file"""
+    """Save modified JSON file (handles both batch and single function formats)"""
     try:
         # Create backup
         backup_path = json_path + ".backup"
@@ -80,9 +119,17 @@ def save_json_file(json_data: dict, json_path: str):
             with open(backup_path, 'w', encoding='utf-8') as f:
                 f.write(backup_data)
 
+        # Determine what to save based on format
+        if st.session_state.get('json_format') == 'single':
+            # For single function format, save only the function data (not the wrapper)
+            save_data = json_data['functions'][0]
+        else:
+            # For batch format, save everything
+            save_data = json_data
+
         # Save new data
         with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(json_data, f, indent=2, ensure_ascii=False)
+            json.dump(save_data, f, indent=2, ensure_ascii=False)
 
         st.session_state.modified = False
         return True
@@ -342,8 +389,8 @@ def render_overview_tab(json_data: dict):
 
 
 def render_function_details_tab(json_data: dict, image_dir: str):
-    """Render function details tab with editing capabilities"""
-    st.title("🔍 Function Details")
+    """Render function details tab with FULL editing capabilities"""
+    st.title("🔍 Function Details & Editing")
 
     functions = json_data.get('functions', [])
 
@@ -351,8 +398,8 @@ def render_function_details_tab(json_data: dict, image_dir: str):
         st.warning("No functions found in JSON file")
         return
 
-    # Function navigation
-    col_nav1, col_nav2, col_nav3 = st.columns([1, 3, 1])
+    # Function navigation with edit mode toggle
+    col_nav1, col_nav2, col_nav3, col_nav4 = st.columns([1, 2, 1, 1])
     with col_nav1:
         if st.button("⬅️ Previous", disabled=st.session_state.current_function_idx == 0):
             st.session_state.current_function_idx = max(0, st.session_state.current_function_idx - 1)
@@ -363,8 +410,14 @@ def render_function_details_tab(json_data: dict, image_dir: str):
         if st.button("Next ➡️", disabled=st.session_state.current_function_idx >= len(functions) - 1):
             st.session_state.current_function_idx = min(len(functions) - 1, st.session_state.current_function_idx + 1)
             st.rerun()
+    with col_nav4:
+        # Edit mode toggle
+        if st.button("✏️ Edit Mode" if not st.session_state.edit_mode else "👁️ View Mode"):
+            st.session_state.edit_mode = not st.session_state.edit_mode
+            st.rerun()
 
     func = functions[st.session_state.current_function_idx]
+    edit_mode = st.session_state.edit_mode
 
     # Two-column layout
     col1, col2 = st.columns([1.2, 1])
@@ -372,48 +425,160 @@ def render_function_details_tab(json_data: dict, image_dir: str):
     with col1:
         st.subheader("📝 Function Data")
 
-        # Basic info
-        st.text_input("Function Name", value=func['function_name'], disabled=True)
-        st.text_input("Category", value=func.get('category', 'Uncategorized'), disabled=True)
-
-        # Primary syntax
-        st.markdown("### Primary Syntax")
-        st.code(func['primary_syntax']['syntax_string'], language="scheme")
-        st.code(f"=> {func['primary_syntax']['return_syntax']}", language="scheme")
-
-        # Description
-        st.markdown("### Description")
-        st.text_area(
-            "Description",
-            value=func.get('description', ''),
-            height=150,
-            label_visibility="collapsed",
-            disabled=True
+        # Basic info (editable)
+        st.markdown("### Basic Information")
+        new_func_name = st.text_input(
+            "Function Name",
+            value=func['function_name'],
+            disabled=not edit_mode,
+            key="func_name"
         )
+        if edit_mode and new_func_name != func['function_name']:
+            func['function_name'] = new_func_name
+            st.session_state.modified = True
 
-        # Arguments
+        new_category = st.text_input(
+            "Category",
+            value=func.get('category', 'Uncategorized'),
+            disabled=not edit_mode,
+            key="func_category"
+        )
+        if edit_mode and new_category != func.get('category', 'Uncategorized'):
+            func['category'] = new_category
+            st.session_state.modified = True
+
+        # Primary syntax (editable)
+        st.markdown("### Primary Syntax")
+        new_syntax_string = st.text_input(
+            "Syntax String",
+            value=func['primary_syntax']['syntax_string'],
+            disabled=not edit_mode,
+            key="syntax_string"
+        )
+        if edit_mode and new_syntax_string != func['primary_syntax']['syntax_string']:
+            func['primary_syntax']['syntax_string'] = new_syntax_string
+            st.session_state.modified = True
+
+        new_return_syntax = st.text_input(
+            "Return Syntax",
+            value=func['primary_syntax']['return_syntax'],
+            disabled=not edit_mode,
+            key="return_syntax"
+        )
+        if edit_mode and new_return_syntax != func['primary_syntax']['return_syntax']:
+            func['primary_syntax']['return_syntax'] = new_return_syntax
+            st.session_state.modified = True
+
+        # Description with Markdown Preview
+        st.markdown("### Description")
+
+        if edit_mode:
+            # Edit mode: Text area for editing
+            col_desc1, col_desc2 = st.columns(2)
+
+            with col_desc1:
+                st.markdown("**✏️ Edit (Markdown)**")
+                new_description = st.text_area(
+                    "Edit Description",
+                    value=func.get('description', ''),
+                    height=300,
+                    label_visibility="collapsed",
+                    key="description_edit"
+                )
+                if new_description != func.get('description', ''):
+                    func['description'] = new_description
+                    st.session_state.modified = True
+
+            with col_desc2:
+                st.markdown("**👁️ Preview (Rendered)**")
+                # Show rendered markdown preview
+                st.markdown(new_description if new_description else "*No description*")
+        else:
+            # View mode: Show rendered markdown
+            st.markdown(func.get('description', '*No description*'))
+
+        # Arguments (editable with data_editor)
         st.markdown("### Arguments")
         if func['primary_syntax'].get('arguments'):
             args_df = pd.DataFrame(func['primary_syntax']['arguments'])
-            st.dataframe(
-                args_df[['name', 'type_prefix', 'type_description', 'parameter_type', 'description']],
-                use_container_width=True,
-                hide_index=True
-            )
+
+            if edit_mode:
+                edited_args = st.data_editor(
+                    args_df,
+                    use_container_width=True,
+                    num_rows="dynamic",
+                    column_config={
+                        "name": st.column_config.TextColumn("Name", required=True),
+                        "type_prefix": st.column_config.SelectboxColumn(
+                            "Type Prefix",
+                            options=VALID_TYPE_PREFIXES,
+                            required=True
+                        ),
+                        "type_description": st.column_config.TextColumn("Type Desc"),
+                        "parameter_type": st.column_config.SelectboxColumn(
+                            "Param Type",
+                            options=[0, 1, 2, 3],
+                            help="0=required, 1=keyword, 2=optional, 3=rest",
+                            required=True
+                        ),
+                        "description": st.column_config.TextColumn("Description", width="large"),
+                        "position": st.column_config.NumberColumn("Position", min_value=0),
+                        "is_keyword": st.column_config.CheckboxColumn("Keyword"),
+                        "default_value": st.column_config.TextColumn("Default")
+                    },
+                    hide_index=True,
+                    key="args_editor"
+                )
+
+                # Update function data if changed
+                if not edited_args.equals(args_df):
+                    func['primary_syntax']['arguments'] = edited_args.to_dict('records')
+                    st.session_state.modified = True
+            else:
+                st.dataframe(
+                    args_df[['name', 'type_prefix', 'type_description', 'parameter_type', 'description']],
+                    use_container_width=True,
+                    hide_index=True
+                )
         else:
             st.info("No arguments")
 
-        # Return values
+        # Return values (editable)
         st.markdown("### Return Values")
         if func['primary_syntax'].get('return_values'):
             ret_df = pd.DataFrame(func['primary_syntax']['return_values'])
-            st.dataframe(
-                ret_df[['type_name', 'type_prefix', 'type_description', 'description']],
-                use_container_width=True,
-                hide_index=True
-            )
 
-        # Overloads
+            if edit_mode:
+                edited_ret = st.data_editor(
+                    ret_df,
+                    use_container_width=True,
+                    num_rows="dynamic",
+                    column_config={
+                        "type_name": st.column_config.TextColumn("Type Name", required=True),
+                        "type_prefix": st.column_config.SelectboxColumn(
+                            "Type Prefix",
+                            options=VALID_TYPE_PREFIXES,
+                            required=True
+                        ),
+                        "type_description": st.column_config.TextColumn("Type Desc"),
+                        "description": st.column_config.TextColumn("Description", width="large"),
+                        "position": st.column_config.NumberColumn("Position", min_value=0)
+                    },
+                    hide_index=True,
+                    key="return_editor"
+                )
+
+                if not edited_ret.equals(ret_df):
+                    func['primary_syntax']['return_values'] = edited_ret.to_dict('records')
+                    st.session_state.modified = True
+            else:
+                st.dataframe(
+                    ret_df[['type_name', 'type_prefix', 'type_description', 'description']],
+                    use_container_width=True,
+                    hide_index=True
+                )
+
+        # Overloads (display only for now - can be expanded)
         st.markdown("### Overloads")
         if func.get('overloads'):
             for idx, overload in enumerate(func['overloads']):
@@ -425,16 +590,52 @@ def render_function_details_tab(json_data: dict, image_dir: str):
         else:
             st.info("No overloads")
 
-        # Examples
+        # Examples (editable)
         st.markdown("### Examples")
         if func.get('examples'):
             for idx, example in enumerate(func['examples']):
-                with st.expander(f"Example {idx + 1}"):
-                    st.code(example.get('code', ''), language="scheme")
-                    if example.get('description'):
-                        st.markdown(f"**Description:** {example['description']}")
+                with st.expander(f"Example {idx + 1}", expanded=edit_mode):
+                    if edit_mode:
+                        new_code = st.text_area(
+                            "Code",
+                            value=example.get('code', ''),
+                            height=150,
+                            key=f"example_{idx}_code"
+                        )
+                        if new_code != example.get('code', ''):
+                            example['code'] = new_code
+                            st.session_state.modified = True
+
+                        new_example_desc = st.text_area(
+                            "Description",
+                            value=example.get('description', ''),
+                            key=f"example_{idx}_desc"
+                        )
+                        if new_example_desc != example.get('description', ''):
+                            example['description'] = new_example_desc
+                            st.session_state.modified = True
+
+                        if st.button(f"🗑️ Delete Example {idx + 1}", key=f"delete_example_{idx}"):
+                            func['examples'].pop(idx)
+                            st.session_state.modified = True
+                            st.rerun()
+                    else:
+                        st.code(example.get('code', ''), language="scheme")
+                        if example.get('description'):
+                            st.markdown(f"**Description:** {example['description']}")
         else:
             st.info("No examples")
+
+        if edit_mode and st.button("➕ Add New Example"):
+            if 'examples' not in func:
+                func['examples'] = []
+            func['examples'].append({
+                'code': '',
+                'description': '',
+                'position': len(func['examples'])
+            })
+            st.session_state.modified = True
+            st.rerun()
 
     with col2:
         st.subheader("🖼️ Source Images")
@@ -458,20 +659,44 @@ def render_function_details_tab(json_data: dict, image_dir: str):
 
         st.divider()
 
-        # Metadata
+        # Metadata (editable)
         st.markdown("### Metadata")
         metadata = func.get('metadata', {})
 
-        col_meta1, col_meta2 = st.columns(2)
-        with col_meta1:
-            verified = metadata.get('verified', False)
-            st.markdown(f"**Verified:** {'✅ Yes' if verified else '❌ No'}")
-        with col_meta2:
-            needs_review = metadata.get('needs_review', False)
-            st.markdown(f"**Needs Review:** {'⚠️ Yes' if needs_review else '✅ No'}")
+        if edit_mode:
+            col_meta1, col_meta2 = st.columns(2)
+            with col_meta1:
+                new_verified = st.checkbox("Verified", value=metadata.get('verified', False), key="meta_verified")
+                if new_verified != metadata.get('verified', False):
+                    metadata['verified'] = new_verified
+                    st.session_state.modified = True
+            with col_meta2:
+                new_needs_review = st.checkbox("Needs Review", value=metadata.get('needs_review', False), key="meta_review")
+                if new_needs_review != metadata.get('needs_review', False):
+                    metadata['needs_review'] = new_needs_review
+                    st.session_state.modified = True
 
-        confidence = metadata.get('extraction_confidence', 0)
-        st.metric("Extraction Confidence", f"{confidence:.2f}")
+            new_confidence = st.slider(
+                "Extraction Confidence",
+                0.0, 1.0,
+                value=metadata.get('extraction_confidence', 0.0),
+                step=0.01,
+                key="meta_confidence"
+            )
+            if abs(new_confidence - metadata.get('extraction_confidence', 0.0)) > 0.001:
+                metadata['extraction_confidence'] = new_confidence
+                st.session_state.modified = True
+        else:
+            col_meta1, col_meta2 = st.columns(2)
+            with col_meta1:
+                verified = metadata.get('verified', False)
+                st.markdown(f"**Verified:** {'✅ Yes' if verified else '❌ No'}")
+            with col_meta2:
+                needs_review = metadata.get('needs_review', False)
+                st.markdown(f"**Needs Review:** {'⚠️ Yes' if needs_review else '✅ No'}")
+
+            confidence = metadata.get('extraction_confidence', 0)
+            st.metric("Extraction Confidence", f"{confidence:.2f}")
 
         # Source info
         st.divider()
@@ -484,14 +709,14 @@ def render_function_details_tab(json_data: dict, image_dir: str):
         st.divider()
         st.markdown("### Actions")
 
-        if st.button("✅ Mark as Verified", use_container_width=True):
+        if st.button("✅ Mark as Verified", use_container_width=True, disabled=edit_mode):
             func['metadata']['verified'] = True
             func['metadata']['needs_review'] = False
             st.session_state.modified = True
             st.success("✅ Marked as verified!")
             st.rerun()
 
-        if st.button("⚠️ Flag for Review", use_container_width=True):
+        if st.button("⚠️ Flag for Review", use_container_width=True, disabled=edit_mode):
             func['metadata']['needs_review'] = True
             func['metadata']['verified'] = False
             st.session_state.modified = True
