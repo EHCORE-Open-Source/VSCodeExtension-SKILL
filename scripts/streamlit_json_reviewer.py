@@ -32,8 +32,9 @@ from typing import Dict, List, Optional
 from datetime import datetime
 
 # Configuration
+APP_DISPLAY_NAME = "SKILL API Review Console"
 st.set_page_config(
-    page_title="SKILL JSON Reviewer",
+    page_title=APP_DISPLAY_NAME,
     page_icon="📚",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -293,7 +294,7 @@ def get_quality_issues(json_data: dict) -> List[Dict]:
 
 def render_sidebar():
     """Render sidebar with navigation and statistics"""
-    st.sidebar.title("📚 JSON Review System")
+    st.sidebar.title(f"📚 {APP_DISPLAY_NAME}")
 
     config_source = st.session_state.get('_config_source')
     if config_source:
