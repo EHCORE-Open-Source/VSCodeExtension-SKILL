@@ -294,6 +294,11 @@ def get_quality_issues(json_data: dict) -> List[Dict]:
     return issues
 
 
+def set_source_image_index(function_idx: int, image_idx: int):
+    """Callback to store selected source image index per function."""
+    st.session_state.source_image_indices[function_idx] = image_idx
+
+
 def render_sidebar():
     """Render sidebar with navigation and statistics"""
     st.sidebar.title(f"📚 {APP_DISPLAY_NAME}")
@@ -794,6 +799,7 @@ def render_function_details_tab(json_data: dict, image_dir: str):
             index_key = st.session_state.current_function_idx
             current_idx = st.session_state.source_image_indices.get(index_key, 0)
             current_idx = max(0, min(current_idx, len(image_names) - 1))
+            st.session_state.source_image_indices[index_key] = current_idx
 
             buttons_per_row = 6
             for row_start in range(0, len(image_names), buttons_per_row):
@@ -804,15 +810,14 @@ def render_function_details_tab(json_data: dict, image_dir: str):
                     button_label = f"{idx + 1}"
                     button_type = "primary" if is_selected else "secondary"
                     with col:
-                        if st.button(
+                        st.button(
                             button_label,
                             key=f"source_image_nav_{index_key}_{idx}",
                             type=button_type,
-                            use_container_width=True
-                        ):
-                            current_idx = idx
-
-            st.session_state.source_image_indices[index_key] = current_idx
+                            use_container_width=True,
+                            on_click=set_source_image_index,
+                            args=(index_key, idx)
+                        )
 
             selected_image = image_names[current_idx]
             img_path = os.path.join(full_image_dir, selected_image)
