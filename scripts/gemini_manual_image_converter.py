@@ -122,86 +122,78 @@ class SkillManualConverter:
         image = Image.open(image_path)
 
         prompt = """
-Analyze this SKILL documentation page structure.
+Analyze this SKILL documentation page and determine its type.
 
-PAGE LAYOUT (typical):
-┌──────────────────────────────────────┐
-│ Header Line 1: Manual Title          │ ← Extract this
-│ Header Line 2: Category/Chapter      │ ← Extract this
-├──────────────────────────────────────┤
-│                                      │
-│ [CONTENT AREA]                       │ ← Focus analysis here
-│                                      │
-│ If FUNCTION page:                    │
-│   • Large heading: functionName      │
-│   • Followed by: functionName(...)   │ ← CRITICAL: Function call syntax on next line!
-│   • May have: Arguments, Examples... │
-│   • May have: Table with data        │
-│                                      │
-│ If CONTINUATION page:                │
-│   • Examples section                 │
-│   • Notes section                    │
-│   • No new function heading          │
-│   • May have: Table continuing       │
-│                                      │
-│ If CATEGORY/LIST page:               │
-│   • Multiple function names listed   │
-│                                      │
-├──────────────────────────────────────┤
-│ Footer: Date | Page Number | License │ ← Ignore
-└──────────────────────────────────────┘
+📍 PAGE STRUCTURE:
+┌────────────────────────────┐
+│ Header (2 lines)           │ ← Extract title & category
+├────────────────────────────┤
+│ CONTENT AREA (focus here)  │
+├────────────────────────────┤
+│ Footer                     │ ← Ignore
+└────────────────────────────┘
 
-🔍 CRITICAL DETECTION RULES:
+🔍 PAGE TYPE RULES:
 
-1. ⚠️ NEW FUNCTION PAGE - Must have BOTH:
-   • Large function name heading
-   • Function call pattern: functionName(parameters)
+1️⃣ NEW FUNCTION - MUST meet ALL 3:
+   ✅ Function syntax at THE VERY TOP of content
+   ✅ Format: functionName(params) => returnType
+   ✅ BEFORE any section headings
 
    Example:
-   ──────────────
-   append           ← Function name heading
-   append(l_list1 l_list2)  ← Function call syntax (REQUIRED!)
-   => l_result
-   ──────────────
+   ─────────────────
+   sstatus                          ← Name
+   sstatus(s_name g_switchValue)    ← SYNTAX at TOP
+   => g_switchValue
 
-2. ⚠️ Section Headings are NOT function names:
-   "Description", "Arguments", "Value Returned", "Examples", "Notes"
-   These are ALWAYS section titles, NEVER function names!
+   Sets the internal...             ← Description
+   ─────────────────
 
-   If you see these words as headings → This is a CONTINUATION page
+2️⃣ CONTINUATION - ANY of these:
+   ✅ Starts with section heading: "Arguments", "Examples", "Value Returned", "Notes"
+   ✅ Starts with table (no syntax at top)
+   ✅ NO function syntax at beginning
 
-3. ⚠️ Without function call syntax → NOT a new function:
-   If you see a heading but NO "functionName(...)" pattern below it,
-   it's likely a section title or table heading, NOT a new function.
+   Example:
+   ─────────────────
+   Arguments                        ← Section heading at TOP
+     s_name
+     g_switchValue
 
-TASK: Extract structure from CONTENT AREA ONLY (ignore header/footer)
+   Examples
+     sstatus(debugMode t)           ← NOT a new function!
+   ─────────────────
+
+3️⃣ CATEGORY - Multiple function names listed
+
+⚠️ KEY RULE:
+NEW FUNCTION syntax MUST be at THE VERY TOP.
+If "Arguments" or "Examples" appears first → CONTINUATION.
 
 Return JSON:
 {
-  "manual_title": "text from header line 1 (or null)",
-  "category": "text from header line 2 (or null)",
-  "page_number": integer page number from footer (or null),
-
-  "content_first_line": "first line text in content area (or null)",
+  "manual_title": "header line 1 or null",
+  "category": "header line 2 or null",
+  "page_number": integer or null,
+  "page_type": "NEW" or "CONTINUATION" or "CATEGORY" or "OTHER",
+  "page_type_confidence": "high" or "medium" or "low",
+  "page_type_reasoning": "brief reason",
+  "content_first_line": "first line of content or null",
   "has_function_heading": true/false,
   "function_name": "name or null",
   "has_function_call_pattern": true/false,
+  "function_call_syntax": "full syntax or null",
   "has_arguments_section": true/false,
   "has_examples_section": true/false,
   "has_notes_section": true/false,
   "has_return_section": true/false,
   "has_function_list": true/false,
   "has_table": true/false,
-  "table_title": "title of table if present (e.g., 'Internal System Variables') or null",
-  "table_columns": ["column1", "column2", ...] or null
+  "table_title": "table title or null",
+  "table_columns": ["col1", "col2"] or null
 }
 
-IMPORTANT:
-- Focus ONLY on the CONTENT AREA (between header/footer).
-- "Description", "Arguments", "Examples", "Value Returned", "Notes" are SECTION TITLES, not function names!
-- A new function MUST have both: function name heading + function call syntax functionName(...)
-- If a table is present, extract its title and column headers.
-- Return ONLY the JSON object.
+Return ONLY the JSON object.
 """
 
         response = self.client.models.generate_content(
