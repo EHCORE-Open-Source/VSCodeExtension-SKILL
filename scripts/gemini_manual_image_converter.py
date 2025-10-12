@@ -134,7 +134,7 @@ PAGE LAYOUT (typical):
 │                                      │
 │ If FUNCTION page:                    │
 │   • Large heading: functionName      │
-│   • Followed by: functionName(...)   │
+│   • Followed by: functionName(...)   │ ← CRITICAL: Function call syntax on next line!
 │   • May have: Arguments, Examples... │
 │   • May have: Table with data        │
 │                                      │
@@ -150,6 +150,29 @@ PAGE LAYOUT (typical):
 ├──────────────────────────────────────┤
 │ Footer: Date | Page Number | License │ ← Ignore
 └──────────────────────────────────────┘
+
+🔍 CRITICAL DETECTION RULES:
+
+1. ⚠️ NEW FUNCTION PAGE - Must have BOTH:
+   • Large function name heading
+   • Function call pattern: functionName(parameters)
+
+   Example:
+   ──────────────
+   append           ← Function name heading
+   append(l_list1 l_list2)  ← Function call syntax (REQUIRED!)
+   => l_result
+   ──────────────
+
+2. ⚠️ Section Headings are NOT function names:
+   "Description", "Arguments", "Value Returned", "Examples", "Notes"
+   These are ALWAYS section titles, NEVER function names!
+
+   If you see these words as headings → This is a CONTINUATION page
+
+3. ⚠️ Without function call syntax → NOT a new function:
+   If you see a heading but NO "functionName(...)" pattern below it,
+   it's likely a section title or table heading, NOT a new function.
 
 TASK: Extract structure from CONTENT AREA ONLY (ignore header/footer)
 
@@ -174,7 +197,9 @@ Return JSON:
 }
 
 IMPORTANT:
-- Focus ONLY on the CONTENT AREA (between header and footer).
+- Focus ONLY on the CONTENT AREA (between header/footer).
+- "Description", "Arguments", "Examples", "Value Returned", "Notes" are SECTION TITLES, not function names!
+- A new function MUST have both: function name heading + function call syntax functionName(...)
 - If a table is present, extract its title and column headers.
 - Return ONLY the JSON object.
 """
