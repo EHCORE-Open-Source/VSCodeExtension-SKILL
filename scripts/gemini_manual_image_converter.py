@@ -376,16 +376,38 @@ Return ONLY the JSON object, no additional text.
                     context_hint += f"🔍 IMPORTANT: Tables in technical documentation often span MULTIPLE pages.\n"
                     context_hint += f"   This table has {table_row_count} rows already extracted.\n"
                     context_hint += f"   Columns: {table_columns}\n\n"
+
+                    # Add column structure validation
+                    num_cols = len(table_columns) if table_columns else 0
+                    context_hint += f"📋 TABLE STRUCTURE VALIDATION:\n"
+                    context_hint += f"   Expected table: '{table_title}'\n"
+                    context_hint += f"   Expected columns: {table_columns}\n"
+                    context_hint += f"   Number of columns: {num_cols}\n\n"
+
+                    # Provide column-specific guidance
+                    if num_cols > 0:
+                        context_hint += f"   ✅ VALIDATION RULE - Look for content in {num_cols} columns:\n"
+                        for idx, col in enumerate(table_columns, 1):
+                            context_hint += f"      • Column {idx} ('{col}'): Check if data matches this field\n"
+                        context_hint += "\n"
+
+                        context_hint += f"   🎯 KEY INDICATOR:\n"
+                        context_hint += f"   If you see data organized in {num_cols} columns (not section headings like 'Arguments', 'Examples'):\n"
+                        context_hint += f"   → This is DEFINITELY table continuation\n"
+                        context_hint += f"   → Extract the rows and mark as CONTINUATION\n\n"
+
                     context_hint += f"📊 HIGHLY LIKELY SCENARIO:\n"
                     context_hint += f"   This page is a CONTINUATION of the same table.\n"
                     context_hint += f"   Expected pattern: More rows of '{table_title}' table.\n\n"
                     context_hint += f"✅ Classification Rules:\n"
-                    context_hint += f"   1. If this page shows table rows with columns {table_columns}\n"
+                    context_hint += f"   1. If this page shows data in {num_cols} columns matching {table_columns}\n"
                     context_hint += f"      → Mark as CONTINUATION, extract additional rows\n"
                     context_hint += f"   2. If you see 'Arguments', 'Examples' WITHOUT a new function heading\n"
-                    context_hint += f"      → Still CONTINUATION of '{func_name}'\n"
+                    context_hint += f"      → Check if content is in {num_cols}-column table format\n"
+                    context_hint += f"      → If YES: This is table continuation\n"
+                    context_hint += f"      → If NO: Still CONTINUATION of '{func_name}' (different section)\n"
                     context_hint += f"   3. Only mark as NEW function if:\n"
-                    context_hint += f"      - Clear new function name in large heading\n"
+                    context_hint += f"      - Clear new function name in large heading (different from '{func_name}')\n"
                     context_hint += f"      - Different function syntax/signature\n"
                     context_hint += f"      - Explicit indication of new function start\n"
                 else:
@@ -960,7 +982,14 @@ def merge_function_entries(func_list: List[Dict]) -> Dict:
     # Merge notes (combine non-empty notes)
     notes_list = [f.get('notes') for f in func_list if f.get('notes')]
     if notes_list:
-        merged['notes'] = '\n\n'.join(notes_list)
+        # Convert each note to string (handle both string and list types)
+        notes_strings = []
+        for note in notes_list:
+            if isinstance(note, list):
+                notes_strings.append('\n'.join(str(n) for n in note))
+            else:
+                notes_strings.append(str(note))
+        merged['notes'] = '\n\n'.join(notes_strings)
 
     # Merge table data (if present)
     # Check if any function has table_data
