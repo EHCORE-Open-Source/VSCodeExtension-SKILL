@@ -136,11 +136,13 @@ PAGE LAYOUT (typical):
 │   • Large heading: functionName      │
 │   • Followed by: functionName(...)   │
 │   • May have: Arguments, Examples... │
+│   • May have: Table with data        │
 │                                      │
 │ If CONTINUATION page:                │
 │   • Examples section                 │
 │   • Notes section                    │
 │   • No new function heading          │
+│   • May have: Table continuing       │
 │                                      │
 │ If CATEGORY/LIST page:               │
 │   • Multiple function names listed   │
@@ -165,11 +167,16 @@ Return JSON:
   "has_examples_section": true/false,
   "has_notes_section": true/false,
   "has_return_section": true/false,
-  "has_function_list": true/false
+  "has_function_list": true/false,
+  "has_table": true/false,
+  "table_title": "title of table if present (e.g., 'Internal System Variables') or null",
+  "table_columns": ["column1", "column2", ...] or null
 }
 
-IMPORTANT: Focus ONLY on the CONTENT AREA (between header and footer).
-Return ONLY the JSON object.
+IMPORTANT:
+- Focus ONLY on the CONTENT AREA (between header and footer).
+- If a table is present, extract its title and column headers.
+- Return ONLY the JSON object.
 """
 
         response = self.client.models.generate_content(
@@ -210,30 +217,38 @@ Return ONLY the JSON object.
         has_notes = structure.get('has_notes_section', False)
         has_return = structure.get('has_return_section', False)
         has_func_list = structure.get('has_function_list', False)
+        has_table = structure.get('has_table', False)
         function_name = structure.get('function_name')
 
         # RULE 1: NEW FUNCTION PAGE (highest priority)
         # - Has function heading
         # - Has function call pattern (functionName followed by "(")
         # - OR has arguments section
-        if has_func_heading and (has_func_call or has_arguments):
+        # - AND not just a table heading being misidentified
+        if has_func_heading and (has_func_call or has_arguments) and not (has_table and not has_func_call):
             return 'function', function_name, category
 
         # RULE 2: CONTINUATION PAGE (high priority when previous_function exists)
-        # - NO function heading
-        # - Has ANY content (examples OR notes OR return section OR arguments)
+        # - NO function heading (or table title being misidentified as heading)
+        # - Has ANY content (examples OR notes OR return section OR arguments OR table)
         # - Previous function exists
         #
         # IMPORTANT: Use LOOSE matching for continuation pages to handle AI extraction variance
         if not has_func_heading and previous_function:
-            # Strong indicators: explicit content sections
-            if has_examples or has_notes or has_return or has_arguments:
+            # Strong indicators: explicit content sections or tables
+            if has_examples or has_notes or has_return or has_arguments or has_table:
                 return 'continuation', previous_function, category
 
             # Weak indicator but likely continuation: no function list
             # This handles cases where AI misses structure detection
             elif not has_func_list:
                 return 'continuation', previous_function, category
+
+        # RULE 2.5: SPECIAL CASE - Table in middle of function (enhanced detection)
+        # If has_table and has_func_heading but NO func_call pattern, likely a table title being misidentified
+        # Treat as continuation if previous_function exists
+        if has_table and has_func_heading and not has_func_call and previous_function:
+            return 'continuation', previous_function, category
 
         # RULE 3: CATEGORY PAGE (lower priority - only when no previous context)
         # - Shows a list of multiple functions
@@ -320,7 +335,7 @@ Return ONLY the JSON object, no additional text.
                 "raw_response": response.text
             }
 
-    def extract_function_page(self, image_path: str, category: Optional[str] = None, max_retries: int = 3) -> Dict:
+    def extract_function_page(self, image_path: str, category: Optional[str] = None, max_retries: int = 3, previous_page_context: Optional[Dict] = None) -> Dict:
         """
         Extract function information from a function page with retry mechanism
 
@@ -328,6 +343,12 @@ Return ONLY the JSON object, no additional text.
             image_path: Path to the PNG image file
             category: Optional category name to include in the result
             max_retries: Maximum number of retry attempts (default: 3)
+            previous_page_context: Optional context from previous page containing:
+                - function_name: Previous function name
+                - has_table: Whether previous page had a table
+                - table_title: Title of the table
+                - table_columns: Column headers
+                - table_row_count: Number of rows already extracted
 
         Returns:
             Dictionary containing function information in database-ready format
@@ -337,21 +358,41 @@ Return ONLY the JSON object, no additional text.
 
         image = Image.open(image_path)
 
+        # Build context hint for prompt
+        context_hint = ""
+        if previous_page_context:
+            func_name = previous_page_context.get('function_name')
+            has_table = previous_page_context.get('has_table', False)
+            table_title = previous_page_context.get('table_title')
+            table_columns = previous_page_context.get('table_columns', [])
+            table_row_count = previous_page_context.get('table_row_count', 0)
+
+            if func_name:
+                context_hint += f"\n⚠️ CRITICAL CONTEXT FROM PREVIOUS PAGE:\n"
+                context_hint += f"Previous page contained function '{func_name}'"
+
+                if has_table and table_title:
+                    context_hint += f" with table '{table_title}'.\n\n"
+                    context_hint += f"🔍 IMPORTANT: Tables in technical documentation often span MULTIPLE pages.\n"
+                    context_hint += f"   This table has {table_row_count} rows already extracted.\n"
+                    context_hint += f"   Columns: {table_columns}\n\n"
+                    context_hint += f"📊 HIGHLY LIKELY SCENARIO:\n"
+                    context_hint += f"   This page is a CONTINUATION of the same table.\n"
+                    context_hint += f"   Expected pattern: More rows of '{table_title}' table.\n\n"
+                    context_hint += f"✅ Classification Rules:\n"
+                    context_hint += f"   1. If this page shows table rows with columns {table_columns}\n"
+                    context_hint += f"      → Mark as CONTINUATION, extract additional rows\n"
+                    context_hint += f"   2. If you see 'Arguments', 'Examples' WITHOUT a new function heading\n"
+                    context_hint += f"      → Still CONTINUATION of '{func_name}'\n"
+                    context_hint += f"   3. Only mark as NEW function if:\n"
+                    context_hint += f"      - Clear new function name in large heading\n"
+                    context_hint += f"      - Different function syntax/signature\n"
+                    context_hint += f"      - Explicit indication of new function start\n"
+                else:
+                    context_hint += f".\n"
+
         # Construct detailed prompt for database-ready extraction
-        prompt = """
-Analyze this SKILL function documentation page and extract complete information in JSON format.
-
-CRITICAL SYNTAX REQUIREMENTS:
-1. Use "=>" (not "->") to separate function call from return value
-2. Preserve ALL syntax markers EXACTLY as shown:
-   - Keep '?' for keyword parameters (e.g., "?expr l_exprList")
-   - Keep '[' and ']' for optional parameters (e.g., "[ x_index ]")
-   - Keep '...' for rest parameters (e.g., "... g_args")
-3. Format: "functionName(param1 param2 [ optionalParam ]) => returnType"
-
-Extract the following information:
-
-{
+        json_template = """{
   "function_name": "exact function name from the heading",
   "syntax": "complete syntax in format: functionName(params) => returnType",
   "description": "detailed description of what the function does",
@@ -377,14 +418,45 @@ Extract the following information:
       "description": "description for this overload"
     }
   ]
-}
+}"""
+
+        table_extraction = """  "table_data": {
+    "title": "table title (e.g., 'Internal System Variables')",
+    "columns": ["column1", "column2", "column3"],
+    "rows": [
+      ["value1_col1", "value1_col2", "value1_col3"],
+      ["value2_col1", "value2_col2", "value2_col3"]
+    ]
+  }"""
+
+        prompt = f"""
+Analyze this SKILL function documentation page and extract complete information in JSON format.
+{context_hint}
+CRITICAL SYNTAX REQUIREMENTS:
+1. Use "=>" (not "->") to separate function call from return value
+2. Preserve ALL syntax markers EXACTLY as shown:
+   - Keep '?' for keyword parameters (e.g., "?expr l_exprList")
+   - Keep '[' and ']' for optional parameters (e.g., "[ x_index ]")
+   - Keep '...' for rest parameters (e.g., "... g_args")
+3. Format: "functionName(param1 param2 [ optionalParam ]) => returnType"
+
+Extract the following information:
+
+{json_template}
 
 IMPORTANT:
 - Extract function name from the heading (e.g., "append1" not "append")
 - Use "=>" not "->" in syntax
 - page_number must be an integer (e.g., 34 not "34")
 - If the function has multiple syntaxes/overloads, list them all in the "overloads" array
-- Do NOT use escaped characters in JSON (e.g., use "l_list" not "l\_list")
+- Do NOT use escaped characters in JSON (e.g., use "l_list" not "l\\_list")
+- If a TABLE is present (e.g., "Internal System Variables"), extract it as "table_data"
+
+TABLE EXTRACTION (if present):
+If the page contains a table (e.g., with columns like "Name", "Meaning", "Default"),
+add this to the JSON:
+
+{table_extraction}
 
 Return ONLY the JSON object, no additional text or markdown formatting.
 """
@@ -539,6 +611,9 @@ Return ONLY the JSON object, no additional text or markdown formatting.
         # Determine if needs review
         needs_review = confidence < 0.85 or not gemini_data.get('description')
 
+        # Process table data if present
+        table_data = gemini_data.get('table_data')
+
         # Build database-ready function object
         function_obj = {
             "function_name": function_name,
@@ -582,6 +657,10 @@ Return ONLY the JSON object, no additional text or markdown formatting.
                 "parser_version": "1.0"
             }
         }
+
+        # Add table data if present
+        if table_data:
+            function_obj['table_data'] = table_data
 
         return function_obj
 
@@ -729,7 +808,7 @@ Return ONLY the JSON object, no additional text or markdown formatting.
 
         return round(score / max_score if max_score > 0 else 0.0, 2)
 
-    def convert_page(self, image_path: str, category: Optional[str] = None, previous_function: Optional[str] = None) -> Dict:
+    def convert_page(self, image_path: str, category: Optional[str] = None, previous_function: Optional[str] = None, previous_page_context: Optional[Dict] = None) -> Dict:
         """
         Convert a single page (auto-detect type)
 
@@ -737,6 +816,7 @@ Return ONLY the JSON object, no additional text or markdown formatting.
             image_path: Path to the PNG image file
             category: Optional category name (may be overridden by page header)
             previous_function: Optional previous function name (for continuation detection)
+            previous_page_context: Optional context from previous page for continuity
 
         Returns:
             Dictionary containing extracted data
@@ -749,11 +829,11 @@ Return ONLY the JSON object, no additional text or markdown formatting.
         if page_type == 'category':
             return self.extract_category_page(image_path)
         elif page_type == 'function':
-            result = self.extract_function_page(image_path, effective_category)
+            result = self.extract_function_page(image_path, effective_category, previous_page_context=previous_page_context)
             result['page_type'] = 'function'
             return result
         elif page_type == 'continuation':
-            result = self.extract_function_page(image_path, effective_category)
+            result = self.extract_function_page(image_path, effective_category, previous_page_context=previous_page_context)
             result['page_type'] = 'continuation'
             result['function_name'] = function_name or previous_function
             return result
@@ -881,6 +961,34 @@ def merge_function_entries(func_list: List[Dict]) -> Dict:
     notes_list = [f.get('notes') for f in func_list if f.get('notes')]
     if notes_list:
         merged['notes'] = '\n\n'.join(notes_list)
+
+    # Merge table data (if present)
+    # Check if any function has table_data
+    tables_with_data = [f for f in func_list if f.get('table_data')]
+    if tables_with_data:
+        # Use the first table as base
+        base_table = tables_with_data[0]['table_data'].copy()
+
+        # Check if all tables have the same title and columns (indicating continuation)
+        all_same_table = all(
+            f.get('table_data', {}).get('title') == base_table.get('title') and
+            f.get('table_data', {}).get('columns') == base_table.get('columns')
+            for f in tables_with_data
+        )
+
+        if all_same_table and len(tables_with_data) > 1:
+            # Merge rows from all tables
+            all_rows = []
+            for f in tables_with_data:
+                table = f.get('table_data', {})
+                rows = table.get('rows', [])
+                all_rows.extend(rows)
+
+            base_table['rows'] = all_rows
+            merged['table_data'] = base_table
+        else:
+            # Keep the first table (most complete)
+            merged['table_data'] = base_table
 
     # Merge source information
     all_images = []
@@ -1061,6 +1169,7 @@ def main():
             functions = []
             current_category = None
             previous_function = None  # Track previous function name
+            previous_page_context = None  # Track context from previous page
 
             for page_num in range(start_num, end_num + 1):
                 image_file = os.path.join(args.image_dir, f"{prefix}-{page_num:03d}.png")
@@ -1071,26 +1180,47 @@ def main():
 
                 print(f"  Processing: {image_file}...", end=" ")
 
-                result = converter.convert_page(image_file, current_category, previous_function)
+                result = converter.convert_page(image_file, current_category, previous_function, previous_page_context)
 
                 if result.get('page_type') == 'category':
                     # Update current category
                     current_category = result.get('category_name')
                     print(f"✅ Category: {current_category}")
                     previous_function = None  # Reset
+                    previous_page_context = None  # Reset
                 elif result.get('page_type') == 'function':
                     func_name = result.get('function_name', 'unknown')
                     functions.append(result)
                     print(f"✅ Function: {func_name}")
                     previous_function = func_name  # Update for next page
+
+                    # Update context for next page
+                    previous_page_context = {
+                        'function_name': func_name,
+                        'has_table': 'table_data' in result,
+                        'table_title': result.get('table_data', {}).get('title'),
+                        'table_columns': result.get('table_data', {}).get('columns'),
+                        'table_row_count': len(result.get('table_data', {}).get('rows', []))
+                    }
                 elif result.get('page_type') == 'continuation':
                     func_name = result.get('function_name', previous_function or 'unknown')
                     functions.append(result)
                     print(f"✅ Function: {func_name} (continuation)")
                     # Keep previous_function unchanged
+
+                    # Update context for next page
+                    if previous_page_context:
+                        previous_page_context = {
+                            'function_name': func_name,
+                            'has_table': 'table_data' in result or previous_page_context.get('has_table', False),
+                            'table_title': result.get('table_data', {}).get('title') or previous_page_context.get('table_title'),
+                            'table_columns': result.get('table_data', {}).get('columns') or previous_page_context.get('table_columns'),
+                            'table_row_count': previous_page_context.get('table_row_count', 0) + len(result.get('table_data', {}).get('rows', []))
+                        }
                 else:
                     print("↳ (skipped)")
                     previous_function = None  # Reset
+                    previous_page_context = None  # Reset
 
             # Merge duplicate functions before saving
             if functions:
