@@ -103,15 +103,18 @@ class SkillManualConverter:
         if 'source_type' not in self.manual_metadata:
             self.manual_metadata['source_type'] = 'manual'
 
-    def detect_page_type(self, image_path: str) -> str:
+    def extract_page_structure(self, image_path: str) -> Dict:
         """
-        Detect if a page is a category page or function page
+        Extract structural information from page (Step 1: Structure Detection)
+
+        This focuses on extracting STRUCTURE only, not content.
+        AI is used for extraction, but rules will determine page type.
 
         Args:
             image_path: Path to the PNG image file
 
         Returns:
-            'category', 'function', or 'other'
+            Dictionary with structural flags
         """
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"Image file not found: {image_path}")
@@ -119,14 +122,54 @@ class SkillManualConverter:
         image = Image.open(image_path)
 
         prompt = """
-Analyze this SKILL documentation page and determine its type.
+Analyze this SKILL documentation page structure.
 
-Page Types:
-1. CATEGORY PAGE: Shows a list of functions under a category heading (e.g., "List Functions")
-2. FUNCTION PAGE: Detailed documentation for a specific function (syntax, arguments, examples)
-3. OTHER: Table of contents, introduction, or other content
+PAGE LAYOUT (typical):
+┌──────────────────────────────────────┐
+│ Header Line 1: Manual Title          │ ← Extract this
+│ Header Line 2: Category/Chapter      │ ← Extract this
+├──────────────────────────────────────┤
+│                                      │
+│ [CONTENT AREA]                       │ ← Focus analysis here
+│                                      │
+│ If FUNCTION page:                    │
+│   • Large heading: functionName      │
+│   • Followed by: functionName(...)   │
+│   • May have: Arguments, Examples... │
+│                                      │
+│ If CONTINUATION page:                │
+│   • Examples section                 │
+│   • Notes section                    │
+│   • No new function heading          │
+│                                      │
+│ If CATEGORY/LIST page:               │
+│   • Multiple function names listed   │
+│                                      │
+├──────────────────────────────────────┤
+│ Footer: Date | Page Number | License │ ← Ignore
+└──────────────────────────────────────┘
 
-Return ONLY one word: "category", "function", or "other"
+TASK: Extract structure from CONTENT AREA ONLY (ignore header/footer)
+
+Return JSON:
+{
+  "manual_title": "text from header line 1 (or null)",
+  "category": "text from header line 2 (or null)",
+  "page_number": integer page number from footer (or null),
+
+  "content_first_line": "first line text in content area (or null)",
+  "has_function_heading": true/false,
+  "function_name": "name or null",
+  "has_function_call_pattern": true/false,
+  "has_arguments_section": true/false,
+  "has_examples_section": true/false,
+  "has_notes_section": true/false,
+  "has_return_section": true/false,
+  "has_function_list": true/false
+}
+
+IMPORTANT: Focus ONLY on the CONTENT AREA (between header and footer).
+Return ONLY the JSON object.
 """
 
         response = self.client.models.generate_content(
@@ -134,11 +177,84 @@ Return ONLY one word: "category", "function", or "other"
             contents=[prompt, image]
         )
 
-        page_type = response.text.strip().lower()
-        if page_type not in ['category', 'function', 'other']:
-            page_type = 'other'
+        try:
+            response_text = self._clean_json_response(response.text)
+            structure = json.loads(response_text)
+            return structure
+        except json.JSONDecodeError:
+            print(f"  ⚠️  Warning: Failed to parse structure response")
+            return {}
 
-        return page_type
+    def detect_page_type(self, image_path: str, previous_function: Optional[str] = None) -> Tuple[str, Optional[str], Optional[str]]:
+        """
+        Detect page type using RULE-BASED logic (not AI classification)
+
+        Args:
+            image_path: Path to the PNG image file
+            previous_function: Name of the function from the previous page
+
+        Returns:
+            Tuple of (page_type, function_name, category)
+        """
+        # Step 1: Extract structure
+        structure = self.extract_page_structure(image_path)
+
+        # Extract header info
+        category = structure.get('category')
+
+        # Step 2: Apply RULES to determine page type
+        has_func_heading = structure.get('has_function_heading', False)
+        has_func_call = structure.get('has_function_call_pattern', False)
+        has_arguments = structure.get('has_arguments_section', False)
+        has_examples = structure.get('has_examples_section', False)
+        has_notes = structure.get('has_notes_section', False)
+        has_return = structure.get('has_return_section', False)
+        has_func_list = structure.get('has_function_list', False)
+        function_name = structure.get('function_name')
+
+        # RULE 1: NEW FUNCTION PAGE (highest priority)
+        # - Has function heading
+        # - Has function call pattern (functionName followed by "(")
+        # - OR has arguments section
+        if has_func_heading and (has_func_call or has_arguments):
+            return 'function', function_name, category
+
+        # RULE 2: CONTINUATION PAGE (high priority when previous_function exists)
+        # - NO function heading
+        # - Has ANY content (examples OR notes OR return section OR arguments)
+        # - Previous function exists
+        #
+        # IMPORTANT: Use LOOSE matching for continuation pages to handle AI extraction variance
+        if not has_func_heading and previous_function:
+            # Strong indicators: explicit content sections
+            if has_examples or has_notes or has_return or has_arguments:
+                return 'continuation', previous_function, category
+
+            # Weak indicator but likely continuation: no function list
+            # This handles cases where AI misses structure detection
+            elif not has_func_list:
+                return 'continuation', previous_function, category
+
+        # RULE 3: CATEGORY PAGE (lower priority - only when no previous context)
+        # - Shows a list of multiple functions
+        # - AND no function heading (to avoid false positives)
+        # - AND no previous function (to avoid false positives on continuation pages)
+        if has_func_list and not has_func_heading and not previous_function:
+            return 'category', None, category
+
+        # RULE 4: FALLBACK FOR CONTINUATION
+        # Last resort: if previous function exists, treat as continuation
+        # This handles edge cases where AI makes detection errors:
+        # - False positive on has_function_heading (but missing call pattern/arguments)
+        # - False positive on has_function_list
+        if previous_function:
+            # If we reached here, RULE 1 didn't match (not a valid new function page)
+            # Even if has_func_heading=True, without call pattern/arguments, it's likely a false positive
+            # Same for has_func_list - could be a false positive
+            return 'continuation', previous_function, category
+
+        # RULE 5: OTHER (truly unrecognized)
+        return 'other', None, category
 
     def extract_category_page(self, image_path: str) -> Dict:
         """
@@ -204,13 +320,14 @@ Return ONLY the JSON object, no additional text.
                 "raw_response": response.text
             }
 
-    def extract_function_page(self, image_path: str, category: Optional[str] = None) -> Dict:
+    def extract_function_page(self, image_path: str, category: Optional[str] = None, max_retries: int = 3) -> Dict:
         """
-        Extract function information from a function page
+        Extract function information from a function page with retry mechanism
 
         Args:
             image_path: Path to the PNG image file
             category: Optional category name to include in the result
+            max_retries: Maximum number of retry attempts (default: 3)
 
         Returns:
             Dictionary containing function information in database-ready format
@@ -267,37 +384,56 @@ IMPORTANT:
 - Use "=>" not "->" in syntax
 - page_number must be an integer (e.g., 34 not "34")
 - If the function has multiple syntaxes/overloads, list them all in the "overloads" array
+- Do NOT use escaped characters in JSON (e.g., use "l_list" not "l\_list")
 
 Return ONLY the JSON object, no additional text or markdown formatting.
 """
 
-        response = self.client.models.generate_content(
-            model=GEMINI_MODEL,
-            contents=[prompt, image]
-        )
+        last_error = None
 
-        # Parse JSON response
-        try:
-            response_text = self._clean_json_response(response.text)
-            gemini_data = json.loads(response_text)
+        # Retry loop
+        for attempt in range(max_retries):
+            try:
+                response = self.client.models.generate_content(
+                    model=GEMINI_MODEL,
+                    contents=[prompt, image]
+                )
 
-            # Convert to database-ready format
-            function_data = self._convert_to_database_format(
-                gemini_data,
-                image_path,
-                category
-            )
+                # Parse JSON response
+                response_text = self._clean_json_response(response.text)
+                gemini_data = json.loads(response_text)
 
-            return function_data
+                # Convert to database-ready format
+                function_data = self._convert_to_database_format(
+                    gemini_data,
+                    image_path,
+                    category
+                )
 
-        except json.JSONDecodeError as e:
-            print(f"Warning: Failed to parse JSON response for {image_path}")
-            print(f"Response: {response.text}")
-            return {
-                "error": "JSON parsing failed",
-                "raw_response": response.text,
-                "source_image": os.path.basename(image_path)
-            }
+                # Success!
+                return function_data
+
+            except json.JSONDecodeError as e:
+                last_error = e
+                if attempt < max_retries - 1:
+                    print(f"  ⚠️ JSON parsing failed (attempt {attempt + 1}/{max_retries}), retrying...")
+                continue
+            except Exception as e:
+                last_error = e
+                if attempt < max_retries - 1:
+                    print(f"  ⚠️ Extraction failed (attempt {attempt + 1}/{max_retries}): {e}, retrying...")
+                continue
+
+        # All retries failed
+        print(f"  ❌ Failed after {max_retries} attempts")
+        if hasattr(last_error, 'args'):
+            print(f"  Last error: {last_error}")
+        return {
+            "error": "Extraction failed after retries",
+            "attempts": max_retries,
+            "last_error": str(last_error),
+            "source_image": os.path.basename(image_path)
+        }
 
     def _clean_json_response(self, response_text: str) -> str:
         """
@@ -593,23 +729,34 @@ Return ONLY the JSON object, no additional text or markdown formatting.
 
         return round(score / max_score if max_score > 0 else 0.0, 2)
 
-    def convert_page(self, image_path: str, category: Optional[str] = None) -> Dict:
+    def convert_page(self, image_path: str, category: Optional[str] = None, previous_function: Optional[str] = None) -> Dict:
         """
         Convert a single page (auto-detect type)
 
         Args:
             image_path: Path to the PNG image file
-            category: Optional category name
+            category: Optional category name (may be overridden by page header)
+            previous_function: Optional previous function name (for continuation detection)
 
         Returns:
             Dictionary containing extracted data
         """
-        page_type = self.detect_page_type(image_path)
+        page_type, function_name, detected_category = self.detect_page_type(image_path, previous_function)
+
+        # Use detected category if available, otherwise use provided category
+        effective_category = detected_category or category
 
         if page_type == 'category':
             return self.extract_category_page(image_path)
         elif page_type == 'function':
-            return self.extract_function_page(image_path, category)
+            result = self.extract_function_page(image_path, effective_category)
+            result['page_type'] = 'function'
+            return result
+        elif page_type == 'continuation':
+            result = self.extract_function_page(image_path, effective_category)
+            result['page_type'] = 'continuation'
+            result['function_name'] = function_name or previous_function
+            return result
         else:
             return {
                 "page_type": "other",
@@ -913,6 +1060,7 @@ def main():
 
             functions = []
             current_category = None
+            previous_function = None  # Track previous function name
 
             for page_num in range(start_num, end_num + 1):
                 image_file = os.path.join(args.image_dir, f"{prefix}-{page_num:03d}.png")
@@ -923,24 +1071,35 @@ def main():
 
                 print(f"  Processing: {image_file}...", end=" ")
 
-                result = converter.convert_page(image_file, current_category)
+                result = converter.convert_page(image_file, current_category, previous_function)
 
                 if result.get('page_type') == 'category':
                     # Update current category
                     current_category = result.get('category_name')
                     print(f"✅ Category: {current_category}")
-                elif result.get('page_type') == 'function' or 'function_name' in result:
+                    previous_function = None  # Reset
+                elif result.get('page_type') == 'function':
                     func_name = result.get('function_name', 'unknown')
                     functions.append(result)
                     print(f"✅ Function: {func_name}")
+                    previous_function = func_name  # Update for next page
+                elif result.get('page_type') == 'continuation':
+                    func_name = result.get('function_name', previous_function or 'unknown')
+                    functions.append(result)
+                    print(f"✅ Function: {func_name} (continuation)")
+                    # Keep previous_function unchanged
                 else:
                     print("↳ (skipped)")
+                    previous_function = None  # Reset
 
             # Merge duplicate functions before saving
             if functions:
                 functions = merge_duplicate_functions(functions)
 
-                output_dir = args.output_dir or 'test_output'
+                # Create timestamped output directory
+                base_output_dir = args.output_dir or 'test_output'
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                output_dir = os.path.join(base_output_dir, f"run_{timestamp}")
                 os.makedirs(output_dir, exist_ok=True)
 
                 output_path = os.path.join(
@@ -949,6 +1108,7 @@ def main():
                 )
 
                 converter.save_to_json(functions, output_path)
+                print(f"📁 Output directory: {output_dir}")
 
                 print(f"\n{'='*80}")
                 print(f"✅ Completed! Extracted {len(functions)} function(s)")
