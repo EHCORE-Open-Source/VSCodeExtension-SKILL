@@ -1071,6 +1071,125 @@ def merge_function_entries(func_list: List[Dict]) -> Dict:
     return merged
 
 
+def sanitize_filename(name: str) -> str:
+    """
+    Sanitize function name for use as filename
+
+    Args:
+        name: Function name (may contain special characters)
+
+    Returns:
+        Sanitized filename (special chars replaced with underscores)
+
+    Examples:
+        make_<name> -> make__name_
+        setf_car -> setf_car
+        foo?bar -> foo_bar
+    """
+    if not name:
+        return "unknown"
+
+    # Replace special characters with underscores
+    # Keep alphanumeric and underscore, replace everything else
+    sanitized = re.sub(r'[^a-zA-Z0-9_]', '_', name)
+
+    return sanitized
+
+
+def extract_category_name(category_header: Optional[str]) -> str:
+    """
+    Extract and normalize category name from page header
+
+    Args:
+        category_header: Raw category text from page header (e.g., "List Functions")
+
+    Returns:
+        Normalized category name (e.g., "list")
+
+    Rules:
+        1. Remove "Functions" suffix (case-insensitive)
+        2. Replace spaces with underscores
+        3. Convert to lowercase
+
+    Examples:
+        "List Functions" -> "list"
+        "Arithmetic Functions" -> "arithmetic"
+        "String Manipulation Functions" -> "string_manipulation"
+        "I/O Functions" -> "i_o"
+    """
+    if not category_header:
+        return "uncategorized"
+
+    # Remove "Functions" suffix (case-insensitive)
+    normalized = re.sub(r'\s+functions?$', '', category_header, flags=re.IGNORECASE)
+
+    # Replace spaces with underscores
+    normalized = normalized.replace(' ', '_')
+
+    # Convert to lowercase
+    normalized = normalized.lower()
+
+    # Remove any remaining special characters
+    normalized = re.sub(r'[^a-z0-9_]', '_', normalized)
+
+    return normalized if normalized else "uncategorized"
+
+
+def save_individual_function(
+    function_data: Dict,
+    output_base_dir: str,
+    manual_code: str,
+    manual_metadata: Dict
+) -> str:
+    """
+    Save individual function to structured directory
+
+    Output structure:
+        output_base_dir/
+            manual_code/
+                category/
+                    function_name.json
+
+    Args:
+        function_data: Function dictionary
+        output_base_dir: Base output directory
+        manual_code: Manual code (e.g., "sklangref")
+        manual_metadata: Manual metadata dictionary
+
+    Returns:
+        Path to saved JSON file
+    """
+    # Extract function name and category
+    function_name = function_data.get('function_name', 'unknown')
+    category_raw = function_data.get('category', 'uncategorized')
+
+    # Normalize names
+    sanitized_name = sanitize_filename(function_name)
+    normalized_category = extract_category_name(category_raw)
+
+    # Build directory structure: output_base_dir/manual_code/category/
+    category_dir = os.path.join(output_base_dir, manual_code, normalized_category)
+    os.makedirs(category_dir, exist_ok=True)
+
+    # Build output file path
+    output_path = os.path.join(category_dir, f"{sanitized_name}.json")
+
+    # Build output data with metadata
+    output_data = {
+        "manual_metadata": {
+            **manual_metadata,
+            "processing_timestamp": datetime.now().isoformat() + "Z"
+        },
+        "function": function_data
+    }
+
+    # Save JSON
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(output_data, f, indent=2, ensure_ascii=False)
+
+    return output_path
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Convert SKILL manual images to database-ready JSON',
@@ -1179,10 +1298,16 @@ def main():
 
             result = converter.convert_page(args.image)
 
-            if 'page_type' in result and result['page_type'] == 'function':
-                # Save as database-ready JSON
-                output_path = args.output or f"{result['function_name']}.json"
-                converter.save_to_json([result], output_path)
+            if 'page_type' in result and result['page_type'] in ['function', 'continuation']:
+                # Save as individual file in structured directory
+                base_output_dir = args.output_dir or os.path.dirname(args.output or 'test_output')
+                output_path = save_individual_function(
+                    function_data=result,
+                    output_base_dir=base_output_dir,
+                    manual_code=args.manual_code,
+                    manual_metadata=manual_metadata
+                )
+                print(f"✅ Saved to: {output_path}")
             else:
                 # Category page or other
                 print("\n" + "="*80)
@@ -1216,6 +1341,7 @@ def main():
             current_category = None
             previous_function = None  # Track previous function name
             previous_page_context = None  # Track context from previous page
+            category_stack = []  # Track categories with page numbers for fallback
 
             for page_num in range(start_num, end_num + 1):
                 image_file = os.path.join(args.image_dir, f"{prefix}-{page_num:03d}.png")
@@ -1228,9 +1354,38 @@ def main():
 
                 result = converter.convert_page(image_file, current_category, previous_function, previous_page_context)
 
+                # Extract detected category from result
+                detected_category = None
+                if result.get('page_type') == 'category':
+                    detected_category = result.get('category_name')
+                else:
+                    # For function and continuation pages, try to get category from page structure
+                    page_type, func_name, page_category = converter.detect_page_type(image_file, previous_function)
+                    if page_category:
+                        detected_category = page_category
+
+                # Update category_stack if we detected a category
+                if detected_category:
+                    category_stack.append({'page': page_num, 'category': detected_category})
+                    # Keep only recent entries (last 5 pages)
+                    if len(category_stack) > 5:
+                        category_stack.pop(0)
+
+                # Determine effective category for this page
+                # Priority: detected_category > current_category > fallback from stack
+                effective_category = detected_category or current_category
+                if not effective_category and category_stack:
+                    # Fallback: use most recent category from stack
+                    effective_category = category_stack[-1]['category']
+
+                # Update result with effective category
+                if result.get('page_type') in ['function', 'continuation']:
+                    if effective_category:
+                        result['category'] = effective_category
+
                 if result.get('page_type') == 'category':
                     # Update current category
-                    current_category = result.get('category_name')
+                    current_category = detected_category
                     print(f"✅ Category: {current_category}")
                     previous_function = None  # Reset
                     previous_page_context = None  # Reset
@@ -1239,6 +1394,10 @@ def main():
                     functions.append(result)
                     print(f"✅ Function: {func_name}")
                     previous_function = func_name  # Update for next page
+
+                    # Update current_category if detected
+                    if detected_category:
+                        current_category = detected_category
 
                     # Update context for next page
                     previous_page_context = {
@@ -1272,22 +1431,35 @@ def main():
             if functions:
                 functions = merge_duplicate_functions(functions)
 
-                # Create timestamped output directory
+                # Base output directory
                 base_output_dir = args.output_dir or 'test_output'
-                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                output_dir = os.path.join(base_output_dir, f"run_{timestamp}")
-                os.makedirs(output_dir, exist_ok=True)
 
-                output_path = os.path.join(
-                    output_dir,
-                    f"{args.manual_code}_{start_name}_to_{end_name}.json"
-                )
+                # Save each function to individual file
+                print(f"\n{'='*80}")
+                print(f"💾 Saving {len(functions)} function(s) to individual files...")
+                print(f"{'='*80}\n")
 
-                converter.save_to_json(functions, output_path)
-                print(f"📁 Output directory: {output_dir}")
+                saved_files = []
+                for func in functions:
+                    try:
+                        output_path = save_individual_function(
+                            function_data=func,
+                            output_base_dir=base_output_dir,
+                            manual_code=args.manual_code,
+                            manual_metadata=manual_metadata
+                        )
+                        saved_files.append(output_path)
+                        func_name = func.get('function_name', 'unknown')
+                        category = extract_category_name(func.get('category', 'uncategorized'))
+                        print(f"  ✅ Saved: {args.manual_code}/{category}/{sanitize_filename(func_name)}.json")
+                    except Exception as e:
+                        func_name = func.get('function_name', 'unknown')
+                        print(f"  ❌ Failed to save {func_name}: {e}")
 
                 print(f"\n{'='*80}")
-                print(f"✅ Completed! Extracted {len(functions)} function(s)")
+                print(f"✅ Completed! Saved {len(saved_files)} function(s)")
+                print(f"📁 Base directory: {base_output_dir}")
+                print(f"📂 Structure: {base_output_dir}/{args.manual_code}/<category>/<function>.json")
                 print(f"{'='*80}")
             else:
                 print("\n⚠️  No functions extracted")
