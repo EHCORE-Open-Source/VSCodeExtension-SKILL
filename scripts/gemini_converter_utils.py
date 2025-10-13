@@ -541,8 +541,10 @@ class RawDataRecorder:
 
         # Build filename
         page_filename = Path(image_path).stem  # e.g., "sklangref-032"
-        filename = f"{page_filename}_{operation}.json"
-        filepath = os.path.join(self.output_dir, filename)
+
+        # Save JSON format
+        json_filename = f"{page_filename}_{operation}.json"
+        json_filepath = os.path.join(self.output_dir, json_filename)
 
         # Build record data
         record = {
@@ -563,9 +565,17 @@ class RawDataRecorder:
             }
         }
 
-        # Save to file
-        with open(filepath, 'w', encoding='utf-8') as f:
+        # Save JSON file
+        with open(json_filepath, 'w', encoding='utf-8') as f:
             json.dump(record, f, indent=2, ensure_ascii=False)
+
+        # Save Markdown format
+        md_filename = f"{page_filename}_{operation}.md"
+        md_filepath = os.path.join(self.output_dir, md_filename)
+
+        markdown_content = self._generate_markdown_format(record)
+        with open(md_filepath, 'w', encoding='utf-8') as f:
+            f.write(markdown_content)
 
     def record_batch_summary(
         self,
@@ -593,7 +603,8 @@ class RawDataRecorder:
         import json
         import os
 
-        filepath = os.path.join(self.output_dir, "batch_summary.json")
+        # Save JSON format
+        json_filepath = os.path.join(self.output_dir, "batch_summary.json")
 
         summary = {
             "metadata": {
@@ -610,8 +621,173 @@ class RawDataRecorder:
             }
         }
 
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(json_filepath, 'w', encoding='utf-8') as f:
             json.dump(summary, f, indent=2, ensure_ascii=False)
+
+        # Save Markdown format
+        md_filepath = os.path.join(self.output_dir, "batch_summary.md")
+        markdown_content = self._generate_batch_summary_markdown(summary)
+        with open(md_filepath, 'w', encoding='utf-8') as f:
+            f.write(markdown_content)
+
+    def _generate_markdown_format(self, record: Dict) -> str:
+        """
+        Generate Markdown format for raw data record
+
+        Args:
+            record: Record dictionary with metadata, prompts, and response
+
+        Returns:
+            Formatted Markdown string
+        """
+        metadata = record.get("metadata", {})
+        prompts = record.get("prompts", {})
+        response = record.get("response", {})
+
+        # Build front matter
+        md = "---\n"
+        md += f"page_number: {metadata.get('page_number', 'N/A')}\n"
+        md += f"source_image: {metadata.get('source_image', 'N/A')}\n"
+        md += f"operation: {metadata.get('operation', 'N/A')}\n"
+        md += f"timestamp: {metadata.get('timestamp', 'N/A')}\n"
+
+        # Add manual metadata if present
+        if metadata.get('manual_code'):
+            md += f"manual_code: {metadata.get('manual_code')}\n"
+        if metadata.get('product_code'):
+            md += f"product_code: {metadata.get('product_code')}\n"
+        if metadata.get('version'):
+            md += f"version: {metadata.get('version')}\n"
+        if metadata.get('document_title'):
+            md += f"document_title: \"{metadata.get('document_title')}\"\n"
+
+        md += "---\n\n"
+
+        # Title
+        operation_title = metadata.get('operation', 'extract').replace('_', ' ').title()
+        md += f"# Raw Data - {operation_title}\n\n"
+
+        # Metadata section
+        md += "## Metadata\n\n"
+        md += f"- **Page Number**: {metadata.get('page_number', 'N/A')}\n"
+        md += f"- **Source Image**: `{metadata.get('source_image', 'N/A')}`\n"
+        md += f"- **Operation**: `{metadata.get('operation', 'N/A')}`\n"
+        md += f"- **Timestamp**: {metadata.get('timestamp', 'N/A')}\n"
+
+        if metadata.get('manual_code'):
+            md += f"- **Manual Code**: `{metadata.get('manual_code')}`\n"
+        if metadata.get('product_code'):
+            md += f"- **Product Code**: `{metadata.get('product_code')}`\n"
+        if metadata.get('version'):
+            md += f"- **Version**: {metadata.get('version')}\n"
+        if metadata.get('document_title'):
+            md += f"- **Document Title**: {metadata.get('document_title')}\n"
+
+        md += "\n---\n\n"
+
+        # System Instruction
+        md += "## System Instruction\n\n"
+        system_instruction = prompts.get('system_instruction', '')
+        if len(system_instruction) > 500:
+            md += f"```text\n{system_instruction[:500]}...\n\n[Truncated - Total length: {len(system_instruction)} characters]\n```\n\n"
+        else:
+            md += f"```text\n{system_instruction}\n```\n\n"
+
+        # User Prompt
+        md += "## User Prompt\n\n"
+        user_prompt = prompts.get('user_prompt', '')
+        md += f"```text\n{user_prompt}\n```\n\n"
+
+        # AI Response
+        md += "## AI Response\n\n"
+        raw_text = response.get('raw_text', '')
+        response_length = response.get('length', len(raw_text))
+
+        md += f"**Response Length**: {response_length} characters\n\n"
+
+        # Determine response format
+        if raw_text.strip().startswith('{') or raw_text.strip().startswith('['):
+            # JSON response
+            md += "```json\n"
+            md += raw_text
+            md += "\n```\n"
+        elif raw_text.strip().startswith('---'):
+            # Markdown response
+            md += "```markdown\n"
+            md += raw_text
+            md += "\n```\n"
+        else:
+            # Plain text response
+            md += "```text\n"
+            md += raw_text
+            md += "\n```\n"
+
+        return md
+
+    def _generate_batch_summary_markdown(self, summary: Dict) -> str:
+        """
+        Generate Markdown format for batch summary
+
+        Args:
+            summary: Summary dictionary with metadata and statistics
+
+        Returns:
+            Formatted Markdown string
+        """
+        metadata = summary.get("metadata", {})
+        stats = summary.get("statistics", {})
+
+        md = "---\n"
+        md += f"timestamp: {metadata.get('timestamp', 'N/A')}\n"
+        md += f"start_time: {metadata.get('start_time', 'N/A')}\n"
+        md += f"end_time: {metadata.get('end_time', 'N/A')}\n"
+
+        if metadata.get('manual_code'):
+            md += f"manual_code: {metadata.get('manual_code')}\n"
+        if metadata.get('product_code'):
+            md += f"product_code: {metadata.get('product_code')}\n"
+        if metadata.get('version'):
+            md += f"version: {metadata.get('version')}\n"
+
+        md += "---\n\n"
+
+        md += "# Batch Processing Summary\n\n"
+
+        # Processing Information
+        md += "## Processing Information\n\n"
+        md += f"- **Start Time**: {metadata.get('start_time', 'N/A')}\n"
+        md += f"- **End Time**: {metadata.get('end_time', 'N/A')}\n"
+        md += f"- **Timestamp**: {metadata.get('timestamp', 'N/A')}\n\n"
+
+        # Manual Information
+        if metadata.get('manual_code'):
+            md += "## Manual Information\n\n"
+            md += f"- **Manual Code**: `{metadata.get('manual_code')}`\n"
+            md += f"- **Product Code**: `{metadata.get('product_code', 'N/A')}`\n"
+            md += f"- **Version**: {metadata.get('version', 'N/A')}\n"
+            if metadata.get('document_title'):
+                md += f"- **Document Title**: {metadata.get('document_title')}\n"
+            md += "\n"
+
+        # Statistics
+        md += "## Statistics\n\n"
+        md += f"| Metric | Value |\n"
+        md += f"|--------|-------|\n"
+        md += f"| Total Pages | {stats.get('total_pages', 0)} |\n"
+        md += f"| Successful Pages | {stats.get('successful_pages', 0)} |\n"
+        md += f"| Failed Pages | {stats.get('failed_pages', 0)} |\n"
+        md += f"| Success Rate | **{stats.get('success_rate', '0%')}** |\n\n"
+
+        # Visual indicator
+        success_rate_float = float(stats.get('success_rate', '0%').rstrip('%'))
+        if success_rate_float == 100:
+            md += "✅ **Status**: All pages processed successfully!\n\n"
+        elif success_rate_float >= 80:
+            md += "⚠️ **Status**: Most pages processed successfully\n\n"
+        else:
+            md += "❌ **Status**: Significant failures detected\n\n"
+
+        return md
 
 
 # ============================================================================
