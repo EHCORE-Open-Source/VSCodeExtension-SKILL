@@ -315,21 +315,29 @@ functionName(value1 value2)
 A page is a NEW function page ONLY if it has **ALL** of these:
 
 ✅ **Large function name heading** (H1 level)
-✅ **Function call syntax pattern**: `functionName(parameters)` or `functionName( ... ) => returnType`
+✅ **Function call syntax at THE VERY TOP of content area**
+✅ **Format**: `functionName(parameters)` or `functionName( ... ) => returnType`
+✅ **Position**: MUST appear BEFORE any section headings (Description, Arguments, Examples, etc.)
 
 **Example of NEW function page**:
 ```
 ───────────────────────────
 append                         ← Function name (H1)
 
-append(l_list1 l_list2)       ← Function call syntax (REQUIRED!)
-=> l_result
+append(l_list1 l_list2)       ← Function call syntax at TOP (REQUIRED!)
+=> l_result                      ← BEFORE "Description" section
+
+Description                    ← Section heading comes AFTER syntax
 
 Concatenates two lists...
 ───────────────────────────
 ```
 
-**Without function call syntax → NOT a new function!**
+**⚠️ CRITICAL POSITION RULE:**
+- Function syntax MUST be at THE VERY TOP of content area
+- If page starts with "Arguments", "Examples", "Description" → CONTINUATION, NOT new function
+- Syntax in Examples section does NOT count as new function
+- **Without syntax at top → NOT a new function!**
 
 ### Rule 2: Section Headings are NOT Function Names
 
