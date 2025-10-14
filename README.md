@@ -1,6 +1,6 @@
 # Cadence SKILL Extension for Visual Studio Code
 
-[![Version](https://img.shields.io/badge/version-0.0.10-blue.svg)](https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL)
+[![Version](https://img.shields.io/badge/version-0.0.11-blue.svg)](https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![VSCode](https://img.shields.io/badge/VSCode-^1.88.0-007ACC.svg)](https://code.visualstudio.com/)
 
@@ -16,6 +16,10 @@ A comprehensive Visual Studio Code extension that provides rich language support
   - Object and variable highlighting
   - Input/output specification syntax
 - **Markdown Integration**: SKILL code block syntax highlighting in Markdown files
+- **Embedded Language Support** 🆕: Syntax highlighting for YAML, Markdown, and JSON within SKILL block comments
+  - Use triple backticks with language identifier (e.g., ` ```yaml `, ` ```markdown `, ` ```json `)
+  - Perfect for documenting configuration examples, API responses, and structured data
+  - See [Embedded Language Syntax Guide](docs/EMBEDDED_LANGUAGE_SYNTAX.md) for details
 - **Tool-Specific Keywords**: Support for Virtuoso OCEAN XL and other Cadence tool-specific functions
 
 ### 🔍 IntelliSense & Auto-Completion
@@ -261,7 +265,12 @@ python3 scripts/extract_skill_functions.py
 
 ## 🆕 Release Notes
 
-### Version 0.0.10 (Latest)
+### Version 0.0.11 (Latest)
+- ✨ Added embedded language syntax highlighting for YAML, Markdown, and JSON in block comments
+- 🔧 Fixed 29 TypeScript compilation errors and restructured project configuration
+- 📚 Added comprehensive developer documentation and test helper utilities
+
+### Version 0.0.10
 - ✨ Enhanced procedure indexing with recursive subdirectory scanning
 - 🔍 Improved file path navigation prioritizing configured `searchFolderPath`
 - 📂 Recursive file search for procedure navigation and file links

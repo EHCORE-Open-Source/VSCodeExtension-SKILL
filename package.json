@@ -2,7 +2,7 @@
   "name": "cadence-skill-support-package",
   "displayName": "Cadence SKILL Extension",
   "description": "Cadence SKILL language support",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "publisher": "ephoton0210-taiwan",
   "private": false,
   "license": "MIT",
