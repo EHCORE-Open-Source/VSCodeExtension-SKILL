@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { createFunctionReviewer } from '../utils/function-reviewer';
 import type { FunctionDefinition, FunctionReviewResult } from '../utils/function-review-types';
+import { createModernFunction, createLegacyFunction, createArgument } from '../utils/test-helpers';
 
 /**
  * Test Suite: SKILL Function Review System
@@ -12,7 +13,7 @@ import type { FunctionDefinition, FunctionReviewResult } from '../utils/function
  */
 
 test.describe('Function Reviewer Tests', () => {
-  let reviewer;
+  let reviewer: ReturnType<typeof createFunctionReviewer>;
   const testDataDir = path.join(process.cwd(), 'test-data');
   const testOutputDir = path.join(process.cwd(), 'test-results', 'function-reviews');
 
@@ -98,12 +99,11 @@ test.describe('Function Reviewer Tests', () => {
   });
 
   test('should detect validation errors for incomplete function', async () => {
-    const incompleteFunction = {
+    const incompleteFunction = createModernFunction({
       function_name: '', // Empty name - should error
       category: 'Test',
-      description: '', // Empty description - should error
-      primary_syntax: null
-    };
+      description: '' // Empty description - should error
+    });
 
     const result = await reviewer.reviewFunction(incompleteFunction);
 
@@ -118,18 +118,11 @@ test.describe('Function Reviewer Tests', () => {
   });
 
   test('should detect warnings for uncategorized function', async () => {
-    const uncategorizedFunction = {
+    const uncategorizedFunction = createModernFunction({
       function_name: 'testFunc',
       category: 'Uncategorized',
-      description: 'A test function',
-      primary_syntax: {
-        syntax_string: 'testFunc()',
-        return_syntax: 'nil',
-        description: 'Test',
-        arguments: [],
-        return_values: []
-      }
-    };
+      description: 'A test function'
+    });
 
     const result = await reviewer.reviewFunction(uncategorizedFunction);
 
@@ -142,7 +135,7 @@ test.describe('Function Reviewer Tests', () => {
   });
 
   test('should calculate quality scores correctly', async () => {
-    const wellDocumentedFunction = {
+    const wellDocumentedFunction = createModernFunction({
       function_name: 'testFunc',
       category: 'Test Functions',
       description: 'This is a well-documented test function with a comprehensive description that explains what it does, how to use it, and what to expect. It provides clear guidance for developers.',
@@ -152,16 +145,14 @@ test.describe('Function Reviewer Tests', () => {
         return_syntax: 't/nil',
         description: 'Detailed syntax description',
         arguments: [
-          {
+          createArgument({
             name: 'l_list',
             type_prefix: 'l',
             type_description: 'list',
             description: 'Input list parameter with detailed explanation',
             parameter_type: 0,
-            position: 0,
-            is_keyword: false,
-            default_value: null
-          }
+            position: 0
+          })
         ],
         return_values: [
           {
@@ -180,19 +171,13 @@ test.describe('Function Reviewer Tests', () => {
           position: 0
         }
       ],
-      sources: {
-        source_file: 'test.pdf',
-        source_images: [],
-        start_page: '1',
-        end_page: '1'
-      },
       metadata: {
         verified: true,
         extraction_confidence: 0.95,
         needs_review: false,
         parser_version: '1.0'
       }
-    };
+    });
 
     const result = await reviewer.reviewFunction(wellDocumentedFunction);
 
@@ -204,19 +189,12 @@ test.describe('Function Reviewer Tests', () => {
   });
 
   test('should generate relevant suggestions', async () => {
-    const needsImprovementFunction = {
+    const needsImprovementFunction = createModernFunction({
       function_name: 'poorFunc',
       category: 'Uncategorized',
       description: 'Short desc', // Too short
-      primary_syntax: {
-        syntax_string: 'poorFunc()',
-        return_syntax: 'nil',
-        description: 'Test',
-        arguments: [],
-        return_values: []
-      },
       examples: [] // No examples
-    };
+    });
 
     const result = await reviewer.reviewFunction(needsImprovementFunction);
 
@@ -242,18 +220,11 @@ test.describe('Function Reviewer Tests', () => {
   });
 
   test('should format review as markdown correctly', async () => {
-    const testFunction = {
+    const testFunction = createModernFunction({
       function_name: 'markdownTest',
       category: 'Test',
-      description: 'Test function for markdown formatting',
-      primary_syntax: {
-        syntax_string: 'markdownTest()',
-        return_syntax: 'nil',
-        description: 'Test',
-        arguments: [],
-        return_values: []
-      }
-    };
+      description: 'Test function for markdown formatting'
+    });
 
     const result = await reviewer.reviewFunction(testFunction);
     const markdown = reviewer.formatAsMarkdown(result);
@@ -272,25 +243,18 @@ test.describe('Function Reviewer Tests', () => {
   });
 
   test('should handle batch review of multiple functions', async () => {
-    const functions = [
-      {
+    const functions: FunctionDefinition[] = [
+      createLegacyFunction({
         function_name: 'func1',
         category: 'Test',
         description: 'First test function',
         syntax: 'func1()'
-      },
-      {
+      }),
+      createModernFunction({
         function_name: 'func2',
         category: 'Test',
-        description: 'Second test function',
-        primary_syntax: {
-          syntax_string: 'func2()',
-          return_syntax: 'nil',
-          description: 'Test',
-          arguments: [],
-          return_values: []
-        }
-      }
+        description: 'Second test function'
+      })
     ];
 
     const results = [];
@@ -313,9 +277,10 @@ test.describe('Function Reviewer Tests', () => {
       checkTypeConsistency: true
     });
 
-    const inconsistentFunction = {
+    const inconsistentFunction: FunctionDefinition = {
       function_name: 'inconsistentFunc',
       category: 'Test',
+      category_hierarchy: ['Test'],
       description: 'Function with inconsistent types',
       primary_syntax: {
         syntax_string: 'inconsistentFunc( x_value )',
@@ -334,6 +299,27 @@ test.describe('Function Reviewer Tests', () => {
           }
         ],
         return_values: []
+      },
+      overloads: [],
+      notes: null,
+      examples: [],
+      aliases: [],
+      availability: {
+        product_code: 'SKILL',
+        product_release_id: null,
+        status: 'active'
+      },
+      sources: {
+        source_file: 'test.pdf',
+        source_images: [],
+        start_page: '1',
+        end_page: '1'
+      },
+      metadata: {
+        verified: false,
+        extraction_confidence: 1.0,
+        needs_review: false,
+        parser_version: '1.0'
       }
     };
 
@@ -347,12 +333,12 @@ test.describe('Function Reviewer Tests', () => {
   });
 
   test('should save results in different formats', async () => {
-    const testFunction = {
+    const testFunction = createLegacyFunction({
       function_name: 'formatTest',
       category: 'Test',
       description: 'Testing output formats',
       syntax: 'formatTest()'
-    };
+    });
 
     const result = await reviewer.reviewFunction(testFunction);
 
@@ -378,11 +364,11 @@ test.describe('Function Reviewer Tests', () => {
  * Integration Tests with Real Files
  */
 test.describe('Real Function File Reviews', () => {
-  test('should review all JSON files in functions directory', async ({ skip }) => {
+  test('should review all JSON files in functions directory', async () => {
     const functionsDir = 'functions';
 
     if (!fs.existsSync(functionsDir)) {
-      skip();
+      test.skip();
       return;
     }
 
@@ -391,7 +377,7 @@ test.describe('Real Function File Reviews', () => {
       .slice(0, 5); // Limit to 5 files for testing
 
     if (files.length === 0) {
-      skip();
+      test.skip();
       return;
     }
 

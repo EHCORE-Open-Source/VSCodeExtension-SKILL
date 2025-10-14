@@ -63,7 +63,7 @@ export class ChromeDevToolsHelper {
       this.networkRequests.push({
         url: params.request.url,
         method: params.request.method,
-        type: params.type,
+        type: params.type || 'Unknown',
         size: 0,
         time: 0,
         timestamp: params.timestamp,

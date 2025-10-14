@@ -29,10 +29,10 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, the extension "VSCodeExtension-SKILL" is now active!');
 }
 
-function getFunctionDescription(description: string[][]): vscode.MarkdownString {
+function getFunctionDescription(description: string[]): vscode.MarkdownString {
     const topicSet = new vscode.MarkdownString();
     description.forEach(topic => {
-        topicSet.appendMarkdown(topic.join(' '));
+        topicSet.appendMarkdown(topic);
         topicSet.appendText('\n');
         topicSet.isTrusted = true;
     });

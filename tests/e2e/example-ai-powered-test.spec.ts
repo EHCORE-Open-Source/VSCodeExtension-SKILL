@@ -141,11 +141,12 @@ test.describe('E2E Example: Homepage Tests', () => {
     try {
       // Intentionally failing action for demo
       await page.click('button#non-existent', { timeout: 5000 });
-    } catch (error) {
+    } catch (error: unknown) {
       // Use AI to analyze failure
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const analysis = await ai.analyzeFailure(
         'Homepage button click test',
-        error.message
+        errorMessage
       );
 
       console.log('AI Failure Analysis:');
@@ -181,7 +182,7 @@ test.describe('E2E Example: Homepage Tests', () => {
     // Analyze coverage (you can integrate with tools like Istanbul)
     const totalFunctions = coverage.result.length;
     const coveredFunctions = coverage.result.filter(
-      fn => fn.functions?.some(f => f.ranges.some(r => r.count > 0))
+      (fn: any) => fn.functions?.some((f: any) => f.ranges.some((r: any) => r.count > 0))
     ).length;
 
     console.log(`Coverage: ${coveredFunctions}/${totalFunctions} functions`);

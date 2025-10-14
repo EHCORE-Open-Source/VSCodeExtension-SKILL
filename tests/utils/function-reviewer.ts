@@ -518,14 +518,16 @@ export class FunctionReviewer {
   private async performAIAnalysis(definition: FunctionDefinition): Promise<string> {
     if (!this.ai) return '';
 
-    const prompt = `Analyze this SKILL function definition and provide insights:
+    try {
+      // Create a prompt for AI analysis
+      const analysisPrompt = `Analyze this SKILL function definition and provide insights:
 
 Function: ${definition.function_name}
 Category: ${definition.category}
 Description: ${definition.description}
 
 ${isModernFormat(definition) ? `
-Arguments: ${definition.primary_syntax.arguments.map(a => `${a.name} (${a.type_description})`).join(', ')}
+Arguments: ${definition.primary_syntax.arguments.map((a: any) => `${a.name} (${a.type_description})`).join(', ')}
 Return: ${definition.primary_syntax.return_syntax}
 ` : `
 Syntax: ${(definition as LegacyFunctionDefinition).syntax}
@@ -539,11 +541,15 @@ Please provide:
 
 Keep the response concise and actionable.`;
 
-    try {
-      const analysis = await this.ai.queryAI(prompt);
+      // Use a public method instead of private queryAI
+      const analysis = await this.ai.analyzeFailure(
+        `Function: ${definition.function_name}`,
+        analysisPrompt
+      );
       return analysis;
-    } catch (error) {
-      return `AI analysis failed: ${error.message}`;
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      return `AI analysis failed: ${errorMessage}`;
     }
   }
 
