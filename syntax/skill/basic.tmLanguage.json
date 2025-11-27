@@ -320,6 +320,164 @@
     "pcreKeyword": {
       "patterns": [
         {
+          "comment": "PCRE non-capturing group",
+          "begin": "(\\()(\\?:)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.group"
+            },
+            "2": {
+              "name": "keyword.control.cadence.skill.pcre.group strong.cadence.skill.pcre.group"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.group"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreKeyword"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE positive lookahead",
+          "begin": "(\\()(\\?=)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.lookahead"
+            },
+            "2": {
+              "name": "keyword.control.cadence.skill.pcre.lookahead strong.cadence.skill.pcre.lookahead"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.lookahead"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreKeyword"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE negative lookahead",
+          "begin": "(\\()(\\?!)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.lookahead"
+            },
+            "2": {
+              "name": "keyword.control.cadence.skill.pcre.lookahead strong.cadence.skill.pcre.lookahead"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.lookahead"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreKeyword"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE positive lookbehind",
+          "begin": "(\\()(\\?<=)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.lookbehind"
+            },
+            "2": {
+              "name": "keyword.control.cadence.skill.pcre.lookbehind strong.cadence.skill.pcre.lookbehind"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.lookbehind"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreKeyword"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE negative lookbehind",
+          "begin": "(\\()(\\?<!)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.lookbehind"
+            },
+            "2": {
+              "name": "keyword.control.cadence.skill.pcre.lookbehind strong.cadence.skill.pcre.lookbehind"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "keyword.control.cadence.skill.pcre.lookbehind"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreKeyword"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE flags and modifiers",
+          "name": "keyword.control.cadence.skill.pcre.flag strong.cadence.skill.pcre.flag",
+          "match": "\\(\\?-?[imsx]+\\)"
+        },
+        {
+          "comment": "PCRE regular capturing group",
+          "begin": "(\\()",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.operator.cadence.skill.pcre.capture"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "keyword.operator.cadence.skill.pcre.capture"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreKeyword"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
           "comment": "PCRE escaped left paren",
           "name": "constant.character.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
           "match": "\\\\\\\\\\("
@@ -419,17 +577,17 @@
               "include": "#rexCharset"
             },
             {
-              "comment": "rex character set",
-              "begin": "(\\\\\\()",
-              "end": "(\\\\\\))",
+              "comment": "rex escaped parentheses grouping",
+              "begin": "(\\\\\\\\\\()",
+              "end": "(\\\\\\\\\\))",
               "beginCaptures": {
                 "1": {
-                  "name": "markup.underline.cadence.skill.rex.begin"
+                  "name": "constant.character.escape.cadence.skill.rex.group strong.cadence.skill.rex.group"
                 }
               },
               "endCaptures": {
                 "1": {
-                  "name": "markup.underline.cadence.skill.rex.end"
+                  "name": "constant.character.escape.cadence.skill.rex.group strong.cadence.skill.rex.group"
                 }
               },
               "patterns": [
@@ -481,14 +639,24 @@
     "rexKeyword": {
       "patterns": [
         {
-          "comment": "special characters with octal notation",
-          "name": "support.variable.cadence.skill.rex.specification",
-          "match": "\\\\[0-9]+"
+          "comment": "rex word boundaries",
+          "begin": "(\\\\\\\\<)",
+          "end": "(\\\\\\\\>)",
+          "beginCaptures": {
+            "1": {
+              "name": "constant.character.escape.cadence.skill.rex.boundary strong.cadence.skill.rex.boundary"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "constant.character.escape.cadence.skill.rex.boundary strong.cadence.skill.rex.boundary"
+            }
+          }
         },
         {
-          "name": "string.cadence.skill.rex.keyword constant.regexp.cadence.skill.rex.keyword strong.cadence.skill.rex.keyword",
-          "begin": "\\\\<",
-          "end": "\\\\>"
+          "comment": "rex backreferences",
+          "name": "constant.character.escape.cadence.skill.rex.backreference strong.cadence.skill.rex.backreference",
+          "match": "\\\\\\\\[0-9]+"
         }
       ]
     },
