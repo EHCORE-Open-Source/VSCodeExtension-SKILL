@@ -295,23 +295,46 @@
       "patterns": [
         {
           "comment": "PCRE character set",
-          "begin": "\\[",
-          "end": "\\]",
+          "begin": "(\\[)(\\^)?",
+          "end": "(\\])",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.definition.character-class.begin.cadence.skill.pcre keyword.operator.cadence.skill.pcre.charset"
+            },
+            "2": {
+              "name": "keyword.operator.negation.cadence.skill.pcre.charset"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.character-class.end.cadence.skill.pcre keyword.operator.cadence.skill.pcre.charset"
+            }
+          },
           "patterns": [
             {
-              "comment": "character set escape",
-              "name": "entity.name.tag strong.cadence.skill.pcre.escape",
-              "match": "(?<=\\[)\\^"
-            },
-            {
-              "name": "string.cadence.skill.pcre.charset constant.regexp.cadence.skill.pcre.charset strong.cadence.skill.pcre.charset",
+              "comment": "POSIX character class",
+              "name": "support.constant.cadence.skill.pcre.posix",
               "match": "\\[:(?:alnum|alpha|ascii|blank|cntrl|x?digit|graph|lower|print|punct|space|upper|word):\\]"
             },
             {
-              "include": "#pcreKeyword"
+              "comment": "Character range with underlined endpoints",
+              "match": "(\\\\\\\\.|[^\\]\\\\-])(-)(\\\\\\\\.|[^\\]\\\\-])",
+              "captures": {
+                "1": {
+                  "name": "markup.underline.cadence.skill.pcre.range.start"
+                },
+                "2": {
+                  "name": "markup.underline.cadence.skill.pcre.range.hyphen keyword.operator.range.cadence.skill.pcre.charset"
+                },
+                "3": {
+                  "name": "markup.underline.cadence.skill.pcre.range.end"
+                }
+              }
             },
             {
-              "include": "#pcreSpecification"
+              "comment": "Escaped character in charset",
+              "name": "string.regexp.escape.cadence.skill.pcre.charset",
+              "match": "\\\\\\\\."
             }
           ]
         }
