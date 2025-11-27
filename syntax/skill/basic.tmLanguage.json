@@ -320,25 +320,38 @@
     "pcreKeyword": {
       "patterns": [
         {
-          "comment": "PCRE non-capturing group",
+          "include": "#pcreGroupLevel1"
+        },
+        {
+          "include": "#pcreKeywordBase"
+        }
+      ]
+    },
+    "pcreGroupLevel1": {
+      "patterns": [
+        {
+          "comment": "PCRE non-capturing group - Level 1",
           "begin": "(\\()(\\?:)",
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.group"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             },
             "2": {
-              "name": "keyword.control.cadence.skill.pcre.group strong.cadence.skill.pcre.group"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill strong.cadence.skill.pcre.group.level1"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.group"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             }
           },
           "patterns": [
             {
-              "include": "#pcreKeyword"
+              "include": "#pcreGroupLevel2"
+            },
+            {
+              "include": "#pcreKeywordBase"
             },
             {
               "include": "#pcreCharset"
@@ -346,25 +359,28 @@
           ]
         },
         {
-          "comment": "PCRE positive lookahead",
+          "comment": "PCRE positive lookahead - Level 1",
           "begin": "(\\()(\\?=)",
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.lookahead"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             },
             "2": {
-              "name": "keyword.control.cadence.skill.pcre.lookahead strong.cadence.skill.pcre.lookahead"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill strong.cadence.skill.pcre.lookahead.level1"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.lookahead"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             }
           },
           "patterns": [
             {
-              "include": "#pcreKeyword"
+              "include": "#pcreGroupLevel2"
+            },
+            {
+              "include": "#pcreKeywordBase"
             },
             {
               "include": "#pcreCharset"
@@ -372,25 +388,28 @@
           ]
         },
         {
-          "comment": "PCRE negative lookahead",
+          "comment": "PCRE negative lookahead - Level 1",
           "begin": "(\\()(\\?!)",
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.lookahead"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             },
             "2": {
-              "name": "keyword.control.cadence.skill.pcre.lookahead strong.cadence.skill.pcre.lookahead"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill strong.cadence.skill.pcre.lookahead.level1"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.lookahead"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             }
           },
           "patterns": [
             {
-              "include": "#pcreKeyword"
+              "include": "#pcreGroupLevel2"
+            },
+            {
+              "include": "#pcreKeywordBase"
             },
             {
               "include": "#pcreCharset"
@@ -398,25 +417,28 @@
           ]
         },
         {
-          "comment": "PCRE positive lookbehind",
+          "comment": "PCRE positive lookbehind - Level 1",
           "begin": "(\\()(\\?<=)",
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.lookbehind"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             },
             "2": {
-              "name": "keyword.control.cadence.skill.pcre.lookbehind strong.cadence.skill.pcre.lookbehind"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill strong.cadence.skill.pcre.lookbehind.level1"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.lookbehind"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             }
           },
           "patterns": [
             {
-              "include": "#pcreKeyword"
+              "include": "#pcreGroupLevel2"
+            },
+            {
+              "include": "#pcreKeywordBase"
             },
             {
               "include": "#pcreCharset"
@@ -424,25 +446,28 @@
           ]
         },
         {
-          "comment": "PCRE negative lookbehind",
+          "comment": "PCRE negative lookbehind - Level 1",
           "begin": "(\\()(\\?<!)",
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.lookbehind"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             },
             "2": {
-              "name": "keyword.control.cadence.skill.pcre.lookbehind strong.cadence.skill.pcre.lookbehind"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill strong.cadence.skill.pcre.lookbehind.level1"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "keyword.control.cadence.skill.pcre.lookbehind"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             }
           },
           "patterns": [
             {
-              "include": "#pcreKeyword"
+              "include": "#pcreGroupLevel2"
+            },
+            {
+              "include": "#pcreKeywordBase"
             },
             {
               "include": "#pcreCharset"
@@ -450,33 +475,40 @@
           ]
         },
         {
-          "comment": "PCRE flags and modifiers",
-          "name": "keyword.control.cadence.skill.pcre.flag strong.cadence.skill.pcre.flag",
+          "comment": "PCRE flags and modifiers - Level 1",
+          "name": "keyword.control.bracket.pcre.level1.cadence.skill strong.cadence.skill.pcre.flag.level1",
           "match": "\\(\\?-?[imsx]+\\)"
         },
         {
-          "comment": "PCRE regular capturing group",
+          "comment": "PCRE regular capturing group - Level 1",
           "begin": "(\\()",
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "keyword.operator.cadence.skill.pcre.capture"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "keyword.operator.cadence.skill.pcre.capture"
+              "name": "keyword.control.bracket.pcre.level1.cadence.skill"
             }
           },
           "patterns": [
             {
-              "include": "#pcreKeyword"
+              "include": "#pcreGroupLevel2"
+            },
+            {
+              "include": "#pcreKeywordBase"
             },
             {
               "include": "#pcreCharset"
             }
           ]
-        },
+        }
+      ]
+    },
+    "pcreKeywordBase": {
+      "patterns": [
         {
           "comment": "PCRE escaped left paren",
           "name": "constant.character.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
@@ -546,6 +578,546 @@
           "comment": "PCRE generic escape",
           "name": "constant.character.escape.cadence.skill.pcre.escape",
           "match": "\\\\\\\\."
+        }
+      ]
+    },
+    "pcreGroupLevel2": {
+      "patterns": [
+        {
+          "comment": "PCRE non-capturing group - Level 2",
+          "begin": "(\\()(\\?:)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            },
+            "2": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill strong.cadence.skill.pcre.group.level2"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel3"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE positive lookahead - Level 2",
+          "begin": "(\\()(\\?=)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            },
+            "2": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill strong.cadence.skill.pcre.lookahead.level2"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel3"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE negative lookahead - Level 2",
+          "begin": "(\\()(\\?!)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            },
+            "2": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill strong.cadence.skill.pcre.lookahead.level2"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel3"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE positive lookbehind - Level 2",
+          "begin": "(\\()(\\?<=)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            },
+            "2": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill strong.cadence.skill.pcre.lookbehind.level2"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel3"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE negative lookbehind - Level 2",
+          "begin": "(\\()(\\?<!)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            },
+            "2": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill strong.cadence.skill.pcre.lookbehind.level2"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel3"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE flags and modifiers - Level 2",
+          "name": "entity.name.function.bracket.pcre.level2.cadence.skill strong.cadence.skill.pcre.flag.level2",
+          "match": "\\(\\?-?[imsx]+\\)"
+        },
+        {
+          "comment": "PCRE regular capturing group - Level 2",
+          "begin": "(\\()",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "entity.name.function.bracket.pcre.level2.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel3"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        }
+      ]
+    },
+    "pcreGroupLevel3": {
+      "patterns": [
+        {
+          "comment": "PCRE non-capturing group - Level 3",
+          "begin": "(\\()(\\?:)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            },
+            "2": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.group.level3"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel4"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE positive lookahead - Level 3",
+          "begin": "(\\()(\\?=)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            },
+            "2": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookahead.level3"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel4"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE negative lookahead - Level 3",
+          "begin": "(\\()(\\?!)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            },
+            "2": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookahead.level3"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel4"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE positive lookbehind - Level 3",
+          "begin": "(\\()(\\?<=)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            },
+            "2": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookbehind.level3"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel4"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE negative lookbehind - Level 3",
+          "begin": "(\\()(\\?<!)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            },
+            "2": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookbehind.level3"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel4"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE flags and modifiers - Level 3",
+          "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.flag.level3",
+          "match": "\\(\\?-?[imsx]+\\)"
+        },
+        {
+          "comment": "PCRE regular capturing group - Level 3",
+          "begin": "(\\()",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel4"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        }
+      ]
+    },
+    "pcreGroupLevel4": {
+      "patterns": [
+        {
+          "comment": "PCRE non-capturing group - Level 4",
+          "begin": "(\\()(\\?:)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            },
+            "2": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill strong.cadence.skill.pcre.group.level4"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel1"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE positive lookahead - Level 4",
+          "begin": "(\\()(\\?=)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            },
+            "2": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill strong.cadence.skill.pcre.lookahead.level4"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel1"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE negative lookahead - Level 4",
+          "begin": "(\\()(\\?!)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            },
+            "2": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill strong.cadence.skill.pcre.lookahead.level4"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel1"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE positive lookbehind - Level 4",
+          "begin": "(\\()(\\?<=)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            },
+            "2": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill strong.cadence.skill.pcre.lookbehind.level4"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel1"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE negative lookbehind - Level 4",
+          "begin": "(\\()(\\?<!)",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            },
+            "2": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill strong.cadence.skill.pcre.lookbehind.level4"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel1"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
+        },
+        {
+          "comment": "PCRE flags and modifiers - Level 4",
+          "name": "constant.numeric.bracket.pcre.level4.cadence.skill strong.cadence.skill.pcre.flag.level4",
+          "match": "\\(\\?-?[imsx]+\\)"
+        },
+        {
+          "comment": "PCRE regular capturing group - Level 4",
+          "begin": "(\\()",
+          "end": "(\\))",
+          "beginCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "constant.numeric.bracket.pcre.level4.cadence.skill"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#pcreGroupLevel1"
+            },
+            {
+              "include": "#pcreKeywordBase"
+            },
+            {
+              "include": "#pcreCharset"
+            }
+          ]
         }
       ]
     },
