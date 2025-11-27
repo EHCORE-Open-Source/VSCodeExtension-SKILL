@@ -511,72 +511,72 @@
       "patterns": [
         {
           "comment": "PCRE escaped left paren",
-          "name": "constant.character.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
+          "name": "string.regexp.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
           "match": "\\\\\\\\\\("
         },
         {
           "comment": "PCRE escaped right paren",
-          "name": "constant.character.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
+          "name": "string.regexp.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
           "match": "\\\\\\\\\\)"
         },
         {
           "comment": "PCRE escaped left bracket",
-          "name": "constant.character.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
+          "name": "string.regexp.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
           "match": "\\\\\\\\\\["
         },
         {
           "comment": "PCRE escaped right bracket",
-          "name": "constant.character.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
+          "name": "string.regexp.escape.cadence.skill.pcre.metachar strong.cadence.skill.pcre.metachar",
           "match": "\\\\\\\\\\]"
         },
         {
           "comment": "PCRE whitespace character class",
-          "name": "constant.character.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
+          "name": "string.regexp.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
           "match": "\\\\\\\\s"
         },
         {
           "comment": "PCRE non-whitespace character class",
-          "name": "constant.character.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
+          "name": "string.regexp.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
           "match": "\\\\\\\\S"
         },
         {
           "comment": "PCRE digit character class",
-          "name": "constant.character.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
+          "name": "string.regexp.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
           "match": "\\\\\\\\d"
         },
         {
           "comment": "PCRE non-digit character class",
-          "name": "constant.character.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
+          "name": "string.regexp.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
           "match": "\\\\\\\\D"
         },
         {
           "comment": "PCRE word character class",
-          "name": "constant.character.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
+          "name": "string.regexp.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
           "match": "\\\\\\\\w"
         },
         {
           "comment": "PCRE non-word character class",
-          "name": "constant.character.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
+          "name": "string.regexp.escape.cadence.skill.pcre.charclass strong.cadence.skill.pcre.charclass",
           "match": "\\\\\\\\W"
         },
         {
           "comment": "PCRE word boundary",
-          "name": "constant.character.escape.cadence.skill.pcre.boundary strong.cadence.skill.pcre.boundary",
+          "name": "string.regexp.escape.cadence.skill.pcre.boundary strong.cadence.skill.pcre.boundary",
           "match": "\\\\\\\\b"
         },
         {
           "comment": "PCRE non-word boundary",
-          "name": "constant.character.escape.cadence.skill.pcre.boundary strong.cadence.skill.pcre.boundary",
+          "name": "string.regexp.escape.cadence.skill.pcre.boundary strong.cadence.skill.pcre.boundary",
           "match": "\\\\\\\\B"
         },
         {
           "comment": "PCRE other common escapes",
-          "name": "constant.character.escape.cadence.skill.pcre.escape",
+          "name": "string.regexp.escape.cadence.skill.pcre.escape",
           "match": "\\\\\\\\[frnvt.+*?|^$]"
         },
         {
           "comment": "PCRE generic escape",
-          "name": "constant.character.escape.cadence.skill.pcre.escape",
+          "name": "string.regexp.escape.cadence.skill.pcre.escape",
           "match": "\\\\\\\\."
         }
       ]
@@ -769,15 +769,15 @@
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             },
             "2": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.group.level3"
+              "name": "support.type.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.group.level3"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             }
           },
           "patterns": [
@@ -798,15 +798,15 @@
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             },
             "2": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookahead.level3"
+              "name": "support.type.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookahead.level3"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             }
           },
           "patterns": [
@@ -827,15 +827,15 @@
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             },
             "2": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookahead.level3"
+              "name": "support.type.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookahead.level3"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             }
           },
           "patterns": [
@@ -856,15 +856,15 @@
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             },
             "2": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookbehind.level3"
+              "name": "support.type.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookbehind.level3"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             }
           },
           "patterns": [
@@ -885,15 +885,15 @@
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             },
             "2": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookbehind.level3"
+              "name": "support.type.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.lookbehind.level3"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             }
           },
           "patterns": [
@@ -910,7 +910,7 @@
         },
         {
           "comment": "PCRE flags and modifiers - Level 3",
-          "name": "variable.parameter.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.flag.level3",
+          "name": "support.type.bracket.pcre.level3.cadence.skill strong.cadence.skill.pcre.flag.level3",
           "match": "\\(\\?-?[imsx]+\\)"
         },
         {
@@ -919,12 +919,12 @@
           "end": "(\\))",
           "beginCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             }
           },
           "endCaptures": {
             "1": {
-              "name": "variable.parameter.bracket.pcre.level3.cadence.skill"
+              "name": "support.type.bracket.pcre.level3.cadence.skill"
             }
           },
           "patterns": [
