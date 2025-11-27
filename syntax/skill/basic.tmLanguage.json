@@ -169,64 +169,22 @@
           ]
         },
         {
-          "comment": "PCRE functions first parameter",
-          "begin": "(?<=\\bpcre(Compile|MatchAssocList|MatchList|Matchp)\\()",
-          "end": "(?=\\))",
+          "comment": "PCRE functions - first string parameter only",
+          "begin": "(?<=\\bpcre(Compile|MatchAssocList|MatchList|Matchp)\\()\\s*(?=\")",
+          "end": "(?<=\")",
           "patterns": [
             {
-              "include": "#comment"
-            },
-            {
               "include": "#pcreSpecification"
-            },
-            {
-              "include": "#strings"
-            },
-            {
-              "include": "#numeric"
-            },
-            {
-              "include": "#flavor"
-            },
-            {
-              "include": "source.cadence.skill.function"
-            },
-            {
-              "include": "#keyword"
-            },
-            {
-              "include": "#parameter"
             }
           ]
         },
         {
-          "comment": "REX functions first parameter",
-          "begin": "(?<=\\brex(Compile|MatchAssocList|MatchList|Matchp)\\()",
-          "end": "(?=\\))",
+          "comment": "REX functions - first string parameter only",
+          "begin": "(?<=\\brex(Compile|MatchAssocList|MatchList|Matchp)\\()\\s*(?=\")",
+          "end": "(?<=\")",
           "patterns": [
             {
-              "include": "#comment"
-            },
-            {
               "include": "#rexSpecification"
-            },
-            {
-              "include": "#strings"
-            },
-            {
-              "include": "#numeric"
-            },
-            {
-              "include": "#flavor"
-            },
-            {
-              "include": "source.cadence.skill.function"
-            },
-            {
-              "include": "#keyword"
-            },
-            {
-              "include": "#parameter"
             }
           ]
         }
