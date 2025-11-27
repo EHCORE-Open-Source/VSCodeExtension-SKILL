@@ -169,8 +169,8 @@
           ]
         },
         {
-          "comment": "double quotes",
-          "begin": "(?<=\\bpcre(Compile|MatchAssocList)\\()",
+          "comment": "PCRE functions first parameter",
+          "begin": "(?<=\\bpcre(Compile|MatchAssocList|MatchList|Matchp)\\()",
           "end": "(?=\\))",
           "patterns": [
             {
@@ -200,8 +200,8 @@
           ]
         },
         {
-          "comment": "double quotes",
-          "begin": "(?<=\\brex(Compile|Matchp)\\()",
+          "comment": "REX functions first parameter",
+          "begin": "(?<=\\brex(Compile|MatchAssocList|MatchList|Matchp)\\()",
           "end": "(?=\\))",
           "patterns": [
             {
