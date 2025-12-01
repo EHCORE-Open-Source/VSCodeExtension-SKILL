@@ -33,14 +33,19 @@ A comprehensive Visual Studio Code extension that provides rich language support
 - **Breadcrumb Support**: Shows current procedure context in the editor breadcrumb
 - **Recursive File Search**: Supports searching across subdirectories in configured paths
 
-### 🔗 File Linking
-- **Automatic File Detection**: Recognizes and links SKILL file references
+### 🔗 File Linking & Variable Data Flow Analysis
+- **Intelligent File Detection**: Advanced variable tracking and data flow analysis
+  - Direct `load("file.il")` calls with string literals
+  - **Variable tracking** through `load(variable)` expressions
+  - Traces data flow through `strcat()`, `foreach()`, and `list()` chains
+  - Automatically detects files in list definitions loaded via variables
 - **Path Intelligence**: Prioritizes searching in configured `searchFolderPath`
 - **File Hover Information**:
   - Full resolved file path
   - File size
   - Last modified timestamp
 - **Missing File Warnings**: Yellow squiggly underlines for non-existent file paths
+- **Smart Filtering**: Automatically skips comments and format placeholders
 
 ### 📖 Rich Documentation
 - **Enhanced Hover Tooltips**:
@@ -270,6 +275,9 @@ python3 scripts/extract_skill_functions.py
 - 📐 Character set bracket highlighting with range underline decoration
 - 🔢 Octal escape sequence support (`\000` to `\377`) for PCRE and REX
 - ✨ Improved escape character highlighting with proper scope assignment
+- 🔗 **Variable Data Flow Analysis**: Intelligent file tracking through `load(variable)` expressions
+  - Traces variables through `strcat()`, `foreach()`, and `list()` chains
+  - Automatically detects files in list definitions loaded via variables
 - 🐛 Fixed character range regex to correctly handle octal sequences
 - 🚫 File path diagnostics now skip comments and format placeholders
 - ❌ Removed hexadecimal test (SKILL only supports octal)

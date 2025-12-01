@@ -25,12 +25,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Level 3: `support.type` (Teal/Cyan)
   - Level 4: `constant.numeric` (Light Green)
 - Updated character set patterns to properly recognize octal sequences as complete units
+- File path detection now supports intelligent variable data flow analysis:
+  - Direct `load("file.il")` calls with string literals
+  - Variable tracking through `load(variable)` with data flow analysis
+  - Traces variables through `strcat()`, `foreach()`, and `list()` expressions
+  - Automatically detects files in list definitions that are loaded via variables
 
 ### Fixed
 - Character range regex now correctly matches octal escape sequences without splitting them
 - Escape character scopes no longer conflict with nested bracket level colors
 - File path diagnostics now skip comments (block comments `/* */` and line comments `;`)
 - File path diagnostics now skip format placeholders (e.g., `%s`, `%d`, `%f`)
+- File paths in string literals (e.g., list definitions) are now detected for diagnostics and linking
 
 ### Removed
 - Hexadecimal escape sequence test (SKILL only supports octal, not hexadecimal)

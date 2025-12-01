@@ -118,6 +118,106 @@ function findFileInDirectory(dir: string, fileName: string): string | undefined 
     return undefined;
 }
 
+// Helper function to analyze variable data flow and find file lists
+function analyzeVariableDataFlow(text: string, variableName: string, loadPosition: number): string[] {
+    const fileNames: string[] = [];
+
+    // Look backwards from load() position to find variable assignment
+    const textBeforeLoad = text.substring(0, loadPosition);
+
+    // Pattern 1: Direct assignment - varName = strcat(..., sourceVar)
+    const strcatPattern = new RegExp(`${variableName}\\s*=\\s*strcat\\s*\\([^)]*?\\s+(\\w+)\\s*\\)`, 'g');
+    let match: RegExpExecArray | null;
+
+    while ((match = strcatPattern.exec(textBeforeLoad)) !== null) {
+        const sourceVar = match[1];
+
+        // Pattern 2: foreach( sourceVar listVar ) - find listVar
+        const foreachPattern = new RegExp(`foreach\\s*\\(\\s*${sourceVar}\\s+(\\w+)`, 'g');
+        let foreachMatch: RegExpExecArray | null;
+
+        while ((foreachMatch = foreachPattern.exec(textBeforeLoad)) !== null) {
+            const listVar = foreachMatch[1];
+
+            // Pattern 3: listVar = list(...) - extract file names
+            const listPattern = new RegExp(`${listVar}\\s*=\\s*list\\s*\\([^)]*\\)`, 'g');
+            let listMatch: RegExpExecArray | null;
+
+            while ((listMatch = listPattern.exec(textBeforeLoad)) !== null) {
+                const listContent = listMatch[0];
+
+                // Extract all .il file names from list
+                const filePattern = /["']([:\w\-\\\/\.]+\.il)["']/g;
+                let fileMatch: RegExpExecArray | null;
+
+                while ((fileMatch = filePattern.exec(listContent)) !== null) {
+                    fileNames.push(fileMatch[1]);
+                }
+            }
+        }
+    }
+
+    // Pattern 4: Direct foreach - foreach( varName listVar )
+    const directForeachPattern = new RegExp(`foreach\\s*\\(\\s*${variableName}\\s+(\\w+)`, 'g');
+
+    while ((match = directForeachPattern.exec(textBeforeLoad)) !== null) {
+        const listVar = match[1];
+
+        // Find listVar = list(...)
+        const listPattern = new RegExp(`${listVar}\\s*=\\s*list\\s*\\([^)]*\\)`, 'g');
+        let listMatch: RegExpExecArray | null;
+
+        while ((listMatch = listPattern.exec(textBeforeLoad)) !== null) {
+            const listContent = listMatch[0];
+
+            // Extract all .il file names from list
+            const filePattern = /["']([:\w\-\\\/\.]+\.il)["']/g;
+            let fileMatch: RegExpExecArray | null;
+
+            while ((fileMatch = filePattern.exec(listContent)) !== null) {
+                fileNames.push(fileMatch[1]);
+            }
+        }
+    }
+
+    return fileNames;
+}
+
+// Helper function to resolve and check file path
+async function resolveFilePath(fileName: string, searchFolderPath: string | undefined): Promise<{ resolvedPath: string | undefined, fileExists: boolean }> {
+    let resolvedPath: string | undefined;
+    let fileExists = false;
+
+    // If fileName is already an absolute path, use it directly
+    if (fileName.startsWith('/') || /^[A-Z]:\\/i.test(fileName)) {
+        resolvedPath = fileName;
+        fileExists = fs.existsSync(resolvedPath);
+    } else {
+        // Extract just the filename (without any path components)
+        const baseFileName = path.basename(fileName);
+
+        // Try to find file in searchFolderPath first (if configured)
+        if (searchFolderPath) {
+            resolvedPath = findFileInDirectory(searchFolderPath, baseFileName);
+            if (resolvedPath) {
+                fileExists = true;
+            }
+        }
+
+        // If not found in searchFolderPath, fall back to workspace root
+        if (!resolvedPath) {
+            const workspaceFolders = vscode.workspace.workspaceFolders;
+            if (workspaceFolders && workspaceFolders.length > 0) {
+                const workspaceRoot = workspaceFolders[0].uri.fsPath;
+                resolvedPath = path.join(workspaceRoot, fileName);
+                fileExists = fs.existsSync(resolvedPath);
+            }
+        }
+    }
+
+    return { resolvedPath, fileExists };
+}
+
 // Helper function to check if a position is inside a comment
 function isInsideComment(document: vscode.TextDocument, position: vscode.Position): boolean {
     const text = document.getText();
@@ -174,15 +274,19 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
 
     const diagnostics: vscode.Diagnostic[] = [];
     const text = document.getText();
-    const regex = /([:\w\-\\\/\.]+\.il)/g;
-    let match: RegExpExecArray | null;
 
     // Load search folder path from configuration
     const searchFolderPath = await loadSearchFolderPath();
 
-    while ((match = regex.exec(text)) !== null) {
-        const start = document.positionAt(match.index);
-        const end = document.positionAt(match.index + match[0].length);
+    // Pattern 1: Match load("file.il") or load('file.il') - string literals
+    const loadLiteralRegex = /load\s*\(\s*["']([:\w\-\\\/\.]+\.il)["']\s*\)/g;
+    let match: RegExpExecArray | null;
+
+    while ((match = loadLiteralRegex.exec(text)) !== null) {
+        // match[1] contains the filename
+        const fileNameStartIndex = match.index + match[0].indexOf(match[1]);
+        const start = document.positionAt(fileNameStartIndex);
+        const end = document.positionAt(fileNameStartIndex + match[1].length);
         const range = new vscode.Range(start, end);
 
         // Skip if inside a comment
@@ -192,39 +296,12 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
 
         let fileName = match[1];
 
-        // Skip if the filename contains format placeholders (e.g., %s, %d, %f, etc.)
+        // Skip if the filename contains format placeholders
         if (/%[sdfxiouXcp]/.test(fileName)) {
             continue;
         }
-        let resolvedPath: string | undefined;
-        let fileExists = false;
 
-        // If fileName is already an absolute path, use it directly
-        if (fileName.startsWith('/') || /^[A-Z]:\\/i.test(fileName)) {
-            resolvedPath = fileName;
-            fileExists = fs.existsSync(resolvedPath);
-        } else {
-            // Extract just the filename (without any path components)
-            const baseFileName = path.basename(fileName);
-
-            // Try to find file in searchFolderPath first (if configured)
-            if (searchFolderPath) {
-                resolvedPath = findFileInDirectory(searchFolderPath, baseFileName);
-                if (resolvedPath) {
-                    fileExists = true;
-                }
-            }
-
-            // If not found in searchFolderPath, fall back to workspace root
-            if (!resolvedPath) {
-                const workspaceFolders = vscode.workspace.workspaceFolders;
-                if (workspaceFolders && workspaceFolders.length > 0) {
-                    const workspaceRoot = workspaceFolders[0].uri.fsPath;
-                    resolvedPath = path.join(workspaceRoot, fileName);
-                    fileExists = fs.existsSync(resolvedPath);
-                }
-            }
-        }
+        const { resolvedPath, fileExists } = await resolveFilePath(fileName, searchFolderPath);
 
         // If file doesn't exist, add a warning diagnostic
         if (resolvedPath && !fileExists) {
@@ -235,6 +312,60 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
             );
             diagnostic.source = 'SKILL';
             diagnostics.push(diagnostic);
+        }
+    }
+
+    // Pattern 1b: Match load(variable) - analyze data flow
+    const loadVarRegex = /load\s*\(\s*(\w+)\s*\)/g;
+
+    while ((match = loadVarRegex.exec(text)) !== null) {
+        const varName = match[1];
+        const loadPosition = match.index;
+
+        // Analyze variable data flow to find source file list
+        const relatedFiles = analyzeVariableDataFlow(text, varName, loadPosition);
+
+        // For each file found through data flow analysis, check if it exists
+        for (const fileName of relatedFiles) {
+            // Find the position of this filename in the list definition
+            const fileNameRegex = new RegExp(`["']${fileName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`, 'g');
+            let fileMatch: RegExpExecArray | null;
+
+            while ((fileMatch = fileNameRegex.exec(text)) !== null) {
+                const fileNameStartIndex = fileMatch.index + 1; // Skip opening quote
+                const start = document.positionAt(fileNameStartIndex);
+                const end = document.positionAt(fileNameStartIndex + fileName.length);
+                const range = new vscode.Range(start, end);
+
+                // Skip if inside a comment
+                if (isInsideComment(document, start)) {
+                    continue;
+                }
+
+                // Skip if already processed
+                const alreadyProcessed = diagnostics.some(d => d.range.isEqual(range));
+                if (alreadyProcessed) {
+                    continue;
+                }
+
+                // Skip if the filename contains format placeholders
+                if (/%[sdfxiouXcp]/.test(fileName)) {
+                    continue;
+                }
+
+                const { resolvedPath, fileExists } = await resolveFilePath(fileName, searchFolderPath);
+
+                // If file doesn't exist, add a warning diagnostic
+                if (resolvedPath && !fileExists) {
+                    const diagnostic = new vscode.Diagnostic(
+                        range,
+                        `File not found (referenced by ${varName}): ${resolvedPath}`,
+                        vscode.DiagnosticSeverity.Warning
+                    );
+                    diagnostic.source = 'SKILL';
+                    diagnostics.push(diagnostic);
+                }
+            }
         }
     }
 
@@ -251,15 +382,19 @@ export function activate(context: vscode.ExtensionContext) {
             try {
                 const text = document.getText();
                 const links: vscode.DocumentLink[] = [];
-                const regex = /([:\w\-\\\/\.]+\.il)/g;
-                let match: RegExpExecArray | null;
 
                 // Load search folder path from configuration
                 const searchFolderPath = await loadSearchFolderPath();
 
-                while ((match = regex.exec(text)) !== null) {
-                    const start = document.positionAt(match.index);
-                    const end = document.positionAt(match.index + match[0].length);
+                // Pattern 1: Match load("file.il") or load('file.il') - string literals
+                const loadLiteralRegex = /load\s*\(\s*["']([:\w\-\\\/\.]+\.il)["']\s*\)/g;
+                let match: RegExpExecArray | null;
+
+                while ((match = loadLiteralRegex.exec(text)) !== null) {
+                    // match[1] contains the filename
+                    const fileNameStartIndex = match.index + match[0].indexOf(match[1]);
+                    const start = document.positionAt(fileNameStartIndex);
+                    const end = document.positionAt(fileNameStartIndex + match[1].length);
 
                     // Skip if inside a comment
                     if (isInsideComment(document, start)) {
@@ -273,35 +408,7 @@ export function activate(context: vscode.ExtensionContext) {
                         continue;
                     }
 
-                    let resolvedPath: string | undefined;
-
-                    // If fileName is already an absolute path, use it directly
-                    if (fileName.startsWith('/') || /^[A-Z]:\\/i.test(fileName)) {
-                        resolvedPath = fileName;
-                    } else {
-                        // Extract just the filename (without any path components)
-                        const baseFileName = path.basename(fileName);
-
-                        // Try to find file in searchFolderPath first (if configured)
-                        if (searchFolderPath) {
-                            console.debug(`[SKILL Link] Searching for ${baseFileName} in ${searchFolderPath}`);
-                            resolvedPath = findFileInDirectory(searchFolderPath, baseFileName);
-
-                            if (resolvedPath) {
-                                console.debug(`[SKILL Link] Found file in search folder: ${resolvedPath}`);
-                            }
-                        }
-
-                        // If not found in searchFolderPath, fall back to workspace root
-                        if (!resolvedPath) {
-                            const workspaceFolders = vscode.workspace.workspaceFolders;
-                            if (workspaceFolders && workspaceFolders.length > 0) {
-                                const workspaceRoot = workspaceFolders[0].uri.fsPath;
-                                resolvedPath = path.join(workspaceRoot, fileName);
-                                console.debug(`[SKILL Link] Falling back to workspace root: ${resolvedPath}`);
-                            }
-                        }
-                    }
+                    const { resolvedPath } = await resolveFilePath(fileName, searchFolderPath);
 
                     if (resolvedPath) {
                         const fileUri = vscode.Uri.file(resolvedPath);
@@ -309,6 +416,56 @@ export function activate(context: vscode.ExtensionContext) {
                         links.push(new vscode.DocumentLink(new vscode.Range(start, end), fileUri));
                     }
                 }
+
+                // Pattern 1b: Match load(variable) - analyze data flow and create links
+                const loadVarRegex = /load\s*\(\s*(\w+)\s*\)/g;
+
+                while ((match = loadVarRegex.exec(text)) !== null) {
+                    const varName = match[1];
+                    const loadPosition = match.index;
+
+                    // Analyze variable data flow to find source file list
+                    const relatedFiles = analyzeVariableDataFlow(text, varName, loadPosition);
+
+                    // For each file found through data flow analysis, create links
+                    for (const fileName of relatedFiles) {
+                        // Find the position of this filename in the list definition
+                        const fileNameRegex = new RegExp(`["']${fileName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`, 'g');
+                        let fileMatch: RegExpExecArray | null;
+
+                        while ((fileMatch = fileNameRegex.exec(text)) !== null) {
+                            const fileNameStartIndex = fileMatch.index + 1; // Skip opening quote
+                            const start = document.positionAt(fileNameStartIndex);
+                            const end = document.positionAt(fileNameStartIndex + fileName.length);
+                            const range = new vscode.Range(start, end);
+
+                            // Skip if inside a comment
+                            if (isInsideComment(document, start)) {
+                                continue;
+                            }
+
+                            // Skip if already processed
+                            const alreadyProcessed = links.some(l => l.range.isEqual(range));
+                            if (alreadyProcessed) {
+                                continue;
+                            }
+
+                            // Skip if the filename contains format placeholders
+                            if (/%[sdfxiouXcp]/.test(fileName)) {
+                                continue;
+                            }
+
+                            const { resolvedPath } = await resolveFilePath(fileName, searchFolderPath);
+
+                            if (resolvedPath) {
+                                const fileUri = vscode.Uri.file(resolvedPath);
+                                console.debug(`[SKILL Link] Created link via data flow: ${fileName} -> ${resolvedPath}`);
+                                links.push(new vscode.DocumentLink(range, fileUri));
+                            }
+                        }
+                    }
+                }
+
                 return links;
             } catch (error) {
                 console.error(`[SKILL Link] Error providing document links: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -321,15 +478,19 @@ export function activate(context: vscode.ExtensionContext) {
         async provideHover(document, position, token) {
             try {
                 const text = document.getText();
-                const regex = /([:\w\-\\\/\.]+\.il)/g;
-                let match: RegExpExecArray | null;
 
                 // Load search folder path from configuration
                 const searchFolderPath = await loadSearchFolderPath();
 
-                while ((match = regex.exec(text)) !== null) {
-                    const start = document.positionAt(match.index);
-                    const end = document.positionAt(match.index + match[0].length);
+                // Pattern 1: Match load("file.il") or load('file.il') - string literals
+                const loadLiteralRegex = /load\s*\(\s*["']([:\w\-\\\/\.]+\.il)["']\s*\)/g;
+                let match: RegExpExecArray | null;
+
+                while ((match = loadLiteralRegex.exec(text)) !== null) {
+                    // match[1] contains the filename
+                    const fileNameStartIndex = match.index + match[0].indexOf(match[1]);
+                    const start = document.positionAt(fileNameStartIndex);
+                    const end = document.positionAt(fileNameStartIndex + match[1].length);
                     const range = new vscode.Range(start, end);
 
                     // Check if cursor is within this file path
@@ -349,35 +510,60 @@ export function activate(context: vscode.ExtensionContext) {
                         continue;
                     }
 
-                    let resolvedPath: string | undefined;
-                    let fileExists = false;
+                    const { resolvedPath, fileExists } = await resolveFilePath(fileName, searchFolderPath);
 
-                    // If fileName is already an absolute path, use it directly
-                    if (fileName.startsWith('/') || /^[A-Z]:\\/i.test(fileName)) {
-                        resolvedPath = fileName;
-                        fileExists = fs.existsSync(resolvedPath);
-                    } else {
-                        // Extract just the filename (without any path components)
-                        const baseFileName = path.basename(fileName);
+                    if (resolvedPath) {
+                        let hoverText = `**📄 SKILL File**\n\n`;
 
-                        // Try to find file in searchFolderPath first (if configured)
-                        if (searchFolderPath) {
-                            resolvedPath = findFileInDirectory(searchFolderPath, baseFileName);
-                            if (resolvedPath) {
-                                fileExists = true;
+                        if (fileExists) {
+                            hoverText += `✅ **File found:**\n\`\`\`\n${resolvedPath}\n\`\`\`\n\n`;
+
+                            // Add file stats if available
+                            try {
+                                const stats = fs.statSync(resolvedPath);
+                                const fileSizeKB = (stats.size / 1024).toFixed(2);
+                                const lastModified = stats.mtime.toLocaleString();
+                                hoverText += `**Size:** ${fileSizeKB} KB\n\n`;
+                                hoverText += `**Last Modified:** ${lastModified}`;
+                            } catch (error) {
+                                // Ignore stat errors
                             }
+                        } else {
+                            hoverText += `⚠️ **File not found:**\n\`\`\`\n${resolvedPath}\n\`\`\`\n\n`;
+                            hoverText += `*This file may not exist or is inaccessible.*`;
                         }
 
-                        // If not found in searchFolderPath, fall back to workspace root
-                        if (!resolvedPath) {
-                            const workspaceFolders = vscode.workspace.workspaceFolders;
-                            if (workspaceFolders && workspaceFolders.length > 0) {
-                                const workspaceRoot = workspaceFolders[0].uri.fsPath;
-                                resolvedPath = path.join(workspaceRoot, fileName);
-                                fileExists = fs.existsSync(resolvedPath);
-                            }
-                        }
+                        return new vscode.Hover(new vscode.MarkdownString(hoverText, true), range);
                     }
+                }
+
+                // Pattern 1b: Check if hovering over a file in a list related to load(variable)
+                const ilFileRegex = /["']([:\w\-\\\/\.]+\.il)["']/g;
+
+                while ((match = ilFileRegex.exec(text)) !== null) {
+                    const fileNameStartIndex = match.index + 1; // Skip opening quote
+                    const start = document.positionAt(fileNameStartIndex);
+                    const end = document.positionAt(fileNameStartIndex + match[1].length);
+                    const range = new vscode.Range(start, end);
+
+                    // Check if cursor is within this file path
+                    if (!range.contains(position)) {
+                        continue;
+                    }
+
+                    // Skip if inside a comment
+                    if (isInsideComment(document, position)) {
+                        continue;
+                    }
+
+                    let fileName = match[1];
+
+                    // Skip if the filename contains format placeholders
+                    if (/%[sdfxiouXcp]/.test(fileName)) {
+                        continue;
+                    }
+
+                    const { resolvedPath, fileExists } = await resolveFilePath(fileName, searchFolderPath);
 
                     if (resolvedPath) {
                         let hoverText = `**📄 SKILL File**\n\n`;
