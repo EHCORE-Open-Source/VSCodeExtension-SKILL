@@ -29,6 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Character range regex now correctly matches octal escape sequences without splitting them
 - Escape character scopes no longer conflict with nested bracket level colors
+- File path diagnostics now skip comments (block comments `/* */` and line comments `;`)
+- File path diagnostics now skip format placeholders (e.g., `%s`, `%d`, `%f`)
 
 ### Removed
 - Hexadecimal escape sequence test (SKILL only supports octal, not hexadecimal)

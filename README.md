@@ -271,6 +271,7 @@ python3 scripts/extract_skill_functions.py
 - 🔢 Octal escape sequence support (`\000` to `\377`) for PCRE and REX
 - ✨ Improved escape character highlighting with proper scope assignment
 - 🐛 Fixed character range regex to correctly handle octal sequences
+- 🚫 File path diagnostics now skip comments and format placeholders
 - ❌ Removed hexadecimal test (SKILL only supports octal)
 
 ### Version 0.0.10

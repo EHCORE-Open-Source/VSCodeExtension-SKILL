@@ -118,6 +118,54 @@ function findFileInDirectory(dir: string, fileName: string): string | undefined 
     return undefined;
 }
 
+// Helper function to check if a position is inside a comment
+function isInsideComment(document: vscode.TextDocument, position: vscode.Position): boolean {
+    const text = document.getText();
+    const offset = document.offsetAt(position);
+
+    // Check for block comments /* ... */
+    let blockCommentStart = -1;
+    let blockCommentEnd = -1;
+    let searchFrom = 0;
+
+    while (searchFrom < offset) {
+        const nextBlockStart = text.indexOf('/*', searchFrom);
+        const nextBlockEnd = text.indexOf('*/', searchFrom);
+
+        if (nextBlockStart !== -1 && nextBlockStart < offset) {
+            blockCommentStart = nextBlockStart;
+            // Find corresponding end
+            const correspondingEnd = text.indexOf('*/', nextBlockStart + 2);
+            if (correspondingEnd !== -1) {
+                blockCommentEnd = correspondingEnd + 2;
+                if (offset >= blockCommentStart && offset < blockCommentEnd) {
+                    return true;
+                }
+                searchFrom = blockCommentEnd;
+            } else {
+                // Unclosed block comment - position is inside if after start
+                if (offset >= blockCommentStart) {
+                    return true;
+                }
+                break;
+            }
+        } else {
+            break;
+        }
+    }
+
+    // Check for line comments ;
+    const lineText = document.lineAt(position.line).text;
+    const linePrefix = lineText.substring(0, position.character);
+    const semicolonIndex = linePrefix.indexOf(';');
+
+    if (semicolonIndex !== -1) {
+        return true;
+    }
+
+    return false;
+}
+
 // Function to update diagnostics for file paths
 async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
     if (document.languageId !== 'cadence-skill') {
@@ -136,7 +184,18 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
         const start = document.positionAt(match.index);
         const end = document.positionAt(match.index + match[0].length);
         const range = new vscode.Range(start, end);
+
+        // Skip if inside a comment
+        if (isInsideComment(document, start)) {
+            continue;
+        }
+
         let fileName = match[1];
+
+        // Skip if the filename contains format placeholders (e.g., %s, %d, %f, etc.)
+        if (/%[sdfxiouXcp]/.test(fileName)) {
+            continue;
+        }
         let resolvedPath: string | undefined;
         let fileExists = false;
 
@@ -201,7 +260,19 @@ export function activate(context: vscode.ExtensionContext) {
                 while ((match = regex.exec(text)) !== null) {
                     const start = document.positionAt(match.index);
                     const end = document.positionAt(match.index + match[0].length);
+
+                    // Skip if inside a comment
+                    if (isInsideComment(document, start)) {
+                        continue;
+                    }
+
                     let fileName = match[1];
+
+                    // Skip if the filename contains format placeholders
+                    if (/%[sdfxiouXcp]/.test(fileName)) {
+                        continue;
+                    }
+
                     let resolvedPath: string | undefined;
 
                     // If fileName is already an absolute path, use it directly
@@ -266,7 +337,18 @@ export function activate(context: vscode.ExtensionContext) {
                         continue;
                     }
 
+                    // Skip if inside a comment
+                    if (isInsideComment(document, position)) {
+                        continue;
+                    }
+
                     let fileName = match[1];
+
+                    // Skip if the filename contains format placeholders
+                    if (/%[sdfxiouXcp]/.test(fileName)) {
+                        continue;
+                    }
+
                     let resolvedPath: string | undefined;
                     let fileExists = false;
 
