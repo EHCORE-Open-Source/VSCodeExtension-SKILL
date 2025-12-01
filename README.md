@@ -1,6 +1,6 @@
 # Cadence SKILL Extension for Visual Studio Code
 
-[![Version](https://img.shields.io/badge/version-0.0.10-blue.svg)](https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL)
+[![Version](https://img.shields.io/badge/version-0.0.11-blue.svg)](https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![VSCode](https://img.shields.io/badge/VSCode-^1.88.0-007ACC.svg)](https://code.visualstudio.com/)
 
@@ -11,7 +11,10 @@ A comprehensive Visual Studio Code extension that provides rich language support
 ### 🎨 Syntax Highlighting
 - **Comprehensive Language Support**: Full syntax highlighting for SKILL language constructs
 - **Advanced Pattern Recognition**:
-  - Regular expressions highlighting
+  - Regular expressions (PCRE/REX) with enhanced highlighting
+  - 4-level nested bracket color cycling for groups and lookaheads
+  - Character set highlighting with range underlines (e.g., `[a-z]`)
+  - Octal escape sequence support (`\000` to `\377`)
   - HEX color index display
   - Object and variable highlighting
   - Input/output specification syntax
@@ -261,7 +264,16 @@ python3 scripts/extract_skill_functions.py
 
 ## 🆕 Release Notes
 
-### Version 0.0.10 (Latest)
+### Version 0.0.11 (Latest)
+- 🎨 Enhanced PCRE/REX syntax highlighting with 4-level nested bracket color cycling
+- 🌈 Theme-aware bracket colors (Purple → Yellow → Teal → Green)
+- 📐 Character set bracket highlighting with range underline decoration
+- 🔢 Octal escape sequence support (`\000` to `\377`) for PCRE and REX
+- ✨ Improved escape character highlighting with proper scope assignment
+- 🐛 Fixed character range regex to correctly handle octal sequences
+- ❌ Removed hexadecimal test (SKILL only supports octal)
+
+### Version 0.0.10
 - ✨ Enhanced procedure indexing with recursive subdirectory scanning
 - 🔍 Improved file path navigation prioritizing configured `searchFolderPath`
 - 📂 Recursive file search for procedure navigation and file links

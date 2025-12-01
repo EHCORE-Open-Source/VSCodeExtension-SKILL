@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.11] - 2025-01-02
+
+### Added
+- PCRE/REX syntax highlighting enhancements:
+  - 4-level nested bracket color cycling for groups, lookaheads, and lookbehinds
+  - Character set bracket (`[` `]`) highlighting with distinct colors
+  - Character range underline decoration (e.g., `a-z` with underlined endpoints and hyphen)
+  - Full range underline support for octal sequences (e.g., `\\000-\\177`)
+  - Octal escape sequence highlighting (`\000` to `\377`) for PCRE and REX
+  - Improved escape character highlighting with `string.regexp` scope
+
+### Changed
+- Enhanced PCRE/REX bracket highlighting with theme-aware colors:
+  - Level 1: `keyword.control` (Purple/Pink)
+  - Level 2: `entity.name.function` (Yellow)
+  - Level 3: `support.type` (Teal/Cyan)
+  - Level 4: `constant.numeric` (Light Green)
+- Updated character set patterns to properly recognize octal sequences as complete units
+
+### Fixed
+- Character range regex now correctly matches octal escape sequences without splitting them
+- Escape character scopes no longer conflict with nested bracket level colors
+
+### Removed
+- Hexadecimal escape sequence test (SKILL only supports octal, not hexadecimal)
+
 ## [0.0.10] - 2024-10-09
 
 ### Added
@@ -116,7 +142,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Issues](https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL/issues)
 - [Releases](https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL/releases)
 
-[Unreleased]: https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL/compare/v0.0.10...HEAD
+[Unreleased]: https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL/compare/v0.0.11...HEAD
+[0.0.11]: https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL/compare/v0.0.10...v0.0.11
 [0.0.10]: https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL/compare/v0.0.9...v0.0.10
 [0.0.9]: https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL/compare/v0.0.8...v0.0.9
 [0.0.8]: https://github.com/EHCORE-Open-Source/VSCodeExtension-SKILL/compare/v0.0.7...v0.0.8
