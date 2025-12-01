@@ -317,17 +317,12 @@
               "match": "\\[:(?:alnum|alpha|ascii|blank|cntrl|x?digit|graph|lower|print|punct|space|upper|word):\\]"
             },
             {
-              "comment": "Character range with underlined endpoints",
-              "match": "(\\\\\\\\.|[^\\]\\\\-])(-)(\\\\\\\\.|[^\\]\\\\-])",
+              "comment": "Character range with full underline (including octal sequences)",
+              "match": "(\\\\\\\\(?:[0-3][0-7]{2}|[0-7]{1,2})|\\\\\\\\.|[^\\]\\\\-])(-)(\\\\\\\\(?:[0-3][0-7]{2}|[0-7]{1,2})|\\\\\\\\.|[^\\]\\\\-])",
+              "name": "markup.underline.cadence.skill.pcre.range",
               "captures": {
-                "1": {
-                  "name": "markup.underline.cadence.skill.pcre.range.start"
-                },
                 "2": {
-                  "name": "markup.underline.cadence.skill.pcre.range.hyphen keyword.operator.range.cadence.skill.pcre.charset"
-                },
-                "3": {
-                  "name": "markup.underline.cadence.skill.pcre.range.end"
+                  "name": "keyword.operator.range.cadence.skill.pcre.charset"
                 }
               }
             },
@@ -591,6 +586,11 @@
           "comment": "PCRE non-word boundary",
           "name": "string.regexp.escape.cadence.skill.pcre.boundary strong.cadence.skill.pcre.boundary",
           "match": "\\\\\\\\B"
+        },
+        {
+          "comment": "PCRE octal escape sequences",
+          "name": "constant.numeric.octal.cadence.skill.pcre.escape strong.cadence.skill.pcre.octal",
+          "match": "\\\\\\\\(?:[0-3][0-7]{2}|[0-7]{1,2})"
         },
         {
           "comment": "PCRE other common escapes",
@@ -1249,9 +1249,14 @@
           }
         },
         {
-          "comment": "rex backreferences",
+          "comment": "rex octal escape sequences (000-377)",
+          "name": "constant.numeric.octal.cadence.skill.rex.escape strong.cadence.skill.rex.octal",
+          "match": "\\\\\\\\(?:[0-3][0-7]{2}|[0-7]{1,2}(?![0-9]))"
+        },
+        {
+          "comment": "rex backreferences (\\1-\\9)",
           "name": "constant.character.escape.cadence.skill.rex.backreference strong.cadence.skill.rex.backreference",
-          "match": "\\\\\\\\[0-9]+"
+          "match": "\\\\\\\\[1-9][0-9]*"
         }
       ]
     },

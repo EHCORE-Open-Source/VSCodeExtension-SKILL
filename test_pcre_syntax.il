@@ -229,8 +229,10 @@ pcreCompile( "(?:(?:(?:(?:a|b)|(?:c|d))|(?:(?:e|f)|(?:g|h)))|(?:(?:(?:i|j)|(?:k|
 ; Test 10.3: Multiple escape levels
 pcreCompile( "\\\\\\s*\\\\\\d+" )              ; Double escapes
 
-; Test 10.4: Unicode and special characters (if supported)
-pcreCompile( "[\\x00-\\xFF]" )                 ; Hex range
+; Test 10.4: Octal escape sequences
+pcreCompile( "\\101\\102\\103" )               ; Octal: ABC (101=A, 102=B, 103=C)
+pcreCompile( "[\\000-\\177]" )                 ; Octal range: ASCII (0-127)
+pcreCompile( "[\\000-\\377]" )                 ; Octal range: Full byte (0-255)
 
 ; ============================================================================
 ; Test 11: Multiple String Parameters - First Parameter Only Highlighting
