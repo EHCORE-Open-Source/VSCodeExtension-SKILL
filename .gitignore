@@ -7,6 +7,10 @@ vsix
 .claude/settings.json
 .claude/settings.local.json
 
+# Ignore Playwright sensitive files
+.env
+.env.*
+
 # Ignore Python cache
 __pycache__/
 *.py[cod]
@@ -24,3 +28,6 @@ __pycache__/
 *.gz
 *.bz2
 *.xz
+
+# Ignore document files
+docs/cadence_manual/**

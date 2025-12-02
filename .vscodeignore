@@ -1,3 +1,4 @@
+.claude/**
 .vscode/**
 .vscode-test/**
 src/**
@@ -9,3 +10,52 @@ vsc-extension-quickstart.md
 **/*.map
 **/*.ts
 **/.vscode-test.*
+node_modules/**
+
+# Environment files (REQUIRED)
+.env
+.env.*
+.env.example
+
+# Build and development scripts (should NOT be in extension)
+makeVSIX.bat
+makeVSIX.sh
+devEnvInstall.bat
+devEnvInstall.sh
+devEnvRemove.bat
+devEnvRemove.sh
+
+# Test files and directories
+tests/**
+test_*/**
+test-*.js
+test-*.il
+test_*.il
+**/test_*.py
+playwright-report/**
+playwright.config.*
+*.backup.*
+vivaxlskill-functions-summary.md
+
+# Documentation source files (only ship compiled data)
+docs/**
+
+# Database files (not needed in extension)
+database/**
+
+# Scripts and development tools
+scripts/**
+*.py
+debug_converter.py
+simulate_detection_rules.py
+monitor_test.sh
+
+# Markdown documentation files
+*.md
+!README.md
+!CHANGELOG.md
+!LICENSE.md
+
+# Build artifacts
+dist/**
+*.vsix
