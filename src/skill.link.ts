@@ -118,6 +118,87 @@ function findFileInDirectory(dir: string, fileName: string): string | undefined 
     return undefined;
 }
 
+// Helper function to parse strcat() calls and extract file path components
+interface StrcatResult {
+    fullMatch: string;           // The complete strcat(...) expression
+    pathLiterals: string[];      // String literals found in strcat
+    variables: string[];         // Variable names found in strcat
+    combinedPath: string;        // Combined path from literals (ignoring variables for now)
+    startIndex: number;          // Start position of the strcat call
+    endIndex: number;            // End position of the strcat call
+}
+
+function parseStrcatCall(text: string, startPos: number): StrcatResult | null {
+    // Match strcat( ... ) starting from startPos
+    const strcatRegex = /strcat\s*\(/g;
+    strcatRegex.lastIndex = startPos;
+    const match = strcatRegex.exec(text);
+
+    if (!match) {
+        return null;
+    }
+
+    // Find the matching closing parenthesis
+    let depth = 1;
+    let pos = match.index + match[0].length;
+    const startIndex = match.index;
+
+    while (pos < text.length && depth > 0) {
+        if (text[pos] === '(') {
+            depth++;
+        } else if (text[pos] === ')') {
+            depth--;
+        }
+        pos++;
+    }
+
+    if (depth !== 0) {
+        return null; // Unmatched parentheses
+    }
+
+    const endIndex = pos;
+    const fullMatch = text.substring(startIndex, endIndex);
+    const argsContent = text.substring(match.index + match[0].length, endIndex - 1);
+
+    // Extract string literals and variables
+    const pathLiterals: string[] = [];
+    const variables: string[] = [];
+
+    // Match string literals (both single and double quotes)
+    const stringRegex = /["']([^"']+)["']/g;
+    let stringMatch: RegExpExecArray | null;
+
+    while ((stringMatch = stringRegex.exec(argsContent)) !== null) {
+        pathLiterals.push(stringMatch[1]);
+    }
+
+    // Match variable names (word characters not inside strings)
+    // Remove all strings first, then extract variables
+    const withoutStrings = argsContent.replace(/["'][^"']*["']/g, '');
+    const varRegex = /\b([a-zA-Z_]\w*)\b/g;
+    let varMatch: RegExpExecArray | null;
+
+    while ((varMatch = varRegex.exec(withoutStrings)) !== null) {
+        const varName = varMatch[1];
+        // Exclude SKILL keywords
+        if (!['strcat', 'load'].includes(varName)) {
+            variables.push(varName);
+        }
+    }
+
+    // Combine path literals (simple concatenation)
+    const combinedPath = pathLiterals.join('');
+
+    return {
+        fullMatch,
+        pathLiterals,
+        variables,
+        combinedPath,
+        startIndex,
+        endIndex
+    };
+}
+
 // Helper function to analyze variable data flow and find file lists
 function analyzeVariableDataFlow(text: string, variableName: string, loadPosition: number): string[] {
     const fileNames: string[] = [];
@@ -315,7 +396,73 @@ async function updateDiagnostics(document: vscode.TextDocument): Promise<void> {
         }
     }
 
-    // Pattern 1b: Match load(variable) - analyze data flow
+    // Pattern 1b: Match load(strcat(...)) - parse strcat and check file paths
+    const loadStrcatRegex = /load\s*\(\s*strcat\s*\(/g;
+
+    while ((match = loadStrcatRegex.exec(text)) !== null) {
+        const loadStartPos = match.index;
+        const strcatStartPos = text.indexOf('strcat', loadStartPos);
+
+        // Parse the strcat call
+        const strcatResult = parseStrcatCall(text, strcatStartPos);
+
+        if (!strcatResult) {
+            continue;
+        }
+
+        // Skip if inside a comment
+        const loadPosition = document.positionAt(loadStartPos);
+        if (isInsideComment(document, loadPosition)) {
+            continue;
+        }
+
+        // Skip if the combined path contains format placeholders
+        if (/%[sdfxiouXcp]/.test(strcatResult.combinedPath)) {
+            continue;
+        }
+
+        // Check if the combined path is a valid .il file
+        if (!strcatResult.combinedPath.endsWith('.il')) {
+            continue;
+        }
+
+        // Resolve and check the combined file path
+        const { resolvedPath, fileExists } = await resolveFilePath(strcatResult.combinedPath, searchFolderPath);
+
+        // If file doesn't exist, add warning diagnostics for each literal component
+        if (resolvedPath && !fileExists) {
+            for (const literal of strcatResult.pathLiterals) {
+                // Find the position of this literal in the strcat call
+                const literalRegex = new RegExp(`["']${literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`, 'g');
+                literalRegex.lastIndex = strcatResult.startIndex;
+                const literalMatch = literalRegex.exec(text);
+
+                if (!literalMatch) {
+                    continue;
+                }
+
+                const literalStartIndex = literalMatch.index + 1; // Skip opening quote
+                const start = document.positionAt(literalStartIndex);
+                const end = document.positionAt(literalStartIndex + literal.length);
+                const range = new vscode.Range(start, end);
+
+                // Skip if inside a comment
+                if (isInsideComment(document, start)) {
+                    continue;
+                }
+
+                const diagnostic = new vscode.Diagnostic(
+                    range,
+                    `File not found (strcat combined path): ${resolvedPath}`,
+                    vscode.DiagnosticSeverity.Warning
+                );
+                diagnostic.source = 'SKILL';
+                diagnostics.push(diagnostic);
+            }
+        }
+    }
+
+    // Pattern 1c: Match load(variable) - analyze data flow
     const loadVarRegex = /load\s*\(\s*(\w+)\s*\)/g;
 
     while ((match = loadVarRegex.exec(text)) !== null) {
@@ -417,7 +564,69 @@ export function activate(context: vscode.ExtensionContext) {
                     }
                 }
 
-                // Pattern 1b: Match load(variable) - analyze data flow and create links
+                // Pattern 1b: Match load(strcat(...)) - parse strcat and create links
+                const loadStrcatRegex = /load\s*\(\s*strcat\s*\(/g;
+
+                while ((match = loadStrcatRegex.exec(text)) !== null) {
+                    const loadStartPos = match.index;
+                    const strcatStartPos = text.indexOf('strcat', loadStartPos);
+
+                    // Parse the strcat call
+                    const strcatResult = parseStrcatCall(text, strcatStartPos);
+
+                    if (!strcatResult) {
+                        continue;
+                    }
+
+                    // Skip if inside a comment
+                    const loadPosition = document.positionAt(loadStartPos);
+                    if (isInsideComment(document, loadPosition)) {
+                        continue;
+                    }
+
+                    // Skip if the combined path contains format placeholders
+                    if (/%[sdfxiouXcp]/.test(strcatResult.combinedPath)) {
+                        continue;
+                    }
+
+                    // Check if the combined path is a valid .il file
+                    if (!strcatResult.combinedPath.endsWith('.il')) {
+                        continue;
+                    }
+
+                    // For each string literal in the strcat call, create a link
+                    for (const literal of strcatResult.pathLiterals) {
+                        // Find the position of this literal in the strcat call
+                        const literalRegex = new RegExp(`["']${literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`, 'g');
+                        literalRegex.lastIndex = strcatResult.startIndex;
+                        const literalMatch = literalRegex.exec(text);
+
+                        if (!literalMatch) {
+                            continue;
+                        }
+
+                        const literalStartIndex = literalMatch.index + 1; // Skip opening quote
+                        const start = document.positionAt(literalStartIndex);
+                        const end = document.positionAt(literalStartIndex + literal.length);
+                        const range = new vscode.Range(start, end);
+
+                        // Skip if inside a comment
+                        if (isInsideComment(document, start)) {
+                            continue;
+                        }
+
+                        // Try to resolve the combined path
+                        const { resolvedPath } = await resolveFilePath(strcatResult.combinedPath, searchFolderPath);
+
+                        if (resolvedPath) {
+                            const fileUri = vscode.Uri.file(resolvedPath);
+                            console.debug(`[SKILL Link] Created link via strcat: ${literal} (combined: ${strcatResult.combinedPath}) -> ${resolvedPath}`);
+                            links.push(new vscode.DocumentLink(range, fileUri));
+                        }
+                    }
+                }
+
+                // Pattern 1c: Match load(variable) - analyze data flow and create links
                 const loadVarRegex = /load\s*\(\s*(\w+)\s*\)/g;
 
                 while ((match = loadVarRegex.exec(text)) !== null) {
@@ -537,7 +746,93 @@ export function activate(context: vscode.ExtensionContext) {
                     }
                 }
 
-                // Pattern 1b: Check if hovering over a file in a list related to load(variable)
+                // Pattern 1b: Check if hovering over a strcat-based load() call
+                const loadStrcatRegex = /load\s*\(\s*strcat\s*\(/g;
+                let strcatMatch: RegExpExecArray | null;
+
+                while ((strcatMatch = loadStrcatRegex.exec(text)) !== null) {
+                    const loadStartPos = strcatMatch.index;
+                    const strcatStartPos = text.indexOf('strcat', loadStartPos);
+
+                    // Parse the strcat call
+                    const strcatResult = parseStrcatCall(text, strcatStartPos);
+
+                    if (!strcatResult) {
+                        continue;
+                    }
+
+                    // Skip if inside a comment
+                    const loadPosition = document.positionAt(loadStartPos);
+                    if (isInsideComment(document, loadPosition)) {
+                        continue;
+                    }
+
+                    // Check each literal in the strcat call
+                    for (const literal of strcatResult.pathLiterals) {
+                        // Find the position of this literal in the strcat call
+                        const literalRegex = new RegExp(`["']${literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`, 'g');
+                        literalRegex.lastIndex = strcatResult.startIndex;
+                        const literalMatch = literalRegex.exec(text);
+
+                        if (!literalMatch) {
+                            continue;
+                        }
+
+                        const literalStartIndex = literalMatch.index + 1; // Skip opening quote
+                        const start = document.positionAt(literalStartIndex);
+                        const end = document.positionAt(literalStartIndex + literal.length);
+                        const range = new vscode.Range(start, end);
+
+                        // Check if cursor is within this literal
+                        if (!range.contains(position)) {
+                            continue;
+                        }
+
+                        // Skip if inside a comment
+                        if (isInsideComment(document, position)) {
+                            continue;
+                        }
+
+                        // Skip if the combined path contains format placeholders
+                        if (/%[sdfxiouXcp]/.test(strcatResult.combinedPath)) {
+                            continue;
+                        }
+
+                        // Check if the combined path is a valid .il file
+                        if (!strcatResult.combinedPath.endsWith('.il')) {
+                            continue;
+                        }
+
+                        const { resolvedPath, fileExists } = await resolveFilePath(strcatResult.combinedPath, searchFolderPath);
+
+                        if (resolvedPath) {
+                            let hoverText = `**📄 SKILL File (via strcat)**\n\n`;
+                            hoverText += `**Combined path:** \`${strcatResult.combinedPath}\`\n\n`;
+
+                            if (fileExists) {
+                                hoverText += `✅ **File found:**\n\`\`\`\n${resolvedPath}\n\`\`\`\n\n`;
+
+                                // Add file stats if available
+                                try {
+                                    const stats = fs.statSync(resolvedPath);
+                                    const fileSizeKB = (stats.size / 1024).toFixed(2);
+                                    const lastModified = stats.mtime.toLocaleString();
+                                    hoverText += `**Size:** ${fileSizeKB} KB\n\n`;
+                                    hoverText += `**Last Modified:** ${lastModified}`;
+                                } catch (error) {
+                                    // Ignore stat errors
+                                }
+                            } else {
+                                hoverText += `⚠️ **File not found:**\n\`\`\`\n${resolvedPath}\n\`\`\`\n\n`;
+                                hoverText += `*This file may not exist or is inaccessible.*`;
+                            }
+
+                            return new vscode.Hover(new vscode.MarkdownString(hoverText, true), range);
+                        }
+                    }
+                }
+
+                // Pattern 1c: Check if hovering over a file in a list related to load(variable)
                 const ilFileRegex = /["']([:\w\-\\\/\.]+\.il)["']/g;
 
                 while ((match = ilFileRegex.exec(text)) !== null) {
