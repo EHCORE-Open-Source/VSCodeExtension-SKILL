@@ -11,14 +11,15 @@ A comprehensive Visual Studio Code extension that provides rich language support
 ### 🎨 Syntax Highlighting
 - **Comprehensive Language Support**: Full syntax highlighting for SKILL language constructs
 - **Advanced Pattern Recognition**:
-  - Regular expressions (PCRE/REX) with enhanced highlighting
-  - 4-level nested bracket color cycling for groups and lookaheads
-  - Character set highlighting with range underlines (e.g., `[a-z]`)
-  - Octal escape sequence support (`\000` to `\377`)
+  - Regular expressions highlighting
   - HEX color index display
   - Object and variable highlighting
   - Input/output specification syntax
 - **Markdown Integration**: SKILL code block syntax highlighting in Markdown files
+- **Embedded Language Support** 🆕: Syntax highlighting for YAML, Markdown, and JSON within SKILL block comments
+  - Use triple backticks with language identifier (e.g., ` ```yaml `, ` ```markdown `, ` ```json `)
+  - Perfect for documenting configuration examples, API responses, and structured data
+  - See [Embedded Language Syntax Guide](docs/EMBEDDED_LANGUAGE_SYNTAX.md) for details
 - **Tool-Specific Keywords**: Support for Virtuoso OCEAN XL and other Cadence tool-specific functions
 
 ### 🔍 IntelliSense & Auto-Completion
@@ -33,19 +34,14 @@ A comprehensive Visual Studio Code extension that provides rich language support
 - **Breadcrumb Support**: Shows current procedure context in the editor breadcrumb
 - **Recursive File Search**: Supports searching across subdirectories in configured paths
 
-### 🔗 File Linking & Variable Data Flow Analysis
-- **Intelligent File Detection**: Advanced variable tracking and data flow analysis
-  - Direct `load("file.il")` calls with string literals
-  - **Variable tracking** through `load(variable)` expressions
-  - Traces data flow through `strcat()`, `foreach()`, and `list()` chains
-  - Automatically detects files in list definitions loaded via variables
+### 🔗 File Linking
+- **Automatic File Detection**: Recognizes and links SKILL file references
 - **Path Intelligence**: Prioritizes searching in configured `searchFolderPath`
 - **File Hover Information**:
   - Full resolved file path
   - File size
   - Last modified timestamp
 - **Missing File Warnings**: Yellow squiggly underlines for non-existent file paths
-- **Smart Filtering**: Automatically skips comments and format placeholders
 
 ### 📖 Rich Documentation
 - **Enhanced Hover Tooltips**:
@@ -231,7 +227,9 @@ VSCodeExtension-SKILL/
 │   ├── function.tmLanguage.json       # Function highlighting
 │   └── markdown-injection.tmLanguage.json  # Markdown integration
 ├── docs/
-│   └── complete-skill-functions.json   # 8,136+ function database
+│   ├── complete-skill-functions.json   # 8,136+ function database
+│   ├── complete-skill-reference.md     # Full reference documentation
+│   └── skill-quick-reference.md        # Quick reference guide
 └── out/                                # Compiled output
 ```
 
@@ -268,17 +266,9 @@ python3 scripts/extract_skill_functions.py
 ## 🆕 Release Notes
 
 ### Version 0.0.11 (Latest)
-- 🎨 Enhanced PCRE/REX syntax highlighting with 4-level nested bracket color cycling
-- 🌈 Theme-aware bracket colors (Purple → Yellow → Teal → Green)
-- 📐 Character set bracket highlighting with range underline decoration
-- 🔢 Octal escape sequence support (`\000` to `\377`) for PCRE and REX
-- ✨ Improved escape character highlighting with proper scope assignment
-- 🔗 **Variable Data Flow Analysis**: Intelligent file tracking through `load(variable)` expressions
-  - Traces variables through `strcat()`, `foreach()`, and `list()` chains
-  - Automatically detects files in list definitions loaded via variables
-- 🐛 Fixed character range regex to correctly handle octal sequences
-- 🚫 File path diagnostics now skip comments and format placeholders
-- ❌ Removed hexadecimal test (SKILL only supports octal)
+- ✨ Added embedded language syntax highlighting for YAML, Markdown, and JSON in block comments
+- 🔧 Fixed 29 TypeScript compilation errors and restructured project configuration
+- 📚 Added comprehensive developer documentation and test helper utilities
 
 ### Version 0.0.10
 - ✨ Enhanced procedure indexing with recursive subdirectory scanning

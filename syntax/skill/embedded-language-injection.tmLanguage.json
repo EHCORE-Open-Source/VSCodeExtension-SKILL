@@ -1,0 +1,82 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Cadence SKILL Embedded Language Injection",
+    "scopeName": "embedded.cadence.skill.comment",
+    "injectionSelector": "L:comment.block.cadence.skill.basic",
+    "patterns": [
+        {
+            "include": "#yaml-code-block"
+        },
+        {
+            "include": "#markdown-code-block"
+        },
+        {
+            "include": "#json-code-block"
+        }
+    ],
+    "repository": {
+        "yaml-code-block": {
+            "name": "meta.embedded.block.yaml",
+            "contentName": "source.yaml",
+            "begin": "(```|~~~)\\s*(?i:ya?ml)\\s*$",
+            "end": "^\\s*(```|~~~)\\s*$",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.fenced.cadence.skill"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.fenced.cadence.skill"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.yaml"
+                }
+            ]
+        },
+        "markdown-code-block": {
+            "name": "meta.embedded.block.markdown",
+            "contentName": "text.html.markdown",
+            "begin": "(```|~~~)\\s*(?i:m(?:arkdown|d|kd|kdn|down))\\s*$",
+            "end": "^\\s*(```|~~~)\\s*$",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.fenced.cadence.skill"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.fenced.cadence.skill"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "text.html.markdown"
+                }
+            ]
+        },
+        "json-code-block": {
+            "name": "meta.embedded.block.json",
+            "contentName": "source.json",
+            "begin": "(```|~~~)\\s*(?i:json)\\s*$",
+            "end": "^\\s*(```|~~~)\\s*$",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.fenced.cadence.skill"
+                }
+            },
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.definition.fenced.cadence.skill"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "source.json"
+                }
+            ]
+        }
+    }
+}
