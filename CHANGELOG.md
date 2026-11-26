@@ -7,39 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.11] - 2025-01-02
+## [0.0.11] - 2025-01-15
 
 ### Added
-- PCRE/REX syntax highlighting enhancements:
-  - 4-level nested bracket color cycling for groups, lookaheads, and lookbehinds
-  - Character set bracket (`[` `]`) highlighting with distinct colors
-  - Character range underline decoration (e.g., `a-z` with underlined endpoints and hyphen)
-  - Full range underline support for octal sequences (e.g., `\\000-\\177`)
-  - Octal escape sequence highlighting (`\000` to `\377`) for PCRE and REX
-  - Improved escape character highlighting with `string.regexp` scope
+- **Embedded Language Syntax Highlighting**: Support for YAML, Markdown, and JSON syntax highlighting within SKILL block comments (`/* */`)
+  - Use triple backticks with language identifier (e.g., ` ```yaml `, ` ```markdown `, ` ```json `)
+  - Automatic syntax highlighting for embedded code blocks
+  - See [docs/EMBEDDED_LANGUAGE_SYNTAX.md](docs/EMBEDDED_LANGUAGE_SYNTAX.md) for usage guide
+- **Test Helper Utilities**: New test helper functions in `tests/utils/test-helpers.ts`
+  - `createModernFunction()` - Create complete modern format test function definitions
+  - `createLegacyFunction()` - Create complete legacy format test function definitions
+  - `createArgument()` - Create test argument objects with defaults
+- **Comprehensive Documentation**:
+  - [TYPESCRIPT_CONFIG.md](docs/TYPESCRIPT_CONFIG.md) - TypeScript configuration guide
+  - [VSCODE_TYPESCRIPT_SETUP.md](docs/VSCODE_TYPESCRIPT_SETUP.md) - VSCode setup instructions
+  - [EMBEDDED_LANGUAGE_SYNTAX.md](docs/EMBEDDED_LANGUAGE_SYNTAX.md) - Embedded syntax feature guide
+  - [TYPESCRIPT_FIX_SUMMARY.md](TYPESCRIPT_FIX_SUMMARY.md) - Complete fix summary
+  - [VSCODE_ERRORS_FIX.md](VSCODE_ERRORS_FIX.md) - Quick troubleshooting guide
 
 ### Changed
-- Enhanced PCRE/REX bracket highlighting with theme-aware colors:
-  - Level 1: `keyword.control` (Purple/Pink)
-  - Level 2: `entity.name.function` (Yellow)
-  - Level 3: `support.type` (Teal/Cyan)
-  - Level 4: `constant.numeric` (Light Green)
-- Updated character set patterns to properly recognize octal sequences as complete units
-- File path detection now supports intelligent variable data flow analysis:
-  - Direct `load("file.il")` calls with string literals
-  - Variable tracking through `load(variable)` with data flow analysis
-  - Traces variables through `strcat()`, `foreach()`, and `list()` expressions
-  - Automatically detects files in list definitions that are loaded via variables
+- **TypeScript Configuration Restructure**: Split configuration for better IDE support
+  - `tsconfig.json` - Main extension source code (`src/` directory)
+  - `tsconfig.tests.json` - Test files (`tests/` directory) with DOM types
+- **ESLint Configuration**: Excluded `tests/` directory from ESLint checking to reduce noise
 
 ### Fixed
-- Character range regex now correctly matches octal escape sequences without splitting them
-- Escape character scopes no longer conflict with nested bracket level colors
-- File path diagnostics now skip comments (block comments `/* */` and line comments `;`)
-- File path diagnostics now skip format placeholders (e.g., `%s`, `%d`, `%f`)
-- File paths in string literals (e.g., list definitions) are now detected for diagnostics and linking
+- **29 TypeScript Compilation Errors**: All type errors in test files resolved
+  - Fixed implicit `any` type errors in test files
+  - Fixed `error` type handling in catch blocks
+  - Fixed `document` API availability in browser tests
+  - Fixed private method access in `function-reviewer.ts`
+  - Fixed `string | undefined` type safety in `chrome-devtools-helper.ts`
+- **VSCode F5 Debug Mode**: Now works correctly with proper TypeScript project configuration
+- **Function Description Type Error**: Fixed `getFunctionDescription()` signature in `skill.completion.ts`
 
-### Removed
-- Hexadecimal escape sequence test (SKILL only supports octal, not hexadecimal)
+### Developer Experience
+- ✅ VSCode F5 debug mode fully functional
+- ✅ TypeScript IntelliSense working correctly for both `src/` and `tests/`
+- ✅ Zero compilation errors in both command line and VSCode
+- ✅ Improved test writing experience with helper utilities
 
 ## [0.0.10] - 2024-10-09
 

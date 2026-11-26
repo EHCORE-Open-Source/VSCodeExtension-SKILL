@@ -21,6 +21,9 @@ Usage:
     # Parse multi-page function and save
     python3 parse_skill_image.py --images vivaxlskill-046.png vivaxlskill-047.png --output awvAppendList.json
 
+    # Parse a range and auto-group by function name
+    python3 parse_skill_image.py --range vivaxlskill-034.png vivaxlskill-048.png --output-dir functions/
+
     # Batch process all images
     python3 parse_skill_image.py --batch --output-dir extracted/
 """
@@ -30,8 +33,9 @@ import sys
 import json
 import argparse
 import glob
+import re
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 from PIL import Image
 from google import genai
 
@@ -304,6 +308,162 @@ Return ONLY the JSON object, no additional text.
 
         return results
 
+    def detect_function_name(self, image_path: str) -> Optional[str]:
+        """
+        Detect function name from a single page image
+
+        Args:
+            image_path: Path to the PNG image file
+
+        Returns:
+            Function name or None if not found
+        """
+        if not os.path.exists(image_path):
+            raise FileNotFoundError(f"Image file not found: {image_path}")
+
+        image = Image.open(image_path)
+
+        prompt = """
+Look at this SKILL documentation page and identify the function name.
+The function name is usually at the top of the page in a larger font or bold.
+Return ONLY the function name, nothing else. If no function name is found, return "NONE".
+
+Examples:
+- "awvAddSubwindow"
+- "awvAnalog2Digital"
+- "NONE"
+"""
+
+        response = self.client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=[prompt, image]
+        )
+
+        function_name = response.text.strip()
+        return None if function_name == "NONE" else function_name
+
+    def parse_range_with_grouping(
+        self,
+        start_image: str,
+        end_image: str,
+        output_dir: Optional[str] = None
+    ) -> Dict[str, Dict]:
+        """
+        Parse a range of images and automatically group by function name
+
+        Args:
+            start_image: Starting image filename (e.g., "vivaxlskill-034.png")
+            end_image: Ending image filename (e.g., "vivaxlskill-048.png")
+            output_dir: Optional directory to save grouped function JSON files
+
+        Returns:
+            Dictionary mapping function names to their data and source images
+        """
+        # Extract page numbers from filenames
+        start_match = re.search(r'-(\d+)\.png$', start_image)
+        end_match = re.search(r'-(\d+)\.png$', end_image)
+
+        if not start_match or not end_match:
+            raise ValueError("Invalid image filename format. Expected format: prefix-NNN.png")
+
+        prefix = start_image[:start_image.rfind('-')]
+        start_num = int(start_match.group(1))
+        end_num = int(end_match.group(1))
+
+        print(f"📖 Processing range: {start_image} to {end_image}")
+        print(f"   Page numbers: {start_num} to {end_num} ({end_num - start_num + 1} pages)\n")
+
+        if output_dir:
+            os.makedirs(output_dir, exist_ok=True)
+
+        # Step 1: Detect function names for each page
+        print("🔍 Step 1: Detecting function names...")
+        page_to_function = {}
+        for page_num in range(start_num, end_num + 1):
+            image_file = f"{prefix}-{page_num:03d}.png"
+
+            if not os.path.exists(image_file):
+                print(f"  ⚠️  Warning: {image_file} not found, skipping")
+                continue
+
+            print(f"  Analyzing: {image_file}...", end=" ")
+            function_name = self.detect_function_name(image_file)
+
+            if function_name:
+                page_to_function[page_num] = {
+                    'function': function_name,
+                    'image': image_file
+                }
+                print(f"✅ {function_name}")
+            else:
+                # Continuation of previous function
+                page_to_function[page_num] = {
+                    'function': None,  # Will be filled later
+                    'image': image_file
+                }
+                print("↳ (continuation)")
+
+        # Step 2: Group consecutive pages by function
+        print(f"\n📁 Step 2: Grouping pages by function...")
+        grouped_functions = {}
+        current_function = None
+
+        for page_num in sorted(page_to_function.keys()):
+            page_info = page_to_function[page_num]
+            detected_function = page_info['function']
+
+            if detected_function:
+                # New function starts
+                current_function = detected_function
+                if current_function not in grouped_functions:
+                    grouped_functions[current_function] = []
+
+            if current_function:
+                grouped_functions[current_function].append(page_info['image'])
+
+        # Display grouping results
+        for func_name, images in grouped_functions.items():
+            print(f"  📌 {func_name}: {len(images)} page(s)")
+            for img in images:
+                print(f"     - {img}")
+
+        # Step 3: Parse each function group
+        print(f"\n🔄 Step 3: Parsing grouped functions...")
+        results = {}
+
+        for func_name, images in grouped_functions.items():
+            print(f"\n  Processing: {func_name} ({len(images)} page(s))")
+
+            try:
+                if len(images) == 1:
+                    # Single page function
+                    function_data = self.parse_image(images[0])
+                else:
+                    # Multi-page function
+                    function_data = self.parse_multiple_images(images)
+
+                results[func_name] = function_data
+
+                # Save to individual JSON file
+                if output_dir:
+                    output_file = os.path.join(output_dir, f"{func_name}.json")
+                    with open(output_file, 'w', encoding='utf-8') as f:
+                        json.dump(function_data, f, indent=2, ensure_ascii=False)
+                    print(f"    ✅ Saved to: {output_file}")
+
+            except Exception as e:
+                print(f"    ❌ Error: {e}")
+                results[func_name] = {
+                    "error": str(e),
+                    "source_images": images
+                }
+
+        print(f"\n{'='*80}")
+        print(f"✅ Completed! Processed {len(results)} function(s)")
+        print(f"{'='*80}")
+
+        return results
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -335,6 +495,13 @@ def main():
     )
 
     parser.add_argument(
+        '--range',
+        nargs=2,
+        metavar=('START', 'END'),
+        help='Parse a range of images and auto-group by function (e.g., --range vivaxlskill-034.png vivaxlskill-048.png)'
+    )
+
+    parser.add_argument(
         '--output',
         help='Output JSON file path (for single image or combined batch results)'
     )
@@ -363,15 +530,30 @@ def main():
     args = parser.parse_args()
 
     # Validate arguments
-    if not any([args.image, args.images, args.image_pattern, args.batch, args.config]):
-        parser.error("Must specify --image, --images, --image-pattern, --batch, or --config")
+    if not any([args.image, args.images, args.image_pattern, args.batch, args.range, args.config]):
+        parser.error("Must specify --image, --images, --image-pattern, --batch, --range, or --config")
 
     try:
         # Initialize parser
         image_parser = SkillImageParser(api_key=args.api_key)
 
+        # Process range with auto-grouping
+        if args.range:
+            start_image, end_image = args.range
+            results = image_parser.parse_range_with_grouping(
+                start_image,
+                end_image,
+                output_dir=args.output_dir
+            )
+
+            # Save combined results if --output specified
+            if args.output:
+                with open(args.output, 'w', encoding='utf-8') as f:
+                    json.dump(results, f, indent=2, ensure_ascii=False)
+                print(f"\n📄 Combined results saved to: {args.output}")
+
         # Process from JSON configuration file
-        if args.config:
+        elif args.config:
             if not os.path.exists(args.config):
                 print(f"Error: Configuration file not found: {args.config}", file=sys.stderr)
                 sys.exit(1)
