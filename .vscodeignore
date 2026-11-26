@@ -39,6 +39,7 @@ vivaxlskill-functions-summary.md
 
 # Documentation source files (only ship compiled data)
 docs/**
+!docs/complete-skill-functions.json
 
 # Database files (not needed in extension)
 database/**
