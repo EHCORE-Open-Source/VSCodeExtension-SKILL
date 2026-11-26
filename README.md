@@ -230,12 +230,16 @@ VSCodeExtension-SKILL/
 │   ├── basic.tmLanguage.json          # Basic syntax
 │   ├── function.tmLanguage.json       # Function highlighting
 │   └── markdown-injection.tmLanguage.json  # Markdown integration
+├── docs/
+│   ├── complete-skill-functions.json   # 8,136+ function database
+│   ├── complete-skill-reference.md     # Full reference documentation
+│   └── skill-quick-reference.md        # Quick reference guide
 └── out/                                # Compiled output
 ```
 
 ## 📖 SKILL Function Reference
 
-This extension includes a comprehensive database of **8,136+ SKILL functions** organized into categories:
+This extension includes a comprehensive database of **8,136+ SKILL functions** extracted from 20 official Cadence manuals, organized into categories:
 
 - **CAI** - Cadence Application Interface
 - **MAE** - Model Application Environment

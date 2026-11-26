@@ -29,5 +29,5 @@ __pycache__/
 *.bz2
 *.xz
 
-# Cadence manuals and anything extracted from them are copyrighted: never commit
-docs/**
+# Ignore document files
+docs/cadence_manual/**
