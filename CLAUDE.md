@@ -66,8 +66,6 @@ The extension can be configured via `.vscode/skill.json` in the workspace:
 
 ## SKILL Function Reference System (8,136+ Functions from 20 PDFs)
 - **Complete database**: `docs/complete-skill-functions.json` - All 8,136+ functions from 20 manuals
-- **Complete reference**: `docs/complete-skill-reference.md` - Full documentation (20+ categories)
-- **Quick reference**: `docs/skill-quick-reference.md` - Common functions only
 - **Advanced search**: `python3 scripts/search_skill_advanced.py <function_name>` - Smart search with fuzzy matching
 - **Category search**: `python3 scripts/search_skill_advanced.py --category <category>` - Browse by category
 - **Auto-extraction**: `python3 scripts/extract_skill_functions.py` - Re-extract from all PDFs

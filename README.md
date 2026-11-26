@@ -231,9 +231,7 @@ VSCodeExtension-SKILL/
 │   ├── function.tmLanguage.json       # Function highlighting
 │   └── markdown-injection.tmLanguage.json  # Markdown integration
 ├── docs/
-│   ├── complete-skill-functions.json   # 8,136+ function database
-│   ├── complete-skill-reference.md     # Full reference documentation
-│   └── skill-quick-reference.md        # Quick reference guide
+│   └── complete-skill-functions.json   # 8,136+ function database
 └── out/                                # Compiled output
 ```
 
